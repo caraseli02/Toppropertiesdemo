@@ -19,7 +19,7 @@ interface FilterModalProps {
   initialFilters?: FilterState;
 }
 
-const propertyTypesList = ['Loft', 'Villa', 'Attico', 'Rustico'];
+const propertyTypesList = ['Villa', 'Penthouse', 'Apartment', 'Estate', 'Mansion', 'Loft', 'Modern', 'Beach House'];
 const tagsList = ['Luxury Houses', 'Top Properties', 'Castle', 'Sea View'];
 
 export function FilterModal({ isOpen, onClose, onApply, initialFilters }: FilterModalProps) {
@@ -132,8 +132,8 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
             <button
               onClick={() => setFilters(prev => ({ ...prev, rentType: 'short' }))}
               className={`flex-1 px-6 py-3 rounded-full border-2 transition-all font-medium ${filters.rentType === 'short'
-                  ? 'bg-[#b10832] text-white border-[#b10832]'
-                  : 'bg-white text-black border-black'
+                ? 'bg-[#b10832] text-white border-[#b10832]'
+                : 'bg-white text-black border-black'
                 }`}
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
@@ -142,8 +142,8 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
             <button
               onClick={() => setFilters(prev => ({ ...prev, rentType: 'long' }))}
               className={`flex-1 px-6 py-3 rounded-full border-2 transition-all font-medium ${filters.rentType === 'long'
-                  ? 'bg-[#b10832] text-white border-[#b10832]'
-                  : 'bg-white text-black border-black'
+                ? 'bg-[#b10832] text-white border-[#b10832]'
+                : 'bg-white text-black border-black'
                 }`}
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
@@ -152,8 +152,8 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
             <button
               onClick={() => setFilters(prev => ({ ...prev, rentType: 'sale' }))}
               className={`flex-1 px-6 py-3 rounded-full border-2 transition-all font-medium ${filters.rentType === 'sale'
-                  ? 'bg-[#b10832] text-white border-[#b10832]'
-                  : 'bg-white text-black border-black'
+                ? 'bg-[#b10832] text-white border-[#b10832]'
+                : 'bg-white text-black border-black'
                 }`}
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
@@ -234,8 +234,8 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                   key={type}
                   onClick={() => togglePropertyType(type)}
                   className={`px-6 py-2 rounded-full transition-all ${filters.propertyTypes.includes(type)
-                      ? 'bg-[#b10832] text-white'
-                      : 'bg-white text-black border border-gray-300'
+                    ? 'bg-[#b10832] text-white'
+                    : 'bg-white text-black border border-gray-300'
                     }`}
                   style={{ fontFamily: 'Inter, sans-serif' }}
                 >

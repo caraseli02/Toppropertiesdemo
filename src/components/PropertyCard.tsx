@@ -14,13 +14,13 @@ interface PropertyCardProps {
   onClick?: () => void;
 }
 
-export function PropertyCard({ 
-  image, 
-  title, 
-  location, 
-  price, 
-  beds, 
-  baths, 
+export function PropertyCard({
+  image,
+  title,
+  location,
+  price,
+  beds,
+  baths,
   sqft,
   featured,
   onClick
@@ -29,7 +29,7 @@ export function PropertyCard({
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
-    <div 
+    <div
       className="bg-white rounded-[8px] overflow-hidden border border-[#e5e7eb] hover:shadow-lg transition-all duration-300 cursor-pointer group"
       onClick={onClick}
       role="button"
@@ -43,19 +43,26 @@ export function PropertyCard({
       aria-label={`View details for ${title}`}
     >
       <div className="relative h-[200px] overflow-hidden bg-gray-200">
-        <img 
-          src={image} 
-          alt={title} 
-          className={`w-full h-full object-cover transition-all duration-500 ${
-            imageLoaded ? 'opacity-100 scale-100 group-hover:scale-110' : 'opacity-0 scale-95'
-          }`}
+        <img
+          src={image}
+          alt={title}
+          className={`w-full h-full object-cover transition-all duration-500 ${imageLoaded ? 'opacity-100 scale-100 group-hover:scale-110' : 'opacity-0 scale-95'
+            }`}
           onLoad={() => setImageLoaded(true)}
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            if (!target.dataset.fallback) {
+              target.dataset.fallback = '1';
+              target.src = 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1080&h=720&fit=crop&q=80';
+              setImageLoaded(true);
+            }
+          }}
           loading="lazy"
         />
         {!imageLoaded && (
           <div className="absolute inset-0 bg-gray-200 animate-pulse" />
         )}
-        <button 
+        <button
           onClick={(e) => {
             e.stopPropagation();
             setIsFavorite(!isFavorite);
@@ -63,7 +70,7 @@ export function PropertyCard({
           className="absolute top-3 right-3 bg-white/95 backdrop-blur-sm p-2 rounded-full hover:bg-white transition-all hover:scale-110 shadow-md"
           aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
         >
-          <Heart 
+          <Heart
             className={`w-5 h-5 transition-colors ${isFavorite ? 'fill-[#b10832] text-[#b10832]' : 'text-gray-600'}`}
           />
         </button>
@@ -73,11 +80,11 @@ export function PropertyCard({
           </div>
         )}
       </div>
-      
+
       <div className="p-4">
         <div className="mb-2">
-          <h3 
-            className="font-semibold text-[18px] text-black mb-1 line-clamp-1" 
+          <h3
+            className="font-semibold text-[18px] text-black mb-1 line-clamp-1"
             style={{ fontFamily: 'Inter, sans-serif' }}
             title={title}
           >
@@ -88,7 +95,7 @@ export function PropertyCard({
             <span className="line-clamp-1" style={{ fontFamily: 'Inter, sans-serif' }}>{location}</span>
           </div>
         </div>
-        
+
         <div className="flex items-center gap-3 text-[14px] text-[#868686] mb-3 py-2 border-t border-[#e5e7eb]">
           <div className="flex items-center gap-1" title={`${beds} bedrooms`}>
             <Bed className="w-4 h-4" />
@@ -102,9 +109,9 @@ export function PropertyCard({
           <span>•</span>
           <span style={{ fontFamily: 'Inter, sans-serif' }} title={sqft}>{sqft}</span>
         </div>
-        
+
         <div className="flex items-center justify-between">
-          <p 
+          <p
             className="text-[24px] font-bold text-[#b10832]"
             style={{ fontFamily: 'Inter, sans-serif' }}
           >

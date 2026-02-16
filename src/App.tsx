@@ -7,6 +7,8 @@ import { FilterModal } from './components/FilterModal';
 import { SearchModal } from './components/SearchModal';
 import { PropertyDetail } from './components/PropertyDetail';
 import { LoadingCard } from './components/LoadingCard';
+import { Footer } from './components/Footer';
+import { HeroSection } from './components/HeroSection';
 import { LayoutGrid, Map } from 'lucide-react';
 import svgPaths from './imports/svg-lbcekml827';
 
@@ -32,7 +34,7 @@ interface Property {
 const properties: Property[] = [
   {
     id: '1',
-    image: 'https://images.unsplash.com/photo-1598635031829-4bfae29d33eb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjB2aWxsYSUyMGV4dGVyaW9yfGVufDF8fHx8MTc3MDIzOTM5Nnww&ixlib=rb-4.1.0&q=80&w=1080',
+    image: 'https://images.unsplash.com/photo-1598635031829-4bfae29d33eb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
     title: 'Villa Azure',
     location: 'Côte d\'Azur, France',
     price: '€4,500,000',
@@ -44,18 +46,19 @@ const properties: Property[] = [
     lng: 7.2,
     yearBuilt: 2019,
     propertyType: 'Luxury Villa',
+    description: 'A stunning Mediterranean villa overlooking the azure waters of the French Riviera. Sun-soaked terraces, a private infinity pool, and lush gardens create the ultimate Côte d\'Azur lifestyle.',
     gallery: [
-      'https://images.unsplash.com/photo-1598635031829-4bfae29d33eb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjB2aWxsYSUyMGV4dGVyaW9yfGVufDF8fHx8MTc3MDIzOTM5Nnww&ixlib=rb-4.1.0&q=80&w=1080',
-      'https://images.unsplash.com/photo-1638885930125-85350348d266?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBsaXZpbmclMjByb29tfGVufDF8fHx8MTc3MDE0OTUxMHww&ixlib=rb-4.1.0&q=80&w=1080',
-      'https://images.unsplash.com/photo-1620086464194-5127366b51ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBraXRjaGVuJTIwaW50ZXJpb3J8ZW58MXx8fHwxNzcwMjA4OTQ1fDA&ixlib=rb-4.1.0&q=80&w=1080',
-      'https://images.unsplash.com/photo-1702411200201-3061d0eea802?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBiZWRyb29tJTIwc3VpdGV8ZW58MXx8fHwxNzcwMjM1MzM3fDA&ixlib=rb-4.1.0&q=80&w=1080',
-      'https://images.unsplash.com/photo-1720975658882-54ccac0b8c9f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBwb29sJTIwb3V0ZG9vcnxlbnwxfHx8fDE3NzAyMzk2ODV8MA&ixlib=rb-4.1.0&q=80&w=1080',
+      'https://images.unsplash.com/photo-1598635031829-4bfae29d33eb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1638885930125-85350348d266?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1620086464194-5127366b51ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1702411200201-3061d0eea802?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1720975658882-54ccac0b8c9f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
     ],
     amenities: ['Swimming Pool', 'Garden', 'Garage', 'Ocean View', 'Smart Home', 'Security System'],
   },
   {
     id: '2',
-    image: 'https://images.unsplash.com/photo-1642976975710-1d8890dbf5ab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBwZW50aG91c2UlMjBpbnRlcmlvcnxlbnwxfHx8fDE3NzAxNjgwMDR8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    image: 'https://images.unsplash.com/photo-1642976975710-1d8890dbf5ab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
     title: 'Manhattan Penthouse',
     location: 'New York, USA',
     price: '$8,900,000',
@@ -67,17 +70,18 @@ const properties: Property[] = [
     lng: -74.0,
     yearBuilt: 2021,
     propertyType: 'Penthouse',
+    description: 'An ultra-modern penthouse crowning a prestigious Manhattan tower, with floor-to-ceiling windows framing iconic skyline views. Private rooftop terrace, wine cellar, and bespoke Italian finishes.',
     gallery: [
-      'https://images.unsplash.com/photo-1642976975710-1d8890dbf5ab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBwZW50aG91c2UlMjBpbnRlcmlvcnxlbnwxfHx8fDE3NzAxNjgwMDR8MA&ixlib=rb-4.1.0&q=80&w=1080',
-      'https://images.unsplash.com/photo-1617403493677-a0cbfc484010?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBob21lJTIwb2ZmaWNlfGVufDF8fHx8MTc3MDIzOTY4NXww&ixlib=rb-4.1.0&q=80&w=1080',
-      'https://images.unsplash.com/photo-1658760046471-896cbc719c9d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBiYXRocm9vbSUyMG1hcmJsZXxlbnwxfHx8fDE3NzAyMzIyMTl8MA&ixlib=rb-4.1.0&q=80&w=1080',
-      'https://images.unsplash.com/photo-1638885930125-85350348d266?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBsaXZpbmclMjByb29tfGVufDF8fHx8MTc3MDE0OTUxMHww&ixlib=rb-4.1.0&q=80&w=1080',
+      'https://images.unsplash.com/photo-1642976975710-1d8890dbf5ab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1617403493677-a0cbfc484010?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1658760046471-896cbc719c9d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1638885930125-85350348d266?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
     ],
     amenities: ['Gym', 'Home Theater', 'Smart Home', 'Security System', 'Balcony', 'Wine Cellar'],
   },
   {
     id: '3',
-    image: 'https://images.unsplash.com/photo-1739140019682-05bd100b5a5e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBiZWFjaGZyb250JTIwcHJvcGVydHl8ZW58MXx8fHwxNzcwMjM5Mzk3fDA&ixlib=rb-4.1.0&q=80&w=1080',
+    image: 'https://images.unsplash.com/photo-1739140019682-05bd100b5a5e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
     title: 'Beachfront Paradise',
     location: 'Malibu, California',
     price: '$12,300,000',
@@ -89,17 +93,18 @@ const properties: Property[] = [
     lng: -118.7,
     yearBuilt: 2020,
     propertyType: 'Beachfront Villa',
+    description: 'An exceptional Malibu beachfront estate with panoramic ocean views and direct sand access. Open-concept living, a chef\'s kitchen, and resort-style outdoor spaces define coastal luxury.',
     gallery: [
-      'https://images.unsplash.com/photo-1739140019682-05bd100b5a5e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBiZWFjaGZyb250JTIwcHJvcGVydHl8ZW58MXx8fHwxNzcwMjM5Mzk3fDA&ixlib=rb-4.1.0&q=80&w=1080',
-      'https://images.unsplash.com/photo-1720975658882-54ccac0b8c9f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBwb29sJTIwb3V0ZG9vcnxlbnwxfHx8fDE3NzAyMzk2ODV8MA&ixlib=rb-4.1.0&q=80&w=1080',
-      'https://images.unsplash.com/photo-1702411200201-3061d0eea802?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBiZWRyb29tJTIwc3VpdGV8ZW58MXx8fHwxNzcwMjM1MzM3fDA&ixlib=rb-4.1.0&q=80&w=1080',
-      'https://images.unsplash.com/photo-1620086464194-5127366b51ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBraXRjaGVuJTIwaW50ZXJpb3J8ZW58MXx8fHwxNzcwMjA4OTQ1fDA&ixlib=rb-4.1.0&q=80&w=1080',
+      'https://images.unsplash.com/photo-1739140019682-05bd100b5a5e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1720975658882-54ccac0b8c9f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1702411200201-3061d0eea802?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1620086464194-5127366b51ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
     ],
     amenities: ['Swimming Pool', 'Ocean View', 'Balcony', 'Garden', 'Garage', 'Fireplace'],
   },
   {
     id: '4',
-    image: 'https://images.unsplash.com/photo-1640303850203-7bf7c76b4557?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwbWFuc2lvbiUyMGFyY2hpdGVjdHVyZXxlbnwxfHx8fDE3NzAyMzkzOTd8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    image: 'https://images.unsplash.com/photo-1640303850203-7bf7c76b4557?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
     title: 'Historic Mansion',
     location: 'London, United Kingdom',
     price: '£6,750,000',
@@ -111,18 +116,19 @@ const properties: Property[] = [
     lng: -0.1,
     yearBuilt: 1895,
     propertyType: 'Historic Mansion',
+    description: 'A Grade II listed Victorian mansion in one of London\'s most coveted garden squares. Original period features have been meticulously preserved alongside a full modern renovation.',
     gallery: [
-      'https://images.unsplash.com/photo-1640303850203-7bf7c76b4557?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwbWFuc2lvbiUyMGFyY2hpdGVjdHVyZXxlbnwxfHx8fDE3NzAyMzkzOTd8MA&ixlib=rb-4.1.0&q=80&w=1080',
-      'https://images.unsplash.com/photo-1638885930125-85350348d266?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBsaXZpbmclMjByb29tfGVufDF8fHx8MTc3MDE0OTUxMHww&ixlib=rb-4.1.0&q=80&w=1080',
-      'https://images.unsplash.com/photo-1617403493677-a0cbfc484010?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBob21lJTIwb2ZmaWNlfGVufDF8fHx8MTc3MDIzOTY4NXww&ixlib=rb-4.1.0&q=80&w=1080',
-      'https://images.unsplash.com/photo-1658760046471-896cbc719c9d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBiYXRocm9vbSUyMG1hcmJsZXxlbnwxfHx8fDE3NzAyMzIyMTl8MA&ixlib=rb-4.1.0&q=80&w=1080',
-      'https://images.unsplash.com/photo-1620086464194-5127366b51ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBraXRjaGVuJTIwaW50ZXJpb3J8ZW58MXx8fHwxNzcwMjA4OTQ1fDA&ixlib=rb-4.1.0&q=80&w=1080',
+      'https://images.unsplash.com/photo-1640303850203-7bf7c76b4557?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1638885930125-85350348d266?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1617403493677-a0cbfc484010?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1658760046471-896cbc719c9d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1620086464194-5127366b51ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
     ],
     amenities: ['Garden', 'Wine Cellar', 'Fireplace', 'Security System', 'Garage', 'Home Theater'],
   },
   {
     id: '5',
-    image: 'https://images.unsplash.com/photo-1709508496457-e2f9c42493c6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBtb3VudGFpbiUyMGNoYWxldHxlbnwxfHx8fDE3NzAyMzkzOTh8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    image: 'https://images.unsplash.com/photo-1709508496457-e2f9c42493c6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
     title: 'Alpine Chalet',
     location: 'Verbier, Switzerland',
     price: 'CHF 9,200,000',
@@ -134,17 +140,404 @@ const properties: Property[] = [
     lng: 7.2,
     yearBuilt: 2018,
     propertyType: 'Mountain Chalet',
+    description: 'A world-class alpine chalet in Verbier with ski-in/ski-out access, featuring hand-hewn timber, a wellness spa, and expansive mountain views from every living space.',
     gallery: [
-      'https://images.unsplash.com/photo-1709508496457-e2f9c42493c6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBtb3VudGFpbiUyMGNoYWxldHxlbnwxfHx8fDE3NzAyMzkzOTh8MA&ixlib=rb-4.1.0&q=80&w=1080',
-      'https://images.unsplash.com/photo-1702411200201-3061d0eea802?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBiZWRyb29tJTIwc3VpdGV8ZW58MXx8fHwxNzcwMjM1MzM3fDA&ixlib=rb-4.1.0&q=80&w=1080',
-      'https://images.unsplash.com/photo-1638885930125-85350348d266?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBsaXZpbmclMjByb29tfGVufDF8fHx8MTc3MDE0OTUxMHww&ixlib=rb-4.1.0&q=80&w=1080',
-      'https://images.unsplash.com/photo-1658760046471-896cbc719c9d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBiYXRocm9vbSUyMG1hcmJsZXxlbnwxfHx8fDE3NzAyMzIyMTl8MA&ixlib=rb-4.1.0&q=80&w=1080',
+      'https://images.unsplash.com/photo-1709508496457-e2f9c42493c6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1702411200201-3061d0eea802?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1638885930125-85350348d266?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1658760046471-896cbc719c9d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
     ],
     amenities: ['Mountain View', 'Fireplace', 'Gym', 'Smart Home', 'Security System', 'Garage'],
   },
   {
+    id: '7',
+    image: 'https://images.unsplash.com/photo-1600596542815-2a4d9f799052?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    title: 'Modern Sunset Villa',
+    location: 'Los Angeles, California',
+    price: '$6,500,000',
+    beds: 4,
+    baths: 4.5,
+    sqft: '3,500 sq ft',
+    featured: true,
+    lat: 34.08,
+    lng: -118.35,
+    yearBuilt: 2022,
+    propertyType: 'Modern Villa',
+    description: 'A striking contemporary villa perched in the Hollywood Hills, designed to capture breathtaking sunsets over the Pacific. Floor-to-ceiling glass walls blur the line between indoor and outdoor living.',
+    gallery: [
+      'https://images.unsplash.com/photo-1600596542815-2a4d9f799052?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1600607687644-c7171b42498b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080'
+    ],
+    amenities: ['Pool', 'City View', 'Smart Home', 'Garage']
+  },
+  {
+    id: '8',
+    image: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    title: 'Parisian Apartment',
+    location: 'Paris, France',
+    price: '€3,200,000',
+    beds: 3,
+    baths: 2,
+    sqft: '1,800 sq ft',
+    featured: false,
+    lat: 48.8566,
+    lng: 2.3522,
+    yearBuilt: 1890,
+    propertyType: 'Apartment',
+    description: 'An exquisite Haussmann-era apartment in the heart of Paris, featuring original moldings, herringbone parquet floors, and sweeping views of the city skyline from a private balcony.',
+    gallery: [
+      'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1600566753086-00f18cf6b3ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080'
+    ],
+    amenities: ['Balcony', 'City View', 'Historic Building', 'Elevator']
+  },
+  {
+    id: '9',
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    title: 'Glass House',
+    location: 'Aspen, Colorado',
+    price: '$11,000,000',
+    beds: 5,
+    baths: 6,
+    sqft: '6,200 sq ft',
+    featured: true,
+    lat: 39.1911,
+    lng: -106.8175,
+    yearBuilt: 2021,
+    propertyType: 'Contemporary',
+    description: 'An architectural masterpiece nestled among Aspen\'s snow-capped peaks, this glass-walled retreat offers ski-in/ski-out access with panoramic mountain views from every room.',
+    gallery: [
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1600566752355-35792bedcfe1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080'
+    ],
+    amenities: ['Ski-in/Ski-out', 'Mountain View', 'Fireplace', 'Heated Floors']
+  },
+  {
+    id: '10',
+    image: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    title: 'Tuscan Villa',
+    location: 'Florence, Italy',
+    price: '€5,800,000',
+    beds: 6,
+    baths: 5,
+    sqft: '5,000 sq ft',
+    featured: false,
+    lat: 43.7696,
+    lng: 11.2558,
+    yearBuilt: 1950,
+    propertyType: 'Villa',
+    description: 'A lovingly restored Tuscan farmhouse surrounded by rolling vineyards and olive groves, just minutes from Florence. Original stone walls and beamed ceilings complement modern luxury amenities.',
+    gallery: [
+      'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1600210492493-0946911123ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080'
+    ],
+    amenities: ['Vineyard', 'Pool', 'Garden', 'Historic']
+  },
+  {
+    id: '11',
+    image: 'https://images.unsplash.com/photo-1600566753190-17906967096e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    title: 'Tokyo Penthouse',
+    location: 'Tokyo, Japan',
+    price: '¥850,000,000',
+    beds: 3,
+    baths: 2,
+    sqft: '2,100 sq ft',
+    featured: false,
+    lat: 35.6762,
+    lng: 139.6503,
+    yearBuilt: 2020,
+    propertyType: 'Penthouse',
+    description: 'A sleek penthouse crowning one of Tokyo\'s most prestigious towers, offering 360-degree views of the sprawling metropolis and Mount Fuji. Japanese minimalist design meets cutting-edge technology.',
+    gallery: [
+      'https://images.unsplash.com/photo-1600566753190-17906967096e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1600585154526-990dced4db0d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080'
+    ],
+    amenities: ['Skyline View', 'Concierge', 'Gym', 'Spa']
+  },
+  {
+    id: '12',
+    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    title: 'Seaside Retreat',
+    location: 'Sydney, Australia',
+    price: 'AUD 9,500,000',
+    beds: 4,
+    baths: 3,
+    sqft: '3,200 sq ft',
+    featured: true,
+    lat: -33.8688,
+    lng: 151.2093,
+    yearBuilt: 2015,
+    propertyType: 'Beach House',
+    description: 'A sun-drenched coastal sanctuary with direct beach access and unobstructed views of Sydney Harbour. Open-plan living spaces flow seamlessly onto expansive oceanfront terraces.',
+    gallery: [
+      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1600585152220-90363fe7e115?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080'
+    ],
+    amenities: ['Ocean Front', 'Pool', 'BBQ Area', 'Deck']
+  },
+  {
+    id: '13',
+    image: 'https://images.unsplash.com/photo-1600573472592-401b489a3cdc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    title: 'Minimalist Loft',
+    location: 'Berlin, Germany',
+    price: '€1,800,000',
+    beds: 2,
+    baths: 2,
+    sqft: '1,500 sq ft',
+    featured: false,
+    lat: 52.5200,
+    lng: 13.4050,
+    yearBuilt: 2010,
+    propertyType: 'Loft',
+    description: 'A converted industrial warehouse in Berlin\'s vibrant Mitte district, blending raw concrete and exposed brick with curated contemporary design. A rooftop terrace overlooks the city skyline.',
+    gallery: [
+      'https://images.unsplash.com/photo-1600573472592-401b489a3cdc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1600607686527-6fb886090705?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080'
+    ],
+    amenities: ['Open Plan', 'Industrial Style', 'Roof Terrace', 'Central']
+  },
+  {
+    id: '14',
+    image: 'https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    title: 'Lake House',
+    location: 'Lake Como, Italy',
+    price: '€7,900,000',
+    beds: 6,
+    baths: 5,
+    sqft: '4,800 sq ft',
+    featured: true,
+    lat: 45.9965,
+    lng: 9.2638,
+    yearBuilt: 1980,
+    propertyType: 'Villa',
+    description: 'A magnificent lakefront villa on the shores of Lake Como, offering private dock access and terraced gardens cascading to the water. Refined interiors blend Italian elegance with every modern comfort.',
+    gallery: [
+      'https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1600585152220-90363fe7e115?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080'
+    ],
+    amenities: ['Lake View', 'Private Dock', 'Garden', 'Guest House']
+  },
+  {
+    id: '15',
+    image: 'https://images.unsplash.com/photo-1600210491892-03d54cc0a35b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    title: 'Desert Oasis',
+    location: 'Palm Springs, California',
+    price: '$4,200,000',
+    beds: 4,
+    baths: 4,
+    sqft: '3,000 sq ft',
+    featured: false,
+    lat: 33.8303,
+    lng: -116.5453,
+    yearBuilt: 2018,
+    propertyType: 'Modern',
+    description: 'A mid-century modern gem reimagined for contemporary living, set against the dramatic San Jacinto Mountains. Resort-style pool, fire pit lounge, and desert-scaped gardens define effortless indoor-outdoor living.',
+    gallery: [
+      'https://images.unsplash.com/photo-1600210491892-03d54cc0a35b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1600585154526-990dced4db0d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080'
+    ],
+    amenities: ['Detailed Landscaping', 'Pool', 'Fire Pit', 'Mountain View']
+  },
+  {
+    id: '16',
+    image: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    title: 'Eco-Friendly Home',
+    location: 'Vancouver, Canada',
+    price: 'CAD 5,500,000',
+    beds: 4,
+    baths: 3.5,
+    sqft: '3,600 sq ft',
+    featured: false,
+    lat: 49.2827,
+    lng: -123.1207,
+    yearBuilt: 2023,
+    propertyType: 'Sustainable',
+    description: 'Vancouver\'s greenest luxury home, featuring solar arrays, a living green roof, and rainwater harvesting systems. Certified LEED Platinum with smart-controlled climate and energy management.',
+    gallery: [
+      'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1600566753086-00f18cf6b3ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080'
+    ],
+    amenities: ['Solar Panels', 'Green Roof', 'Rainwater Harvesting', 'Smart Controls']
+  },
+  {
+    id: '17',
+    image: 'https://images.unsplash.com/photo-1575517111478-7f603ca8c63e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    title: 'Miami Waterfront',
+    location: 'Miami, Florida',
+    price: '$14,000,000',
+    beds: 6,
+    baths: 7,
+    sqft: '7,000 sq ft',
+    featured: true,
+    lat: 25.7617,
+    lng: -80.1918,
+    yearBuilt: 2021,
+    propertyType: 'Mansion',
+    description: 'A spectacular waterfront mansion on Miami\'s exclusive Star Island with a private dock, rooftop infinity pool, and unobstructed views of Biscayne Bay. Italian marble and custom finishes throughout.',
+    gallery: [
+      'https://images.unsplash.com/photo-1575517111478-7f603ca8c63e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1600596542815-2a4d9f799052?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080'
+    ],
+    amenities: ['Private Dock', 'Infinity Pool', 'Rooftop', 'Elevator']
+  },
+  {
+    id: '18',
+    image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    title: 'Santorini Cliffside',
+    location: 'Santorini, Greece',
+    price: '€4,200,000',
+    beds: 3,
+    baths: 3,
+    sqft: '2,000 sq ft',
+    featured: true,
+    lat: 36.3932,
+    lng: 25.4615,
+    yearBuilt: 2016,
+    propertyType: 'Villa',
+    description: 'A whitewashed cliffside villa perched above the Aegean Sea, offering mesmerizing caldera and volcano views. Traditional Cycladic architecture meets refined luxury with a private plunge pool.',
+    gallery: [
+      'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1613977257363-707ba9348227?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1600585152220-90363fe7e115?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080'
+    ],
+    amenities: ['Volcano View', 'Plunge Pool', 'Terrace', 'Traditional Architecture']
+  },
+  {
+    id: '19',
+    image: 'https://images.unsplash.com/photo-1512915922686-57c11dde9b6b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    title: 'Singapore High-Rise',
+    location: 'Marina Bay, Singapore',
+    price: 'SGD 12,000,000',
+    beds: 4,
+    baths: 4,
+    sqft: '3,500 sq ft',
+    featured: false,
+    lat: 1.2863,
+    lng: 103.8535,
+    yearBuilt: 2019,
+    propertyType: 'Penthouse',
+    description: 'A sky-high penthouse in Marina Bay Sands\' ultra-exclusive residential tower, with panoramic views spanning the Singapore Strait to the city skyline. Full concierge service and world-class amenities.',
+    gallery: [
+      'https://images.unsplash.com/photo-1512915922686-57c11dde9b6b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1642976975710-1d8890dbf5ab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1600566753190-17906967096e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080'
+    ],
+    amenities: ['Bay View', 'Concierge', 'Pool', 'Gym']
+  },
+  {
+    id: '20',
+    image: 'https://images.unsplash.com/photo-1531971589569-0d9370cbe865?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    title: 'Hamptons Estate',
+    location: 'East Hampton, New York',
+    price: '$18,500,000',
+    beds: 8,
+    baths: 9,
+    sqft: '10,000 sq ft',
+    featured: true,
+    lat: 40.9634,
+    lng: -72.1848,
+    yearBuilt: 2015,
+    propertyType: 'Estate',
+    description: 'A sprawling oceanside estate in the heart of the Hamptons, featuring a private tennis court, heated pool, and separate guest house. Manicured gardens lead to direct beach access.',
+    gallery: [
+      'https://images.unsplash.com/photo-1531971589569-0d9370cbe865?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1600210492493-0946911123ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080'
+    ],
+    amenities: ['Tennis Court', 'Pool', 'Guest House', 'Beach Access']
+  },
+  {
+    id: '21',
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    title: 'Kyoto Traditional',
+    location: 'Kyoto, Japan',
+    price: '¥250,000,000',
+    beds: 4,
+    baths: 2,
+    sqft: '2,400 sq ft',
+    featured: false,
+    lat: 35.0116,
+    lng: 135.7681,
+    yearBuilt: 1920,
+    propertyType: 'Machiya',
+    description: 'A beautifully preserved Kyoto machiya townhouse, thoughtfully restored with traditional tatami rooms, a serene Zen garden, and a ceremonial tea room. A rare piece of living Japanese heritage.',
+    gallery: [
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1600566752355-35792bedcfe1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1600585154526-990dced4db0d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080'
+    ],
+    amenities: ['Zen Garden', 'Tea Room', 'Tatami Mats', 'Inner Courtyard']
+  },
+  {
+    id: '22',
+    image: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    title: 'Cape Town Villa',
+    location: 'Cape Town, South Africa',
+    price: 'ZAR 45,000,000',
+    beds: 5,
+    baths: 5,
+    sqft: '5,500 sq ft',
+    featured: true,
+    lat: -33.9249,
+    lng: 18.4241,
+    yearBuilt: 2017,
+    propertyType: 'Villa',
+    description: 'A contemporary villa on the slopes of Table Mountain with panoramic ocean views and a vanishing-edge infinity pool. Lush indigenous gardens and world-class security in a gated estate.',
+    gallery: [
+      'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1600573472592-401b489a3cdc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080'
+    ],
+    amenities: ['Ocean View', 'Infinity Pool', 'Security', 'Wine Cellar']
+  },
+  {
+    id: '23',
+    image: 'https://images.unsplash.com/photo-1600566753190-17906967096e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    title: 'Barcelona Penthouse',
+    location: 'Barcelona, Spain',
+    price: '€2,900,000',
+    beds: 3,
+    baths: 2,
+    sqft: '1,800 sq ft',
+    featured: false,
+    lat: 41.3851,
+    lng: 2.1734,
+    yearBuilt: 1900,
+    propertyType: 'Apartment',
+    description: 'A stunning penthouse in Barcelona\'s iconic Eixample district, blending Modernista architectural heritage with contemporary luxury. A private terrace offers sweeping views of the city and Sagrada Família.',
+    gallery: [
+      'https://images.unsplash.com/photo-1600566753190-17906967096e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1600607686527-6fb886090705?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1600210491892-03d54cc0a35b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080'
+    ],
+    amenities: ['Terrace', 'Gaudi Architecture', 'City View', 'Lift']
+  },
+  {
+    id: '24',
+    image: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    title: 'Beverly Hills Estate',
+    location: 'Beverly Hills, California',
+    price: '$25,000,000',
+    beds: 10,
+    baths: 12,
+    sqft: '15,000 sq ft',
+    featured: true,
+    lat: 34.0736,
+    lng: -118.4004,
+    yearBuilt: 2010,
+    propertyType: 'Mega Mansion',
+    description: 'The ultimate Beverly Hills mega mansion, spanning 15,000 sq ft with a private theater, spa, tennis court, and staff quarters. Set behind gates on a manicured estate with sweeping canyon views.',
+    gallery: [
+      'https://images.unsplash.com/photo-1613977257363-707ba9348227?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1613490493576-7fde63acd811?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080'
+    ],
+    amenities: ['Theater', 'Gym', 'Spa', 'Tennis Court', 'Guest House', 'Staff Quarters']
+  },
+  {
     id: '6',
-    image: 'https://images.unsplash.com/photo-1623051786509-57224cdc43e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1cHNjYWxlJTIwYXBhcnRtZW50JTIwYmFsY29ueXxlbnwxfHx8fDE3NzAyMzkzOTh8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    image: 'https://images.unsplash.com/photo-1623051786509-57224cdc43e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
     title: 'Skyline Residence',
     location: 'Dubai, UAE',
     price: 'AED 18,500,000',
@@ -156,11 +549,12 @@ const properties: Property[] = [
     lng: 55.3,
     yearBuilt: 2022,
     propertyType: 'Luxury Apartment',
+    description: 'An opulent high-rise residence in the heart of Dubai with floor-to-ceiling views of the Burj Khalifa and the Arabian Gulf. State-of-the-art smart home technology and five-star building amenities.',
     gallery: [
-      'https://images.unsplash.com/photo-1623051786509-57224cdc43e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1cHNjYWxlJTIwYXBhcnRtZW50JTIwYmFsY29ueXxlbnwxfHx8fDE3NzAyMzkzOTh8MA&ixlib=rb-4.1.0&q=80&w=1080',
-      'https://images.unsplash.com/photo-1642976975710-1d8890dbf5ab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBwZW50aG91c2UlMjBpbnRlcmlvcnxlbnwxfHx8fDE3NzAxNjgwMDR8MA&ixlib=rb-4.1.0&q=80&w=1080',
-      'https://images.unsplash.com/photo-1620086464194-5127366b51ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBraXRjaGVuJTIwaW50ZXJpb3J8ZW58MXx8fHwxNzcwMjA4OTQ1fDA&ixlib=rb-4.1.0&q=80&w=1080',
-      'https://images.unsplash.com/photo-1702411200201-3061d0eea802?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBiZWRyb29tJTIwc3VpdGV8ZW58MXx8fHwxNzcwMjM1MzM3fDA&ixlib=rb-4.1.0&q=80&w=1080',
+      'https://images.unsplash.com/photo-1623051786509-57224cdc43e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1642976975710-1d8890dbf5ab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1620086464194-5127366b51ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1702411200201-3061d0eea802?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
     ],
     amenities: ['Balcony', 'Gym', 'Swimming Pool', 'Smart Home', 'Security System', 'Home Theater'],
   },
@@ -221,6 +615,11 @@ export default function App() {
         if (priceString.includes('£')) return numericPrice * 1.3;
         if (priceString.includes('CHF')) return numericPrice * 1.15;
         if (priceString.includes('AED')) return numericPrice * 0.27;
+        if (priceString.includes('¥')) return numericPrice * 0.0067;  // JPY to USD
+        if (priceString.includes('AUD')) return numericPrice * 0.65;   // AUD to USD
+        if (priceString.includes('CAD')) return numericPrice * 0.74;   // CAD to USD
+        if (priceString.includes('SGD')) return numericPrice * 0.75;  // SGD to USD
+        if (priceString.includes('ZAR')) return numericPrice * 0.055; // ZAR to USD
         return numericPrice;
       };
 
@@ -273,8 +672,15 @@ export default function App() {
         value={searchQuery}
       />
 
+      {/* Hero Section */}
+      <HeroSection
+        properties={properties}
+        onViewProperty={(p) => setSelectedProperty(p as any)}
+        onSearchClick={() => setIsSearchModalOpen(true)}
+      />
+
       {/* Main Content */}
-      <div className="px-[10px] py-4 pb-20">
+      <div className="px-[10px] py-4 pb-8">
         {isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {Array.from({ length: 6 }).map((_, i) => (
@@ -385,18 +791,8 @@ export default function App() {
         )}
       </div>
 
-      {/* Footer Banner - matching original design exactly */}
-      <div className="fixed bottom-0 left-0 right-0 bg-[#b10832] h-[64px] rounded-tl-[8px] rounded-tr-[8px] flex items-center justify-center z-40">
-        <svg className="absolute left-1/2 -translate-x-1/2 top-0 w-3 h-3" fill="none" viewBox="0 0 12 12">
-          <path d={svgPaths.p16b94100} stroke="white" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-        <p
-          className="font-normal text-[16px] text-center text-white whitespace-pre-wrap px-4"
-          style={{ fontFamily: 'Inter, sans-serif' }}
-        >
-          Discover more than 15 luxury properties
-        </p>
-      </div>
+      {/* Footer */}
+      <Footer />
 
       {/* Filter Modal */}
       <FilterModal
@@ -411,6 +807,11 @@ export default function App() {
         isOpen={isSearchModalOpen}
         onClose={() => setIsSearchModalOpen(false)}
         onSearch={handleSearch}
+        properties={properties}
+        onSelectProperty={(property) => {
+          setSelectedProperty(property);
+          setIsSearchModalOpen(false);
+        }}
       />
 
       {/* Property Detail */}

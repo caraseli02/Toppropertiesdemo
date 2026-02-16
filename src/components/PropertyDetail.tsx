@@ -1,6 +1,10 @@
 import { X, ChevronLeft, ChevronRight, Heart, Share2, MapPin, Bed, Bath, Maximize, Calendar, Check } from 'lucide-react';
 import { useState } from 'react';
 import { ContactModal } from './ContactModal';
+import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import { useEffect } from 'react';
 
 interface PropertyDetailProps {
   property: {
@@ -18,8 +22,30 @@ interface PropertyDetailProps {
     gallery?: string[];
     amenities?: string[];
     virtualTour?: string;
+    lat: number;
+    lng: number;
   };
   onClose: () => void;
+}
+
+// Simple HTML escape to prevent XSS
+const escapeHtml = (text: string): string => {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+};
+
+// Helper to fix map rendering issues in modals
+function MapInvalidator() {
+  const map = useMap();
+  useEffect(() => {
+    // Force a resize calculation after a brief delay to ensure container has dimensions
+    const timer = setTimeout(() => {
+      map.invalidateSize();
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [map]);
+  return null;
 }
 
 export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
@@ -28,13 +54,15 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
   const [showVirtualTour, setShowVirtualTour] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
-  const gallery = property.gallery || [property.image];
+  const gallery = property.gallery?.length ? property.gallery : [property.image];
 
   const nextImage = () => {
+    if (gallery.length <= 1) return;
     setCurrentImageIndex((prev) => (prev + 1) % gallery.length);
   };
 
   const prevImage = () => {
+    if (gallery.length <= 1) return;
     setCurrentImageIndex((prev) => (prev - 1 + gallery.length) % gallery.length);
   };
 
@@ -239,18 +267,40 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
             {/* Map */}
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Location</h2>
-              <div className="h-64 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl flex items-center justify-center relative overflow-hidden">
-                <div className="absolute inset-0 opacity-10">
-                  <div className="grid grid-cols-10 grid-rows-10 h-full w-full">
-                    {Array.from({ length: 100 }).map((_, i) => (
-                      <div key={i} className="border border-gray-400" />
-                    ))}
+              <div className="h-96 rounded-xl overflow-hidden shadow-sm border border-gray-100 relative z-0">
+                <MapContainer
+                  center={[property.lat, property.lng]}
+                  zoom={15}
+                  style={{ height: '100%', width: '100%' }}
+                  scrollWheelZoom={false}
+                  zoomControl={false}
+                  dragging={false} // Static feel like Airbnb preview
+                  doubleClickZoom={false}
+                >
+                  <MapInvalidator />
+                  <TileLayer
+                    attribution='&copy; <a href="https://carto.com/attributions">CARTO</a>'
+                    url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+                  />
+                  <div className="leaflet-bottom leaflet-right">
+                    <div className="leaflet-control-attribution leaflet-control">
+                      <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>
+                    </div>
                   </div>
-                </div>
-                <div className="relative">
-                  <MapPin className="w-12 h-12 text-[#b10832]" />
-                  <div className="absolute inset-0 bg-[#b10832] rounded-full animate-ping opacity-20" />
-                </div>
+
+                  {/* Custom Circle Marker similar to Airbnb */}
+                  <Marker
+                    position={[property.lat, property.lng]}
+                    icon={L.divIcon({
+                      className: 'custom-pin-marker',
+                      html: `<div class="w-12 h-12 bg-[#b10832]/20 rounded-full flex items-center justify-center animate-pulse">
+                              <div class="w-4 h-4 bg-[#b10832] rounded-full shadow-lg border-2 border-white"></div>
+                             </div>`,
+                      iconSize: [48, 48],
+                      iconAnchor: [24, 24]
+                    })}
+                  />
+                </MapContainer>
               </div>
             </div>
           </div>
