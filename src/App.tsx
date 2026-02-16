@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Header } from './components/Header';
 import { SearchBar } from './components/SearchBar';
 import { PropertyCard } from './components/PropertyCard';
@@ -573,7 +573,6 @@ interface FilterState {
 
 export default function App() {
   const [viewMode, setViewMode] = useState<'grid' | 'map'>('grid');
-  const [filteredProperties, setFilteredProperties] = useState(properties);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
@@ -591,76 +590,68 @@ export default function App() {
 
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Combined filtering effect
-  useEffect(() => {
-    setIsLoading(true);
+  const filteredProperties = useMemo(() => {
+    let filtered = properties;
 
-    const timer = setTimeout(() => {
-      let filtered = properties;
+    // 1. Apply Search Query
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(property =>
+        property.title.toLowerCase().includes(query) ||
+        property.location.toLowerCase().includes(query)
+      );
+    }
 
-      // 1. Apply Search Query
-      if (searchQuery.trim()) {
-        const query = searchQuery.toLowerCase();
-        filtered = filtered.filter(property =>
-          property.title.toLowerCase().includes(query) ||
-          property.location.toLowerCase().includes(query)
-        );
-      }
+    // 2. Apply Filters
+    // Convert price to USD equivalent for filtering (simplified)
+    const getPriceInUSD = (priceString: string): number => {
+      const numericPrice = parseFloat(priceString.replace(/[^0-9.]/g, ''));
+      if (priceString.includes('€')) return numericPrice * 1.1;
+      if (priceString.includes('£')) return numericPrice * 1.3;
+      if (priceString.includes('CHF')) return numericPrice * 1.15;
+      if (priceString.includes('AED')) return numericPrice * 0.27;
+      if (priceString.includes('¥')) return numericPrice * 0.0067;  // JPY to USD
+      if (priceString.includes('AUD')) return numericPrice * 0.65;   // AUD to USD
+      if (priceString.includes('CAD')) return numericPrice * 0.74;   // CAD to USD
+      if (priceString.includes('SGD')) return numericPrice * 0.75;  // SGD to USD
+      if (priceString.includes('ZAR')) return numericPrice * 0.055; // ZAR to USD
+      return numericPrice;
+    };
 
-      // 2. Apply Filters
-      // Convert price to USD equivalent for filtering (simplified)
-      const getPriceInUSD = (priceString: string): number => {
-        const numericPrice = parseFloat(priceString.replace(/[^0-9.]/g, ''));
-        if (priceString.includes('€')) return numericPrice * 1.1;
-        if (priceString.includes('£')) return numericPrice * 1.3;
-        if (priceString.includes('CHF')) return numericPrice * 1.15;
-        if (priceString.includes('AED')) return numericPrice * 0.27;
-        if (priceString.includes('¥')) return numericPrice * 0.0067;  // JPY to USD
-        if (priceString.includes('AUD')) return numericPrice * 0.65;   // AUD to USD
-        if (priceString.includes('CAD')) return numericPrice * 0.74;   // CAD to USD
-        if (priceString.includes('SGD')) return numericPrice * 0.75;  // SGD to USD
-        if (priceString.includes('ZAR')) return numericPrice * 0.055; // ZAR to USD
-        return numericPrice;
-      };
+    // Price filter
+    filtered = filtered.filter(property => {
+      const price = getPriceInUSD(property.price);
+      return price >= activeFilters.priceRange[0] * 1000 && price <= activeFilters.priceRange[1] * 1000;
+    });
 
-      // Price filter
-      filtered = filtered.filter(property => {
-        const price = getPriceInUSD(property.price);
-        return price >= activeFilters.priceRange[0] * 1000 && price <= activeFilters.priceRange[1] * 1000;
-      });
+    // Bedrooms filter
+    if (activeFilters.beds > 0) {
+      filtered = filtered.filter(property => property.beds >= activeFilters.beds);
+    }
 
-      // Bedrooms filter
-      if (activeFilters.beds > 0) {
-        filtered = filtered.filter(property => property.beds >= activeFilters.beds);
-      }
+    // Rooms filter
+    if (activeFilters.rooms > 0) {
+      filtered = filtered.filter(property => property.beds >= activeFilters.rooms); // Note: Original logic mapped rooms->beds, keeping as is for safety
+    }
 
-      // Rooms filter
-      if (activeFilters.rooms > 0) {
-        filtered = filtered.filter(property => property.beds >= activeFilters.rooms); // Note: Original logic mapped rooms->beds, keeping as is for safety
-      }
+    // Property Type filter
+    if (activeFilters.propertyTypes.length > 0) {
+      filtered = filtered.filter(property =>
+        property.propertyType && activeFilters.propertyTypes.includes(property.propertyType)
+      );
+    }
 
-      // Property Type filter
-      if (activeFilters.propertyTypes.length > 0) {
-        filtered = filtered.filter(property =>
-          property.propertyType && activeFilters.propertyTypes.includes(property.propertyType)
-        );
-      }
-
-      setFilteredProperties(filtered);
-      setIsLoading(false);
-    }, 300);
-
-    return () => clearTimeout(timer);
-  }, [searchQuery, activeFilters]);
+    return filtered;
+  }, [searchQuery, activeFilters, properties]);
 
   // Handler updates state, Effect does the work
-  const handleSearch = (query: string) => {
+  const handleSearch = useCallback((query: string) => {
     setSearchQuery(query);
-  };
+  }, []);
 
-  const applyFilters = (filters: FilterState) => {
+  const applyFilters = useCallback((filters: FilterState) => {
     setActiveFilters(filters);
-  };
+  }, []);
 
   return (
     <div className="min-h-screen bg-white">
@@ -712,7 +703,6 @@ export default function App() {
                   sqm: [0, 500],
                   tags: [],
                 });
-                setFilteredProperties(properties);
               }}
               className="bg-[#b10832] text-white px-6 py-3 rounded-lg hover:bg-[#8e0628] transition-colors font-medium"
               style={{ fontFamily: 'Inter, sans-serif' }}

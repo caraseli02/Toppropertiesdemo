@@ -1,5 +1,6 @@
 import { Heart, MapPin, Bed, Bath } from 'lucide-react';
 import { useState } from 'react';
+import React from 'react';
 
 interface PropertyCardProps {
   id: string;
@@ -14,7 +15,7 @@ interface PropertyCardProps {
   onClick?: () => void;
 }
 
-export function PropertyCard({
+export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard({
   image,
   title,
   location,
@@ -119,6 +120,6 @@ export function PropertyCard({
           </p>
         </div>
       </div>
-    </div>
-  );
-}
+      </div>
+   );
+});

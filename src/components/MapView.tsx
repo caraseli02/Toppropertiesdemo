@@ -1,7 +1,8 @@
 import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import React from 'react';
 
 // Fix for default marker icon issues in Leaflet with Webpack/Vite
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -46,7 +47,7 @@ const escapeHtml = (text: string): string => {
   return div.innerHTML;
 };
 
-export function MapView({ properties, onMarkerClick }: MapViewProps) {
+export const MapView = React.memo<MapViewProps>(function MapView({ properties, onMarkerClick }: MapViewProps) {
   const [activeId, setActiveId] = useState<string | null>(null);
   const defaultCenter: [number, number] = [34.0522, -118.2437]; // Default to LA
 
@@ -55,14 +56,16 @@ export function MapView({ properties, onMarkerClick }: MapViewProps) {
     ? [properties[0].lat, properties[0].lng]
     : defaultCenter;
 
-  const createCustomIcon = (price: string, isActive: boolean) => {
-    return L.divIcon({
-      className: 'custom-price-marker',
-      html: `<div class="price-pill ${isActive ? 'active' : ''}">${escapeHtml(price)}</div>`,
-      iconSize: [60, 30],
-      iconAnchor: [30, 30] // Centered
-    });
-  };
+  const createCustomIcon = useMemo(() => {
+    return (price: string, isActive: boolean) => {
+      return L.divIcon({
+        className: 'custom-price-marker',
+        html: `<div class="price-pill ${isActive ? 'active' : ''}">${escapeHtml(price)}</div>`,
+        iconSize: [60, 30],
+        iconAnchor: [30, 30] // Centered
+      });
+    };
+  }, []);
 
   return (
     <div className="w-full h-full rounded-xl overflow-hidden shadow-lg border border-gray-200 z-0 relative">
@@ -100,4 +103,4 @@ export function MapView({ properties, onMarkerClick }: MapViewProps) {
       {/* Zoom Control Placeholder if needed, but we disabled default */}
     </div>
   );
-}
+});
