@@ -1,15 +1,18 @@
 import { X, Plus, Minus } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { FilterState, Amenity } from '@/types';
 
-interface FilterState {
-  rentType: 'short' | 'long' | 'sale';
-  priceRange: [number, number];
-  showTrattativa: boolean;
-  propertyTypes: string[];
-  rooms: number;
-  beds: number;
-  sqm: [number, number];
-  tags: string[];
+const AMENITIES: Amenity[] = [
+  'Swimming Pool', 'Garden', 'Garage', 'Ocean View',
+  'Smart Home', 'Security System', 'Gym', 'Home Theater',
+  'Balcony', 'Wine Cellar', 'Terrace', 'Elevator', 'Concierge'
+];
+
+interface FilterModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onApply: (filters: FilterState) => void;
+  initialFilters?: FilterState;
 }
 
 interface FilterModalProps {
@@ -86,6 +89,15 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
       propertyTypes: prev.propertyTypes.includes(type)
         ? prev.propertyTypes.filter(t => t !== type)
         : [...prev.propertyTypes, type],
+    }));
+  };
+
+  const toggleAmenity = (amenity: Amenity) => {
+    setFilters(prev => ({
+      ...prev,
+      amenities: prev.amenities?.includes(amenity)
+        ? prev.amenities.filter(a => a !== amenity)
+        : [...(prev.amenities || []), amenity],
     }));
   };
 
@@ -321,7 +333,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
             </div>
           </div>
 
-          {/* Tags */}
+  {/* Tags */}
           <div>
             <h3 className="font-semibold text-lg mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>
               Tags
@@ -334,17 +346,36 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                   </span>
                   <button
                     onClick={() => toggleTag(tag)}
-                    className={`relative w-14 h-8 rounded-full transition-colors ${filters.tags.includes(tag) ? 'bg-gray-800' : 'bg-gray-300'
-                      }`}
+                    className={`relative w-6 h-6 rounded-full transition-colors ${filters.tags.includes(tag) ? 'bg-[#b10832] text-white' : 'bg-gray-300'}`}
                   >
-                    <div
-                      className={`absolute top-1 w-6 h-6 bg-white rounded-full shadow-md transition-transform ${filters.tags.includes(tag) ? 'translate-x-7' : 'translate-x-1'
-                        }`}
-                    />
+                    {filters.tags.includes(tag) && <Check className="absolute top-1 left-1" />}
                   </button>
                 </label>
               ))}
             </div>
+          </div>
+
+          {/* Amenity Filters */}
+          <div>
+            <h3 className="font-semibold text-lg mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>
+              Amenities
+            </h3>
+            <div className="space-y-3 bg-white rounded-lg p-4">
+              {AMENITIES.map((amenity) => (
+                <label key={amenity} className="flex items-center justify-between cursor-pointer">
+                  <span className="font-medium text-gray-700" style={{ fontFamily: 'Inter, sans-serif' }}>
+                    {amenity}
+                  </span>
+                  <button
+                    onClick={() => toggleAmenity(amenity)}
+                    className={`relative w-6 h-6 rounded-full transition-colors ${filters.amenities?.includes(amenity) ? 'bg-[#b10832] text-white' : 'bg-gray-300'}`}
+                  >
+                    {filters.amenities?.includes(amenity) && <Check className="absolute top-1 left-1" />}
+                  </button>
+                </label>
+              ))}
+            </div>
+          </div>
           </div>
         </div>
 
