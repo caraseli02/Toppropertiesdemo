@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import { SearchBar } from './components/SearchBar';
 import { PropertyCard } from './components/PropertyCard';
@@ -195,34 +195,25 @@ export default function App() {
     tags: [],
   });
 
-  const handleSearch = (query: string) => {
-    setIsLoading(true);
-    
-    // Simulate API delay
-    setTimeout(() => {
-      if (!query.trim()) {
-        applyFilters(activeFilters);
-        setIsLoading(false);
-        return;
-      }
-      
-      const filtered = properties.filter(property => 
-        property.title.toLowerCase().includes(query.toLowerCase()) ||
-        property.location.toLowerCase().includes(query.toLowerCase())
-      );
-      setFilteredProperties(filtered);
-      setIsLoading(false);
-    }, 300);
-  };
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const applyFilters = (filters: FilterState) => {
-    setActiveFilters(filters);
+  // Combined filtering effect
+  useEffect(() => {
     setIsLoading(true);
-    
-    // Simulate API delay
-    setTimeout(() => {
+
+    const timer = setTimeout(() => {
       let filtered = properties;
 
+      // 1. Apply Search Query
+      if (searchQuery.trim()) {
+        const query = searchQuery.toLowerCase();
+        filtered = filtered.filter(property =>
+          property.title.toLowerCase().includes(query) ||
+          property.location.toLowerCase().includes(query)
+        );
+      }
+
+      // 2. Apply Filters
       // Convert price to USD equivalent for filtering (simplified)
       const getPriceInUSD = (priceString: string): number => {
         const numericPrice = parseFloat(priceString.replace(/[^0-9.]/g, ''));
@@ -236,33 +227,52 @@ export default function App() {
       // Price filter
       filtered = filtered.filter(property => {
         const price = getPriceInUSD(property.price);
-        return price >= filters.priceRange[0] * 1000 && price <= filters.priceRange[1] * 1000;
+        return price >= activeFilters.priceRange[0] * 1000 && price <= activeFilters.priceRange[1] * 1000;
       });
 
       // Bedrooms filter
-      if (filters.beds > 0) {
-        filtered = filtered.filter(property => property.beds >= filters.beds);
+      if (activeFilters.beds > 0) {
+        filtered = filtered.filter(property => property.beds >= activeFilters.beds);
       }
 
       // Rooms filter
-      if (filters.rooms > 0) {
-        filtered = filtered.filter(property => property.beds >= filters.rooms);
+      if (activeFilters.rooms > 0) {
+        filtered = filtered.filter(property => property.beds >= activeFilters.rooms); // Note: Original logic mapped rooms->beds, keeping as is for safety
+      }
+
+      // Property Type filter
+      if (activeFilters.propertyTypes.length > 0) {
+        filtered = filtered.filter(property =>
+          property.propertyType && activeFilters.propertyTypes.includes(property.propertyType)
+        );
       }
 
       setFilteredProperties(filtered);
       setIsLoading(false);
     }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery, activeFilters]);
+
+  // Handler updates state, Effect does the work
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+  };
+
+  const applyFilters = (filters: FilterState) => {
+    setActiveFilters(filters);
   };
 
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <SearchBar 
-        onSearch={handleSearch} 
+      <SearchBar
+        onSearch={handleSearch}
         onFilterClick={() => setIsFilterModalOpen(true)}
         onSearchClick={() => setIsSearchModalOpen(true)}
+        value={searchQuery}
       />
-      
+
       {/* Main Content */}
       <div className="px-[10px] py-4 pb-20">
         {isLoading ? (
@@ -316,15 +326,14 @@ export default function App() {
                   {filteredProperties.length} properties available
                 </p>
               </div>
-              
+
               <div className="flex gap-2 bg-white rounded-lg p-1 shadow-sm border border-[#e5e7eb]">
                 <button
                   onClick={() => setViewMode('grid')}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${
-                    viewMode === 'grid' 
-                      ? 'bg-[#b10832] text-white' 
-                      : 'text-gray-600 hover:bg-gray-100'
-                  }`}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${viewMode === 'grid'
+                    ? 'bg-[#b10832] text-white'
+                    : 'text-gray-600 hover:bg-gray-100'
+                    }`}
                   style={{ fontFamily: 'Inter, sans-serif' }}
                 >
                   <LayoutGrid className="w-4 h-4" />
@@ -332,11 +341,10 @@ export default function App() {
                 </button>
                 <button
                   onClick={() => setViewMode('map')}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${
-                    viewMode === 'map' 
-                      ? 'bg-[#b10832] text-white' 
-                      : 'text-gray-600 hover:bg-gray-100'
-                  }`}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${viewMode === 'map'
+                    ? 'bg-[#b10832] text-white'
+                    : 'text-gray-600 hover:bg-gray-100'
+                    }`}
                   style={{ fontFamily: 'Inter, sans-serif' }}
                 >
                   <Map className="w-4 h-4" />
@@ -349,8 +357,8 @@ export default function App() {
             {viewMode === 'grid' ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {filteredProperties.map((property) => (
-                  <PropertyCard 
-                    key={property.id} 
+                  <PropertyCard
+                    key={property.id}
                     {...property}
                     onClick={() => setSelectedProperty(property)}
                   />
@@ -358,7 +366,7 @@ export default function App() {
               </div>
             ) : (
               <div className="h-[calc(100vh-300px)] min-h-[500px]">
-                <MapView 
+                <MapView
                   properties={filteredProperties.map(p => ({
                     id: p.id,
                     lat: p.lat,
@@ -382,7 +390,7 @@ export default function App() {
         <svg className="absolute left-1/2 -translate-x-1/2 top-0 w-3 h-3" fill="none" viewBox="0 0 12 12">
           <path d={svgPaths.p16b94100} stroke="white" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
-        <p 
+        <p
           className="font-normal text-[16px] text-center text-white whitespace-pre-wrap px-4"
           style={{ fontFamily: 'Inter, sans-serif' }}
         >
@@ -391,7 +399,7 @@ export default function App() {
       </div>
 
       {/* Filter Modal */}
-      <FilterModal 
+      <FilterModal
         isOpen={isFilterModalOpen}
         onClose={() => setIsFilterModalOpen(false)}
         onApply={applyFilters}
@@ -399,7 +407,7 @@ export default function App() {
       />
 
       {/* Search Modal */}
-      <SearchModal 
+      <SearchModal
         isOpen={isSearchModalOpen}
         onClose={() => setIsSearchModalOpen(false)}
         onSearch={handleSearch}
@@ -407,7 +415,7 @@ export default function App() {
 
       {/* Property Detail */}
       {selectedProperty && (
-        <PropertyDetail 
+        <PropertyDetail
           property={selectedProperty}
           onClose={() => setSelectedProperty(null)}
         />

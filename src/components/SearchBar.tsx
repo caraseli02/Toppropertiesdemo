@@ -6,17 +6,23 @@ interface SearchBarProps {
   onSearch?: (query: string) => void;
   onFilterClick?: () => void;
   onSearchClick?: () => void;
+  value?: string;
 }
 
-export function SearchBar({ onSearch, onFilterClick, onSearchClick }: SearchBarProps) {
-  const [query, setQuery] = useState('');
+export function SearchBar({ onSearch, onFilterClick, onSearchClick, value }: SearchBarProps) {
+  const [localQuery, setLocalQuery] = useState(value || '');
+
+  // Sync with parent value if provided
+  if (value !== undefined && value !== localQuery && document.activeElement?.tagName !== 'INPUT') {
+    setLocalQuery(value);
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (onSearchClick) {
       onSearchClick();
     } else {
-      onSearch?.(query);
+      onSearch?.(localQuery);
     }
   };
 
@@ -25,21 +31,24 @@ export function SearchBar({ onSearch, onFilterClick, onSearchClick }: SearchBarP
       <div className="px-[10px] py-[8px]">
         <form onSubmit={handleSubmit} className="flex gap-[10px] items-start">
           {/* Search Input */}
-          <div 
+          <div
             className="flex-1 h-[42px] flex items-center px-[9px] py-[7px] rounded-[8px] border border-[#e5e7eb] border-solid cursor-pointer"
             onClick={onSearchClick}
           >
             <input
               type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              value={localQuery}
+              onChange={(e) => {
+                setLocalQuery(e.target.value);
+                if (!onSearchClick) onSearch?.(e.target.value); // Real-time search if not clicking modal
+              }}
               placeholder="Everywhere"
               className="flex-1 font-light text-[16px] text-black placeholder:text-[#868686] outline-none bg-transparent cursor-pointer"
               style={{ fontFamily: 'Inter, sans-serif' }}
               readOnly={!!onSearchClick}
             />
           </div>
-          
+
           {/* Search Button */}
           <button
             type="submit"
@@ -51,7 +60,7 @@ export function SearchBar({ onSearch, onFilterClick, onSearchClick }: SearchBarP
             </svg>
           </button>
         </form>
-        
+
         {/* Filters Button */}
         <button
           type="button"

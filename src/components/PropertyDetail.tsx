@@ -1,5 +1,6 @@
 import { X, ChevronLeft, ChevronRight, Heart, Share2, MapPin, Bed, Bath, Maximize, Calendar, Check } from 'lucide-react';
 import { useState } from 'react';
+import { ContactModal } from './ContactModal';
 
 interface PropertyDetailProps {
   property: {
@@ -25,6 +26,7 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isFavorite, setIsFavorite] = useState(false);
   const [showVirtualTour, setShowVirtualTour] = useState(false);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   const gallery = property.gallery || [property.image];
 
@@ -68,9 +70,8 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
                 className="p-2 hover:bg-gray-100 rounded-full transition-colors"
               >
                 <Heart
-                  className={`w-5 h-5 transition-colors ${
-                    isFavorite ? 'fill-[#b10832] text-[#b10832]' : 'text-gray-600'
-                  }`}
+                  className={`w-5 h-5 transition-colors ${isFavorite ? 'fill-[#b10832] text-[#b10832]' : 'text-gray-600'
+                    }`}
                 />
               </button>
             </div>
@@ -87,7 +88,7 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
               alt={property.title}
               className="w-full h-full object-cover"
             />
-            
+
             {/* Gallery Navigation */}
             {gallery.length > 1 && (
               <>
@@ -103,7 +104,7 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
                 >
                   <ChevronRight className="w-6 h-6" />
                 </button>
-                
+
                 {/* Image Counter */}
                 <div className="absolute bottom-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm">
                   {currentImageIndex + 1} / {gallery.length}
@@ -126,9 +127,8 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
               <button
                 key={index}
                 onClick={() => setCurrentImageIndex(index)}
-                className={`relative flex-shrink-0 w-24 h-16 rounded-lg overflow-hidden transition-all ${
-                  index === currentImageIndex ? 'ring-2 ring-white' : 'opacity-60 hover:opacity-100'
-                }`}
+                className={`relative flex-shrink-0 w-24 h-16 rounded-lg overflow-hidden transition-all ${index === currentImageIndex ? 'ring-2 ring-white' : 'opacity-60 hover:opacity-100'
+                  }`}
               >
                 <img src={img} alt={`View ${index + 1}`} className="w-full h-full object-cover" />
               </button>
@@ -261,15 +261,24 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
               {/* Price Card */}
               <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-lg">
                 <p className="text-3xl font-bold text-[#b10832] mb-6">{property.price}</p>
-                
+
                 <div className="space-y-3">
-                  <button className="w-full bg-[#b10832] hover:bg-[#8e0628] text-white py-3 rounded-lg font-medium transition-colors">
+                  <button
+                    onClick={() => setIsContactModalOpen(true)}
+                    className="w-full bg-[#b10832] hover:bg-[#8e0628] text-white py-3 rounded-lg font-medium transition-colors"
+                  >
                     Schedule Viewing
                   </button>
-                  <button className="w-full border-2 border-[#b10832] text-[#b10832] hover:bg-[#b10832] hover:text-white py-3 rounded-lg font-medium transition-colors">
+                  <button
+                    onClick={() => setIsContactModalOpen(true)}
+                    className="w-full border-2 border-[#b10832] text-[#b10832] hover:bg-[#b10832] hover:text-white py-3 rounded-lg font-medium transition-colors"
+                  >
                     Contact Agent
                   </button>
-                  <button className="w-full border border-gray-300 hover:bg-gray-50 py-3 rounded-lg font-medium transition-colors">
+                  <button
+                    onClick={() => setIsContactModalOpen(true)}
+                    className="w-full border border-gray-300 hover:bg-gray-50 py-3 rounded-lg font-medium transition-colors"
+                  >
                     Request Info
                   </button>
                 </div>
@@ -302,6 +311,7 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
                 </div>
               </div>
 
+
               {/* Agent Card */}
               <div className="bg-white border border-gray-200 rounded-xl p-6">
                 <h3 className="font-semibold text-lg mb-4">Your Agent</h3>
@@ -320,6 +330,12 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
           </div>
         </div>
       </div>
-    </div>
+
+      <ContactModal
+        isOpen={isContactModalOpen}
+        onClose={() => setIsContactModalOpen(false)}
+        propertyTitle={property.title}
+      />
+    </div >
   );
 }

@@ -2359,3 +2359,9 @@ html {
     opacity: .5;
   }
 }
+
+@media (min-width: 768px) {
+  .md\:flex {
+    display: flex;
+  }
+}

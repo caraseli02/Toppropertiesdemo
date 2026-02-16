@@ -99,7 +99,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
   };
 
   return (
-    <div 
+    <div
       className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
@@ -131,33 +131,30 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
           <div className="flex gap-3">
             <button
               onClick={() => setFilters(prev => ({ ...prev, rentType: 'short' }))}
-              className={`flex-1 px-6 py-3 rounded-full border-2 transition-all font-medium ${
-                filters.rentType === 'short'
+              className={`flex-1 px-6 py-3 rounded-full border-2 transition-all font-medium ${filters.rentType === 'short'
                   ? 'bg-[#b10832] text-white border-[#b10832]'
                   : 'bg-white text-black border-black'
-              }`}
+                }`}
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
               Short Rent
             </button>
             <button
               onClick={() => setFilters(prev => ({ ...prev, rentType: 'long' }))}
-              className={`flex-1 px-6 py-3 rounded-full border-2 transition-all font-medium ${
-                filters.rentType === 'long'
+              className={`flex-1 px-6 py-3 rounded-full border-2 transition-all font-medium ${filters.rentType === 'long'
                   ? 'bg-[#b10832] text-white border-[#b10832]'
                   : 'bg-white text-black border-black'
-              }`}
+                }`}
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
               Long Rent
             </button>
             <button
               onClick={() => setFilters(prev => ({ ...prev, rentType: 'sale' }))}
-              className={`flex-1 px-6 py-3 rounded-full border-2 transition-all font-medium ${
-                filters.rentType === 'sale'
+              className={`flex-1 px-6 py-3 rounded-full border-2 transition-all font-medium ${filters.rentType === 'sale'
                   ? 'bg-[#b10832] text-white border-[#b10832]'
                   : 'bg-white text-black border-black'
-              }`}
+                }`}
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
               Sale
@@ -216,14 +213,12 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
             </span>
             <button
               onClick={() => setFilters(prev => ({ ...prev, showTrattativa: !prev.showTrattativa }))}
-              className={`relative w-14 h-8 rounded-full transition-colors ${
-                filters.showTrattativa ? 'bg-green-500' : 'bg-gray-300'
-              }`}
+              className={`relative w-14 h-8 rounded-full transition-colors ${filters.showTrattativa ? 'bg-green-500' : 'bg-gray-300'
+                }`}
             >
               <div
-                className={`absolute top-1 w-6 h-6 bg-white rounded-full shadow-md transition-transform ${
-                  filters.showTrattativa ? 'translate-x-7' : 'translate-x-1'
-                }`}
+                className={`absolute top-1 w-6 h-6 bg-white rounded-full shadow-md transition-transform ${filters.showTrattativa ? 'translate-x-7' : 'translate-x-1'
+                  }`}
               />
             </button>
           </div>
@@ -238,11 +233,10 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                 <button
                   key={type}
                   onClick={() => togglePropertyType(type)}
-                  className={`px-6 py-2 rounded-full transition-all ${
-                    filters.propertyTypes.includes(type)
+                  className={`px-6 py-2 rounded-full transition-all ${filters.propertyTypes.includes(type)
                       ? 'bg-[#b10832] text-white'
                       : 'bg-white text-black border border-gray-300'
-                  }`}
+                    }`}
                   style={{ fontFamily: 'Inter, sans-serif' }}
                 >
                   {type}
@@ -340,14 +334,12 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                   </span>
                   <button
                     onClick={() => toggleTag(tag)}
-                    className={`relative w-14 h-8 rounded-full transition-colors ${
-                      filters.tags.includes(tag) ? 'bg-gray-800' : 'bg-gray-300'
-                    }`}
+                    className={`relative w-14 h-8 rounded-full transition-colors ${filters.tags.includes(tag) ? 'bg-gray-800' : 'bg-gray-300'
+                      }`}
                   >
                     <div
-                      className={`absolute top-1 w-6 h-6 bg-white rounded-full shadow-md transition-transform ${
-                        filters.tags.includes(tag) ? 'translate-x-7' : 'translate-x-1'
-                      }`}
+                      className={`absolute top-1 w-6 h-6 bg-white rounded-full shadow-md transition-transform ${filters.tags.includes(tag) ? 'translate-x-7' : 'translate-x-1'
+                        }`}
                     />
                   </button>
                 </label>
@@ -363,7 +355,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
             className="px-6 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors font-medium"
             style={{ fontFamily: 'Inter, sans-serif' }}
           >
-            Cancel Filters
+            Reset Filters
           </button>
           <button
             onClick={handleApply}
