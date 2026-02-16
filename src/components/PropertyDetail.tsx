@@ -1,6 +1,7 @@
 import { X, ChevronLeft, ChevronRight, Heart, Share2, MapPin, Bed, Bath, Maximize, Calendar, Check } from 'lucide-react';
 import { useState } from 'react';
 import { ContactModal } from './ContactModal';
+import { ImageModal } from './ImageModal';
 import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -50,11 +51,17 @@ function MapInvalidator() {
 
 export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [showVirtualTour, setShowVirtualTour] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   const gallery = property.gallery?.length ? property.gallery : [property.image];
+
+  const openImageModal = (index: number) => {
+    setCurrentImageIndex(index);
+    setIsImageModalOpen(true);
+  };
 
   const nextImage = () => {
     if (gallery.length <= 1) return;
@@ -154,18 +161,26 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
             {gallery.map((img, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentImageIndex(index)}
+                onClick={() => openImageModal(index)}
                 className={`relative flex-shrink-0 w-24 h-16 rounded-lg overflow-hidden transition-all ${index === currentImageIndex ? 'ring-2 ring-white' : 'opacity-60 hover:opacity-100'
                   }`}
               >
-                <img src={img} alt={`View ${index + 1}`} className="w-full h-full object-cover" />
+                <img src={img} alt={`View ${index + 1} of ${gallery.length}`} className="w-full h-full object-cover" />
               </button>
             ))}
           </div>
+
+          {/* Image Modal */}
+          <ImageModal
+            images={gallery}
+            initialIndex={0}
+            isOpen={isImageModalOpen}
+            onClose={() => setIsImageModalOpen(false)}
+          />
         </div>
       </div>
 
-      {/* Virtual Tour Overlay */}
+       {/* Virtual Tour Overlay */}
       {showVirtualTour && (
         <div className="bg-gray-900 py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
