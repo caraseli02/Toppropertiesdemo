@@ -68,7 +68,7 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
             e.stopPropagation();
             setIsFavorite(!isFavorite);
           }}
-          className="absolute top-3 right-3 bg-white/95 backdrop-blur-sm p-2 rounded-full hover:bg-white transition-all hover:scale-110 shadow-md"
+          className="absolute top-1 right-1 bg-white/95 backdrop-blur-sm min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full hover:bg-white transition-all hover:scale-110 shadow-md"
           aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
         >
           <Heart
@@ -120,6 +120,6 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
           </p>
         </div>
       </div>
-      </div>
-   );
+    </div>
+  );
 });

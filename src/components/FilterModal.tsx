@@ -1,6 +1,6 @@
-import { X, Plus, Minus } from 'lucide-react';
+import { X, Plus, Minus, Check } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { FilterState, Amenity } from '@/types';
+import { FilterState, Amenity, PropertyType } from '@/types';
 
 const AMENITIES: Amenity[] = [
   'Swimming Pool', 'Garden', 'Garage', 'Ocean View',
@@ -15,14 +15,9 @@ interface FilterModalProps {
   initialFilters?: FilterState;
 }
 
-interface FilterModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onApply: (filters: FilterState) => void;
-  initialFilters?: FilterState;
-}
 
-const propertyTypesList = ['Villa', 'Penthouse', 'Apartment', 'Estate', 'Mansion', 'Loft', 'Modern', 'Beach House'];
+
+const propertyTypesList: PropertyType[] = ['Luxury Villa', 'Penthouse', 'Apartment', 'Estate', 'Mansion', 'Loft', 'Modern Villa', 'Beach House'];
 const tagsList = ['Luxury Houses', 'Top Properties', 'Castle', 'Sea View'];
 
 export function FilterModal({ isOpen, onClose, onApply, initialFilters }: FilterModalProps) {
@@ -83,7 +78,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
     });
   };
 
-  const togglePropertyType = (type: string) => {
+  const togglePropertyType = (type: PropertyType) => {
     setFilters(prev => ({
       ...prev,
       propertyTypes: prev.propertyTypes.includes(type)
@@ -122,7 +117,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
       aria-modal="true"
       aria-labelledby="filter-modal-title"
     >
-      <div className="bg-[#f5f5f5] rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div className="bg-[#f5f5f5] rounded-2xl w-full max-h-[90vh] flex flex-col shadow-2xl max-w-[calc(100%-32px)] sm:max-w-md">
         {/* Header */}
         <div className="sticky top-0 bg-white px-6 py-4 flex items-center justify-between border-b border-gray-200 z-10">
           <h2 id="filter-modal-title" className="text-xl font-bold" style={{ fontFamily: 'Inter, sans-serif' }}>
@@ -138,7 +133,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
         </div>
 
         {/* Content */}
-        <div className="p-6 space-y-6">
+        <div className="p-6 space-y-6 overflow-y-auto flex-1">
           {/* Rent Type Tabs */}
           <div className="flex gap-3">
             <button
@@ -333,7 +328,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
             </div>
           </div>
 
-  {/* Tags */}
+          {/* Tags */}
           <div>
             <h3 className="font-semibold text-lg mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>
               Tags
@@ -376,11 +371,10 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
               ))}
             </div>
           </div>
-          </div>
         </div>
 
         {/* Footer */}
-        <div className="sticky bottom-0 bg-white px-6 py-4 flex items-center justify-between gap-4 border-t border-gray-200">
+        <div className="sticky bottom-0 bg-white px-6 py-4 flex items-center justify-between gap-4 border-t border-gray-200 rounded-b-2xl flex-shrink-0">
           <button
             onClick={handleReset}
             className="px-6 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors font-medium"

@@ -132,24 +132,24 @@ export function Header() {
             </div>
 
             {/* Navigation Icons */}
-            <div className="flex items-center gap-[11px]">
+            <div className="flex items-center gap-1">
               <button
                 onClick={() => setIsMenuOpen(true)}
-                className="size-[30px] flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors"
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors"
                 aria-label="Open menu"
               >
                 <Menu className="w-5 h-5 text-black" strokeWidth={1.875} />
               </button>
               <button
                 onClick={() => showToast('♥ Favorites — coming soon!')}
-                className="size-[24px] flex items-center justify-center hover:scale-110 transition-transform"
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-gray-100 rounded-full transition-transform"
                 aria-label="Favorites"
               >
                 <Heart className="w-5 h-5 text-black fill-black" />
               </button>
               <button
                 onClick={() => showToast('👤 Login & Profile — coming soon!')}
-                className="size-[24px] flex items-center justify-center hover:scale-110 transition-transform"
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-gray-100 rounded-full transition-transform"
                 aria-label="User profile"
               >
                 <User className="w-5 h-5 text-black" />

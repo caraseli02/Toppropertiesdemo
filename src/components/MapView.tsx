@@ -31,7 +31,7 @@ function MapController({ properties, center }: { properties: PropertyMarker[], c
   useEffect(() => {
     if (properties.length > 0) {
       const bounds = L.latLngBounds(properties.map(p => [p.lat, p.lng]));
-      map.fitBounds(bounds, { padding: [50, 50] });
+      map.fitBounds(bounds, { padding: [50, 50], maxZoom: 5 });
     } else {
       map.setView(center, 13);
     }

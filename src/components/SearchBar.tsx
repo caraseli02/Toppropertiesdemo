@@ -28,7 +28,7 @@ export function SearchBar({ onSearch, onFilterClick, onSearchClick, value }: Sea
 
   return (
     <div className="bg-white border-b border-[#e5e7eb]">
-      <div className="px-[10px] py-[8px]">
+      <div className="px-[10px] py-[8px] max-w-3xl mx-auto">
         <form onSubmit={handleSubmit} className="flex gap-[10px] items-start">
           {/* Search Input */}
           <div
