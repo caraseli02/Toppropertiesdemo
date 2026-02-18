@@ -31,7 +31,8 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
 
   return (
     <div
-      className="bg-white rounded-[8px] overflow-hidden border border-[#e5e7eb] hover:shadow-lg transition-all duration-300 cursor-pointer group"
+      className="bg-white overflow-hidden border border-[#e5e7eb] hover:shadow-lg transition-all duration-300 cursor-pointer group"
+      style={{ borderRadius: '8px' }}
       onClick={onClick}
       role="button"
       tabIndex={0}
@@ -43,7 +44,7 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
       }}
       aria-label={`View details for ${title}`}
     >
-      <div className="relative h-[200px] overflow-hidden bg-gray-200">
+      <div className="relative overflow-hidden bg-gray-200" style={{ height: '200px' }}>
         <img
           src={image}
           alt={title}
@@ -68,7 +69,8 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
             e.stopPropagation();
             setIsFavorite(!isFavorite);
           }}
-          className="absolute top-1 right-1 bg-white/95 backdrop-blur-sm min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full hover:bg-white transition-all hover:scale-110 shadow-md"
+          className="absolute top-1 right-1 bg-white/95 backdrop-blur-sm flex items-center justify-center rounded-full hover:bg-white transition-all hover:scale-110 shadow-md"
+          style={{ width: '44px', height: '44px' }}
           aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
         >
           <Heart

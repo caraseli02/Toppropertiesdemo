@@ -1,6 +1,7 @@
 import { X, Plus, Minus, Check } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { FilterState, Amenity, PropertyType } from '@/types';
+import { useBodyScrollLock } from '@/hooks/useBodyScrollLock';
 
 const AMENITIES: Amenity[] = [
   'Swimming Pool', 'Garden', 'Garage', 'Ocean View',
@@ -33,6 +34,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
       tags: [],
     }
   );
+  useBodyScrollLock(isOpen);
 
   // Close on Escape key
   useEffect(() => {
@@ -45,18 +47,6 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
     document.addEventListener('keydown', handleEscape);
     return () => document.removeEventListener('keydown', handleEscape);
   }, [isOpen, onClose]);
-
-  // Prevent body scroll when modal is open
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -107,7 +97,8 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
 
   return (
     <div
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4"
+      style={{ zIndex: 1200 }}
       onClick={(e) => {
         if (e.target === e.currentTarget) {
           onClose();
@@ -117,7 +108,10 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
       aria-modal="true"
       aria-labelledby="filter-modal-title"
     >
-      <div className="bg-[#f5f5f5] rounded-2xl w-full max-h-[90vh] flex flex-col shadow-2xl max-w-[calc(100%-32px)] sm:max-w-md">
+      <div
+        className="bg-[#f5f5f5] rounded-2xl w-full flex flex-col shadow-2xl sm:max-w-md"
+        style={{ maxHeight: '90vh', maxWidth: 'calc(100% - 32px)' }}
+      >
         {/* Header */}
         <div className="sticky top-0 bg-white px-6 py-4 flex items-center justify-between border-b border-gray-200 z-10">
           <h2 id="filter-modal-title" className="text-xl font-bold" style={{ fontFamily: 'Inter, sans-serif' }}>
@@ -216,15 +210,15 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
           {/* Show Trattativa */}
           <div className="flex items-center justify-between bg-white rounded-lg p-4">
             <span className="font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>
-              Show Trattativa Riservata
+              Show Private Negotiation
             </span>
             <button
               onClick={() => setFilters(prev => ({ ...prev, showTrattativa: !prev.showTrattativa }))}
-              className={`relative w-14 h-8 rounded-full transition-colors ${filters.showTrattativa ? 'bg-green-500' : 'bg-gray-300'
+              className={`relative w-14 h-10 rounded-full transition-colors ${filters.showTrattativa ? 'bg-green-500' : 'bg-gray-300'
                 }`}
             >
               <div
-                className={`absolute top-1 w-6 h-6 bg-white rounded-full shadow-md transition-transform ${filters.showTrattativa ? 'translate-x-7' : 'translate-x-1'
+                className={`absolute top-1 w-8 h-8 bg-white rounded-full shadow-md transition-transform ${filters.showTrattativa ? 'translate-x-5' : 'translate-x-1'
                   }`}
               />
             </button>
@@ -264,7 +258,8 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => setFilters(prev => ({ ...prev, rooms: Math.max(0, prev.rooms - 1) }))}
-                    className="w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50"
+                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50"
+                    style={{ width: '44px', height: '44px' }}
                   >
                     <Minus className="w-4 h-4" />
                   </button>
@@ -273,7 +268,8 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                   </span>
                   <button
                     onClick={() => setFilters(prev => ({ ...prev, rooms: prev.rooms + 1 }))}
-                    className="w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50"
+                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50"
+                    style={{ width: '44px', height: '44px' }}
                   >
                     <Plus className="w-4 h-4" />
                   </button>
@@ -283,7 +279,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
               {/* mq (Square meters) */}
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>mq</span>
+                  <span className="font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>sqm</span>
                 </div>
                 <input
                   type="range"
@@ -310,7 +306,8 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => setFilters(prev => ({ ...prev, beds: Math.max(0, prev.beds - 1) }))}
-                    className="w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50"
+                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50"
+                    style={{ width: '44px', height: '44px' }}
                   >
                     <Minus className="w-4 h-4" />
                   </button>
@@ -319,7 +316,8 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                   </span>
                   <button
                     onClick={() => setFilters(prev => ({ ...prev, beds: prev.beds + 1 }))}
-                    className="w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50"
+                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50"
+                    style={{ width: '44px', height: '44px' }}
                   >
                     <Plus className="w-4 h-4" />
                   </button>
@@ -341,9 +339,10 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                   </span>
                   <button
                     onClick={() => toggleTag(tag)}
-                    className={`relative w-6 h-6 rounded-full transition-colors ${filters.tags.includes(tag) ? 'bg-[#b10832] text-white' : 'bg-gray-300'}`}
+                    className={`relative rounded-full transition-colors flex items-center justify-center ${filters.tags.includes(tag) ? 'bg-[#b10832] text-white' : 'bg-gray-300'}`}
+                    style={{ width: '44px', height: '44px' }}
                   >
-                    {filters.tags.includes(tag) && <Check className="absolute top-1 left-1" />}
+                    {filters.tags.includes(tag) && <Check className="w-4 h-4" />}
                   </button>
                 </label>
               ))}
@@ -363,9 +362,10 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                   </span>
                   <button
                     onClick={() => toggleAmenity(amenity)}
-                    className={`relative w-6 h-6 rounded-full transition-colors ${filters.amenities?.includes(amenity) ? 'bg-[#b10832] text-white' : 'bg-gray-300'}`}
+                    className={`relative rounded-full transition-colors flex items-center justify-center ${filters.amenities?.includes(amenity) ? 'bg-[#b10832] text-white' : 'bg-gray-300'}`}
+                    style={{ width: '44px', height: '44px' }}
                   >
-                    {filters.amenities?.includes(amenity) && <Check className="absolute top-1 left-1" />}
+                    {filters.amenities?.includes(amenity) && <Check className="w-4 h-4" />}
                   </button>
                 </label>
               ))}

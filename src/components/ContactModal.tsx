@@ -1,6 +1,7 @@
 
 import { X } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useBodyScrollLock } from '@/hooks/useBodyScrollLock';
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -16,17 +17,7 @@ export function ContactModal({ isOpen, onClose, propertyTitle }: ContactModalPro
     message: `I am interested in ${propertyTitle}`
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
-
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isOpen]);
+  useBodyScrollLock(isOpen);
 
   if (!isOpen) return null;
 
@@ -44,7 +35,8 @@ export function ContactModal({ isOpen, onClose, propertyTitle }: ContactModalPro
 
   return (
     <div
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4"
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4"
+      style={{ zIndex: 1300 }}
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
