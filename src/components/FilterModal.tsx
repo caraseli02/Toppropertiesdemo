@@ -1,16 +1,12 @@
-import { X, Plus, Minus } from 'lucide-react';
+import { X, Plus, Minus, Check } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { FilterState, Amenity, PropertyType } from '@/types';
 
-interface FilterState {
-  rentType: 'short' | 'long' | 'sale';
-  priceRange: [number, number];
-  showTrattativa: boolean;
-  propertyTypes: string[];
-  rooms: number;
-  beds: number;
-  sqm: [number, number];
-  tags: string[];
-}
+const AMENITIES: Amenity[] = [
+  'Swimming Pool', 'Garden', 'Garage', 'Ocean View',
+  'Smart Home', 'Security System', 'Gym', 'Home Theater',
+  'Balcony', 'Wine Cellar', 'Terrace', 'Elevator', 'Concierge'
+];
 
 interface FilterModalProps {
   isOpen: boolean;
@@ -19,7 +15,9 @@ interface FilterModalProps {
   initialFilters?: FilterState;
 }
 
-const propertyTypesList = ['Loft', 'Villa', 'Attico', 'Rustico'];
+
+
+const propertyTypesList: PropertyType[] = ['Luxury Villa', 'Penthouse', 'Apartment', 'Estate', 'Mansion', 'Loft', 'Modern Villa', 'Beach House'];
 const tagsList = ['Luxury Houses', 'Top Properties', 'Castle', 'Sea View'];
 
 export function FilterModal({ isOpen, onClose, onApply, initialFilters }: FilterModalProps) {
@@ -80,12 +78,21 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
     });
   };
 
-  const togglePropertyType = (type: string) => {
+  const togglePropertyType = (type: PropertyType) => {
     setFilters(prev => ({
       ...prev,
       propertyTypes: prev.propertyTypes.includes(type)
         ? prev.propertyTypes.filter(t => t !== type)
         : [...prev.propertyTypes, type],
+    }));
+  };
+
+  const toggleAmenity = (amenity: Amenity) => {
+    setFilters(prev => ({
+      ...prev,
+      amenities: prev.amenities?.includes(amenity)
+        ? prev.amenities.filter(a => a !== amenity)
+        : [...(prev.amenities || []), amenity],
     }));
   };
 
@@ -99,7 +106,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
   };
 
   return (
-    <div 
+    <div
       className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
@@ -110,7 +117,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
       aria-modal="true"
       aria-labelledby="filter-modal-title"
     >
-      <div className="bg-[#f5f5f5] rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div className="bg-[#f5f5f5] rounded-2xl w-full max-h-[90vh] flex flex-col shadow-2xl max-w-[calc(100%-32px)] sm:max-w-md">
         {/* Header */}
         <div className="sticky top-0 bg-white px-6 py-4 flex items-center justify-between border-b border-gray-200 z-10">
           <h2 id="filter-modal-title" className="text-xl font-bold" style={{ fontFamily: 'Inter, sans-serif' }}>
@@ -126,38 +133,35 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
         </div>
 
         {/* Content */}
-        <div className="p-6 space-y-6">
+        <div className="p-6 space-y-6 overflow-y-auto flex-1">
           {/* Rent Type Tabs */}
           <div className="flex gap-3">
             <button
               onClick={() => setFilters(prev => ({ ...prev, rentType: 'short' }))}
-              className={`flex-1 px-6 py-3 rounded-full border-2 transition-all font-medium ${
-                filters.rentType === 'short'
-                  ? 'bg-[#b10832] text-white border-[#b10832]'
-                  : 'bg-white text-black border-black'
-              }`}
+              className={`flex-1 px-6 py-3 rounded-full border-2 transition-all font-medium ${filters.rentType === 'short'
+                ? 'bg-[#b10832] text-white border-[#b10832]'
+                : 'bg-white text-black border-black'
+                }`}
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
               Short Rent
             </button>
             <button
               onClick={() => setFilters(prev => ({ ...prev, rentType: 'long' }))}
-              className={`flex-1 px-6 py-3 rounded-full border-2 transition-all font-medium ${
-                filters.rentType === 'long'
-                  ? 'bg-[#b10832] text-white border-[#b10832]'
-                  : 'bg-white text-black border-black'
-              }`}
+              className={`flex-1 px-6 py-3 rounded-full border-2 transition-all font-medium ${filters.rentType === 'long'
+                ? 'bg-[#b10832] text-white border-[#b10832]'
+                : 'bg-white text-black border-black'
+                }`}
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
               Long Rent
             </button>
             <button
               onClick={() => setFilters(prev => ({ ...prev, rentType: 'sale' }))}
-              className={`flex-1 px-6 py-3 rounded-full border-2 transition-all font-medium ${
-                filters.rentType === 'sale'
-                  ? 'bg-[#b10832] text-white border-[#b10832]'
-                  : 'bg-white text-black border-black'
-              }`}
+              className={`flex-1 px-6 py-3 rounded-full border-2 transition-all font-medium ${filters.rentType === 'sale'
+                ? 'bg-[#b10832] text-white border-[#b10832]'
+                : 'bg-white text-black border-black'
+                }`}
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
               Sale
@@ -216,14 +220,12 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
             </span>
             <button
               onClick={() => setFilters(prev => ({ ...prev, showTrattativa: !prev.showTrattativa }))}
-              className={`relative w-14 h-8 rounded-full transition-colors ${
-                filters.showTrattativa ? 'bg-green-500' : 'bg-gray-300'
-              }`}
+              className={`relative w-14 h-8 rounded-full transition-colors ${filters.showTrattativa ? 'bg-green-500' : 'bg-gray-300'
+                }`}
             >
               <div
-                className={`absolute top-1 w-6 h-6 bg-white rounded-full shadow-md transition-transform ${
-                  filters.showTrattativa ? 'translate-x-7' : 'translate-x-1'
-                }`}
+                className={`absolute top-1 w-6 h-6 bg-white rounded-full shadow-md transition-transform ${filters.showTrattativa ? 'translate-x-7' : 'translate-x-1'
+                  }`}
               />
             </button>
           </div>
@@ -238,11 +240,10 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                 <button
                   key={type}
                   onClick={() => togglePropertyType(type)}
-                  className={`px-6 py-2 rounded-full transition-all ${
-                    filters.propertyTypes.includes(type)
-                      ? 'bg-[#b10832] text-white'
-                      : 'bg-white text-black border border-gray-300'
-                  }`}
+                  className={`px-6 py-2 rounded-full transition-all ${filters.propertyTypes.includes(type)
+                    ? 'bg-[#b10832] text-white'
+                    : 'bg-white text-black border border-gray-300'
+                    }`}
                   style={{ fontFamily: 'Inter, sans-serif' }}
                 >
                   {type}
@@ -340,15 +341,31 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                   </span>
                   <button
                     onClick={() => toggleTag(tag)}
-                    className={`relative w-14 h-8 rounded-full transition-colors ${
-                      filters.tags.includes(tag) ? 'bg-gray-800' : 'bg-gray-300'
-                    }`}
+                    className={`relative w-6 h-6 rounded-full transition-colors ${filters.tags.includes(tag) ? 'bg-[#b10832] text-white' : 'bg-gray-300'}`}
                   >
-                    <div
-                      className={`absolute top-1 w-6 h-6 bg-white rounded-full shadow-md transition-transform ${
-                        filters.tags.includes(tag) ? 'translate-x-7' : 'translate-x-1'
-                      }`}
-                    />
+                    {filters.tags.includes(tag) && <Check className="absolute top-1 left-1" />}
+                  </button>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* Amenity Filters */}
+          <div>
+            <h3 className="font-semibold text-lg mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>
+              Amenities
+            </h3>
+            <div className="space-y-3 bg-white rounded-lg p-4">
+              {AMENITIES.map((amenity) => (
+                <label key={amenity} className="flex items-center justify-between cursor-pointer">
+                  <span className="font-medium text-gray-700" style={{ fontFamily: 'Inter, sans-serif' }}>
+                    {amenity}
+                  </span>
+                  <button
+                    onClick={() => toggleAmenity(amenity)}
+                    className={`relative w-6 h-6 rounded-full transition-colors ${filters.amenities?.includes(amenity) ? 'bg-[#b10832] text-white' : 'bg-gray-300'}`}
+                  >
+                    {filters.amenities?.includes(amenity) && <Check className="absolute top-1 left-1" />}
                   </button>
                 </label>
               ))}
@@ -357,13 +374,13 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
         </div>
 
         {/* Footer */}
-        <div className="sticky bottom-0 bg-white px-6 py-4 flex items-center justify-between gap-4 border-t border-gray-200">
+        <div className="sticky bottom-0 bg-white px-6 py-4 flex items-center justify-between gap-4 border-t border-gray-200 rounded-b-2xl flex-shrink-0">
           <button
             onClick={handleReset}
             className="px-6 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors font-medium"
             style={{ fontFamily: 'Inter, sans-serif' }}
           >
-            Cancel Filters
+            Reset Filters
           </button>
           <button
             onClick={handleApply}

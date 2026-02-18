@@ -1,15 +1,22 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 interface Property {
   id: string;
+  image: string;
   title: string;
-  reference: string;
   location: string;
-  rooms: number;
-  beds: number;
-  sqm: number;
   price: string;
-  tags: string[];
+  beds: number;
+  baths: number;
+  sqft: string;
+  featured?: boolean;
+  lat: number;
+  lng: number;
+  gallery?: string[];
+  description?: string;
+  yearBuilt?: number;
+  propertyType?: string;
+  amenities?: string[];
 }
 
 interface SearchModalProps {
@@ -17,50 +24,11 @@ interface SearchModalProps {
   onClose: () => void;
   onSearch: (query: string) => void;
   properties: Property[];
+  onSelectProperty?: (property: Property) => void;
 }
 
-type TabType = 'locations' | 'properties' | 'zones' | 'tags';
-
-const mockSearchResults: Property[] = [
-  {
-    id: '1',
-    title: 'CASTELLO A CASTELFIORENTINO',
-    reference: 'ref. 1620897',
-    location: 'TOSCANA',
-    rooms: 10,
-    beds: 5,
-    sqm: 300,
-    price: '€5.7M',
-    tags: ['TOP PROPERTIES', 'CASTLE'],
-  },
-  {
-    id: '2',
-    title: 'CASTELLO A CASTELFIORENTINO',
-    reference: 'ref. 1620897',
-    location: 'TOSCANA',
-    rooms: 10,
-    beds: 5,
-    sqm: 300,
-    price: '€5.7M',
-    tags: ['TOP PROPERTIES', 'CASTLE'],
-  },
-  {
-    id: '3',
-    title: 'CASTELLO A CASTELFIORENTINO',
-    reference: 'ref. 1620897',
-    location: 'TOSCANA',
-    rooms: 10,
-    beds: 5,
-    sqm: 300,
-    price: '€5.7M',
-    tags: ['TOP PROPERTIES', 'CASTLE'],
-  },
-];
-
-export function SearchModal({ isOpen, onClose, onSearch }: SearchModalProps) {
+export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectProperty }: SearchModalProps) {
   const [query, setQuery] = useState('');
-  const [activeTab, setActiveTab] = useState<TabType>('properties');
-  const [results] = useState<Property[]>(mockSearchResults);
 
   // Close on Escape key
   useEffect(() => {
@@ -86,6 +54,32 @@ export function SearchModal({ isOpen, onClose, onSearch }: SearchModalProps) {
     };
   }, [isOpen]);
 
+  // Filter properties based on query
+  const filteredProperties = useMemo(() => {
+    if (!query.trim()) return properties.slice(0, 6); // Show first 6 when no query
+    const q = query.toLowerCase();
+    return properties.filter(
+      (p) =>
+        p.title.toLowerCase().includes(q) ||
+        p.location.toLowerCase().includes(q) ||
+        (p.propertyType && p.propertyType.toLowerCase().includes(q))
+    );
+  }, [query, properties]);
+
+  // Derive unique locations for the locations tab
+  const locations = useMemo(() => {
+    const locSet = new Map<string, number>();
+    properties.forEach((p) => {
+      const city = p.location.split(',')[0].trim();
+      locSet.set(city, (locSet.get(city) || 0) + 1);
+    });
+    if (!query.trim()) return Array.from(locSet.entries());
+    const q = query.toLowerCase();
+    return Array.from(locSet.entries()).filter(([loc]) =>
+      loc.toLowerCase().includes(q)
+    );
+  }, [query, properties]);
+
   if (!isOpen) return null;
 
   const handleSearch = () => {
@@ -93,11 +87,16 @@ export function SearchModal({ isOpen, onClose, onSearch }: SearchModalProps) {
     onClose();
   };
 
-  const tabCounts = {
-    locations: 1,
-    properties: 2,
-    zones: 3,
-    tags: 2,
+  const handleSelectProperty = (property: Property) => {
+    if (onSelectProperty) {
+      onSelectProperty(property);
+    }
+    onClose();
+  };
+
+  const handleLocationClick = (location: string) => {
+    onSearch(location);
+    onClose();
   };
 
   return (
@@ -112,12 +111,24 @@ export function SearchModal({ isOpen, onClose, onSearch }: SearchModalProps) {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Everywhere"
+                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                placeholder="Search by location, property name, or type..."
                 className="flex-1 font-light text-[16px] text-black placeholder:text-gray-400 outline-none bg-transparent"
                 style={{ fontFamily: 'Inter, sans-serif' }}
                 autoFocus
-                aria-label="Search location"
+                aria-label="Search properties"
               />
+              {query && (
+                <button
+                  onClick={() => setQuery('')}
+                  className="ml-2 text-gray-400 hover:text-gray-600 transition-colors"
+                  aria-label="Clear search"
+                >
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              )}
             </div>
             <button
               onClick={handleSearch}
@@ -132,98 +143,114 @@ export function SearchModal({ isOpen, onClose, onSearch }: SearchModalProps) {
           </div>
         </div>
 
-        {/* Tabs */}
-        <div className="flex border-b border-gray-200 px-6">
-          {(['locations', 'properties', 'zones', 'tags'] as TabType[]).map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`px-4 py-3 capitalize font-medium text-[14px] border-b-2 transition-colors ${
-                activeTab === tab
-                  ? 'border-[#b10832] text-black'
-                  : 'border-transparent text-gray-500'
-              }`}
-              style={{ fontFamily: 'Inter, sans-serif' }}
-            >
-              {tab.charAt(0).toUpperCase() + tab.slice(1)}{' '}
-              <span className="text-gray-400">{tabCounts[tab]}</span>
-            </button>
-          ))}
-        </div>
-
         {/* Results */}
-        <div className="flex-1 overflow-y-auto px-6 py-4">
-          {activeTab === 'properties' && (
-            <div className="space-y-4">
-              {results.map((property) => (
-                <div
-                  key={property.id}
-                  className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer"
-                >
-                  {/* Tags */}
-                  <div className="flex gap-2 mb-2">
-                    {property.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="bg-[#b10832] text-white px-2 py-1 rounded text-xs font-medium uppercase"
-                        style={{ fontFamily: 'Inter, sans-serif' }}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Title */}
-                  <h3
-                    className="font-bold text-[16px] text-black mb-1"
+        <div className="flex-1 overflow-y-auto">
+          {/* Locations Section */}
+          {locations.length > 0 && (
+            <div className="px-6 py-4 border-b border-gray-100">
+              <h3
+                className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3"
+                style={{ fontFamily: 'Inter, sans-serif' }}
+              >
+                Locations
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {locations.slice(0, 8).map(([loc, count]) => (
+                  <button
+                    key={loc}
+                    onClick={() => handleLocationClick(loc)}
+                    className="px-3 py-1.5 rounded-full border border-gray-200 text-sm text-gray-700 hover:bg-gray-100 hover:border-gray-300 transition-all"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   >
-                    {property.title}
-                  </h3>
+                    {loc} <span className="text-gray-400 ml-1">({count})</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
 
-                  {/* Reference and Location */}
-                  <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
-                    <span style={{ fontFamily: 'Inter, sans-serif' }}>{property.reference}</span>
-                    <span>•</span>
-                    <span style={{ fontFamily: 'Inter, sans-serif' }}>{property.location}</span>
-                  </div>
+          {/* Properties Section */}
+          <div className="px-6 py-4">
+            <h3
+              className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3"
+              style={{ fontFamily: 'Inter, sans-serif' }}
+            >
+              Properties {query && `(${filteredProperties.length})`}
+            </h3>
+            {filteredProperties.length > 0 ? (
+              <div className="space-y-3">
+                {filteredProperties.map((property) => (
+                  <div
+                    key={property.id}
+                    onClick={() => handleSelectProperty(property)}
+                    className="bg-white border border-gray-200 rounded-lg p-3 hover:shadow-md hover:border-gray-300 transition-all cursor-pointer flex gap-4 items-center"
+                  >
+                    {/* Thumbnail */}
+                    <img
+                      src={property.image}
+                      alt={property.title}
+                      className="w-20 h-16 object-cover rounded-md flex-shrink-0"
+                    />
 
-                  {/* Property Details */}
-                  <div className="flex items-center gap-4 text-[14px] font-medium">
-                    <div className="flex items-center gap-1">
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                      </svg>
-                      <span style={{ fontFamily: 'Inter, sans-serif' }}>{property.rooms}</span>
+                    {/* Info */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-0.5">
+                        {property.featured && (
+                          <span
+                            className="bg-[#b10832] text-white px-1.5 py-0.5 rounded text-[10px] font-medium uppercase"
+                            style={{ fontFamily: 'Inter, sans-serif' }}
+                          >
+                            Featured
+                          </span>
+                        )}
+                        {property.propertyType && (
+                          <span
+                            className="text-[11px] text-gray-400 uppercase tracking-wide"
+                            style={{ fontFamily: 'Inter, sans-serif' }}
+                          >
+                            {property.propertyType}
+                          </span>
+                        )}
+                      </div>
+                      <h4
+                        className="font-semibold text-[15px] text-black truncate"
+                        style={{ fontFamily: 'Inter, sans-serif' }}
+                      >
+                        {property.title}
+                      </h4>
+                      <p
+                        className="text-[13px] text-gray-500 truncate"
+                        style={{ fontFamily: 'Inter, sans-serif' }}
+                      >
+                        {property.location}
+                      </p>
                     </div>
-                    <div className="flex items-center gap-1">
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12h18M3 6h18M3 18h18" />
-                      </svg>
-                      <span style={{ fontFamily: 'Inter, sans-serif' }}>{property.beds}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5" />
-                      </svg>
-                      <span style={{ fontFamily: 'Inter, sans-serif' }}>{property.sqm}</span>
-                    </div>
-                    <div className="flex items-center gap-1 ml-auto">
-                      <span className="font-bold text-[#b10832]" style={{ fontFamily: 'Inter, sans-serif' }}>
+
+                    {/* Price */}
+                    <div className="flex-shrink-0 text-right">
+                      <span
+                        className="font-bold text-[15px] text-[#b10832]"
+                        style={{ fontFamily: 'Inter, sans-serif' }}
+                      >
                         {property.price}
                       </span>
+                      <div className="text-[12px] text-gray-400 mt-0.5" style={{ fontFamily: 'Inter, sans-serif' }}>
+                        {property.beds} bd · {property.baths} ba
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {activeTab !== 'properties' && (
-            <div className="text-center py-12 text-gray-500" style={{ fontFamily: 'Inter, sans-serif' }}>
-              No results in this category
-            </div>
-          )}
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12 text-gray-400" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <svg className="w-12 h-12 mx-auto mb-3 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <p className="font-medium text-gray-500">No properties found</p>
+                <p className="text-sm mt-1">Try a different search term</p>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Footer */}

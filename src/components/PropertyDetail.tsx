@@ -1,5 +1,11 @@
 import { X, ChevronLeft, ChevronRight, Heart, Share2, MapPin, Bed, Bath, Maximize, Calendar, Check } from 'lucide-react';
 import { useState } from 'react';
+import { ContactModal } from './ContactModal';
+import { ImageModal } from './ImageModal';
+import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import { useEffect } from 'react';
 
 interface PropertyDetailProps {
   property: {
@@ -17,22 +23,58 @@ interface PropertyDetailProps {
     gallery?: string[];
     amenities?: string[];
     virtualTour?: string;
+    lat: number;
+    lng: number;
   };
   onClose: () => void;
 }
 
+// Simple HTML escape to prevent XSS
+const escapeHtml = (text: string): string => {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+};
+
+// Helper to fix map rendering issues in modals
+function MapInvalidator() {
+  const map = useMap();
+  useEffect(() => {
+    // Force a resize calculation after a brief delay to ensure container has dimensions
+    const timer = setTimeout(() => {
+      map.invalidateSize();
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [map]);
+  return null;
+}
+
 export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [showVirtualTour, setShowVirtualTour] = useState(false);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [brokenImages, setBrokenImages] = useState<Set<number>>(new Set());
 
-  const gallery = property.gallery || [property.image];
+  const handleImageError = (index: number) => {
+    setBrokenImages(prev => new Set(prev).add(index));
+  };
+
+  const gallery = property.gallery?.length ? property.gallery : [property.image];
+
+  const openImageModal = (index: number) => {
+    setCurrentImageIndex(index);
+    setIsImageModalOpen(true);
+  };
 
   const nextImage = () => {
+    if (gallery.length <= 1) return;
     setCurrentImageIndex((prev) => (prev + 1) % gallery.length);
   };
 
   const prevImage = () => {
+    if (gallery.length <= 1) return;
     setCurrentImageIndex((prev) => (prev - 1 + gallery.length) % gallery.length);
   };
 
@@ -68,9 +110,8 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
                 className="p-2 hover:bg-gray-100 rounded-full transition-colors"
               >
                 <Heart
-                  className={`w-5 h-5 transition-colors ${
-                    isFavorite ? 'fill-[#b10832] text-[#b10832]' : 'text-gray-600'
-                  }`}
+                  className={`w-5 h-5 transition-colors ${isFavorite ? 'fill-[#b10832] text-[#b10832]' : 'text-gray-600'
+                    }`}
                 />
               </button>
             </div>
@@ -79,15 +120,25 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
       </div>
 
       {/* Image Gallery */}
-      <div className="relative bg-black">
+      <div className="relative bg-gray-900">
         <div className="max-w-7xl mx-auto">
-          <div className="relative aspect-[16/9]">
-            <img
-              src={gallery[currentImageIndex]}
-              alt={property.title}
-              className="w-full h-full object-cover"
-            />
-            
+          <div className="relative h-[50vh] w-full">
+            {brokenImages.has(currentImageIndex) ? (
+              <div className="w-full h-full bg-gradient-to-br from-gray-700 via-gray-800 to-gray-900 flex items-center justify-center">
+                <div className="text-center text-white/60">
+                  <svg className="mx-auto w-16 h-16 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" /></svg>
+                  <p className="text-sm font-medium">Image unavailable</p>
+                </div>
+              </div>
+            ) : (
+              <img
+                src={gallery[currentImageIndex]}
+                alt={property.title}
+                className="w-full h-full object-cover"
+                onError={() => handleImageError(currentImageIndex)}
+              />
+            )}
+
             {/* Gallery Navigation */}
             {gallery.length > 1 && (
               <>
@@ -103,7 +154,7 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
                 >
                   <ChevronRight className="w-6 h-6" />
                 </button>
-                
+
                 {/* Image Counter */}
                 <div className="absolute bottom-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm">
                   {currentImageIndex + 1} / {gallery.length}
@@ -125,15 +176,22 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
             {gallery.map((img, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentImageIndex(index)}
-                className={`relative flex-shrink-0 w-24 h-16 rounded-lg overflow-hidden transition-all ${
-                  index === currentImageIndex ? 'ring-2 ring-white' : 'opacity-60 hover:opacity-100'
-                }`}
+                onClick={() => openImageModal(index)}
+                className={`relative flex-shrink-0 w-24 h-16 rounded-lg overflow-hidden transition-all ${index === currentImageIndex ? 'ring-2 ring-white' : 'opacity-60 hover:opacity-100'
+                  }`}
               >
-                <img src={img} alt={`View ${index + 1}`} className="w-full h-full object-cover" />
+                <img src={img} alt={`View ${index + 1} of ${gallery.length}`} className="w-full h-full object-cover" />
               </button>
             ))}
           </div>
+
+          {/* Image Modal */}
+          <ImageModal
+            images={gallery}
+            initialIndex={0}
+            isOpen={isImageModalOpen}
+            onClose={() => setIsImageModalOpen(false)}
+          />
         </div>
       </div>
 
@@ -239,18 +297,40 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
             {/* Map */}
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Location</h2>
-              <div className="h-64 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl flex items-center justify-center relative overflow-hidden">
-                <div className="absolute inset-0 opacity-10">
-                  <div className="grid grid-cols-10 grid-rows-10 h-full w-full">
-                    {Array.from({ length: 100 }).map((_, i) => (
-                      <div key={i} className="border border-gray-400" />
-                    ))}
+              <div className="h-96 rounded-xl overflow-hidden shadow-sm border border-gray-100 relative z-0">
+                <MapContainer
+                  center={[property.lat, property.lng]}
+                  zoom={15}
+                  style={{ height: '100%', width: '100%' }}
+                  scrollWheelZoom={false}
+                  zoomControl={false}
+                  dragging={false} // Static feel like Airbnb preview
+                  doubleClickZoom={false}
+                >
+                  <MapInvalidator />
+                  <TileLayer
+                    attribution='&copy; <a href="https://carto.com/attributions">CARTO</a>'
+                    url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+                  />
+                  <div className="leaflet-bottom leaflet-right">
+                    <div className="leaflet-control-attribution leaflet-control">
+                      <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>
+                    </div>
                   </div>
-                </div>
-                <div className="relative">
-                  <MapPin className="w-12 h-12 text-[#b10832]" />
-                  <div className="absolute inset-0 bg-[#b10832] rounded-full animate-ping opacity-20" />
-                </div>
+
+                  {/* Custom Circle Marker similar to Airbnb */}
+                  <Marker
+                    position={[property.lat, property.lng]}
+                    icon={L.divIcon({
+                      className: 'custom-pin-marker',
+                      html: `<div class="w-12 h-12 bg-[#b10832]/20 rounded-full flex items-center justify-center animate-pulse">
+                              <div class="w-4 h-4 bg-[#b10832] rounded-full shadow-lg border-2 border-white"></div>
+                             </div>`,
+                      iconSize: [48, 48],
+                      iconAnchor: [24, 24]
+                    })}
+                  />
+                </MapContainer>
               </div>
             </div>
           </div>
@@ -261,15 +341,24 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
               {/* Price Card */}
               <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-lg">
                 <p className="text-3xl font-bold text-[#b10832] mb-6">{property.price}</p>
-                
+
                 <div className="space-y-3">
-                  <button className="w-full bg-[#b10832] hover:bg-[#8e0628] text-white py-3 rounded-lg font-medium transition-colors">
+                  <button
+                    onClick={() => setIsContactModalOpen(true)}
+                    className="w-full bg-[#b10832] hover:bg-[#8e0628] text-white py-3 rounded-lg font-medium transition-colors"
+                  >
                     Schedule Viewing
                   </button>
-                  <button className="w-full border-2 border-[#b10832] text-[#b10832] hover:bg-[#b10832] hover:text-white py-3 rounded-lg font-medium transition-colors">
+                  <button
+                    onClick={() => setIsContactModalOpen(true)}
+                    className="w-full border-2 border-[#b10832] text-[#b10832] hover:bg-[#b10832] hover:text-white py-3 rounded-lg font-medium transition-colors"
+                  >
                     Contact Agent
                   </button>
-                  <button className="w-full border border-gray-300 hover:bg-gray-50 py-3 rounded-lg font-medium transition-colors">
+                  <button
+                    onClick={() => setIsContactModalOpen(true)}
+                    className="w-full border border-gray-300 hover:bg-gray-50 py-3 rounded-lg font-medium transition-colors"
+                  >
                     Request Info
                   </button>
                 </div>
@@ -302,6 +391,7 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
                 </div>
               </div>
 
+
               {/* Agent Card */}
               <div className="bg-white border border-gray-200 rounded-xl p-6">
                 <h3 className="font-semibold text-lg mb-4">Your Agent</h3>
@@ -320,6 +410,12 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
           </div>
         </div>
       </div>
-    </div>
+
+      <ContactModal
+        isOpen={isContactModalOpen}
+        onClose={() => setIsContactModalOpen(false)}
+        propertyTitle={property.title}
+      />
+    </div >
   );
 }
