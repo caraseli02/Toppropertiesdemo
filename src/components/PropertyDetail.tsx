@@ -1,11 +1,12 @@
 import { X, ChevronLeft, ChevronRight, Heart, Share2, MapPin, Bed, Bath, Maximize, Calendar, Check } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { ContactModal } from './ContactModal';
 import { ImageModal } from './ImageModal';
 import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
+import { useBodyScrollLock } from '@/hooks/useBodyScrollLock';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useEffect } from 'react';
 
 interface PropertyDetailProps {
   property: {
@@ -29,13 +30,6 @@ interface PropertyDetailProps {
   onClose: () => void;
 }
 
-// Simple HTML escape to prevent XSS
-const escapeHtml = (text: string): string => {
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
-};
-
 // Helper to fix map rendering issues in modals
 function MapInvalidator() {
   const map = useMap();
@@ -50,12 +44,19 @@ function MapInvalidator() {
 }
 
 export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [showVirtualTour, setShowVirtualTour] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [brokenImages, setBrokenImages] = useState<Set<number>>(new Set());
+
+  useBodyScrollLock(true);
+
+  useEffect(() => {
+    containerRef.current?.scrollTo({ top: 0, behavior: 'auto' });
+  }, [property.id]);
 
   const handleImageError = (index: number) => {
     setBrokenImages(prev => new Set(prev).add(index));
@@ -89,25 +90,33 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
     'Fireplace',
   ];
 
-  return (
-    <div className="fixed inset-0 bg-white z-50 overflow-y-auto">
+  const detailContent = (
+    <div ref={containerRef} className="fixed inset-0 bg-white overflow-y-auto" style={{ zIndex: 2000 }}>
       {/* Header */}
       <div className="sticky top-0 bg-white/95 backdrop-blur-sm border-b border-gray-200 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <button
               onClick={onClose}
-              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+              className="flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors"
+              style={{ width: '44px', height: '44px' }}
+              aria-label="Close property details"
             >
               <X className="w-6 h-6" />
             </button>
             <div className="flex items-center gap-2">
-              <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+              <button
+                className="flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors"
+                style={{ width: '44px', height: '44px' }}
+                aria-label="Share property"
+              >
                 <Share2 className="w-5 h-5" />
               </button>
               <button
                 onClick={() => setIsFavorite(!isFavorite)}
-                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                className="flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors"
+                style={{ width: '44px', height: '44px' }}
+                aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
               >
                 <Heart
                   className={`w-5 h-5 transition-colors ${isFavorite ? 'fill-[#b10832] text-[#b10832]' : 'text-gray-600'
@@ -122,7 +131,7 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
       {/* Image Gallery */}
       <div className="relative bg-gray-900">
         <div className="max-w-7xl mx-auto">
-          <div className="relative h-[50vh] w-full">
+          <div className="relative w-full" style={{ height: '50vh', minHeight: '320px' }}>
             {brokenImages.has(currentImageIndex) ? (
               <div className="w-full h-full bg-gradient-to-br from-gray-700 via-gray-800 to-gray-900 flex items-center justify-center">
                 <div className="text-center text-white/60">
@@ -188,7 +197,7 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
           {/* Image Modal */}
           <ImageModal
             images={gallery}
-            initialIndex={0}
+            initialIndex={currentImageIndex}
             isOpen={isImageModalOpen}
             onClose={() => setIsImageModalOpen(false)}
           />
@@ -297,7 +306,10 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
             {/* Map */}
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Location</h2>
-              <div className="h-96 rounded-xl overflow-hidden shadow-sm border border-gray-100 relative z-0">
+              <div
+                className="rounded-xl overflow-hidden shadow-sm border border-gray-100 relative z-0"
+                style={{ minHeight: '320px', height: '384px' }}
+              >
                 <MapContainer
                   center={[property.lat, property.lng]}
                   zoom={15}
@@ -312,20 +324,13 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
                     attribution='&copy; <a href="https://carto.com/attributions">CARTO</a>'
                     url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
                   />
-                  <div className="leaflet-bottom leaflet-right">
-                    <div className="leaflet-control-attribution leaflet-control">
-                      <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>
-                    </div>
-                  </div>
 
                   {/* Custom Circle Marker similar to Airbnb */}
                   <Marker
                     position={[property.lat, property.lng]}
                     icon={L.divIcon({
                       className: 'custom-pin-marker',
-                      html: `<div class="w-12 h-12 bg-[#b10832]/20 rounded-full flex items-center justify-center animate-pulse">
-                              <div class="w-4 h-4 bg-[#b10832] rounded-full shadow-lg border-2 border-white"></div>
-                             </div>`,
+                      html: '<div style="width:48px;height:48px;background:rgba(177,8,50,0.2);border-radius:9999px;display:flex;align-items:center;justify-content:center;"><div style="width:16px;height:16px;background:#b10832;border-radius:9999px;box-shadow:0 4px 10px rgba(0,0,0,0.2);border:2px solid #fff;"></div></div>',
                       iconSize: [48, 48],
                       iconAnchor: [24, 24]
                     })}
@@ -416,6 +421,8 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
         onClose={() => setIsContactModalOpen(false)}
         propertyTitle={property.title}
       />
-    </div >
+    </div>
   );
+
+  return createPortal(detailContent, document.body);
 }

@@ -10,12 +10,20 @@ import { LoadingCard } from './components/LoadingCard';
 import { Footer } from './components/Footer';
 import { HeroSection } from './components/HeroSection';
 import { LayoutGrid, Map } from 'lucide-react';
-import svgPaths from './imports/svg-lbcekml827';
 import { properties } from '@/data/properties';
 import { Property, FilterState } from '@/types';
 import { filterProperties } from '@/services/filterService';
-import { escapeHtml } from '@/services/xssService';
-import { parsePrice } from '@/services/priceService';
+
+const getDefaultFilters = (): FilterState => ({
+  rentType: 'long',
+  priceRange: [0, 10000],
+  showTrattativa: false,
+  propertyTypes: [],
+  rooms: 0,
+  beds: 0,
+  sqm: [0, 500],
+  tags: [],
+});
 
 export default function App() {
   const [viewMode, setViewMode] = useState<'grid' | 'map'>('grid');
@@ -23,16 +31,7 @@ export default function App() {
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [activeFilters, setActiveFilters] = useState<FilterState>({
-    rentType: 'long',
-    priceRange: [0, 10000],
-    showTrattativa: false,
-    propertyTypes: [],
-    rooms: 0,
-    beds: 0,
-    sqm: [0, 500],
-    tags: [],
-  });
+  const [activeFilters, setActiveFilters] = useState<FilterState>(() => getDefaultFilters());
 
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -49,9 +48,29 @@ export default function App() {
     setActiveFilters(filters);
   }, []);
 
+  const scrollToProperties = useCallback(() => {
+    requestAnimationFrame(() => {
+      const section = document.getElementById('properties-section');
+      section?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }, []);
+
+  const openGridFromMenu = useCallback(() => {
+    setViewMode('grid');
+    scrollToProperties();
+  }, [scrollToProperties]);
+
+  const openMapFromMenu = useCallback(() => {
+    setViewMode('map');
+    scrollToProperties();
+  }, [scrollToProperties]);
+
   return (
     <div className="min-h-screen bg-white">
-      <Header />
+      <Header
+        onNavigateToMap={openMapFromMenu}
+        onNavigateToProperties={openGridFromMenu}
+      />
       <SearchBar
         onSearch={handleSearch}
         onFilterClick={() => setIsFilterModalOpen(true)}
@@ -67,7 +86,7 @@ export default function App() {
       />
 
       {/* Main Content */}
-      <div className="px-[10px] py-4 pb-8">
+      <div id="properties-section" className="py-4 pb-8" style={{ paddingLeft: '10px', paddingRight: '10px' }}>
         {isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {Array.from({ length: 6 }).map((_, i) => (
@@ -89,16 +108,9 @@ export default function App() {
             </p>
             <button
               onClick={() => {
-                setActiveFilters({
-                  rentType: 'long',
-                  priceRange: [0, 10000],
-                  showTrattativa: false,
-                  propertyTypes: [],
-                  rooms: 0,
-                  beds: 0,
-                  sqm: [0, 500],
-                  tags: [],
-                });
+                setActiveFilters(getDefaultFilters());
+                setSearchQuery('');
+                setViewMode('grid');
               }}
               className="bg-[#b10832] text-white px-6 py-3 rounded-lg hover:bg-[#8e0628] transition-colors font-medium"
               style={{ fontFamily: 'Inter, sans-serif' }}
@@ -157,7 +169,7 @@ export default function App() {
                 ))}
               </div>
             ) : (
-              <div className="h-[calc(100vh-300px)] min-h-[500px]">
+              <div style={{ height: 'clamp(320px, 45vh, 560px)' }}>
                 <MapView
                   properties={filteredProperties.map(p => ({
                     id: p.id,

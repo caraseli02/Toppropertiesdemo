@@ -2,9 +2,14 @@ import { useState } from 'react';
 import { Menu, User, Heart, X } from 'lucide-react';
 import svgPaths from '../imports/svg-lbcekml827';
 
+interface HeaderProps {
+  onNavigateToMap?: () => void;
+  onNavigateToProperties?: () => void;
+}
+
 function Toast({ message, onClose }: { message: string; onClose: () => void }) {
   return (
-    <div className="fixed top-4 right-4 z-[60] animate-fade-in">
+    <div className="fixed top-4 right-4 animate-fade-in" style={{ zIndex: 1300 }}>
       <div className="bg-[#2b2b2b] text-white px-5 py-3 rounded-lg shadow-xl flex items-center gap-3 text-sm" style={{ fontFamily: 'Inter, sans-serif' }}>
         <span>{message}</span>
         <button onClick={onClose} className="text-white/60 hover:text-white transition-colors">
@@ -15,10 +20,46 @@ function Toast({ message, onClose }: { message: string; onClose: () => void }) {
   );
 }
 
-function MobileMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+function MobileMenu({
+  isOpen,
+  onClose,
+  onNavigateToMap,
+  onNavigateToProperties,
+  onShowToast,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  onNavigateToMap?: () => void;
+  onNavigateToProperties?: () => void;
+  onShowToast: (message: string) => void;
+}) {
   if (!isOpen) return null;
+
+  const menuItems = [
+    {
+      label: 'Properties',
+      action: () => onNavigateToProperties?.(),
+    },
+    {
+      label: 'Map View',
+      action: () => onNavigateToMap?.(),
+    },
+    {
+      label: 'Favorites',
+      action: () => onShowToast('Favorites are available in the demo UI only.'),
+    },
+    {
+      label: 'Contact Us',
+      action: () => onShowToast('Contact is available on each property detail page.'),
+    },
+    {
+      label: 'About',
+      action: () => onShowToast('This is a portfolio demo focused on end-to-end browsing flow.'),
+    },
+  ];
+
   return (
-    <div className="fixed inset-0 z-50">
+    <div className="fixed inset-0" style={{ zIndex: 1200 }}>
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
       <div className="absolute left-0 top-0 bottom-0 w-72 bg-white shadow-2xl animate-slide-in-left flex flex-col">
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
@@ -28,14 +69,17 @@ function MobileMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
           </button>
         </div>
         <nav className="flex-1 py-4">
-          {['Properties', 'Map View', 'Favorites', 'Contact Us', 'About'].map((item) => (
+          {menuItems.map((item) => (
             <button
-              key={item}
-              onClick={onClose}
+              key={item.label}
+              onClick={() => {
+                item.action();
+                onClose();
+              }}
               className="w-full text-left px-6 py-3 text-[15px] text-gray-700 hover:bg-gray-50 hover:text-[#b10832] transition-colors"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
-              {item}
+              {item.label}
             </button>
           ))}
         </nav>
@@ -49,7 +93,7 @@ function MobileMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
   );
 }
 
-export function Header() {
+export function Header({ onNavigateToMap, onNavigateToProperties }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
 
@@ -61,11 +105,11 @@ export function Header() {
   return (
     <>
       <header className="bg-white border-b border-[#e5e7eb]">
-        <div className="px-[10px] py-[10px]">
+        <div style={{ padding: '10px' }}>
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center">
-              <div className="h-[49.091px] w-[193.766px]" data-name="logoSA 1">
+              <div data-name="logoSA 1" style={{ height: '49.091px', width: '193.766px' }}>
                 <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 193.766 49.0909">
                   <g id="logoSA 1">
                     <path d={svgPaths.p389b9f00} fill="var(--fill-0, #B20933)" id="path22" />
@@ -135,21 +179,24 @@ export function Header() {
             <div className="flex items-center gap-1">
               <button
                 onClick={() => setIsMenuOpen(true)}
-                className="min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors"
+                className="flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors"
+                style={{ width: '44px', height: '44px' }}
                 aria-label="Open menu"
               >
                 <Menu className="w-5 h-5 text-black" strokeWidth={1.875} />
               </button>
               <button
                 onClick={() => showToast('♥ Favorites — coming soon!')}
-                className="min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-gray-100 rounded-full transition-transform"
+                className="flex items-center justify-center hover:bg-gray-100 rounded-full transition-transform"
+                style={{ width: '44px', height: '44px' }}
                 aria-label="Favorites"
               >
                 <Heart className="w-5 h-5 text-black fill-black" />
               </button>
               <button
                 onClick={() => showToast('👤 Login & Profile — coming soon!')}
-                className="min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-gray-100 rounded-full transition-transform"
+                className="flex items-center justify-center hover:bg-gray-100 rounded-full transition-transform"
+                style={{ width: '44px', height: '44px' }}
                 aria-label="User profile"
               >
                 <User className="w-5 h-5 text-black" />
@@ -160,7 +207,13 @@ export function Header() {
       </header>
 
       {/* Mobile Menu Drawer */}
-      <MobileMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      <MobileMenu
+        isOpen={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+        onNavigateToMap={onNavigateToMap}
+        onNavigateToProperties={onNavigateToProperties}
+        onShowToast={showToast}
+      />
 
       {/* Toast Notification */}
       {toast && <Toast message={toast} onClose={() => setToast(null)} />}

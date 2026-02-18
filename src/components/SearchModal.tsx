@@ -1,4 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
+import { X } from 'lucide-react';
+import { useBodyScrollLock } from '@/hooks/useBodyScrollLock';
 
 interface Property {
   id: string;
@@ -29,6 +31,7 @@ interface SearchModalProps {
 
 export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectProperty }: SearchModalProps) {
   const [query, setQuery] = useState('');
+  useBodyScrollLock(isOpen);
 
   // Close on Escape key
   useEffect(() => {
@@ -41,18 +44,6 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
     document.addEventListener('keydown', handleEscape);
     return () => document.removeEventListener('keydown', handleEscape);
   }, [isOpen, onClose]);
-
-  // Prevent body scroll when modal is open
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isOpen]);
 
   // Filter properties based on query
   const filteredProperties = useMemo(() => {
@@ -100,13 +91,29 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
   };
 
   return (
-    <div className="fixed inset-0 bg-white z-50" role="dialog" aria-modal="true" aria-labelledby="search-modal-title">
+    <div className="fixed inset-0 bg-white" style={{ zIndex: 1200 }} role="dialog" aria-modal="true" aria-labelledby="search-modal-title">
       <div className="bg-white h-full flex flex-col">
         {/* Search Input */}
         <div className="px-6 py-4 border-b border-gray-200">
-          <h2 id="search-modal-title" className="sr-only">Search Properties</h2>
+          <div className="flex items-center justify-between mb-3">
+            <h2
+              id="search-modal-title"
+              className="text-sm font-semibold tracking-wide text-gray-500 uppercase"
+              style={{ fontFamily: 'Inter, sans-serif' }}
+            >
+              Search Properties
+            </h2>
+            <button
+              onClick={onClose}
+              className="flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
+              style={{ width: '44px', height: '44px' }}
+              aria-label="Close search"
+            >
+              <X className="w-5 h-5 text-gray-600" />
+            </button>
+          </div>
           <div className="flex gap-3 items-center">
-            <div className="flex-1 h-[50px] flex items-center px-4 rounded-lg border border-gray-300 bg-white">
+            <div className="flex-1 flex items-center px-4 rounded-lg border border-gray-300 bg-white" style={{ height: '50px' }}>
               <input
                 type="text"
                 value={query}
@@ -130,11 +137,12 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
                 </button>
               )}
             </div>
-            <button
-              onClick={handleSearch}
-              className="shrink-0 size-[50px] bg-black rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors"
-              aria-label="Search"
-            >
+              <button
+                onClick={handleSearch}
+                className="shrink-0 bg-black rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors"
+                style={{ width: '50px', height: '50px' }}
+                aria-label="Search"
+              >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">
                 <circle cx="11" cy="11" r="7" stroke="white" strokeWidth="1.5" />
                 <path d="M16.5 16.5L21 21" stroke="white" strokeLinecap="round" strokeWidth="1.5" />
@@ -183,58 +191,60 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
                   <div
                     key={property.id}
                     onClick={() => handleSelectProperty(property)}
-                    className="bg-white border border-gray-200 rounded-lg p-3 hover:shadow-md hover:border-gray-300 transition-all cursor-pointer flex gap-4 items-center"
+                    className="bg-white border border-gray-200 rounded-lg p-3 hover:shadow-md hover:border-gray-300 transition-all cursor-pointer"
                   >
-                    {/* Thumbnail */}
-                    <img
-                      src={property.image}
-                      alt={property.title}
-                      className="w-20 h-16 object-cover rounded-md flex-shrink-0"
-                    />
+                    <div className="flex gap-3 items-start">
+                      {/* Thumbnail */}
+                      <img
+                        src={property.image}
+                        alt={property.title}
+                        className="w-20 h-16 object-cover rounded-md flex-shrink-0"
+                      />
 
-                    {/* Info */}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-0.5">
-                        {property.featured && (
-                          <span
-                            className="bg-[#b10832] text-white px-1.5 py-0.5 rounded text-[10px] font-medium uppercase"
-                            style={{ fontFamily: 'Inter, sans-serif' }}
-                          >
-                            Featured
-                          </span>
-                        )}
-                        {property.propertyType && (
-                          <span
-                            className="text-[11px] text-gray-400 uppercase tracking-wide"
-                            style={{ fontFamily: 'Inter, sans-serif' }}
-                          >
-                            {property.propertyType}
-                          </span>
-                        )}
+                      {/* Info */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-0.5">
+                          {property.featured && (
+                            <span
+                              className="bg-[#b10832] text-white px-1.5 py-0.5 rounded text-[10px] font-medium uppercase"
+                              style={{ fontFamily: 'Inter, sans-serif' }}
+                            >
+                              Featured
+                            </span>
+                          )}
+                          {property.propertyType && (
+                            <span
+                              className="text-[11px] text-gray-400 uppercase tracking-wide line-clamp-1"
+                              style={{ fontFamily: 'Inter, sans-serif' }}
+                            >
+                              {property.propertyType}
+                            </span>
+                          )}
+                        </div>
+                        <h4
+                          className="font-semibold text-[15px] text-black truncate"
+                          style={{ fontFamily: 'Inter, sans-serif' }}
+                        >
+                          {property.title}
+                        </h4>
+                        <p
+                          className="text-[13px] text-gray-500 truncate"
+                          style={{ fontFamily: 'Inter, sans-serif' }}
+                        >
+                          {property.location}
+                        </p>
                       </div>
-                      <h4
-                        className="font-semibold text-[15px] text-black truncate"
-                        style={{ fontFamily: 'Inter, sans-serif' }}
-                      >
-                        {property.title}
-                      </h4>
-                      <p
-                        className="text-[13px] text-gray-500 truncate"
-                        style={{ fontFamily: 'Inter, sans-serif' }}
-                      >
-                        {property.location}
-                      </p>
                     </div>
 
                     {/* Price */}
-                    <div className="flex-shrink-0 text-right">
+                    <div className="mt-2 flex items-center justify-between gap-3">
                       <span
-                        className="font-bold text-[15px] text-[#b10832]"
+                        className="font-bold text-[15px] text-[#b10832] leading-tight"
                         style={{ fontFamily: 'Inter, sans-serif' }}
                       >
                         {property.price}
                       </span>
-                      <div className="text-[12px] text-gray-400 mt-0.5" style={{ fontFamily: 'Inter, sans-serif' }}>
+                      <div className="text-[12px] text-gray-400 text-right" style={{ fontFamily: 'Inter, sans-serif' }}>
                         {property.beds} bd · {property.baths} ba
                       </div>
                     </div>

@@ -15,8 +15,6 @@ export function ImageModal({ images, initialIndex, isOpen, onClose }: ImageModal
     setCurrentIndex(initialIndex);
   }, [initialIndex, isOpen]);
 
-  if (!isOpen) return null;
-
   const handleNext = () => {
     setCurrentIndex((prev) => (prev + 1) % images.length);
   };
@@ -25,29 +23,31 @@ export function ImageModal({ images, initialIndex, isOpen, onClose }: ImageModal
     setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'ArrowRight') handleNext();
-    if (e.key === 'ArrowLeft') handlePrevious();
-    if (e.key === 'Escape') onClose();
-  };
-
   useEffect(() => {
-    if (isOpen) {
-      document.addEventListener('keydown', handleKeyDown);
-      return () => document.removeEventListener('keydown', handleKeyDown);
-    }
-  }, [isOpen, handleKeyDown]);
+    if (!isOpen) return;
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight') handleNext();
+      if (e.key === 'ArrowLeft') handlePrevious();
+      if (e.key === 'Escape') onClose();
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [isOpen, onClose, images.length]);
+
+  if (!isOpen) return null;
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+      className="fixed inset-0 bg-black/90 flex items-center justify-center p-4"
+      style={{ zIndex: 1300 }}
       onClick={onClose}
-      onKeyDown={handleKeyDown}
       role="dialog"
       aria-modal="true"
       aria-label="Property image gallery"
     >
-      <div className="relative max-w-6xl max-h-[90vh] bg-black rounded-xl overflow-hidden" onClick={(e) => e.stopPropagation()}>
+      <div className="relative max-w-6xl bg-black rounded-xl overflow-hidden" style={{ maxHeight: '90vh' }} onClick={(e) => e.stopPropagation()}>
         <button
           onClick={onClose}
           className="absolute top-4 right-4 z-10 text-white/80 hover:text-white bg-black/50 hover:bg-black/70 rounded-full p-2 transition-colors"
@@ -59,7 +59,8 @@ export function ImageModal({ images, initialIndex, isOpen, onClose }: ImageModal
         <img
           src={images[currentIndex]}
           alt={`Property image ${currentIndex + 1} of ${images.length}`}
-          className="max-w-full max-h-[80vh] object-contain"
+          className="max-w-full object-contain"
+          style={{ maxHeight: '80vh' }}
           onError={(e) => {
             e.currentTarget.src = 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1080&h=720&fit=crop&q=80';
           }}
@@ -84,7 +85,7 @@ export function ImageModal({ images, initialIndex, isOpen, onClose }: ImageModal
               className="bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-colors"
               aria-label="Next image"
             >
-              <svg className="w-5 h-5" detailPath="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>
