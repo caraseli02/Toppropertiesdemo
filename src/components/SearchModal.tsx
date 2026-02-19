@@ -29,9 +29,13 @@ interface SearchModalProps {
   onSelectProperty?: (property: Property) => void;
 }
 
+const MAX_QUERY_LENGTH = 120;
+const normalizeQuery = (value: string) => value.trim().replace(/\s+/g, ' ');
+
 export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectProperty }: SearchModalProps) {
   const [query, setQuery] = useState('');
   useBodyScrollLock(isOpen);
+  const isAtLimit = query.length >= MAX_QUERY_LENGTH;
 
   // Close on Escape key
   useEffect(() => {
@@ -74,7 +78,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
   if (!isOpen) return null;
 
   const handleSearch = () => {
-    onSearch(query);
+    onSearch(normalizeQuery(query));
     onClose();
   };
 
@@ -86,7 +90,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
   };
 
   const handleLocationClick = (location: string) => {
-    onSearch(location);
+    onSearch(normalizeQuery(location));
     onClose();
   };
 
@@ -117,13 +121,14 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
               <input
                 type="text"
                 value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={(e) => setQuery(e.target.value.slice(0, MAX_QUERY_LENGTH))}
                 onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                 placeholder="Search by location, property name, or type..."
                 className="flex-1 font-light text-[16px] text-black placeholder:text-gray-400 outline-none bg-transparent"
                 style={{ fontFamily: 'Inter, sans-serif' }}
                 autoFocus
                 aria-label="Search properties"
+                maxLength={MAX_QUERY_LENGTH}
               />
               {query && (
                 <button
@@ -149,6 +154,10 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
               </svg>
             </button>
           </div>
+          <div className="mt-2 flex items-center justify-between text-[11px] text-gray-400" style={{ fontFamily: 'Inter, sans-serif' }}>
+            <span>{isAtLimit ? 'Maximum length reached' : 'Use up to 120 characters'}</span>
+            <span>{query.length}/{MAX_QUERY_LENGTH}</span>
+          </div>
         </div>
 
         {/* Results */}
@@ -167,10 +176,11 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
                   <button
                     key={loc}
                     onClick={() => handleLocationClick(loc)}
-                    className="px-3 py-1.5 rounded-full border border-gray-200 text-sm text-gray-700 hover:bg-gray-100 hover:border-gray-300 transition-all"
+                    className="max-w-full px-3 py-1.5 rounded-full border border-gray-200 text-sm text-gray-700 hover:bg-gray-100 hover:border-gray-300 transition-all"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   >
-                    {loc} <span className="text-gray-400 ml-1">({count})</span>
+                    <span className="inline-block max-w-[170px] truncate align-middle">{loc}</span>
+                    <span className="text-gray-400 ml-1">({count})</span>
                   </button>
                 ))}
               </div>
@@ -214,7 +224,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
                           )}
                           {property.propertyType && (
                             <span
-                              className="text-[11px] text-gray-400 uppercase tracking-wide line-clamp-1"
+                              className="text-[11px] text-gray-400 uppercase tracking-wide line-clamp-1 max-w-[120px] truncate"
                               style={{ fontFamily: 'Inter, sans-serif' }}
                             >
                               {property.propertyType}
@@ -222,13 +232,13 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
                           )}
                         </div>
                         <h4
-                          className="font-semibold text-[15px] text-black truncate"
+                          className="font-semibold text-[15px] text-black overflow-hidden text-ellipsis whitespace-nowrap"
                           style={{ fontFamily: 'Inter, sans-serif' }}
                         >
                           {property.title}
                         </h4>
                         <p
-                          className="text-[13px] text-gray-500 truncate"
+                          className="text-[13px] text-gray-500 overflow-hidden text-ellipsis whitespace-nowrap"
                           style={{ fontFamily: 'Inter, sans-serif' }}
                         >
                           {property.location}
@@ -239,12 +249,12 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
                     {/* Price */}
                     <div className="mt-2 flex items-center justify-between gap-3">
                       <span
-                        className="font-bold text-[15px] text-[#b10832] leading-tight"
+                        className="font-bold text-[15px] leading-tight text-[#b10832] max-w-[58%] overflow-hidden text-ellipsis whitespace-nowrap"
                         style={{ fontFamily: 'Inter, sans-serif' }}
                       >
                         {property.price}
                       </span>
-                      <div className="text-[12px] text-gray-400 text-right" style={{ fontFamily: 'Inter, sans-serif' }}>
+                      <div className="text-[12px] text-gray-400 text-right shrink-0" style={{ fontFamily: 'Inter, sans-serif' }}>
                         {property.beds} bd · {property.baths} ba
                       </div>
                     </div>

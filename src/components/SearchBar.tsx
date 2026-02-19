@@ -1,4 +1,3 @@
-import { Search, SlidersHorizontal, MapPin } from 'lucide-react';
 import { useState } from 'react';
 import svgPaths from '../imports/svg-lbcekml827';
 
@@ -29,7 +28,22 @@ export function SearchBar({ onSearch, onFilterClick, onSearchClick, value }: Sea
   return (
     <div className="bg-white border-b border-[#e5e7eb]">
       <div className="max-w-3xl mx-auto" style={{ padding: '8px 10px' }}>
-        <form onSubmit={handleSubmit} className="flex items-start" style={{ gap: '10px' }}>
+        <form onSubmit={handleSubmit} className="flex items-center" style={{ gap: '10px' }}>
+          {/* Filters Button */}
+          <button
+            type="button"
+            onClick={onFilterClick}
+            className="shrink-0 bg-white flex items-center border border-black border-solid hover:bg-gray-50 transition-colors"
+            style={{ height: '44px', gap: '10px', padding: '0 14px', borderRadius: '50px' }}
+          >
+            <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
+              <path d={svgPaths.p39efcaf0} stroke="black" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <span className="font-normal text-[16px] text-black whitespace-nowrap" style={{ fontFamily: 'Inter, sans-serif' }}>
+              Filters
+            </span>
+          </button>
+
           {/* Search Input */}
           <div
             className="flex-1 flex items-center border border-[#e5e7eb] border-solid cursor-pointer"
@@ -63,21 +77,6 @@ export function SearchBar({ onSearch, onFilterClick, onSearchClick, value }: Sea
             </svg>
           </button>
         </form>
-
-        {/* Filters Button */}
-        <button
-          type="button"
-          onClick={onFilterClick}
-          className="bg-white flex items-center border border-black border-solid hover:bg-gray-50 transition-colors"
-          style={{ marginTop: '8px', gap: '10px', padding: '10px 17px', borderRadius: '50px' }}
-        >
-          <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
-            <path d={svgPaths.p39efcaf0} stroke="black" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-          <span className="font-normal text-[16px] text-black" style={{ fontFamily: 'Inter, sans-serif' }}>
-            Filters
-          </span>
-        </button>
       </div>
     </div>
   );

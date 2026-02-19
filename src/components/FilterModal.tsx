@@ -20,21 +20,27 @@ interface FilterModalProps {
 
 const propertyTypesList: PropertyType[] = ['Luxury Villa', 'Penthouse', 'Apartment', 'Estate', 'Mansion', 'Loft', 'Modern Villa', 'Beach House'];
 const tagsList = ['Luxury Houses', 'Top Properties', 'Castle', 'Sea View'];
+const getDefaultFilters = (): FilterState => ({
+  rentType: 'long',
+  priceRange: [0, 10000],
+  showTrattativa: false,
+  propertyTypes: [],
+  rooms: 0,
+  beds: 0,
+  sqm: [0, 500],
+  tags: [],
+});
 
 export function FilterModal({ isOpen, onClose, onApply, initialFilters }: FilterModalProps) {
-  const [filters, setFilters] = useState<FilterState>(
-    initialFilters || {
-      rentType: 'long',
-      priceRange: [0, 10000],
-      showTrattativa: false,
-      propertyTypes: [],
-      rooms: 0,
-      beds: 0,
-      sqm: [0, 500],
-      tags: [],
-    }
-  );
+  const [filters, setFilters] = useState<FilterState>(() => initialFilters || getDefaultFilters());
   useBodyScrollLock(isOpen);
+
+  // Keep modal state as a draft synced from applied filters when opened.
+  useEffect(() => {
+    if (isOpen) {
+      setFilters(initialFilters || getDefaultFilters());
+    }
+  }, [isOpen, initialFilters]);
 
   // Close on Escape key
   useEffect(() => {
@@ -56,16 +62,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
   };
 
   const handleReset = () => {
-    setFilters({
-      rentType: 'long',
-      priceRange: [0, 10000],
-      showTrattativa: false,
-      propertyTypes: [],
-      rooms: 0,
-      beds: 0,
-      sqm: [0, 500],
-      tags: [],
-    });
+    setFilters(getDefaultFilters());
   };
 
   const togglePropertyType = (type: PropertyType) => {

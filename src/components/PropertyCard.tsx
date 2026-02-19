@@ -64,24 +64,26 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
         {!imageLoaded && (
           <div className="absolute inset-0 bg-gray-200 animate-pulse" />
         )}
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            setIsFavorite(!isFavorite);
-          }}
-          className="absolute top-1 right-1 bg-white/95 backdrop-blur-sm flex items-center justify-center rounded-full hover:bg-white transition-all hover:scale-110 shadow-md"
-          style={{ width: '44px', height: '44px' }}
-          aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
-        >
-          <Heart
-            className={`w-5 h-5 transition-colors ${isFavorite ? 'fill-[#b10832] text-[#b10832]' : 'text-gray-600'}`}
-          />
-        </button>
-        {featured && (
-          <div className="absolute top-3 left-3 bg-[#b10832] text-white px-3 py-1.5 rounded-full text-xs font-medium shadow-md">
-            Featured
-          </div>
-        )}
+        <div className="absolute top-3 left-3 right-3 flex items-start justify-between z-10">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsFavorite(!isFavorite);
+            }}
+            className="bg-white/95 backdrop-blur-sm flex items-center justify-center rounded-full hover:bg-white transition-all hover:scale-105 shadow-md shrink-0"
+            style={{ width: '44px', height: '44px' }}
+            aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+          >
+            <Heart
+              className={`w-5 h-5 transition-colors ${isFavorite ? 'fill-[#b10832] text-[#b10832]' : 'text-gray-600'}`}
+            />
+          </button>
+          {featured && (
+            <div className="bg-[#b10832] text-white px-3 py-1.5 rounded-full text-xs font-medium shadow-md">
+              Featured
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="p-4">
@@ -99,7 +101,7 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
           </div>
         </div>
 
-        <div className="flex items-center gap-3 text-[14px] text-[#868686] mb-3 py-2 border-t border-[#e5e7eb]">
+        <div className="flex items-center gap-3 text-[14px] text-[#868686] mb-3 py-2 border-t border-[#e5e7eb] min-w-0">
           <div className="flex items-center gap-1" title={`${beds} bedrooms`}>
             <Bed className="w-4 h-4" />
             <span style={{ fontFamily: 'Inter, sans-serif' }}>{beds}</span>
@@ -110,12 +112,12 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
             <span style={{ fontFamily: 'Inter, sans-serif' }}>{baths}</span>
           </div>
           <span>•</span>
-          <span style={{ fontFamily: 'Inter, sans-serif' }} title={sqft}>{sqft}</span>
+          <span className="truncate" style={{ fontFamily: 'Inter, sans-serif' }} title={sqft}>{sqft}</span>
         </div>
 
         <div className="flex items-center justify-between">
           <p
-            className="text-[24px] font-bold text-[#b10832]"
+            className="text-[24px] font-bold text-[#b10832] break-all leading-tight"
             style={{ fontFamily: 'Inter, sans-serif' }}
           >
             {price}
