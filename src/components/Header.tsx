@@ -7,31 +7,16 @@ interface HeaderProps {
   onNavigateToProperties?: () => void;
 }
 
-function Toast({ message, onClose }: { message: string; onClose: () => void }) {
-  return (
-    <div className="fixed top-4 right-4 animate-fade-in" style={{ zIndex: 1300 }}>
-      <div className="bg-[#2b2b2b] text-white px-5 py-3 rounded-lg shadow-xl flex items-center gap-3 text-sm" style={{ fontFamily: 'Inter, sans-serif' }}>
-        <span>{message}</span>
-        <button onClick={onClose} className="text-white/60 hover:text-white transition-colors">
-          <X className="w-4 h-4" />
-        </button>
-      </div>
-    </div>
-  );
-}
-
 function MobileMenu({
   isOpen,
   onClose,
   onNavigateToMap,
   onNavigateToProperties,
-  onShowToast,
 }: {
   isOpen: boolean;
   onClose: () => void;
   onNavigateToMap?: () => void;
   onNavigateToProperties?: () => void;
-  onShowToast: (message: string) => void;
 }) {
   if (!isOpen) return null;
 
@@ -46,15 +31,15 @@ function MobileMenu({
     },
     {
       label: 'Favorites',
-      action: () => onShowToast('Favorites are available in the demo UI only.'),
+      disabled: true,
     },
     {
       label: 'Contact Us',
-      action: () => onShowToast('Contact is available on each property detail page.'),
+      disabled: true,
     },
     {
       label: 'About',
-      action: () => onShowToast('This is a portfolio demo focused on end-to-end browsing flow.'),
+      disabled: true,
     },
   ];
 
@@ -72,14 +57,26 @@ function MobileMenu({
           {menuItems.map((item) => (
             <button
               key={item.label}
+              type="button"
+              disabled={item.disabled}
+              aria-disabled={item.disabled ? 'true' : undefined}
               onClick={() => {
-                item.action();
+                if (item.disabled) return;
+                item.action?.();
                 onClose();
               }}
-              className="w-full text-left px-6 py-3 text-[15px] text-gray-700 hover:bg-gray-50 hover:text-[#b10832] transition-colors"
+              className={`w-full text-left px-6 py-3 text-[15px] transition-colors flex items-center justify-between gap-3 ${item.disabled
+                ? 'text-gray-400 cursor-not-allowed'
+                : 'text-gray-700 hover:bg-gray-50 hover:text-[#b10832]'
+                }`}
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
-              {item.label}
+              <span>{item.label}</span>
+              {item.disabled && (
+                <span className="text-[11px] uppercase tracking-wider text-gray-400">
+                  Demo
+                </span>
+              )}
             </button>
           ))}
         </nav>
@@ -95,12 +92,6 @@ function MobileMenu({
 
 export function Header({ onNavigateToMap, onNavigateToProperties }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [toast, setToast] = useState<string | null>(null);
-
-  const showToast = (message: string) => {
-    setToast(message);
-    setTimeout(() => setToast(null), 3000);
-  };
 
   return (
     <>
@@ -186,16 +177,22 @@ export function Header({ onNavigateToMap, onNavigateToProperties }: HeaderProps)
                 <Menu className="w-5 h-5 text-black" strokeWidth={1.875} />
               </button>
               <button
-                onClick={() => showToast('♥ Favorites — coming soon!')}
-                className="flex items-center justify-center hover:bg-gray-100 rounded-full transition-transform"
+                type="button"
+                disabled
+                aria-disabled="true"
+                title="Favorites (coming soon)"
+                className="flex items-center justify-center rounded-full opacity-45 cursor-not-allowed"
                 style={{ width: '44px', height: '44px' }}
                 aria-label="Favorites"
               >
                 <Heart className="w-5 h-5 text-black fill-black" />
               </button>
               <button
-                onClick={() => showToast('👤 Login & Profile — coming soon!')}
-                className="flex items-center justify-center hover:bg-gray-100 rounded-full transition-transform"
+                type="button"
+                disabled
+                aria-disabled="true"
+                title="User profile (coming soon)"
+                className="flex items-center justify-center rounded-full opacity-45 cursor-not-allowed"
                 style={{ width: '44px', height: '44px' }}
                 aria-label="User profile"
               >
@@ -212,11 +209,7 @@ export function Header({ onNavigateToMap, onNavigateToProperties }: HeaderProps)
         onClose={() => setIsMenuOpen(false)}
         onNavigateToMap={onNavigateToMap}
         onNavigateToProperties={onNavigateToProperties}
-        onShowToast={showToast}
       />
-
-      {/* Toast Notification */}
-      {toast && <Toast message={toast} onClose={() => setToast(null)} />}
     </>
   );
 }

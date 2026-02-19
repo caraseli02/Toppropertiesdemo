@@ -38,6 +38,7 @@ export default function App() {
   const filteredProperties = useMemo(() => {
     return filterProperties(properties, searchQuery, activeFilters);
   }, [searchQuery, activeFilters]);
+  const hasVisibleResults = filteredProperties.length > 0;
 
   // Handler updates state, Effect does the work
   const handleSearch = useCallback((query: string) => {
@@ -78,12 +79,14 @@ export default function App() {
         value={searchQuery}
       />
 
-      {/* Hero Section */}
-      <HeroSection
-        properties={properties}
-        onViewProperty={(p) => setSelectedProperty(p as any)}
-        onSearchClick={() => setIsSearchModalOpen(true)}
-      />
+      {/* Hero is hidden for empty-state mode to avoid contradictory messaging */}
+      {hasVisibleResults && (
+        <HeroSection
+          properties={properties}
+          onViewProperty={(p) => setSelectedProperty(p as any)}
+          onSearchClick={() => setIsSearchModalOpen(true)}
+        />
+      )}
 
       {/* Main Content */}
       <div id="properties-section" className="py-4 pb-8" style={{ paddingLeft: '10px', paddingRight: '10px' }}>

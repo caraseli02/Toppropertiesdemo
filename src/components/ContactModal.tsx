@@ -1,6 +1,6 @@
 
 import { X } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useBodyScrollLock } from '@/hooks/useBodyScrollLock';
 
 interface ContactModalProps {
@@ -18,6 +18,15 @@ export function ContactModal({ isOpen, onClose, propertyTitle }: ContactModalPro
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   useBodyScrollLock(isOpen);
+
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) onClose();
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 

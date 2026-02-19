@@ -73,101 +73,110 @@ export function HeroSection({ properties, onViewProperty, onSearchClick }: HeroS
         }}
       />
 
-      {/* Content — positioned with generous bottom padding */}
+      {/* Content */}
       <div
         className="absolute inset-0 flex flex-col justify-end"
         style={{ padding: '24px 24px 28px' }}
       >
-        <div className="max-w-2xl">
-          {currentProperty.featured && (
-            <span
-              className="inline-block text-white font-semibold uppercase tracking-wider rounded mb-3"
-              style={{
-                backgroundColor: '#b10832',
-                fontSize: '10px',
-                fontFamily: 'Inter, sans-serif',
-                padding: '4px 10px',
-                letterSpacing: '0.08em',
-              }}
-            >
-              Featured
-            </span>
-          )}
+        <div
+          className="rounded-2xl border border-white/20 bg-black/25 backdrop-blur-md shadow-lg"
+          style={{ width: 'min(760px, calc(100vw - 48px))', padding: '16px 16px 14px' }}
+        >
+          <div className="max-w-2xl">
+            {currentProperty.featured && (
+              <span
+                className="inline-block text-white font-semibold uppercase tracking-wider rounded mb-3"
+                style={{
+                  backgroundColor: '#b10832',
+                  fontSize: '10px',
+                  fontFamily: 'Inter, sans-serif',
+                  padding: '4px 10px',
+                  letterSpacing: '0.08em',
+                }}
+              >
+                Featured
+              </span>
+            )}
 
-          <h2
-            className="text-white font-bold leading-tight"
-            style={{
-              fontFamily: 'Inter, sans-serif',
-              fontSize: 'clamp(1.4rem, 4vw, 2.5rem)',
-              marginBottom: '4px',
-              textShadow: '0 2px 8px rgba(0,0,0,0.4)',
-            }}
-          >
-            {currentProperty.title}
-          </h2>
-
-          <p
-            style={{
-              fontFamily: 'Inter, sans-serif',
-              color: 'rgba(255,255,255,0.75)',
-              fontSize: '14px',
-              marginBottom: '4px',
-            }}
-          >
-            {currentProperty.location}
-          </p>
-
-          <p
-            className="font-bold"
-            style={{
-              fontFamily: 'Inter, sans-serif',
-              color: '#e8a0b0',
-              fontSize: '18px',
-              marginBottom: '16px',
-            }}
-          >
-            {currentProperty.price}
-          </p>
-
-          <div className="flex gap-3" style={{ marginBottom: '16px' }}>
-            <button
-              onClick={() => onViewProperty(currentProperty as any)}
-              className="bg-white text-black rounded-lg font-medium text-sm hover:bg-gray-100 transition-colors flex items-center gap-1"
-              style={{ fontFamily: 'Inter, sans-serif', padding: '10px 20px' }}
-            >
-              View Property <ChevronRight className="w-4 h-4" />
-            </button>
-            <button
-              onClick={onSearchClick}
-              className="rounded-lg font-medium text-sm text-white transition-colors"
+            <h2
+              className="text-white font-bold leading-tight break-words"
               style={{
                 fontFamily: 'Inter, sans-serif',
-                backgroundColor: 'rgba(255,255,255,0.15)',
-                backdropFilter: 'blur(8px)',
-                border: '1px solid rgba(255,255,255,0.3)',
-                padding: '10px 20px',
+                fontSize: 'clamp(1.4rem, 4vw, 2.5rem)',
+                marginBottom: '4px',
+                textShadow: '0 2px 8px rgba(0,0,0,0.45)',
               }}
             >
-              Explore All
-            </button>
+              {currentProperty.title}
+            </h2>
+
+            <p
+              style={{
+                fontFamily: 'Inter, sans-serif',
+                color: 'rgba(255,255,255,0.82)',
+                fontSize: '14px',
+                marginBottom: '4px',
+              }}
+            >
+              {currentProperty.location}
+            </p>
+
+            <p
+              className="font-bold"
+              style={{
+                fontFamily: 'Inter, sans-serif',
+                color: '#f2a4b8',
+                fontSize: '18px',
+                marginBottom: '16px',
+              }}
+            >
+              {currentProperty.price}
+            </p>
+
+            <div className="flex flex-wrap gap-3" style={{ marginBottom: '4px' }}>
+              <button
+                onClick={() => onViewProperty(currentProperty as any)}
+                className="bg-white text-black rounded-lg font-medium text-sm hover:bg-gray-100 transition-colors flex items-center gap-1"
+                style={{ fontFamily: 'Inter, sans-serif', padding: '10px 20px' }}
+              >
+                View Property <ChevronRight className="w-4 h-4" />
+              </button>
+              <button
+                onClick={onSearchClick}
+                className="rounded-lg font-medium text-sm text-white transition-colors"
+                style={{
+                  fontFamily: 'Inter, sans-serif',
+                  backgroundColor: 'rgba(255,255,255,0.15)',
+                  backdropFilter: 'blur(8px)',
+                  border: '1px solid rgba(255,255,255,0.3)',
+                  padding: '10px 20px',
+                }}
+              >
+                Explore All
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Dots - at the very bottom, left-aligned under content */}
         {displayList.length > 1 && (
-          <div className="flex gap-2">
+          <div className="flex -ml-2">
             {displayList.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setCurrent(i)}
-                className="rounded-full transition-all cursor-pointer"
-                style={
-                  i === current
-                    ? { width: '24px', height: '6px', backgroundColor: 'white' }
-                    : { width: '10px', height: '6px', backgroundColor: 'rgba(255,255,255,0.4)' }
-                }
+                className="w-11 h-11 flex items-center justify-center"
                 aria-label={`Go to slide ${i + 1}`}
-              />
+              >
+                <span
+                  className="rounded-full transition-all"
+                  style={
+                    i === current
+                      ? { width: '24px', height: '6px', backgroundColor: 'white' }
+                      : { width: '10px', height: '6px', backgroundColor: 'rgba(255,255,255,0.4)' }
+                  }
+                />
+              </button>
             ))}
           </div>
         )}
