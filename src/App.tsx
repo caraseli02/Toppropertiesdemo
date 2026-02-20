@@ -14,9 +14,11 @@ import { properties } from '@/data/properties';
 import { Property, FilterState } from '@/types';
 import { filterProperties } from '@/services/filterService';
 
+const PRICE_MAX = 25000000;
+
 const getDefaultFilters = (): FilterState => ({
   rentType: 'long',
-  priceRange: [0, 10000],
+  priceRange: [0, PRICE_MAX],
   showTrattativa: false,
   propertyTypes: [],
   rooms: 0,
@@ -24,6 +26,20 @@ const getDefaultFilters = (): FilterState => ({
   sqm: [0, 500],
   tags: [],
 });
+
+const isDefaultFilterState = (filters: FilterState): boolean => {
+  const defaults = getDefaultFilters();
+  return (
+    filters.rentType === defaults.rentType &&
+    filters.priceRange[1] === defaults.priceRange[1] &&
+    filters.showTrattativa === defaults.showTrattativa &&
+    filters.propertyTypes.length === 0 &&
+    filters.rooms === 0 &&
+    filters.beds === 0 &&
+    filters.tags.length === 0 &&
+    (!filters.amenities || filters.amenities.length === 0)
+  );
+};
 
 export default function App() {
   const [viewMode, setViewMode] = useState<'grid' | 'map'>('grid');
@@ -39,6 +55,7 @@ export default function App() {
     return filterProperties(properties, searchQuery, activeFilters);
   }, [searchQuery, activeFilters]);
   const hasVisibleResults = filteredProperties.length > 0;
+  const hasActiveSearchOrFilter = searchQuery.trim() !== '' || !isDefaultFilterState(activeFilters);
 
   // Handler updates state, Effect does the work
   const handleSearch = useCallback((query: string) => {
@@ -79,8 +96,8 @@ export default function App() {
         value={searchQuery}
       />
 
-      {/* Hero is hidden for empty-state mode to avoid contradictory messaging */}
-      {hasVisibleResults && (
+      {/* Hero is hidden when searching/filtering to avoid contradictory messaging */}
+      {hasVisibleResults && !hasActiveSearchOrFilter && (
         <HeroSection
           properties={properties}
           onViewProperty={(p) => setSelectedProperty(p as any)}

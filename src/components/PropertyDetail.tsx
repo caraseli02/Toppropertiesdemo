@@ -8,6 +8,8 @@ import { useBodyScrollLock } from '@/hooks/useBodyScrollLock';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
+type ContactMode = 'contact' | 'viewing' | 'info';
+
 interface PropertyDetailProps {
   property: {
     id: string;
@@ -50,6 +52,7 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [showVirtualTour, setShowVirtualTour] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [contactMode, setContactMode] = useState<ContactMode>('contact');
   const [brokenImages, setBrokenImages] = useState<Set<number>>(new Set());
 
   useBodyScrollLock(true);
@@ -349,19 +352,19 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
 
                 <div className="space-y-3">
                   <button
-                    onClick={() => setIsContactModalOpen(true)}
+                    onClick={() => { setContactMode('viewing'); setIsContactModalOpen(true); }}
                     className="w-full bg-[#b10832] hover:bg-[#8e0628] text-white py-3 rounded-lg font-medium transition-colors"
                   >
                     Schedule Viewing
                   </button>
                   <button
-                    onClick={() => setIsContactModalOpen(true)}
+                    onClick={() => { setContactMode('contact'); setIsContactModalOpen(true); }}
                     className="w-full border-2 border-[#b10832] text-[#b10832] hover:bg-[#b10832] hover:text-white py-3 rounded-lg font-medium transition-colors"
                   >
                     Contact Agent
                   </button>
                   <button
-                    onClick={() => setIsContactModalOpen(true)}
+                    onClick={() => { setContactMode('info'); setIsContactModalOpen(true); }}
                     className="w-full border border-gray-300 hover:bg-gray-50 py-3 rounded-lg font-medium transition-colors"
                   >
                     Request Info
@@ -401,7 +404,9 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
               <div className="bg-white border border-gray-200 rounded-xl p-6">
                 <h3 className="font-semibold text-lg mb-4">Your Agent</h3>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 bg-gray-200 rounded-full" />
+                  <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold text-lg" style={{ backgroundColor: '#b10832' }}>
+                    SA
+                  </div>
                   <div>
                     <p className="font-medium">Sarah Anderson</p>
                     <p className="text-sm text-gray-600">Luxury Properties Specialist</p>
@@ -420,6 +425,7 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
         isOpen={isContactModalOpen}
         onClose={() => setIsContactModalOpen(false)}
         propertyTitle={property.title}
+        mode={contactMode}
       />
     </div>
   );
