@@ -20,9 +20,21 @@ interface FilterModalProps {
 
 const propertyTypesList: PropertyType[] = ['Luxury Villa', 'Penthouse', 'Apartment', 'Estate', 'Mansion', 'Loft', 'Modern Villa', 'Beach House'];
 const tagsList = ['Luxury Houses', 'Top Properties', 'Castle', 'Sea View'];
+const PRICE_MAX = 25000000;
+
+const formatPrice = (value: number): string => {
+  if (value >= 1000000) {
+    return `${(value / 1000000).toFixed(value % 1000000 === 0 ? 0 : 1)}M`;
+  }
+  if (value >= 1000) {
+    return `${(value / 1000).toFixed(0)}K`;
+  }
+  return value.toString();
+};
+
 const getDefaultFilters = (): FilterState => ({
   rentType: 'long',
-  priceRange: [0, 10000],
+  priceRange: [0, PRICE_MAX],
   showTrattativa: false,
   propertyTypes: [],
   rooms: 0,
@@ -168,8 +180,8 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
               <input
                 type="range"
                 min="0"
-                max="10000"
-                step="100"
+                max={PRICE_MAX}
+                step={PRICE_MAX / 200}
                 value={filters.priceRange[1]}
                 onChange={(e) =>
                   setFilters(prev => ({
@@ -179,7 +191,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                 }
                 className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-[#b10832]"
                 style={{
-                  background: `linear-gradient(to right, #b10832 0%, #b10832 ${(filters.priceRange[1] / 10000) * 100}%, #d1d5db ${(filters.priceRange[1] / 10000) * 100}%, #d1d5db 100%)`
+                  background: `linear-gradient(to right, #b10832 0%, #b10832 ${(filters.priceRange[1] / PRICE_MAX) * 100}%, #d1d5db ${(filters.priceRange[1] / PRICE_MAX) * 100}%, #d1d5db 100%)`
                 }}
               />
               <div className="flex items-center gap-3">
@@ -188,7 +200,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                     Min price
                   </div>
                   <div className="font-semibold" style={{ fontFamily: 'Inter, sans-serif' }}>
-                    ${filters.priceRange[0]}
+                    {formatPrice(filters.priceRange[0])}
                   </div>
                 </div>
                 <span className="text-gray-400">—</span>
@@ -197,7 +209,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                     Max price
                   </div>
                   <div className="font-semibold" style={{ fontFamily: 'Inter, sans-serif' }}>
-                    ${filters.priceRange[1]}
+                    {formatPrice(filters.priceRange[1])}
                   </div>
                 </div>
               </div>
@@ -211,11 +223,11 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
             </span>
             <button
               onClick={() => setFilters(prev => ({ ...prev, showTrattativa: !prev.showTrattativa }))}
-              className={`relative w-14 h-10 rounded-full transition-colors ${filters.showTrattativa ? 'bg-green-500' : 'bg-gray-300'
+              className={`relative w-14 h-8 rounded-full transition-colors border-2 ${filters.showTrattativa ? 'bg-[#b10832] border-[#b10832]' : 'bg-gray-200 border-gray-300'
                 }`}
             >
               <div
-                className={`absolute top-1 w-8 h-8 bg-white rounded-full shadow-md transition-transform ${filters.showTrattativa ? 'translate-x-5' : 'translate-x-1'
+                className={`absolute top-0.5 w-6 h-6 bg-white rounded-full shadow-md transition-transform border border-gray-200 ${filters.showTrattativa ? 'translate-x-6' : 'translate-x-0.5'
                   }`}
               />
             </button>

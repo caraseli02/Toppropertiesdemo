@@ -39,7 +39,7 @@ export function SearchBar({ onSearch, onFilterClick, onSearchClick, value }: Sea
             <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
               <path d={svgPaths.p39efcaf0} stroke="black" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            <span className="font-normal text-[16px] text-black whitespace-nowrap" style={{ fontFamily: 'Inter, sans-serif' }}>
+            <span className="font-normal text-[16px] text-black whitespace-nowrap hidden sm:inline" style={{ fontFamily: 'Inter, sans-serif' }}>
               Filters
             </span>
           </button>
@@ -55,7 +55,7 @@ export function SearchBar({ onSearch, onFilterClick, onSearchClick, value }: Sea
               value={localQuery}
               onChange={(e) => {
                 setLocalQuery(e.target.value);
-                if (!onSearchClick) onSearch?.(e.target.value); // Real-time search if not clicking modal
+                if (!onSearchClick) onSearch?.(e.target.value);
               }}
               placeholder="Everywhere"
               className="flex-1 font-light text-[16px] text-black placeholder:text-[#868686] outline-none bg-transparent cursor-pointer"
