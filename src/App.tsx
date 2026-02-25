@@ -48,6 +48,7 @@ export default function App() {
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [activeFilters, setActiveFilters] = useState<FilterState>(() => getDefaultFilters());
+  const [pendingScrollTarget, setPendingScrollTarget] = useState<'grid' | 'map' | null>(null);
 
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -66,22 +67,29 @@ export default function App() {
     setActiveFilters(filters);
   }, []);
 
-  const scrollToProperties = useCallback(() => {
+  const scrollToSection = useCallback((id: string) => {
     requestAnimationFrame(() => {
-      const section = document.getElementById('properties-section');
-      section?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }, []);
 
+  useEffect(() => {
+    if (!pendingScrollTarget) return;
+
+    const targetId = pendingScrollTarget === 'map' ? 'map-section' : 'properties-section';
+    scrollToSection(targetId);
+    setPendingScrollTarget(null);
+  }, [pendingScrollTarget, scrollToSection, viewMode]);
+
   const openGridFromMenu = useCallback(() => {
     setViewMode('grid');
-    scrollToProperties();
-  }, [scrollToProperties]);
+    setPendingScrollTarget('grid');
+  }, []);
 
   const openMapFromMenu = useCallback(() => {
     setViewMode('map');
-    scrollToProperties();
-  }, [scrollToProperties]);
+    setPendingScrollTarget('map');
+  }, []);
 
   return (
     <div className="min-h-screen bg-white">
@@ -140,13 +148,13 @@ export default function App() {
           </div>
         ) : (
           <>
-            {/* View Toggle - Desktop only */}
-            <div className="hidden md:flex items-center justify-between mb-6">
+            {/* View Toggle */}
+            <div className="flex items-center justify-between gap-4 mb-4 md:mb-6">
               <div>
-                <h1 className="text-2xl font-bold text-black mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <h1 className="text-xl md:text-2xl font-bold text-black mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>
                   Luxury Properties
                 </h1>
-                <p className="text-[#868686] text-[14px]" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <p className="text-[#868686] text-[13px] md:text-[14px]" style={{ fontFamily: 'Inter, sans-serif' }}>
                   {filteredProperties.length} properties available
                 </p>
               </div>
@@ -159,9 +167,11 @@ export default function App() {
                     : 'text-gray-600 hover:bg-gray-100'
                     }`}
                   style={{ fontFamily: 'Inter, sans-serif' }}
+                  aria-pressed={viewMode === 'grid'}
+                  aria-label="Grid view"
                 >
                   <LayoutGrid className="w-4 h-4" />
-                  <span>Grid</span>
+                  <span className="hidden sm:inline">Grid</span>
                 </button>
                 <button
                   onClick={() => setViewMode('map')}
@@ -170,9 +180,11 @@ export default function App() {
                     : 'text-gray-600 hover:bg-gray-100'
                     }`}
                   style={{ fontFamily: 'Inter, sans-serif' }}
+                  aria-pressed={viewMode === 'map'}
+                  aria-label="Map view"
                 >
                   <Map className="w-4 h-4" />
-                  <span>Map</span>
+                  <span className="hidden sm:inline">Map</span>
                 </button>
               </div>
             </div>
@@ -189,7 +201,7 @@ export default function App() {
                 ))}
               </div>
             ) : (
-              <div style={{ height: 'clamp(320px, 45vh, 560px)' }}>
+              <div id="map-section" style={{ height: 'clamp(320px, 45vh, 560px)' }}>
                 <MapView
                   properties={filteredProperties.map(p => ({
                     id: p.id,

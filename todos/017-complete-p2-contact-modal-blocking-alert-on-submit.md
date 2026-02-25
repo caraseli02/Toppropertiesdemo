@@ -1,5 +1,5 @@
 ---
-status: pending
+status: complete
 priority: p2
 issue_id: "017"
 tags: [code-review, ux, quality, demo]
@@ -73,10 +73,10 @@ The contact form success flow still uses a native `alert()` dialog after submit.
 
 ## Acceptance Criteria
 
-- [ ] Native `alert()` is removed from contact submit flow
-- [ ] Success feedback remains visible and non-blocking
-- [ ] Submit flow still closes and resets modal state correctly
-- [ ] `npm run build` passes
+- [x] Native `alert()` is removed from contact submit flow
+- [x] Success feedback remains visible and non-blocking
+- [x] Submit flow still closes and resets modal state correctly
+- [x] `npm run build` passes
 
 ## Work Log
 
@@ -92,3 +92,15 @@ The contact form success flow still uses a native `alert()` dialog after submit.
 **Learnings:**
 - Contact flow already has a styled success state; native alert is unnecessary
 
+### 2026-02-25 - Implemented
+
+**By:** Codex
+
+**Actions:**
+- Removed the blocking `alert()` path and kept success feedback in-modal.
+- Added a short simulated submit delay with disabled/loading state.
+- Added an explicit “Done” action to close + reset after success.
+- Verified `npm run build` passes.
+
+**Learnings:**
+- In-modal confirmation + explicit close works better than auto-close for a portfolio demo.

@@ -49,7 +49,11 @@ function MobileMenu({
       <div className="absolute left-0 top-0 bottom-0 w-72 bg-white shadow-2xl animate-slide-in-left flex flex-col">
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
           <span className="font-semibold text-lg text-black" style={{ fontFamily: 'Inter, sans-serif' }}>Menu</span>
-          <button onClick={onClose} className="p-1 hover:bg-gray-100 rounded-full transition-colors">
+          <button
+            onClick={onClose}
+            className="p-1 hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
+            aria-label="Close menu"
+          >
             <X className="w-5 h-5 text-gray-600" />
           </button>
         </div>
@@ -170,7 +174,7 @@ export function Header({ onNavigateToMap, onNavigateToProperties }: HeaderProps)
             <div className="flex items-center gap-1">
               <button
                 onClick={() => setIsMenuOpen(true)}
-                className="flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors"
+                className="flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
                 style={{ width: '44px', height: '44px' }}
                 aria-label="Open menu"
               >

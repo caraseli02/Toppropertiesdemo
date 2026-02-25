@@ -1,6 +1,6 @@
 
 import { X } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { useBodyScrollLock } from '@/hooks/useBodyScrollLock';
 
 type ContactMode = 'contact' | 'viewing' | 'info';
@@ -38,7 +38,9 @@ const getModalConfig = (mode: ContactMode) => {
 };
 
 export function ContactModal({ isOpen, onClose, propertyTitle, mode = 'contact' }: ContactModalProps) {
-  const config = getModalConfig(mode);
+  const config = useMemo(() => getModalConfig(mode), [mode]);
+  const submitTimeoutRef = useRef<number | null>(null);
+  const nameInputRef = useRef<HTMLInputElement | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -48,16 +50,55 @@ export function ContactModal({ isOpen, onClose, propertyTitle, mode = 'contact' 
   const [errors, setErrors] = useState<FormErrors>({});
   const [touched, setTouched] = useState<{ name: boolean; email: boolean }>({ name: false, email: false });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   useBodyScrollLock(isOpen);
 
   useEffect(() => {
+    return () => {
+      if (submitTimeoutRef.current) {
+        window.clearTimeout(submitTimeoutRef.current);
+        submitTimeoutRef.current = null;
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) onClose();
+      if (e.key === 'Escape') onClose();
     };
 
     document.addEventListener('keydown', handleEscape);
     return () => document.removeEventListener('keydown', handleEscape);
   }, [isOpen, onClose]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      if (submitTimeoutRef.current) {
+        window.clearTimeout(submitTimeoutRef.current);
+        submitTimeoutRef.current = null;
+      }
+      return;
+    }
+    if (submitTimeoutRef.current) {
+      window.clearTimeout(submitTimeoutRef.current);
+      submitTimeoutRef.current = null;
+    }
+    setIsSubmitted(false);
+    setIsSubmitting(false);
+    setFormData({ name: '', email: '', phone: '', message: `${config.defaultMessage} ${propertyTitle}` });
+    setErrors({});
+    setTouched({ name: false, email: false });
+  }, [config.defaultMessage, isOpen, propertyTitle]);
+
+  useEffect(() => {
+    if (!isOpen || isSubmitted) return;
+
+    requestAnimationFrame(() => {
+      nameInputRef.current?.focus();
+    });
+  }, [isOpen, isSubmitted]);
 
   const validateField = (name: string, value: string): string | undefined => {
     if (name === 'name') {
@@ -86,8 +127,18 @@ export function ContactModal({ isOpen, onClose, propertyTitle, mode = 'contact' 
 
   if (!isOpen) return null;
 
+  const resetForm = () => {
+    setIsSubmitted(false);
+    setIsSubmitting(false);
+    setFormData({ name: '', email: '', phone: '', message: `${config.defaultMessage} ${propertyTitle}` });
+    setErrors({});
+    setTouched({ name: false, email: false });
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting || isSubmitted) return;
+
     const newErrors: FormErrors = {
       name: validateField('name', formData.name),
       email: validateField('email', formData.email),
@@ -97,15 +148,13 @@ export function ContactModal({ isOpen, onClose, propertyTitle, mode = 'contact' 
 
     if (newErrors.name || newErrors.email) return;
 
-    setIsSubmitted(true);
-    setTimeout(() => {
-      onClose();
-      setIsSubmitted(false);
-      setFormData({ name: '', email: '', phone: '', message: `${config.defaultMessage} ${propertyTitle}` });
-      setErrors({});
-      setTouched({ name: false, email: false });
-      alert("Message sent successfully! An agent will contact you shortly.");
-    }, 1500);
+    if (submitTimeoutRef.current) window.clearTimeout(submitTimeoutRef.current);
+    setIsSubmitting(true);
+    submitTimeoutRef.current = window.setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      submitTimeoutRef.current = null;
+    }, 600);
   };
 
   return (
@@ -116,10 +165,19 @@ export function ContactModal({ isOpen, onClose, propertyTitle, mode = 'contact' 
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl overflow-hidden">
+      <div
+        className="bg-white rounded-2xl max-w-md w-full shadow-2xl overflow-hidden"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="contact-modal-title"
+      >
         <div className="flex justify-between items-center p-6 border-b border-gray-100">
-          <h2 className="text-xl font-bold font-display">{config.title}</h2>
-          <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+          <h2 id="contact-modal-title" className="text-xl font-bold font-display">{config.title}</h2>
+          <button
+            onClick={onClose}
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
+            aria-label="Close"
+          >
             <X className="w-5 h-5 text-gray-500" />
           </button>
         </div>
@@ -134,9 +192,20 @@ export function ContactModal({ isOpen, onClose, propertyTitle, mode = 'contact' 
               </div>
               <h3 className="text-xl font-bold mb-2">Request Received!</h3>
               <p className="text-gray-600">Sarah Anderson will contact you within 24 hours to discuss your request.</p>
+              <button
+                type="button"
+                className="mt-6 w-full bg-[#b10832] hover:bg-[#8e0628] text-white py-3 rounded-lg font-medium transition-colors"
+                style={{ fontFamily: 'Inter, sans-serif' }}
+                onClick={() => {
+                  resetForm();
+                  onClose();
+                }}
+              >
+                Done
+              </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4" noValidate>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
                 <input
@@ -146,6 +215,7 @@ export function ContactModal({ isOpen, onClose, propertyTitle, mode = 'contact' 
                   onChange={e => handleChange('name', e.target.value)}
                   onBlur={() => handleBlur('name')}
                   placeholder="John Doe"
+                  ref={nameInputRef}
                 />
                 {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
               </div>
@@ -185,10 +255,12 @@ export function ContactModal({ isOpen, onClose, propertyTitle, mode = 'contact' 
 
               <button
                 type="submit"
-                className="w-full bg-[#b10832] hover:bg-[#8e0628] text-white py-3 rounded-lg font-medium transition-colors"
+                disabled={isSubmitting}
+                aria-disabled={isSubmitting ? 'true' : undefined}
+                className="w-full bg-[#b10832] hover:bg-[#8e0628] disabled:hover:bg-[#b10832] disabled:opacity-70 disabled:cursor-not-allowed text-white py-3 rounded-lg font-medium transition-colors"
                 style={{ fontFamily: 'Inter, sans-serif' }}
               >
-                Send Message
+                {isSubmitting ? 'Sending…' : 'Send Message'}
               </button>
             </form>
           )}

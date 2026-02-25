@@ -36,6 +36,8 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
   const [query, setQuery] = useState('');
   useBodyScrollLock(isOpen);
   const isAtLimit = query.length >= MAX_QUERY_LENGTH;
+  const normalizedQuery = useMemo(() => normalizeQuery(query), [query]);
+  const normalizedQueryLower = normalizedQuery.toLowerCase();
 
   // Close on Escape key
   useEffect(() => {
@@ -51,15 +53,15 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
 
   // Filter properties based on query
   const filteredProperties = useMemo(() => {
-    if (!query.trim()) return properties.slice(0, 6); // Show first 6 when no query
-    const q = query.toLowerCase();
+    if (!normalizedQuery) return properties.slice(0, 6); // Show first 6 when no query
+    const q = normalizedQueryLower;
     return properties.filter(
       (p) =>
         p.title.toLowerCase().includes(q) ||
         p.location.toLowerCase().includes(q) ||
         (p.propertyType && p.propertyType.toLowerCase().includes(q))
     );
-  }, [query, properties]);
+  }, [normalizedQuery, normalizedQueryLower, properties]);
 
   // Derive unique locations for the locations tab
   const locations = useMemo(() => {
@@ -68,17 +70,17 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
       const city = p.location.split(',')[0].trim();
       locSet.set(city, (locSet.get(city) || 0) + 1);
     });
-    if (!query.trim()) return Array.from(locSet.entries());
-    const q = query.toLowerCase();
+    if (!normalizedQuery) return Array.from(locSet.entries());
+    const q = normalizedQueryLower;
     return Array.from(locSet.entries()).filter(([loc]) =>
       loc.toLowerCase().includes(q)
     );
-  }, [query, properties]);
+  }, [normalizedQuery, normalizedQueryLower, properties]);
 
   if (!isOpen) return null;
 
   const handleSearch = () => {
-    onSearch(normalizeQuery(query));
+    onSearch(normalizedQuery);
     onClose();
   };
 
@@ -142,17 +144,6 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
                 </button>
               )}
             </div>
-              <button
-                onClick={handleSearch}
-                className="shrink-0 bg-black rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors"
-                style={{ width: '50px', height: '50px' }}
-                aria-label="Search"
-              >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">
-                <circle cx="11" cy="11" r="7" stroke="white" strokeWidth="1.5" />
-                <path d="M16.5 16.5L21 21" stroke="white" strokeLinecap="round" strokeWidth="1.5" />
-              </svg>
-            </button>
           </div>
           <div className="mt-2 flex items-center justify-between text-[11px] text-gray-400" style={{ fontFamily: 'Inter, sans-serif' }}>
             <span>{isAtLimit ? 'Maximum length reached' : 'Use up to 120 characters'}</span>
@@ -198,10 +189,11 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
             {filteredProperties.length > 0 ? (
               <div className="space-y-3">
                 {filteredProperties.map((property) => (
-                  <div
+                  <button
                     key={property.id}
+                    type="button"
                     onClick={() => handleSelectProperty(property)}
-                    className="bg-white border border-gray-200 rounded-lg p-3 hover:shadow-md hover:border-gray-300 transition-all cursor-pointer"
+                    className="w-full text-left bg-white border border-gray-200 rounded-lg p-3 hover:shadow-md hover:border-gray-300 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
                   >
                     <div className="flex gap-3 items-start">
                       {/* Thumbnail */}
@@ -258,7 +250,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
                         {property.beds} bd · {property.baths} ba
                       </div>
                     </div>
-                  </div>
+                  </button>
                 ))}
               </div>
             ) : (
@@ -287,7 +279,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
             className="px-8 py-3 bg-[#2b2b2b] text-white rounded-lg hover:bg-black transition-colors font-medium"
             style={{ fontFamily: 'Inter, sans-serif' }}
           >
-            Search
+            Show results
           </button>
         </div>
       </div>
