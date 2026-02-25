@@ -1,5 +1,5 @@
 ---
-status: pending
+status: complete
 priority: p3
 issue_id: "018"
 tags: [code-review, ux, search, quality]
@@ -74,10 +74,10 @@ Search input is normalized only at submit time, while in-modal preview filtering
 
 ## Acceptance Criteria
 
-- [ ] Preview results and submitted results use equivalent normalized query logic
-- [ ] Whitespace-only and multi-space input behave consistently
-- [ ] No regression to max-length behavior
-- [ ] `npm run build` passes
+- [x] Preview results and submitted results use equivalent normalized query logic
+- [x] Whitespace-only and multi-space input behave consistently
+- [x] No regression to max-length behavior
+- [x] `npm run build` passes
 
 ## Work Log
 
@@ -93,3 +93,14 @@ Search input is normalized only at submit time, while in-modal preview filtering
 **Learnings:**
 - Input hardening is partially implemented; behavior consistency is the remaining gap
 
+### 2026-02-25 - Implemented
+
+**By:** Codex
+
+**Actions:**
+- Added a shared `normalizedQuery` memo and used it for preview filtering and submit path.
+- Verified whitespace-heavy input no longer produces “no results” preview followed by results on submit.
+- Verified `npm run build` passes.
+
+**Learnings:**
+- Normalize at the edges (derived UI + submit) to avoid cursor/typing weirdness.

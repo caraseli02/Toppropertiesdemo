@@ -1,5 +1,5 @@
 ---
-status: pending
+status: complete
 priority: p3
 issue_id: "019"
 tags: [code-review, quality, accessibility, modal]
@@ -73,10 +73,10 @@ The contact modal now adds a document-level `keydown` listener regardless of ope
 
 ## Acceptance Criteria
 
-- [ ] ContactModal Escape listener is attached only while modal is open
-- [ ] Escape still closes modal reliably
-- [ ] No duplicate close calls or console warnings
-- [ ] `npm run build` passes
+- [x] ContactModal Escape listener is attached only while modal is open
+- [x] Escape still closes modal reliably
+- [x] No duplicate close calls or console warnings
+- [x] `npm run build` passes
 
 ## Work Log
 
@@ -92,3 +92,14 @@ The contact modal now adds a document-level `keydown` listener regardless of ope
 **Learnings:**
 - Existing hook structure allows low-risk cleanup with minimal code churn
 
+### 2026-02-25 - Implemented
+
+**By:** Codex
+
+**Actions:**
+- Scoped Escape key listener to open state (`if (!isOpen) return;` inside effect).
+- Verified modal still closes on Escape.
+- Verified `npm run build` passes.
+
+**Learnings:**
+- Keeping event listeners strictly lifecycle-scoped reduces modal interaction drift.

@@ -101,15 +101,20 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
           <div className="flex items-center justify-between">
             <button
               onClick={onClose}
-              className="flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors"
-              style={{ width: '44px', height: '44px' }}
+              className="flex items-center justify-center md:justify-start gap-2 hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
+              style={{ height: '44px' }}
               aria-label="Close property details"
             >
-              <X className="w-6 h-6" />
+              <span className="flex items-center justify-center w-11 h-11 md:w-auto md:h-auto md:pl-4">
+                <X className="w-6 h-6" />
+              </span>
+              <span className="hidden md:inline text-sm font-medium text-gray-700 pr-3">
+                Back
+              </span>
             </button>
             <div className="flex items-center gap-2">
               <button
-                className="flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors"
+                className="flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
                 style={{ width: '44px', height: '44px' }}
                 aria-label="Share property"
               >
@@ -117,7 +122,7 @@ export function PropertyDetail({ property, onClose }: PropertyDetailProps) {
               </button>
               <button
                 onClick={() => setIsFavorite(!isFavorite)}
-                className="flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors"
+                className="flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
                 style={{ width: '44px', height: '44px' }}
                 aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
               >

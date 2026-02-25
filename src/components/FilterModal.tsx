@@ -138,34 +138,40 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
         {/* Content */}
         <div className="p-6 space-y-6 overflow-y-auto flex-1">
           {/* Rent Type Tabs */}
-          <div className="flex gap-3">
+          <div className="grid grid-cols-2 gap-3 sm:flex sm:gap-3">
             <button
               onClick={() => setFilters(prev => ({ ...prev, rentType: 'short' }))}
-              className={`flex-1 px-6 py-3 rounded-full border-2 transition-all font-medium ${filters.rentType === 'short'
+              className={`px-4 py-2 sm:flex-1 sm:px-6 sm:py-3 rounded-full border-2 transition-all font-medium ${filters.rentType === 'short'
                 ? 'bg-[#b10832] text-white border-[#b10832]'
                 : 'bg-white text-black border-black'
                 }`}
               style={{ fontFamily: 'Inter, sans-serif' }}
+              type="button"
+              aria-pressed={filters.rentType === 'short'}
             >
               Short Rent
             </button>
             <button
               onClick={() => setFilters(prev => ({ ...prev, rentType: 'long' }))}
-              className={`flex-1 px-6 py-3 rounded-full border-2 transition-all font-medium ${filters.rentType === 'long'
+              className={`px-4 py-2 sm:flex-1 sm:px-6 sm:py-3 rounded-full border-2 transition-all font-medium ${filters.rentType === 'long'
                 ? 'bg-[#b10832] text-white border-[#b10832]'
                 : 'bg-white text-black border-black'
                 }`}
               style={{ fontFamily: 'Inter, sans-serif' }}
+              type="button"
+              aria-pressed={filters.rentType === 'long'}
             >
               Long Rent
             </button>
             <button
               onClick={() => setFilters(prev => ({ ...prev, rentType: 'sale' }))}
-              className={`flex-1 px-6 py-3 rounded-full border-2 transition-all font-medium ${filters.rentType === 'sale'
+              className={`col-span-2 px-4 py-2 sm:col-span-1 sm:flex-1 sm:px-6 sm:py-3 rounded-full border-2 transition-all font-medium ${filters.rentType === 'sale'
                 ? 'bg-[#b10832] text-white border-[#b10832]'
                 : 'bg-white text-black border-black'
                 }`}
               style={{ fontFamily: 'Inter, sans-serif' }}
+              type="button"
+              aria-pressed={filters.rentType === 'sale'}
             >
               Sale
             </button>
@@ -218,13 +224,17 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
 
           {/* Show Trattativa */}
           <div className="flex items-center justify-between bg-white rounded-lg p-4">
-            <span className="font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>
+            <span id="show-private-negotiation-label" className="font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>
               Show Private Negotiation
             </span>
             <button
               onClick={() => setFilters(prev => ({ ...prev, showTrattativa: !prev.showTrattativa }))}
-              className={`relative w-14 h-8 rounded-full transition-colors border-2 ${filters.showTrattativa ? 'bg-[#b10832] border-[#b10832]' : 'bg-gray-200 border-gray-300'
+              className={`relative w-14 h-8 rounded-full transition-colors border-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30 ${filters.showTrattativa ? 'bg-[#b10832] border-[#b10832]' : 'bg-gray-200 border-gray-300'
                 }`}
+              type="button"
+              role="switch"
+              aria-checked={filters.showTrattativa}
+              aria-labelledby="show-private-negotiation-label"
             >
               <div
                 className={`absolute top-0.5 w-6 h-6 bg-white rounded-full shadow-md transition-transform border border-gray-200 ${filters.showTrattativa ? 'translate-x-6' : 'translate-x-0.5'
@@ -248,6 +258,8 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                     : 'bg-white text-black border border-gray-300'
                     }`}
                   style={{ fontFamily: 'Inter, sans-serif' }}
+                  type="button"
+                  aria-pressed={filters.propertyTypes.includes(type)}
                 >
                   {type}
                 </button>
@@ -348,8 +360,11 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                   </span>
                   <button
                     onClick={() => toggleTag(tag)}
-                    className={`relative rounded-full transition-colors flex items-center justify-center ${filters.tags.includes(tag) ? 'bg-[#b10832] text-white' : 'bg-gray-300'}`}
+                    className={`relative rounded-full transition-colors flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30 ${filters.tags.includes(tag) ? 'bg-[#b10832] text-white' : 'bg-gray-300'}`}
                     style={{ width: '44px', height: '44px' }}
+                    type="button"
+                    aria-pressed={filters.tags.includes(tag)}
+                    aria-label={`Toggle tag ${tag}`}
                   >
                     {filters.tags.includes(tag) && <Check className="w-4 h-4" />}
                   </button>
@@ -371,8 +386,11 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                   </span>
                   <button
                     onClick={() => toggleAmenity(amenity)}
-                    className={`relative rounded-full transition-colors flex items-center justify-center ${filters.amenities?.includes(amenity) ? 'bg-[#b10832] text-white' : 'bg-gray-300'}`}
+                    className={`relative rounded-full transition-colors flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30 ${filters.amenities?.includes(amenity) ? 'bg-[#b10832] text-white' : 'bg-gray-300'}`}
                     style={{ width: '44px', height: '44px' }}
+                    type="button"
+                    aria-pressed={filters.amenities?.includes(amenity) ? true : false}
+                    aria-label={`Toggle amenity ${amenity}`}
                   >
                     {filters.amenities?.includes(amenity) && <Check className="w-4 h-4" />}
                   </button>

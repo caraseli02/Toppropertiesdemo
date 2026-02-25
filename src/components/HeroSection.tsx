@@ -99,7 +99,7 @@ export function HeroSection({ properties, onViewProperty, onSearchClick }: HeroS
             )}
 
             <h2
-              className="text-white font-bold leading-tight break-words"
+              className="text-white font-bold leading-tight line-clamp-2"
               style={{
                 fontFamily: 'Inter, sans-serif',
                 fontSize: 'clamp(1.4rem, 4vw, 2.5rem)',
@@ -122,13 +122,14 @@ export function HeroSection({ properties, onViewProperty, onSearchClick }: HeroS
             </p>
 
             <p
-              className="font-bold"
+              className="font-bold max-w-full truncate"
               style={{
                 fontFamily: 'Inter, sans-serif',
                 color: '#f2a4b8',
                 fontSize: '18px',
                 marginBottom: '16px',
               }}
+              title={currentProperty.price}
             >
               {currentProperty.price}
             </p>
