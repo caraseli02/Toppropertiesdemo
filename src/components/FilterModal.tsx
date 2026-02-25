@@ -106,7 +106,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
 
   return (
     <div
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4"
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-stretch justify-center p-0 sm:items-center sm:p-4"
       style={{ zIndex: 1200 }}
       onClick={(e) => {
         if (e.target === e.currentTarget) {
@@ -118,8 +118,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
       aria-labelledby="filter-modal-title"
     >
       <div
-        className="bg-[#f5f5f5] rounded-2xl w-full flex flex-col shadow-2xl sm:max-w-md"
-        style={{ maxHeight: '90vh', maxWidth: 'calc(100% - 32px)' }}
+        className="bg-[#f5f5f5] w-full h-full flex flex-col shadow-2xl rounded-none sm:rounded-2xl sm:h-auto sm:max-h-[90vh] sm:max-w-3xl"
       >
         {/* Header */}
         <div className="sticky top-0 bg-white px-6 py-4 flex items-center justify-between border-b border-gray-200 z-10">
@@ -237,7 +236,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
               aria-labelledby="show-private-negotiation-label"
             >
               <div
-                className={`absolute top-0.5 w-6 h-6 bg-white rounded-full shadow-md transition-transform border border-gray-200 ${filters.showTrattativa ? 'translate-x-6' : 'translate-x-0.5'
+                className={`absolute left-0.5 top-0.5 w-6 h-6 bg-white rounded-full shadow-md transition-transform border border-gray-200 ${filters.showTrattativa ? 'translate-x-6' : 'translate-x-0'
                   }`}
               />
             </button>
