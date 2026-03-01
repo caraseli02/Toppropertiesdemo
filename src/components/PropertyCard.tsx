@@ -70,7 +70,7 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
               e.stopPropagation();
               setIsFavorite(!isFavorite);
             }}
-            className="bg-white/95 backdrop-blur-sm flex items-center justify-center rounded-full hover:bg-white transition-all hover:scale-105 shadow-md shrink-0"
+            className="bg-white/95 backdrop-blur-sm flex items-center justify-center rounded-full hover:bg-white transition-all hover:scale-105 shadow-md shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
             style={{ width: '44px', height: '44px' }}
             aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
           >

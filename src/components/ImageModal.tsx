@@ -50,7 +50,7 @@ export function ImageModal({ images, initialIndex, isOpen, onClose }: ImageModal
       <div className="relative max-w-6xl bg-black rounded-xl overflow-hidden" style={{ maxHeight: '90vh' }} onClick={(e) => e.stopPropagation()}>
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 text-white/80 hover:text-white bg-black/50 hover:bg-black/70 rounded-full p-2 transition-colors"
+          className="absolute top-4 right-4 z-10 text-white/80 hover:text-white bg-black/50 hover:bg-black/70 rounded-full p-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
           aria-label="Close gallery"
         >
           <X className="w-6 h-6" />
@@ -73,7 +73,7 @@ export function ImageModal({ images, initialIndex, isOpen, onClose }: ImageModal
           <div className="flex gap-2">
             <button
               onClick={handlePrevious}
-              className="bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-colors"
+              className="bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
               aria-label="Previous image"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -82,7 +82,7 @@ export function ImageModal({ images, initialIndex, isOpen, onClose }: ImageModal
             </button>
             <button
               onClick={handleNext}
-              className="bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-colors"
+              className="bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
               aria-label="Next image"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

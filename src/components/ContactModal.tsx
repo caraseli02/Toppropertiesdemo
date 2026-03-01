@@ -257,7 +257,7 @@ export function ContactModal({ isOpen, onClose, propertyTitle, mode = 'contact' 
                 type="submit"
                 disabled={isSubmitting}
                 aria-disabled={isSubmitting ? 'true' : undefined}
-                className="w-full bg-[#b10832] hover:bg-[#8e0628] disabled:hover:bg-[#b10832] disabled:opacity-70 disabled:cursor-not-allowed text-white py-3 rounded-lg font-medium transition-colors"
+                className="w-full bg-[#b10832] text-white py-3 rounded-lg font-medium transition-colors disabled:opacity-70 disabled:cursor-not-allowed disabled:bg-[#8e0628] hover:bg-[#8e0628] disabled:hover:bg-[#8e0628]"
                 style={{ fontFamily: 'Inter, sans-serif' }}
               >
                 {isSubmitting ? 'Sending…' : 'Send Message'}
