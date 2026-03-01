@@ -46,6 +46,8 @@ export default function App() {
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
+  const [detailOverlay, setDetailOverlay] = useState<'contact' | 'image' | null>(null);
+  const [forceMenuOpen, setForceMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [activeFilters, setActiveFilters] = useState<FilterState>(() => getDefaultFilters());
   const [pendingScrollTarget, setPendingScrollTarget] = useState<'grid' | 'map' | null>(null);
@@ -91,11 +93,47 @@ export default function App() {
     setPendingScrollTarget('map');
   }, []);
 
+  useEffect(() => {
+    const uiState = new URLSearchParams(window.location.search).get('ui');
+    if (!uiState) return;
+
+    const previewProperty = properties[0];
+
+    switch (uiState) {
+      case 'map':
+        setViewMode('map');
+        break;
+      case 'filter':
+        setIsFilterModalOpen(true);
+        break;
+      case 'search':
+        setIsSearchModalOpen(true);
+        break;
+      case 'property':
+        setSelectedProperty(previewProperty);
+        break;
+      case 'contact':
+        setSelectedProperty(previewProperty);
+        setDetailOverlay('contact');
+        break;
+      case 'image':
+        setSelectedProperty(previewProperty);
+        setDetailOverlay('image');
+        break;
+      case 'menu':
+        setForceMenuOpen(true);
+        break;
+      default:
+        break;
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-white">
       <Header
         onNavigateToMap={openMapFromMenu}
         onNavigateToProperties={openGridFromMenu}
+        forceMenuOpen={forceMenuOpen}
       />
       <SearchBar
         onSearch={handleSearch}
@@ -162,7 +200,7 @@ export default function App() {
               <div className="flex gap-2 bg-white rounded-lg p-1 shadow-sm border border-[#e5e7eb]">
                 <button
                   onClick={() => setViewMode('grid')}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${viewMode === 'grid'
+                  className={`flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 rounded-md transition-colors text-xs sm:text-sm ${viewMode === 'grid'
                     ? 'bg-[#b10832] text-white'
                     : 'text-gray-600 hover:bg-gray-100'
                     }`}
@@ -171,11 +209,11 @@ export default function App() {
                   aria-label="Grid view"
                 >
                   <LayoutGrid className="w-4 h-4" />
-                  <span className="hidden sm:inline">Grid</span>
+                  <span>Grid</span>
                 </button>
                 <button
                   onClick={() => setViewMode('map')}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${viewMode === 'map'
+                  className={`flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 rounded-md transition-colors text-xs sm:text-sm ${viewMode === 'map'
                     ? 'bg-[#b10832] text-white'
                     : 'text-gray-600 hover:bg-gray-100'
                     }`}
@@ -184,7 +222,7 @@ export default function App() {
                   aria-label="Map view"
                 >
                   <Map className="w-4 h-4" />
-                  <span className="hidden sm:inline">Map</span>
+                  <span>Map</span>
                 </button>
               </div>
             </div>
@@ -248,7 +286,11 @@ export default function App() {
       {selectedProperty && (
         <PropertyDetail
           property={selectedProperty}
-          onClose={() => setSelectedProperty(null)}
+          onClose={() => {
+            setSelectedProperty(null);
+            setDetailOverlay(null);
+          }}
+          initialOverlay={detailOverlay}
         />
       )}
     </div>

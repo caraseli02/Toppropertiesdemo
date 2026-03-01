@@ -67,7 +67,7 @@ export function SearchBar({ onSearch, onFilterClick, onSearchClick, value }: Sea
           {/* Search Button */}
           <button
             type="submit"
-            className="shrink-0 bg-black rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors"
+            className="shrink-0 bg-black rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
             style={{ width: '44px', height: '44px' }}
             aria-label="Open search"
           >

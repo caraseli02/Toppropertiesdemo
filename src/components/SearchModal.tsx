@@ -111,7 +111,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
             </h2>
             <button
               onClick={onClose}
-              className="flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
+              className="flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
               style={{ width: '44px', height: '44px' }}
               aria-label="Close search"
             >
@@ -146,7 +146,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
             </div>
           </div>
           <div className="mt-2 flex items-center justify-between text-[11px] text-gray-400" style={{ fontFamily: 'Inter, sans-serif' }}>
-            <span>{isAtLimit ? 'Maximum length reached' : 'Use up to 120 characters'}</span>
+            <span>Press Enter to search or use the button below</span>
             <span>{query.length}/{MAX_QUERY_LENGTH}</span>
           </div>
         </div>

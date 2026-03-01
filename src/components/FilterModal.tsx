@@ -137,10 +137,10 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
         {/* Content */}
         <div className="p-6 space-y-6 overflow-y-auto flex-1">
           {/* Rent Type Tabs */}
-          <div className="grid grid-cols-2 gap-3 sm:flex sm:gap-3">
+          <div className="grid grid-cols-3 gap-2 sm:flex sm:gap-3">
             <button
               onClick={() => setFilters(prev => ({ ...prev, rentType: 'short' }))}
-              className={`px-4 py-2 sm:flex-1 sm:px-6 sm:py-3 rounded-full border-2 transition-all font-medium ${filters.rentType === 'short'
+              className={`px-3 py-2 sm:flex-1 sm:px-6 sm:py-3 rounded-full border-2 transition-all font-medium text-sm sm:text-base ${filters.rentType === 'short'
                 ? 'bg-[#b10832] text-white border-[#b10832]'
                 : 'bg-white text-black border-black'
                 }`}
@@ -152,7 +152,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
             </button>
             <button
               onClick={() => setFilters(prev => ({ ...prev, rentType: 'long' }))}
-              className={`px-4 py-2 sm:flex-1 sm:px-6 sm:py-3 rounded-full border-2 transition-all font-medium ${filters.rentType === 'long'
+              className={`px-3 py-2 sm:flex-1 sm:px-6 sm:py-3 rounded-full border-2 transition-all font-medium text-sm sm:text-base ${filters.rentType === 'long'
                 ? 'bg-[#b10832] text-white border-[#b10832]'
                 : 'bg-white text-black border-black'
                 }`}
@@ -164,7 +164,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
             </button>
             <button
               onClick={() => setFilters(prev => ({ ...prev, rentType: 'sale' }))}
-              className={`col-span-2 px-4 py-2 sm:col-span-1 sm:flex-1 sm:px-6 sm:py-3 rounded-full border-2 transition-all font-medium ${filters.rentType === 'sale'
+              className={`px-3 py-2 sm:flex-1 sm:px-6 sm:py-3 rounded-full border-2 transition-all font-medium text-sm sm:text-base ${filters.rentType === 'sale'
                 ? 'bg-[#b10832] text-white border-[#b10832]'
                 : 'bg-white text-black border-black'
                 }`}
@@ -278,7 +278,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => setFilters(prev => ({ ...prev, rooms: Math.max(0, prev.rooms - 1) }))}
-                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50"
+                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
                     style={{ width: '44px', height: '44px' }}
                   >
                     <Minus className="w-4 h-4" />
@@ -288,7 +288,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                   </span>
                   <button
                     onClick={() => setFilters(prev => ({ ...prev, rooms: prev.rooms + 1 }))}
-                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50"
+                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
                     style={{ width: '44px', height: '44px' }}
                   >
                     <Plus className="w-4 h-4" />
@@ -326,7 +326,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => setFilters(prev => ({ ...prev, beds: Math.max(0, prev.beds - 1) }))}
-                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50"
+                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
                     style={{ width: '44px', height: '44px' }}
                   >
                     <Minus className="w-4 h-4" />
@@ -336,7 +336,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                   </span>
                   <button
                     onClick={() => setFilters(prev => ({ ...prev, beds: prev.beds + 1 }))}
-                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50"
+                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
                     style={{ width: '44px', height: '44px' }}
                   >
                     <Plus className="w-4 h-4" />

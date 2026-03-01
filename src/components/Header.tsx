@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Menu, User, Heart, X } from 'lucide-react';
 import svgPaths from '../imports/svg-lbcekml827';
 
 interface HeaderProps {
   onNavigateToMap?: () => void;
   onNavigateToProperties?: () => void;
+  forceMenuOpen?: boolean;
 }
 
 function MobileMenu({
@@ -70,7 +71,7 @@ function MobileMenu({
                 onClose();
               }}
               className={`w-full text-left px-6 py-3 text-[15px] transition-colors flex items-center justify-between gap-3 ${item.disabled
-                ? 'text-gray-400 cursor-not-allowed'
+                ? 'text-gray-400 cursor-not-allowed opacity-60 grayscale'
                 : 'text-gray-700 hover:bg-gray-50 hover:text-[#b10832]'
                 }`}
               style={{ fontFamily: 'Inter, sans-serif' }}
@@ -94,8 +95,14 @@ function MobileMenu({
   );
 }
 
-export function Header({ onNavigateToMap, onNavigateToProperties }: HeaderProps) {
+export function Header({ onNavigateToMap, onNavigateToProperties, forceMenuOpen = false }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (forceMenuOpen) {
+      setIsMenuOpen(true);
+    }
+  }, [forceMenuOpen]);
 
   return (
     <>
