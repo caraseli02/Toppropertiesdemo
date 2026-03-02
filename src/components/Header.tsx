@@ -110,11 +110,39 @@ export function Header({ onNavigateToMap, onNavigateToProperties, forceMenuOpen 
           <div className="flex items-center justify-between">
             {/* Logo */}
             <a href="/" className="flex items-center" aria-label="Top Properties - Home">
-              <div className="flex items-center gap-2">
-                <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#B20933' }}>
-                  <span className="text-white font-bold text-lg" style={{ fontFamily: 'Inter, sans-serif' }}>TP</span>
+              <div className="flex items-center gap-2.5">
+                {/* Modern geometric logo */}
+                <div className="relative w-10 h-10 flex items-center justify-center">
+                  {/* Outer circle */}
+                  <div className="absolute inset-0 rounded-full" style={{ backgroundColor: '#B20933', opacity: 0.1 }}></div>
+                  {/* Inner geometric shape - modern building/property icon */}
+                  <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    {/* Left building */}
+                    <rect x="4" y="8" width="6" height="12" fill="#B20933" rx="0.5" />
+                    {/* Right building - taller */}
+                    <rect x="14" y="4" width="6" height="16" fill="#B20933" rx="0.5" />
+                    {/* Windows left building */}
+                    <rect x="5" y="9" width="1.5" height="1.5" fill="white" />
+                    <rect x="5" y="12" width="1.5" height="1.5" fill="white" />
+                    <rect x="5" y="15" width="1.5" height="1.5" fill="white" />
+                    <rect x="8" y="9" width="1.5" height="1.5" fill="white" />
+                    <rect x="8" y="12" width="1.5" height="1.5" fill="white" />
+                    <rect x="8" y="15" width="1.5" height="1.5" fill="white" />
+                    {/* Windows right building */}
+                    <rect x="15" y="5" width="1.5" height="1.5" fill="white" />
+                    <rect x="15" y="8" width="1.5" height="1.5" fill="white" />
+                    <rect x="15" y="11" width="1.5" height="1.5" fill="white" />
+                    <rect x="15" y="14" width="1.5" height="1.5" fill="white" />
+                    <rect x="18" y="5" width="1.5" height="1.5" fill="white" />
+                    <rect x="18" y="8" width="1.5" height="1.5" fill="white" />
+                    <rect x="18" y="11" width="1.5" height="1.5" fill="white" />
+                    <rect x="18" y="14" width="1.5" height="1.5" fill="white" />
+                  </svg>
                 </div>
-                <span className="font-bold text-lg text-black hidden sm:inline" style={{ fontFamily: 'Inter, sans-serif' }}>Top Properties</span>
+                <div className="flex flex-col">
+                  <span className="font-bold text-lg text-black hidden sm:inline" style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '-0.5px' }}>Top Properties</span>
+                  <span className="text-xs text-gray-500 hidden sm:inline" style={{ fontFamily: 'Inter, sans-serif', marginTop: '-2px' }}>Luxury Real Estate</span>
+                </div>
               </div>
             </a>
 
