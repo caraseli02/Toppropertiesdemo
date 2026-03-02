@@ -1,5 +1,5 @@
 ---
-module: SantAndrea Webapp
+module: Top Properties Webapp
 date: 2026-02-20
 problem_type: ui_bug
 component: rails_view
@@ -22,10 +22,10 @@ tags: [ui, accessibility, mobile, forms, filters, hero]
 # Troubleshooting: UI Audit - 10 Findings Fixed
 
 ## Problem
-A comprehensive UI audit of the SantAndrea luxury real estate webapp revealed 10 issues across visual/layout, user journey, and responsive design categories. Issues ranged from non-functional price filters to confusing modal titles.
+A comprehensive UI audit of the Top Properties luxury real estate webapp revealed 10 issues across visual/layout, user journey, and responsive design categories. Issues ranged from non-functional price filters to confusing modal titles.
 
 ## Environment
-- Module: SantAndrea Webapp (React + Vite)
+- Module: Top Properties Webapp (React + Vite)
 - Viewport tested: 375px (mobile), 768px (tablet), 1440px (desktop)
 - Affected Components: FilterModal, ContactModal, PropertyDetail, HeroSection, SearchBar, Footer
 - Date: 2026-02-20

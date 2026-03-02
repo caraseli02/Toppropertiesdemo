@@ -1,5 +1,5 @@
 ---
-module: SantAndrea Webapp
+module: Top Properties Webapp
 date: 2026-02-25
 problem_type: ui_bug
 component: rails_view
@@ -21,7 +21,7 @@ tags: [ui, accessibility, demo-hardening, modal, keyboard, aria]
 After addressing the initial UI audit findings, the core demo flows still had a few “feels unfinished” issues: modal state drift, missing dialog semantics, and keyboard-inaccessible search results.
 
 ## Environment
-- Module: SantAndrea Webapp (React + Vite)
+- Module: Top Properties Webapp (React + Vite)
 - Affected Components: `ContactModal`, `SearchModal`, `FilterModal`, view toggle in `App`
 - Date: 2026-02-25
 

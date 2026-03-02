@@ -8,7 +8,7 @@ date: 2026-02-16
 
 ## Overview
 
-Frontend-only polish to make the Sant'Andrea luxury real estate app production-ready as a functional MVP. This refactoring effort focuses on performance optimization, code quality improvements, and UX enhancements while maintaining the current anonymous browsing experience with no backend integration.
+Frontend-only polish to make the Top Properties luxury real estate app production-ready as a functional MVP. This refactoring effort focuses on performance optimization, code quality improvements, and UX enhancements while maintaining the current anonymous browsing experience with no backend integration.
 
 ## Problem Statement
 

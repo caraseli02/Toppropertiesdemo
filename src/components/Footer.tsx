@@ -32,13 +32,13 @@ export function Footer() {
               className="text-xl font-bold mb-3 tracking-wide"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
-              <span style={{ color: '#b10832' }}>SANT'ANDREA</span>
+              <span style={{ color: '#b10832' }}>Top Properties</span>
             </h3>
             <p
               className="text-gray-400 text-sm leading-relaxed mb-4"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
-              Luxury Houses & Top Properties — a curated selection of the world's most exclusive real estate.
+              A curated selection of the world's most exclusive real estate.
             </p>
             <div className="flex gap-3">
               <button
@@ -105,15 +105,15 @@ export function Footer() {
             <div className="space-y-3 text-sm text-gray-400" style={{ fontFamily: 'Inter, sans-serif' }}>
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: '#b10832' }} />
-                <span>Via Montenapoleone 8, 20121 Milano, Italy</span>
+                <span>123 Luxury Avenue, New York, NY 10001</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 flex-shrink-0" style={{ color: '#b10832' }} />
-                <span>+39 02 7600 0000</span>
+                <span>+1 (555) 123-4567</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 flex-shrink-0" style={{ color: '#b10832' }} />
-                <span>info@santandrea.it</span>
+                <span>hello@topproperties.demo</span>
               </div>
             </div>
           </div>
@@ -124,7 +124,7 @@ export function Footer() {
       <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }}>
         <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p className="text-xs text-gray-500" style={{ fontFamily: 'Inter, sans-serif' }}>
-            © {new Date().getFullYear()} Sant'Andrea Luxury Houses. All rights reserved.
+            © {new Date().getFullYear()} Top Properties. All rights reserved.
           </p>
           <div className="flex gap-4 text-xs text-gray-500" style={{ fontFamily: 'Inter, sans-serif' }}>
             <DisabledFooterButton label="Privacy" className="min-h-11 px-1 opacity-70 cursor-not-allowed" />
