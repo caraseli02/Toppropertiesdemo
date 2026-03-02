@@ -7,7 +7,7 @@ topic: mvp-frontend-polish
 
 ## What We're Building
 
-Frontend-only polish to make the Sant'Andrea luxury real estate app production-ready as a functional MVP. The goal is to deliver a polished, performant browsing experience with working property discovery features (search, filter, map view, property details). No backend, database, authentication, or working contact form needed—this is a demo/showcase application.
+Frontend-only polish to make the Top Properties luxury real estate app production-ready as a functional MVP. The goal is to deliver a polished, performant browsing experience with working property discovery features (search, filter, map view, property details). No backend, database, authentication, or working contact form needed—this is a demo/showcase application.
 
 ## Why This Approach
 
