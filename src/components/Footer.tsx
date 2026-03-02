@@ -105,15 +105,15 @@ export function Footer() {
             <div className="space-y-3 text-sm text-gray-400" style={{ fontFamily: 'Inter, sans-serif' }}>
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: '#b10832' }} />
-                <span>Contact us for more information</span>
+                <span>123 Luxury Avenue, New York, NY 10001</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 flex-shrink-0" style={{ color: '#b10832' }} />
-                <span>Available upon request</span>
+                <span>+1 (555) 123-4567</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 flex-shrink-0" style={{ color: '#b10832' }} />
-                <span>Contact form coming soon</span>
+                <span>hello@topproperties.demo</span>
               </div>
             </div>
           </div>
