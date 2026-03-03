@@ -125,7 +125,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
                 value={query}
                 onChange={(e) => setQuery(e.target.value.slice(0, MAX_QUERY_LENGTH))}
                 onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                placeholder="Search by location, property name, or type..."
+                placeholder="Search location, name, or type..."
                 className="flex-1 font-light text-[16px] text-black placeholder:text-gray-400 outline-none bg-transparent"
                 style={{ fontFamily: 'Inter, sans-serif' }}
                 autoFocus

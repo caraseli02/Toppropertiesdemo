@@ -120,7 +120,7 @@ export const properties: readonly Property[] = [
   },
   {
     id: '7',
-    image: 'https://images.unsplash.com/photo-1600596542815-2a4d9f799052?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
     title: 'Modern Sunset Villa',
     location: 'Los Angeles, California',
     price: '$6,500,000',
@@ -134,9 +134,9 @@ export const properties: readonly Property[] = [
     propertyType: 'Modern Villa',
     description: 'A striking contemporary villa perched in the Hollywood Hills, designed to capture breathtaking sunsets over the Pacific. Floor-to-ceiling glass walls blur the line between indoor and outdoor living.',
     gallery: [
-      'https://images.unsplash.com/photo-1600596542815-2a4d9f799052?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1613490493576-7fde63acd811?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
       'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
-      'https://images.unsplash.com/photo-1600607687644-c7171b42498b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080'
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
     ],
     amenities: ['Pool', 'City View', 'Smart Home', 'Garage'] as const,
   },

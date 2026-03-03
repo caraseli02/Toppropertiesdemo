@@ -207,7 +207,7 @@ export function ContactModal({ isOpen, onClose, propertyTitle, mode = 'contact' 
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4" noValidate>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                <label htmlFor="contact-name" className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
                 <input
                   type="text"
                   className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#b10832] focus:border-transparent outline-none ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
@@ -216,12 +216,21 @@ export function ContactModal({ isOpen, onClose, propertyTitle, mode = 'contact' 
                   onBlur={() => handleBlur('name')}
                   placeholder="John Doe"
                   ref={nameInputRef}
+                  id="contact-name"
+                  name="name"
+                  autoComplete="name"
+                  aria-invalid={errors.name ? 'true' : undefined}
+                  aria-describedby={errors.name ? 'contact-name-error' : undefined}
                 />
-                {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+                {errors.name && (
+                  <p id="contact-name-error" className="text-red-600 text-sm mt-1" role="alert">
+                    {errors.name}
+                  </p>
+                )}
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <label htmlFor="contact-email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
                 <input
                   type="email"
                   className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#b10832] focus:border-transparent outline-none ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
@@ -229,27 +238,43 @@ export function ContactModal({ isOpen, onClose, propertyTitle, mode = 'contact' 
                   onChange={e => handleChange('email', e.target.value)}
                   onBlur={() => handleBlur('email')}
                   placeholder="john@example.com"
+                  id="contact-email"
+                  name="email"
+                  autoComplete="email"
+                  inputMode="email"
+                  aria-invalid={errors.email ? 'true' : undefined}
+                  aria-describedby={errors.email ? 'contact-email-error' : undefined}
                 />
-                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+                {errors.email && (
+                  <p id="contact-email-error" className="text-red-600 text-sm mt-1" role="alert">
+                    {errors.email}
+                  </p>
+                )}
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Phone (Optional)</label>
+                <label htmlFor="contact-phone" className="block text-sm font-medium text-gray-700 mb-1">Phone (Optional)</label>
                 <input
                   type="tel"
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#b10832] focus:border-transparent outline-none"
                   value={formData.phone}
                   onChange={e => setFormData({ ...formData, phone: e.target.value })}
                   placeholder="+1 (555) 000-0000"
+                  id="contact-phone"
+                  name="phone"
+                  autoComplete="tel"
+                  inputMode="tel"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                <label htmlFor="contact-message" className="block text-sm font-medium text-gray-700 mb-1">Message</label>
                 <textarea
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#b10832] focus:border-transparent outline-none h-32 resize-none"
                   value={formData.message}
                   onChange={e => setFormData({ ...formData, message: e.target.value })}
+                  id="contact-message"
+                  name="message"
                 />
               </div>
 

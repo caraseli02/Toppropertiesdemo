@@ -1,5 +1,5 @@
 import { X, ChevronLeft, ChevronRight, Heart, Share2, MapPin, Bed, Bath, Maximize, Calendar, Check } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { ContactModal } from './ContactModal';
 import { ImageModal } from './ImageModal';
@@ -60,6 +60,13 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
 
   useEffect(() => {
     containerRef.current?.scrollTo({ top: 0, behavior: 'auto' });
+    setCurrentImageIndex(0);
+    setBrokenImages(new Set());
+    setIsFavorite(false);
+    setShowVirtualTour(false);
+    setIsImageModalOpen(false);
+    setIsContactModalOpen(false);
+    setContactMode('contact');
   }, [property.id]);
 
   useEffect(() => {
@@ -79,7 +86,23 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
     setBrokenImages(prev => new Set(prev).add(index));
   };
 
-  const gallery = property.gallery?.length ? property.gallery : [property.image];
+  const gallery = useMemo(
+    () => (property.gallery?.length ? property.gallery : [property.image]),
+    [property.gallery, property.image],
+  );
+
+  useEffect(() => {
+    if (!brokenImages.has(currentImageIndex)) return;
+    if (gallery.length <= 1) return;
+
+    for (let offset = 1; offset < gallery.length; offset += 1) {
+      const candidateIndex = (currentImageIndex + offset) % gallery.length;
+      if (!brokenImages.has(candidateIndex)) {
+        setCurrentImageIndex(candidateIndex);
+        return;
+      }
+    }
+  }, [brokenImages, currentImageIndex, gallery]);
 
   const openImageModal = (index: number) => {
     setCurrentImageIndex(index);

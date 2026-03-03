@@ -35,7 +35,10 @@ export function SearchBar({ onSearch, onFilterClick, onSearchClick, value }: Sea
             onClick={onFilterClick}
             className="shrink-0 bg-white flex items-center border border-black border-solid hover:bg-gray-50 transition-colors"
             style={{ height: '44px', gap: '10px', padding: '0 14px', borderRadius: '50px' }}
+            aria-label="Filters"
+            title="Filters"
           >
+            <span className="sr-only">Filters</span>
             <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
               <path d={svgPaths.p39efcaf0} stroke="black" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
