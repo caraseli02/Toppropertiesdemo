@@ -5,6 +5,7 @@ interface HeaderProps {
   onNavigateToMap?: () => void;
   onNavigateToProperties?: () => void;
   forceMenuOpen?: boolean;
+  onComingSoon?: (feature: string) => void;
 }
 
 function MobileMenu({
@@ -12,11 +13,13 @@ function MobileMenu({
   onClose,
   onNavigateToMap,
   onNavigateToProperties,
+  onComingSoon,
 }: {
   isOpen: boolean;
   onClose: () => void;
   onNavigateToMap?: () => void;
   onNavigateToProperties?: () => void;
+  onComingSoon?: (feature: string) => void;
 }) {
   if (!isOpen) return null;
 
@@ -31,15 +34,18 @@ function MobileMenu({
     },
     {
       label: 'Favorites',
-      disabled: true,
+      action: () => onComingSoon?.('Favorites'),
+      comingSoon: true,
     },
     {
       label: 'Contact Us',
-      disabled: true,
+      action: () => onComingSoon?.('Contact Us'),
+      comingSoon: true,
     },
     {
       label: 'About',
-      disabled: true,
+      action: () => onComingSoon?.('About'),
+      comingSoon: true,
     },
   ];
 
@@ -62,21 +68,18 @@ function MobileMenu({
             <button
               key={item.label}
               type="button"
-              disabled={item.disabled}
-              aria-disabled={item.disabled ? 'true' : undefined}
               onClick={() => {
-                if (item.disabled) return;
                 item.action?.();
                 onClose();
               }}
-              className={`w-full text-left px-6 py-3 text-[15px] transition-colors flex items-center justify-between gap-3 ${item.disabled
-                ? 'text-gray-400 cursor-not-allowed opacity-60 grayscale'
+              className={`w-full text-left px-6 py-3 text-[15px] transition-colors flex items-center justify-between gap-3 ${item.comingSoon
+                ? 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'
                 : 'text-gray-700 hover:bg-gray-50 hover:text-[#b10832]'
                 }`}
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
               <span>{item.label}</span>
-              {item.disabled && (
+              {item.comingSoon && (
                 <span className="text-[11px] uppercase tracking-wider text-gray-400">
                   Demo
                 </span>
@@ -94,7 +97,7 @@ function MobileMenu({
   );
 }
 
-export function Header({ onNavigateToMap, onNavigateToProperties, forceMenuOpen = false }: HeaderProps) {
+export function Header({ onNavigateToMap, onNavigateToProperties, forceMenuOpen = false, onComingSoon }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -157,24 +160,20 @@ export function Header({ onNavigateToMap, onNavigateToProperties, forceMenuOpen 
                 <Menu className="w-5 h-5 text-black" strokeWidth={1.875} />
               </button>
               <button
-                type="button"
-                disabled
-                aria-disabled="true"
                 title="Favorites (coming soon)"
-                className="flex items-center justify-center rounded-full opacity-45 cursor-not-allowed"
+                className="flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
                 style={{ width: '44px', height: '44px' }}
                 aria-label="Favorites"
+                onClick={() => onComingSoon?.('Favorites')}
               >
                 <Heart className="w-5 h-5 text-black fill-black" />
               </button>
               <button
-                type="button"
-                disabled
-                aria-disabled="true"
                 title="User profile (coming soon)"
-                className="flex items-center justify-center rounded-full opacity-45 cursor-not-allowed"
+                className="flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
                 style={{ width: '44px', height: '44px' }}
                 aria-label="User profile"
+                onClick={() => onComingSoon?.('User profile')}
               >
                 <User className="w-5 h-5 text-black" />
               </button>
@@ -189,6 +188,7 @@ export function Header({ onNavigateToMap, onNavigateToProperties, forceMenuOpen 
         onClose={() => setIsMenuOpen(false)}
         onNavigateToMap={onNavigateToMap}
         onNavigateToProperties={onNavigateToProperties}
+        onComingSoon={onComingSoon}
       />
     </>
   );

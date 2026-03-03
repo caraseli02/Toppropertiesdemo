@@ -1,17 +1,18 @@
 import { Instagram, Facebook, Linkedin, MapPin, Phone, Mail } from 'lucide-react';
 
-function DisabledFooterButton({
+function FooterActionButton({
   label,
+  onClick,
   className = '',
 }: {
   label: string;
+  onClick?: () => void;
   className?: string;
 }) {
   return (
     <button
       type="button"
-      disabled
-      aria-disabled="true"
+      onClick={onClick}
       className={className}
       style={{ fontFamily: 'Inter, sans-serif' }}
     >
@@ -20,7 +21,11 @@ function DisabledFooterButton({
   );
 }
 
-export function Footer() {
+interface FooterProps {
+  onComingSoon?: (feature: string) => void;
+}
+
+export function Footer({ onComingSoon }: FooterProps) {
   return (
     <footer style={{ backgroundColor: '#1a1a1a', color: 'white' }}>
       {/* Main Footer */}
@@ -43,31 +48,28 @@ export function Footer() {
             <div className="flex gap-3">
               <button
                 type="button"
-                disabled
                 aria-label="Instagram (coming soon)"
-                aria-disabled="true"
-                className="w-11 h-11 rounded-full flex items-center justify-center opacity-60 cursor-not-allowed"
+                className="w-11 h-11 rounded-full flex items-center justify-center opacity-80 hover:opacity-100 transition-opacity"
                 style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}
+                onClick={() => onComingSoon?.('Instagram')}
               >
                 <Instagram className="w-4 h-4" />
               </button>
               <button
                 type="button"
-                disabled
                 aria-label="Facebook (coming soon)"
-                aria-disabled="true"
-                className="w-11 h-11 rounded-full flex items-center justify-center opacity-60 cursor-not-allowed"
+                className="w-11 h-11 rounded-full flex items-center justify-center opacity-80 hover:opacity-100 transition-opacity"
                 style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}
+                onClick={() => onComingSoon?.('Facebook')}
               >
                 <Facebook className="w-4 h-4" />
               </button>
               <button
                 type="button"
-                disabled
                 aria-label="LinkedIn (coming soon)"
-                aria-disabled="true"
-                className="w-11 h-11 rounded-full flex items-center justify-center opacity-60 cursor-not-allowed"
+                className="w-11 h-11 rounded-full flex items-center justify-center opacity-80 hover:opacity-100 transition-opacity"
                 style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}
+                onClick={() => onComingSoon?.('LinkedIn')}
               >
                 <Linkedin className="w-4 h-4" />
               </button>
@@ -85,9 +87,10 @@ export function Footer() {
             <ul className="space-y-2">
               {['All Properties', 'Featured Listings', 'Map View', 'Newest Arrivals'].map((link) => (
                 <li key={link}>
-                  <DisabledFooterButton
+                  <FooterActionButton
                     label={`${link} (Coming soon)`}
-                    className="text-gray-400 text-sm min-h-11 text-left opacity-70 cursor-not-allowed"
+                    onClick={() => onComingSoon?.(link)}
+                    className="text-gray-400 text-sm min-h-11 text-left opacity-80 hover:opacity-100 transition-opacity"
                   />
                 </li>
               ))}
@@ -127,9 +130,9 @@ export function Footer() {
             © {new Date().getFullYear()} Top Properties. All rights reserved.
           </p>
           <div className="flex gap-4 text-xs text-gray-500" style={{ fontFamily: 'Inter, sans-serif' }}>
-            <DisabledFooterButton label="Privacy" className="min-h-11 px-1 opacity-70 cursor-not-allowed" />
-            <DisabledFooterButton label="Terms" className="min-h-11 px-1 opacity-70 cursor-not-allowed" />
-            <DisabledFooterButton label="Cookies" className="min-h-11 px-1 opacity-70 cursor-not-allowed" />
+            <FooterActionButton label="Privacy" onClick={() => onComingSoon?.('Privacy')} className="min-h-11 px-1 opacity-80 hover:opacity-100 transition-opacity" />
+            <FooterActionButton label="Terms" onClick={() => onComingSoon?.('Terms')} className="min-h-11 px-1 opacity-80 hover:opacity-100 transition-opacity" />
+            <FooterActionButton label="Cookies" onClick={() => onComingSoon?.('Cookies')} className="min-h-11 px-1 opacity-80 hover:opacity-100 transition-opacity" />
           </div>
         </div>
       </div>

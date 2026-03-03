@@ -9,6 +9,7 @@ import { PropertyDetail } from './components/PropertyDetail';
 import { LoadingCard } from './components/LoadingCard';
 import { Footer } from './components/Footer';
 import { HeroSection } from './components/HeroSection';
+import { ComingSoonToast } from './components/ComingSoonToast';
 import { LayoutGrid, Map } from 'lucide-react';
 import { properties } from '@/data/properties';
 import { Property, FilterState } from '@/types';
@@ -53,16 +54,31 @@ export default function App() {
   const [pendingScrollTarget, setPendingScrollTarget] = useState<'grid' | 'map' | null>(null);
 
   const [searchQuery, setSearchQuery] = useState('');
+  const [comingSoonMessage, setComingSoonMessage] = useState<string | null>(null);
 
   const filteredProperties = useMemo(() => {
     return filterProperties(properties, searchQuery, activeFilters);
   }, [searchQuery, activeFilters]);
   const hasVisibleResults = filteredProperties.length > 0;
-  const hasActiveSearchOrFilter = searchQuery.trim() !== '' || !isDefaultFilterState(activeFilters);
+  const hasActiveSearch = searchQuery.trim() !== '';
+  const hasActiveFilters = !isDefaultFilterState(activeFilters);
+  const hasActiveSearchOrFilter = hasActiveSearch || hasActiveFilters;
+  const emptyStateCtaLabel = hasActiveSearch && hasActiveFilters
+    ? 'Reset search & filters'
+    : hasActiveSearch
+      ? 'Clear search'
+      : 'Reset filters';
 
   // Handler updates state, Effect does the work
   const handleSearch = useCallback((query: string) => {
     setSearchQuery(query);
+  }, []);
+
+  const handleComingSoon = useCallback((feature: string) => {
+    setComingSoonMessage(`${feature} is coming soon.`);
+  }, []);
+  const dismissComingSoon = useCallback(() => {
+    setComingSoonMessage(null);
   }, []);
 
   const applyFilters = useCallback((filters: FilterState) => {
@@ -134,6 +150,7 @@ export default function App() {
         onNavigateToMap={openMapFromMenu}
         onNavigateToProperties={openGridFromMenu}
         forceMenuOpen={forceMenuOpen}
+        onComingSoon={handleComingSoon}
       />
       <SearchBar
         onSearch={handleSearch}
@@ -174,14 +191,20 @@ export default function App() {
             </p>
             <button
               onClick={() => {
-                setActiveFilters(getDefaultFilters());
-                setSearchQuery('');
+                if (hasActiveSearch && hasActiveFilters) {
+                  setActiveFilters(getDefaultFilters());
+                  setSearchQuery('');
+                } else if (hasActiveSearch) {
+                  setSearchQuery('');
+                } else {
+                  setActiveFilters(getDefaultFilters());
+                }
                 setViewMode('grid');
               }}
               className="bg-[#b10832] text-white px-6 py-3 rounded-lg hover:bg-[#8e0628] transition-colors font-medium"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
-              Reset Filters
+              {emptyStateCtaLabel}
             </button>
           </div>
         ) : (
@@ -260,7 +283,7 @@ export default function App() {
       </div>
 
       {/* Footer */}
-      <Footer />
+      <Footer onComingSoon={handleComingSoon} />
 
       {/* Filter Modal */}
       <FilterModal
@@ -292,6 +315,10 @@ export default function App() {
           }}
           initialOverlay={detailOverlay}
         />
+      )}
+
+      {comingSoonMessage && (
+        <ComingSoonToast message={comingSoonMessage} onDismiss={dismissComingSoon} />
       )}
     </div>
   );
