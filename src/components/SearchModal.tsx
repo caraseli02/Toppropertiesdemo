@@ -105,7 +105,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
             <h2
               id="search-modal-title"
               className="text-sm font-semibold tracking-wide text-gray-500 uppercase"
-              style={{ fontFamily: 'Inter, sans-serif' }}
+              style={{ fontFamily: 'Outfit, sans-serif' }}
             >
               Search Properties
             </h2>
@@ -127,7 +127,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
                 onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                 placeholder="Search location, name, or type..."
                 className="flex-1 font-light text-[16px] text-black placeholder:text-gray-400 outline-none bg-transparent"
-                style={{ fontFamily: 'Inter, sans-serif' }}
+                style={{ fontFamily: 'Outfit, sans-serif' }}
                 autoFocus
                 aria-label="Search properties"
                 maxLength={MAX_QUERY_LENGTH}
@@ -145,7 +145,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
               )}
             </div>
           </div>
-          <div className="mt-2 flex items-center justify-between text-[11px] text-gray-400" style={{ fontFamily: 'Inter, sans-serif' }}>
+          <div className="mt-2 flex items-center justify-between text-[11px] text-gray-400" style={{ fontFamily: 'Outfit, sans-serif' }}>
             <span>Press Enter to search or use the button below</span>
             <span>{query.length}/{MAX_QUERY_LENGTH}</span>
           </div>
@@ -158,7 +158,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
             <div className="px-6 py-4 border-b border-gray-100">
               <h3
                 className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3"
-                style={{ fontFamily: 'Inter, sans-serif' }}
+                style={{ fontFamily: 'Outfit, sans-serif' }}
               >
                 Locations
               </h3>
@@ -168,7 +168,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
                     key={loc}
                     onClick={() => handleLocationClick(loc)}
                     className="max-w-full px-3 py-1.5 rounded-full border border-gray-200 text-sm text-gray-700 hover:bg-gray-100 hover:border-gray-300 transition-all"
-                    style={{ fontFamily: 'Inter, sans-serif' }}
+                    style={{ fontFamily: 'Outfit, sans-serif' }}
                   >
                     <span className="inline-block max-w-[170px] truncate align-middle">{loc}</span>
                     <span className="text-gray-400 ml-1">({count})</span>
@@ -182,7 +182,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
           <div className="px-6 py-4">
             <h3
               className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3"
-              style={{ fontFamily: 'Inter, sans-serif' }}
+              style={{ fontFamily: 'Outfit, sans-serif' }}
             >
               Properties {query && `(${filteredProperties.length})`}
             </h3>
@@ -209,7 +209,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
                           {property.featured && (
                             <span
                               className="bg-[#b10832] text-white px-1.5 py-0.5 rounded text-[10px] font-medium uppercase"
-                              style={{ fontFamily: 'Inter, sans-serif' }}
+                              style={{ fontFamily: 'Outfit, sans-serif' }}
                             >
                               Featured
                             </span>
@@ -217,7 +217,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
                           {property.propertyType && (
                             <span
                               className="text-[11px] text-gray-400 uppercase tracking-wide line-clamp-1 max-w-[120px] truncate"
-                              style={{ fontFamily: 'Inter, sans-serif' }}
+                              style={{ fontFamily: 'Outfit, sans-serif' }}
                             >
                               {property.propertyType}
                             </span>
@@ -225,13 +225,13 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
                         </div>
                         <h4
                           className="font-semibold text-[15px] text-black overflow-hidden text-ellipsis whitespace-nowrap"
-                          style={{ fontFamily: 'Inter, sans-serif' }}
+                          style={{ fontFamily: 'Outfit, sans-serif' }}
                         >
                           {property.title}
                         </h4>
                         <p
                           className="text-[13px] text-gray-500 overflow-hidden text-ellipsis whitespace-nowrap"
-                          style={{ fontFamily: 'Inter, sans-serif' }}
+                          style={{ fontFamily: 'Outfit, sans-serif' }}
                         >
                           {property.location}
                         </p>
@@ -242,11 +242,11 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
                     <div className="mt-2 flex items-center justify-between gap-3">
                       <span
                         className="font-bold text-[15px] leading-tight text-[#b10832] max-w-[58%] overflow-hidden text-ellipsis whitespace-nowrap"
-                        style={{ fontFamily: 'Inter, sans-serif' }}
+                        style={{ fontFamily: 'Outfit, sans-serif' }}
                       >
                         {property.price}
                       </span>
-                      <div className="text-[12px] text-gray-400 text-right shrink-0" style={{ fontFamily: 'Inter, sans-serif' }}>
+                      <div className="text-[12px] text-gray-400 text-right shrink-0" style={{ fontFamily: 'Outfit, sans-serif' }}>
                         {property.beds} bd · {property.baths} ba
                       </div>
                     </div>
@@ -254,7 +254,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
                 ))}
               </div>
             ) : (
-              <div className="text-center py-12 text-gray-400" style={{ fontFamily: 'Inter, sans-serif' }}>
+              <div className="text-center py-12 text-gray-400" style={{ fontFamily: 'Outfit, sans-serif' }}>
                 <svg className="w-12 h-12 mx-auto mb-3 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
@@ -270,14 +270,14 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
           <button
             onClick={onClose}
             className="px-6 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors font-medium"
-            style={{ fontFamily: 'Inter, sans-serif' }}
+            style={{ fontFamily: 'Outfit, sans-serif' }}
           >
             Cancel
           </button>
           <button
             onClick={handleSearch}
             className="px-8 py-3 bg-[#2b2b2b] text-white rounded-lg hover:bg-black transition-colors font-medium"
-            style={{ fontFamily: 'Inter, sans-serif' }}
+            style={{ fontFamily: 'Outfit, sans-serif' }}
           >
             Show results
           </button>

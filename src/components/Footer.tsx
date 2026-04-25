@@ -1,111 +1,36 @@
-import { Instagram, Facebook, Linkedin, MapPin, Phone, Mail } from 'lucide-react';
+import { MapPin, Phone, Mail } from 'lucide-react';
 
-function FooterActionButton({
-  label,
-  onClick,
-  className = '',
-}: {
-  label: string;
-  onClick?: () => void;
-  className?: string;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={className}
-      style={{ fontFamily: 'Inter, sans-serif' }}
-    >
-      {label}
-    </button>
-  );
-}
-
-interface FooterProps {
-  onComingSoon?: (feature: string) => void;
-}
-
-export function Footer({ onComingSoon }: FooterProps) {
+export function Footer() {
   return (
     <footer style={{ backgroundColor: '#1a1a1a', color: 'white' }}>
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {/* Brand */}
           <div>
             <h3
               className="text-xl font-bold mb-3 tracking-wide"
-              style={{ fontFamily: 'Inter, sans-serif' }}
+              style={{ fontFamily: 'Outfit, sans-serif' }}
             >
               <span style={{ color: '#b10832' }}>Top Properties</span>
             </h3>
             <p
-              className="text-gray-400 text-sm leading-relaxed mb-4"
-              style={{ fontFamily: 'Inter, sans-serif' }}
+              className="text-gray-400 text-sm leading-relaxed"
+              style={{ fontFamily: 'Outfit, sans-serif' }}
             >
               A curated selection of the world's most exclusive real estate.
             </p>
-            <div className="flex gap-3">
-              <button
-                type="button"
-                aria-label="Instagram (coming soon)"
-                className="w-11 h-11 rounded-full flex items-center justify-center opacity-80 hover:opacity-100 transition-opacity"
-                style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}
-                onClick={() => onComingSoon?.('Instagram')}
-              >
-                <Instagram className="w-4 h-4" />
-              </button>
-              <button
-                type="button"
-                aria-label="Facebook (coming soon)"
-                className="w-11 h-11 rounded-full flex items-center justify-center opacity-80 hover:opacity-100 transition-opacity"
-                style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}
-                onClick={() => onComingSoon?.('Facebook')}
-              >
-                <Facebook className="w-4 h-4" />
-              </button>
-              <button
-                type="button"
-                aria-label="LinkedIn (coming soon)"
-                className="w-11 h-11 rounded-full flex items-center justify-center opacity-80 hover:opacity-100 transition-opacity"
-                style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}
-                onClick={() => onComingSoon?.('LinkedIn')}
-              >
-                <Linkedin className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h4
-              className="font-semibold text-sm uppercase tracking-wider text-gray-300 mb-4"
-              style={{ fontFamily: 'Inter, sans-serif' }}
-            >
-              Explore
-            </h4>
-            <ul className="space-y-2">
-              {['All Properties', 'Featured Listings', 'Map View', 'Newest Arrivals'].map((link) => (
-                <li key={link}>
-                  <FooterActionButton
-                    label={`${link} (Coming soon)`}
-                    onClick={() => onComingSoon?.(link)}
-                    className="text-gray-400 text-sm min-h-11 text-left opacity-80 hover:opacity-100 transition-opacity"
-                  />
-                </li>
-              ))}
-            </ul>
           </div>
 
           {/* Contact */}
           <div>
             <h4
               className="font-semibold text-sm uppercase tracking-wider text-gray-300 mb-4"
-              style={{ fontFamily: 'Inter, sans-serif' }}
+              style={{ fontFamily: 'Outfit, sans-serif' }}
             >
               Contact
             </h4>
-            <div className="space-y-3 text-sm text-gray-400" style={{ fontFamily: 'Inter, sans-serif' }}>
+            <div className="space-y-3 text-sm text-gray-400" style={{ fontFamily: 'Outfit, sans-serif' }}>
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: '#b10832' }} />
                 <span>123 Luxury Avenue, New York, NY 10001</span>
@@ -126,14 +51,9 @@ export function Footer({ onComingSoon }: FooterProps) {
       {/* Bottom Bar */}
       <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }}>
         <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p className="text-xs text-gray-500" style={{ fontFamily: 'Inter, sans-serif' }}>
+          <p className="text-xs text-gray-500" style={{ fontFamily: 'Outfit, sans-serif' }}>
             © {new Date().getFullYear()} Top Properties. All rights reserved.
           </p>
-          <div className="flex gap-4 text-xs text-gray-500" style={{ fontFamily: 'Inter, sans-serif' }}>
-            <FooterActionButton label="Privacy" onClick={() => onComingSoon?.('Privacy')} className="min-h-11 px-1 opacity-80 hover:opacity-100 transition-opacity" />
-            <FooterActionButton label="Terms" onClick={() => onComingSoon?.('Terms')} className="min-h-11 px-1 opacity-80 hover:opacity-100 transition-opacity" />
-            <FooterActionButton label="Cookies" onClick={() => onComingSoon?.('Cookies')} className="min-h-11 px-1 opacity-80 hover:opacity-100 transition-opacity" />
-          </div>
         </div>
       </div>
     </footer>

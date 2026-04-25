@@ -67,7 +67,7 @@ export function ImageModal({ images, initialIndex, isOpen, onClose }: ImageModal
         />
 
         <div className="absolute bottom-0 left-0 right-0 p-4 flex justify-between items-center bg-gradient-to-t from-black/50 to-transparent">
-          <span className="text-white text-sm font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>
+          <span className="text-white text-sm font-medium" style={{ fontFamily: 'Outfit, sans-serif' }}>
             {currentIndex + 1} / {images.length}
           </span>
           <div className="flex gap-2">
