@@ -43,8 +43,11 @@ const getDefaultFilters = (): FilterState => ({
   tags: [],
 });
 
+import { useFocusTrap } from '@/hooks/useFocusTrap';
+
 export function FilterModal({ isOpen, onClose, onApply, initialFilters }: FilterModalProps) {
   const [filters, setFilters] = useState<FilterState>(() => initialFilters || getDefaultFilters());
+  const focusTrapRef = useFocusTrap(isOpen);
   useBodyScrollLock(isOpen);
 
   // Keep modal state as a draft synced from applied filters when opened.
@@ -106,6 +109,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
 
   return (
     <div
+      ref={focusTrapRef}
       className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-stretch justify-center p-0 sm:items-center sm:p-4"
       style={{ zIndex: 1200 }}
       onClick={(e) => {

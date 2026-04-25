@@ -32,7 +32,10 @@ interface SearchModalProps {
 const MAX_QUERY_LENGTH = 120;
 const normalizeQuery = (value: string) => value.trim().replace(/\s+/g, ' ');
 
+import { useFocusTrap } from '@/hooks/useFocusTrap';
+
 export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectProperty }: SearchModalProps) {
+  const focusTrapRef = useFocusTrap(true);
   const [query, setQuery] = useState('');
   useBodyScrollLock(isOpen);
   const isAtLimit = query.length >= MAX_QUERY_LENGTH;

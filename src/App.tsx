@@ -145,6 +145,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-white">
+      <a href="#properties-section" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[9999] focus:bg-white focus:text-black focus:px-4 focus:py-2 focus:rounded focus:shadow-lg focus:border focus:border-gray-200">
+        Skip to content
+      </a>
       <Header
         onNavigateToMap={openMapFromMenu}
         onNavigateToProperties={openGridFromMenu}

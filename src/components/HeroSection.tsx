@@ -61,6 +61,9 @@ export function HeroSection({ properties, onViewProperty, onSearchClick }: HeroS
 
   useEffect(() => {
     if (NARRATIVE_SLIDES.length <= 1) return;
+    // Respect reduced motion — don't auto-rotate
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % NARRATIVE_SLIDES.length);
     }, 6000);

@@ -46,7 +46,10 @@ function MapInvalidator() {
   return null;
 }
 
+import { useFocusTrap } from '@/hooks/useFocusTrap';
+
 export function PropertyDetail({ property, onClose, initialOverlay = null }: PropertyDetailProps) {
+  const focusTrapRef = useFocusTrap(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
