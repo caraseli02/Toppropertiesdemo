@@ -122,7 +122,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
       aria-labelledby="filter-modal-title"
     >
       <div
-        className="bg-[#f5f5f5] w-full h-full flex flex-col shadow-2xl rounded-none sm:rounded-2xl sm:h-auto sm:max-h-[90vh] sm:max-w-3xl"
+        className="bg-[var(--surface-muted)] w-full h-full flex flex-col shadow-2xl rounded-none sm:rounded-2xl sm:h-auto sm:max-h-[90vh] sm:max-w-3xl"
       >
         {/* Header */}
         <div className="sticky top-0 bg-white px-6 py-4 flex items-center justify-between border-b border-gray-200 z-10">
@@ -200,7 +200,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                 }
                 className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-[var(--brand)]"
                 style={{
-                  background: `linear-gradient(to right, var(--brand) 0%, var(--brand) ${(filters.priceRange[1] / PRICE_MAX) * 100}%, #d1d5db ${(filters.priceRange[1] / PRICE_MAX) * 100}%, #d1d5db 100%)`
+                  background: `linear-gradient(to right, var(--brand) 0%, var(--brand) ${(filters.priceRange[1] / PRICE_MAX) * 100}%, var(--slider-track) ${(filters.priceRange[1] / PRICE_MAX) * 100}%, var(--slider-track) 100%)`
                 }}
               />
               <div className="flex items-center gap-3">
@@ -319,7 +319,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                   }
                   className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-[var(--brand)]"
                   style={{
-                    background: `linear-gradient(to right, var(--brand) 0%, var(--brand) ${(filters.sqm[1] / 500) * 100}%, #d1d5db ${(filters.sqm[1] / 500) * 100}%, #d1d5db 100%)`
+                    background: `linear-gradient(to right, var(--brand) 0%, var(--brand) ${(filters.sqm[1] / 500) * 100}%, var(--slider-track) ${(filters.sqm[1] / 500) * 100}%, var(--slider-track) 100%)`
                   }}
                 />
               </div>
@@ -414,7 +414,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
           </button>
           <button
             onClick={handleApply}
-            className="px-8 py-3 bg-[#2b2b2b] text-white rounded-lg hover:bg-black transition-colors font-medium"
+            className="px-8 py-3 bg-[var(--surface-elevated)] text-white rounded-lg hover:bg-black transition-colors font-medium"
            
           >
             Results

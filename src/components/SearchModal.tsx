@@ -279,7 +279,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
           </button>
           <button
             onClick={handleSearch}
-            className="px-8 py-3 bg-[#2b2b2b] text-white rounded-lg hover:bg-black transition-colors font-medium"
+            className="px-8 py-3 bg-[var(--surface-elevated)] text-white rounded-lg hover:bg-black transition-colors font-medium"
            
           >
             Show results

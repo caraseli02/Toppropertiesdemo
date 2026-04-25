@@ -87,12 +87,12 @@ export const MapView = React.memo<MapViewProps>(function MapView({ properties, o
   return (
     <div
       className="w-full h-full rounded-xl overflow-hidden shadow-lg border border-gray-200 z-0 relative"
-      style={{ backgroundColor: '#d4edf4' }}
+      style={{ backgroundColor: 'var(--map-water)' }}
     >
       <MapContainer
         center={center}
         zoom={13}
-        style={{ height: '100%', width: '100%', backgroundColor: '#d4edf4' }}
+        style={{ height: '100%', width: '100%', backgroundColor: 'var(--map-water)' }}
         scrollWheelZoom={true}
         zoomControl={false}
       >
