@@ -168,7 +168,7 @@ export default function App() {
       )}
 
       {/* Main Content */}
-      <div id="properties-section" className="py-4 pb-8" style={{ paddingLeft: '10px', paddingRight: '10px' }}>
+      <div id="properties-section" className="py-8 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {filteredProperties.length === 0 ? (
           /* Illustrated Empty State */
           <div className="text-center py-20">
@@ -252,11 +252,11 @@ export default function App() {
               <>
                 {/* Featured Properties - Masonry Layout */}
                 {featuredProperties.length >= 2 && !hasActiveSearchOrFilter && (
-                  <section className="mb-8">
-                    <h2 className="text-lg font-semibold text-black mb-4">
+                  <section className="mb-12">
+                    <h2 className="text-xs font-semibold tracking-[0.15em] uppercase text-[var(--text-secondary)] mb-6">
                       Featured
                     </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                       {featuredProperties.slice(0, 6).map((property, index) => (
                         <div
                           key={property.id}
@@ -277,11 +277,11 @@ export default function App() {
                 {(hasActiveSearchOrFilter ? filteredProperties : standardProperties).length > 0 && (
                   <section>
                     {featuredProperties.length >= 2 && !hasActiveSearchOrFilter && (
-                      <h2 className="text-lg font-semibold text-black mb-4">
+                      <h2 className="text-xs font-semibold tracking-[0.15em] uppercase text-[var(--text-secondary)] mb-6">
                         All Properties
                       </h2>
                     )}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                       {(hasActiveSearchOrFilter ? filteredProperties : standardProperties).map((property) => (
                         <PropertyCard
                           key={property.id}

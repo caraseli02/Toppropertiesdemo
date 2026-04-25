@@ -85,7 +85,7 @@ export function HeroSection({ properties, onViewProperty, onSearchClick }: HeroS
   return (
     <section
       className="relative w-full overflow-hidden"
-      style={{ height: 'clamp(320px, 60vh, 520px)', backgroundColor: 'var(--surface-dark)' }}
+      style={{ height: 'clamp(280px, 50vh, 520px)', backgroundColor: 'var(--surface-dark)' }}
     >
       {/* Background Images with blur-up */}
       {bgImages.map((src, i) => (
