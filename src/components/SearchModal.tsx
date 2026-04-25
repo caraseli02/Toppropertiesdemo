@@ -100,7 +100,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
   };
 
   return (
-    <div className="fixed inset-0 bg-white" style={{ zIndex: 1200 }} role="dialog" aria-modal="true" aria-labelledby="search-modal-title">
+    <div ref={focusTrapRef} className="fixed inset-0 bg-white" style={{ zIndex: 1200 }} role="dialog" aria-modal="true" aria-labelledby="search-modal-title">
       <div className="bg-white h-full flex flex-col">
         {/* Search Input */}
         <div className="px-6 py-4 border-b border-gray-200">
