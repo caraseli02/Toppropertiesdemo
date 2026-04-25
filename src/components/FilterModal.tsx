@@ -122,7 +122,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
       >
         {/* Header */}
         <div className="sticky top-0 bg-white px-6 py-4 flex items-center justify-between border-b border-gray-200 z-10">
-          <h2 id="filter-modal-title" className="text-xl font-bold" style={{ fontFamily: 'Outfit, sans-serif' }}>
+          <h2 id="filter-modal-title" className="text-xl font-bold">
             Filters
           </h2>
           <button
@@ -144,7 +144,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                 ? 'bg-[#b10832] text-white border-[#b10832]'
                 : 'bg-white text-black border-black'
                 }`}
-              style={{ fontFamily: 'Outfit, sans-serif' }}
+             
               type="button"
               aria-pressed={filters.rentType === 'short'}
             >
@@ -156,7 +156,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                 ? 'bg-[#b10832] text-white border-[#b10832]'
                 : 'bg-white text-black border-black'
                 }`}
-              style={{ fontFamily: 'Outfit, sans-serif' }}
+             
               type="button"
               aria-pressed={filters.rentType === 'long'}
             >
@@ -168,7 +168,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                 ? 'bg-[#b10832] text-white border-[#b10832]'
                 : 'bg-white text-black border-black'
                 }`}
-              style={{ fontFamily: 'Outfit, sans-serif' }}
+             
               type="button"
               aria-pressed={filters.rentType === 'sale'}
             >
@@ -178,7 +178,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
 
           {/* Price Range */}
           <div>
-            <h3 className="font-semibold text-lg mb-4" style={{ fontFamily: 'Outfit, sans-serif' }}>
+            <h3 className="font-semibold text-lg mb-4">
               Price range
             </h3>
             <div className="space-y-4">
@@ -201,19 +201,19 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
               />
               <div className="flex items-center gap-3">
                 <div className="flex-1 bg-white rounded-lg border border-gray-300 p-3">
-                  <div className="text-xs text-gray-500 mb-1" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                  <div className="text-xs text-gray-500 mb-1">
                     Min price
                   </div>
-                  <div className="font-semibold" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                  <div className="font-semibold">
                     {formatPrice(filters.priceRange[0])}
                   </div>
                 </div>
                 <span className="text-gray-400">—</span>
                 <div className="flex-1 bg-white rounded-lg border border-gray-300 p-3">
-                  <div className="text-xs text-gray-500 mb-1" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                  <div className="text-xs text-gray-500 mb-1">
                     Max price
                   </div>
-                  <div className="font-semibold" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                  <div className="font-semibold">
                     {formatPrice(filters.priceRange[1])}
                   </div>
                 </div>
@@ -223,7 +223,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
 
           {/* Show Trattativa */}
           <div className="flex items-center justify-between bg-white rounded-lg p-4">
-            <span id="show-private-negotiation-label" className="font-medium" style={{ fontFamily: 'Outfit, sans-serif' }}>
+            <span id="show-private-negotiation-label" className="font-medium">
               Show Private Negotiation
             </span>
             <button
@@ -244,7 +244,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
 
           {/* Property Type */}
           <div>
-            <h3 className="font-semibold text-lg mb-4" style={{ fontFamily: 'Outfit, sans-serif' }}>
+            <h3 className="font-semibold text-lg mb-4">
               Property type
             </h3>
             <div className="flex flex-wrap gap-3">
@@ -256,7 +256,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                     ? 'bg-[#b10832] text-white'
                     : 'bg-white text-black border border-gray-300'
                     }`}
-                  style={{ fontFamily: 'Outfit, sans-serif' }}
+                 
                   type="button"
                   aria-pressed={filters.propertyTypes.includes(type)}
                 >
@@ -268,13 +268,13 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
 
           {/* Rooms and Beds */}
           <div>
-            <h3 className="font-semibold text-lg mb-4" style={{ fontFamily: 'Outfit, sans-serif' }}>
+            <h3 className="font-semibold text-lg mb-4">
               Rooms and Beds
             </h3>
             <div className="space-y-4 bg-white rounded-lg p-4">
               {/* Rooms */}
               <div className="flex items-center justify-between">
-                <span className="font-medium" style={{ fontFamily: 'Outfit, sans-serif' }}>Rooms</span>
+                <span className="font-medium">Rooms</span>
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => setFilters(prev => ({ ...prev, rooms: Math.max(0, prev.rooms - 1) }))}
@@ -283,7 +283,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                   >
                     <Minus className="w-4 h-4" />
                   </button>
-                  <span className="text-2xl font-bold w-8 text-center" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                  <span className="text-2xl font-bold w-8 text-center">
                     {filters.rooms}
                   </span>
                   <button
@@ -299,7 +299,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
               {/* mq (Square meters) */}
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="font-medium" style={{ fontFamily: 'Outfit, sans-serif' }}>sqm</span>
+                  <span className="font-medium">sqm</span>
                 </div>
                 <input
                   type="range"
@@ -322,7 +322,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
 
               {/* Beds */}
               <div className="flex items-center justify-between">
-                <span className="font-medium" style={{ fontFamily: 'Outfit, sans-serif' }}>Beds</span>
+                <span className="font-medium">Beds</span>
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => setFilters(prev => ({ ...prev, beds: Math.max(0, prev.beds - 1) }))}
@@ -331,7 +331,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                   >
                     <Minus className="w-4 h-4" />
                   </button>
-                  <span className="text-2xl font-bold w-8 text-center" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                  <span className="text-2xl font-bold w-8 text-center">
                     {filters.beds}
                   </span>
                   <button
@@ -348,13 +348,13 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
 
           {/* Tags */}
           <div>
-            <h3 className="font-semibold text-lg mb-4" style={{ fontFamily: 'Outfit, sans-serif' }}>
+            <h3 className="font-semibold text-lg mb-4">
               Tags
             </h3>
             <div className="space-y-3 bg-white rounded-lg p-4">
               {tagsList.map((tag) => (
                 <label key={tag} className="flex items-center justify-between cursor-pointer group">
-                  <span className="font-medium text-gray-700" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                  <span className="font-medium text-gray-700">
                     {tag}
                   </span>
                   <button
@@ -374,13 +374,13 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
 
           {/* Amenity Filters */}
           <div>
-            <h3 className="font-semibold text-lg mb-4" style={{ fontFamily: 'Outfit, sans-serif' }}>
+            <h3 className="font-semibold text-lg mb-4">
               Amenities
             </h3>
             <div className="space-y-3 bg-white rounded-lg p-4">
               {AMENITIES.map((amenity) => (
                 <label key={amenity} className="flex items-center justify-between cursor-pointer">
-                  <span className="font-medium text-gray-700" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                  <span className="font-medium text-gray-700">
                     {amenity}
                   </span>
                   <button
@@ -404,14 +404,14 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
           <button
             onClick={handleReset}
             className="px-6 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors font-medium"
-            style={{ fontFamily: 'Outfit, sans-serif' }}
+           
           >
             Reset Filters
           </button>
           <button
             onClick={handleApply}
             className="px-8 py-3 bg-[#2b2b2b] text-white rounded-lg hover:bg-black transition-colors font-medium"
-            style={{ fontFamily: 'Outfit, sans-serif' }}
+           
           >
             Results
           </button>

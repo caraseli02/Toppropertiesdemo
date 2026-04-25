@@ -90,35 +90,35 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
         <div className="mb-2">
           <h3
             className="font-semibold text-[18px] text-black mb-1 line-clamp-1"
-            style={{ fontFamily: 'Outfit, sans-serif' }}
+           
             title={title}
           >
             {title}
           </h3>
           <div className="flex items-center text-[#868686] text-[14px]">
             <MapPin className="w-4 h-4 mr-1 flex-shrink-0" />
-            <span className="line-clamp-1" style={{ fontFamily: 'Outfit, sans-serif' }}>{location}</span>
+            <span className="line-clamp-1">{location}</span>
           </div>
         </div>
 
         <div className="flex items-center gap-3 text-[14px] text-[#868686] mb-3 py-2 border-t border-[#e5e7eb] min-w-0">
           <div className="flex items-center gap-1" title={`${beds} bedrooms`}>
             <Bed className="w-4 h-4" />
-            <span style={{ fontFamily: 'Outfit, sans-serif' }}>{beds}</span>
+            <span>{beds}</span>
           </div>
           <span>•</span>
           <div className="flex items-center gap-1" title={`${baths} bathrooms`}>
             <Bath className="w-4 h-4" />
-            <span style={{ fontFamily: 'Outfit, sans-serif' }}>{baths}</span>
+            <span>{baths}</span>
           </div>
           <span>•</span>
-          <span className="truncate" style={{ fontFamily: 'Outfit, sans-serif' }} title={sqft}>{sqft}</span>
+          <span className="truncate" title={sqft}>{sqft}</span>
         </div>
 
         <div className="flex items-center justify-between">
           <p
             className="text-[24px] font-bold text-[#b10832] break-all leading-tight"
-            style={{ fontFamily: 'Outfit, sans-serif' }}
+           
           >
             {price}
           </p>

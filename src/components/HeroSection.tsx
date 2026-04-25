@@ -124,7 +124,6 @@ export function HeroSection({ properties, onViewProperty, onSearchClick }: HeroS
             style={{
               color: '#b10832',
               fontSize: '11px',
-              fontFamily: 'Outfit, sans-serif',
               letterSpacing: '0.15em',
             }}
           >
@@ -134,7 +133,6 @@ export function HeroSection({ properties, onViewProperty, onSearchClick }: HeroS
           <h1
             className="text-white font-bold leading-tight mb-3"
             style={{
-              fontFamily: 'Outfit, sans-serif',
               fontSize: 'clamp(2rem, 5vw, 3.5rem)',
               textShadow: '0 2px 12px rgba(0,0,0,0.5)',
             }}
@@ -145,7 +143,6 @@ export function HeroSection({ properties, onViewProperty, onSearchClick }: HeroS
           <p
             className="mb-8"
             style={{
-              fontFamily: 'Outfit, sans-serif',
               color: 'rgba(255,255,255,0.75)',
               fontSize: 'clamp(1rem, 2vw, 1.125rem)',
               fontWeight: 300,
@@ -158,7 +155,7 @@ export function HeroSection({ properties, onViewProperty, onSearchClick }: HeroS
           <button
             onClick={handleCta}
             className="bg-[#b10832] text-white rounded-lg font-medium hover:bg-[#8e0628] transition-colors flex items-center gap-2"
-            style={{ fontFamily: 'Outfit, sans-serif', padding: '14px 28px', fontSize: '15px' }}
+            style={{ padding: '14px 28px', fontSize: '15px' }}
           >
             {slide.cta} <ChevronRight className="w-4 h-4" />
           </button>

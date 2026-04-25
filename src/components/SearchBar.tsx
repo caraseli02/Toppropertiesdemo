@@ -42,7 +42,7 @@ export function SearchBar({ onSearch, onFilterClick, onSearchClick, value }: Sea
             <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
               <path d={svgPaths.p39efcaf0} stroke="black" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            <span className="font-normal text-[16px] text-black whitespace-nowrap hidden sm:inline" style={{ fontFamily: 'Outfit, sans-serif' }}>
+            <span className="font-normal text-[16px] text-black whitespace-nowrap hidden sm:inline">
               Filters
             </span>
           </button>
@@ -62,7 +62,7 @@ export function SearchBar({ onSearch, onFilterClick, onSearchClick, value }: Sea
               }}
               placeholder="Everywhere"
               className="flex-1 font-light text-[16px] text-black placeholder:text-[#868686] outline-none bg-transparent cursor-pointer"
-              style={{ fontFamily: 'Outfit, sans-serif' }}
+             
               readOnly={!!onSearchClick}
             />
           </div>

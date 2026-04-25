@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { X } from 'lucide-react';
 
 interface HeaderProps {
   onNavigateToMap?: () => void;
@@ -21,14 +21,8 @@ function MobileMenu({
   if (!isOpen) return null;
 
   const menuItems = [
-    {
-      label: 'Properties',
-      action: () => onNavigateToProperties?.(),
-    },
-    {
-      label: 'Map View',
-      action: () => onNavigateToMap?.(),
-    },
+    { label: 'Properties', action: () => onNavigateToProperties?.() },
+    { label: 'Map View', action: () => onNavigateToMap?.() },
   ];
 
   return (
@@ -36,7 +30,7 @@ function MobileMenu({
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
       <div className="absolute left-0 top-0 bottom-0 w-72 bg-white shadow-2xl animate-slide-in-left flex flex-col">
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-          <span className="font-semibold text-lg text-black" style={{ fontFamily: 'Outfit, sans-serif' }}>Menu</span>
+          <span className="font-semibold text-lg text-black">Menu</span>
           <button
             onClick={onClose}
             className="p-1 hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
@@ -55,16 +49,13 @@ function MobileMenu({
                 onClose();
               }}
               className="w-full text-left px-6 py-3 text-[15px] transition-colors flex items-center justify-between gap-3 text-gray-700 hover:bg-gray-50 hover:text-[#b10832]"
-              style={{ fontFamily: 'Outfit, sans-serif' }}
             >
               <span>{item.label}</span>
             </button>
           ))}
         </nav>
         <div className="px-6 py-4 border-t border-gray-200">
-          <p className="text-xs text-gray-400" style={{ fontFamily: 'Outfit, sans-serif' }}>
-            © 2026 Top Properties
-          </p>
+          <p className="text-xs text-gray-400">© 2026 Top Properties</p>
         </div>
       </div>
     </div>
@@ -85,27 +76,19 @@ export function Header({ onNavigateToMap, onNavigateToProperties, forceMenuOpen 
       <header className="bg-white border-b border-[#e5e7eb]">
         <div style={{ padding: '10px' }}>
           <div className="flex items-center justify-between">
-            {/* Logo */}
             <a href="/" className="flex items-center" aria-label="Top Properties - Home">
               <div className="flex items-center gap-2.5">
-                {/* Modern geometric logo */}
                 <div className="relative w-10 h-10 flex items-center justify-center">
-                  {/* Outer circle */}
                   <div className="absolute inset-0 rounded-full" style={{ backgroundColor: '#B20933', opacity: 0.1 }}></div>
-                  {/* Inner geometric shape - modern building/property icon */}
                   <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    {/* Left building */}
                     <rect x="4" y="8" width="6" height="12" fill="#B20933" rx="0.5" />
-                    {/* Right building - taller */}
                     <rect x="14" y="4" width="6" height="16" fill="#B20933" rx="0.5" />
-                    {/* Windows left building */}
                     <rect x="5" y="9" width="1.5" height="1.5" fill="white" />
                     <rect x="5" y="12" width="1.5" height="1.5" fill="white" />
                     <rect x="5" y="15" width="1.5" height="1.5" fill="white" />
                     <rect x="8" y="9" width="1.5" height="1.5" fill="white" />
                     <rect x="8" y="12" width="1.5" height="1.5" fill="white" />
                     <rect x="8" y="15" width="1.5" height="1.5" fill="white" />
-                    {/* Windows right building */}
                     <rect x="15" y="5" width="1.5" height="1.5" fill="white" />
                     <rect x="15" y="8" width="1.5" height="1.5" fill="white" />
                     <rect x="15" y="11" width="1.5" height="1.5" fill="white" />
@@ -117,13 +100,12 @@ export function Header({ onNavigateToMap, onNavigateToProperties, forceMenuOpen 
                   </svg>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-bold text-lg text-black hidden sm:inline" style={{ fontFamily: 'Outfit, sans-serif', letterSpacing: '-0.5px' }}>Top Properties</span>
-                  <span className="text-xs text-gray-500 hidden sm:inline" style={{ fontFamily: 'Outfit, sans-serif', marginTop: '-2px' }}>Luxury Real Estate</span>
+                  <span className="font-bold text-lg text-black hidden sm:inline" style={{ letterSpacing: '-0.5px' }}>Top Properties</span>
+                  <span className="text-xs text-gray-500 hidden sm:inline" style={{ marginTop: '-2px' }}>Luxury Real Estate</span>
                 </div>
               </div>
             </a>
 
-            {/* Navigation - only the menu button */}
             <div className="flex items-center">
               <button
                 onClick={() => setIsMenuOpen(true)}
@@ -140,7 +122,6 @@ export function Header({ onNavigateToMap, onNavigateToProperties, forceMenuOpen 
         </div>
       </header>
 
-      {/* Mobile Menu Drawer */}
       <MobileMenu
         isOpen={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}

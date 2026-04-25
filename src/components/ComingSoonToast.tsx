@@ -23,10 +23,10 @@ export function ComingSoonToast({ message, onDismiss }: ComingSoonToastProps) {
         <div className="flex items-start gap-3 px-4 py-3">
           <div className="mt-0.5 h-2.5 w-2.5 rounded-full bg-[#b10832]" aria-hidden="true" />
           <div className="min-w-0 flex-1">
-            <p className="text-sm font-semibold text-gray-900" style={{ fontFamily: 'Outfit, sans-serif' }}>
+            <p className="text-sm font-semibold text-gray-900">
               Coming soon
             </p>
-            <p className="text-sm text-gray-600" style={{ fontFamily: 'Outfit, sans-serif' }}>
+            <p className="text-sm text-gray-600">
               {message}
             </p>
           </div>

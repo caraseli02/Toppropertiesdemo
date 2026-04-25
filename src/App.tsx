@@ -188,10 +188,10 @@ export default function App() {
                 <line x1="159" y1="64" x2="172" y2="77" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
               </svg>
             </div>
-            <h3 className="text-2xl font-semibold text-black mb-2" style={{ fontFamily: 'Outfit, sans-serif' }}>
+            <h3 className="text-2xl font-semibold text-black mb-2">
               No luxury properties match your criteria
             </h3>
-            <p className="font-light text-[16px] text-[#868686] mb-8 max-w-md mx-auto" style={{ fontFamily: 'Outfit, sans-serif' }}>
+            <p className="font-light text-[16px] text-[#868686] mb-8 max-w-md mx-auto">
               We couldn't find properties matching your current filters. Try broadening your search or resetting filters.
             </p>
             <button
@@ -207,7 +207,6 @@ export default function App() {
                 setViewMode('grid');
               }}
               className="bg-[#b10832] text-white px-8 py-3 rounded-lg hover:bg-[#8e0628] transition-colors font-medium"
-              style={{ fontFamily: 'Outfit, sans-serif' }}
             >
               {emptyStateCtaLabel}
             </button>
@@ -217,10 +216,10 @@ export default function App() {
             {/* View Toggle */}
             <div className="flex items-center justify-between gap-4 mb-4 md:mb-6">
               <div>
-                <h1 className="text-xl md:text-2xl font-bold text-black mb-1" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                <h1 className="text-xl md:text-2xl font-bold text-black mb-1">
                   Luxury Properties
                 </h1>
-                <p className="text-[#868686] text-[13px] md:text-[14px]" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                <p className="text-[#868686] text-[13px] md:text-[14px]">
                   {filteredProperties.length} properties available
                 </p>
               </div>
@@ -232,7 +231,6 @@ export default function App() {
                     ? 'bg-[#b10832] text-white'
                     : 'text-gray-600 hover:bg-gray-100'
                     }`}
-                  style={{ fontFamily: 'Outfit, sans-serif' }}
                   aria-pressed={viewMode === 'grid'}
                   aria-label="Grid view"
                 >
@@ -245,7 +243,6 @@ export default function App() {
                     ? 'bg-[#b10832] text-white'
                     : 'text-gray-600 hover:bg-gray-100'
                     }`}
-                  style={{ fontFamily: 'Outfit, sans-serif' }}
                   aria-pressed={viewMode === 'map'}
                   aria-label="Map view"
                 >
@@ -261,7 +258,7 @@ export default function App() {
                 {/* Featured Properties - Masonry Layout */}
                 {featuredProperties.length >= 2 && !hasActiveSearchOrFilter && (
                   <section className="mb-8">
-                    <h2 className="text-lg font-semibold text-black mb-4" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                    <h2 className="text-lg font-semibold text-black mb-4">
                       Featured
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -285,7 +282,7 @@ export default function App() {
                 {(hasActiveSearchOrFilter ? filteredProperties : standardProperties).length > 0 && (
                   <section>
                     {featuredProperties.length >= 2 && !hasActiveSearchOrFilter && (
-                      <h2 className="text-lg font-semibold text-black mb-4" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                      <h2 className="text-lg font-semibold text-black mb-4">
                         All Properties
                       </h2>
                     )}
