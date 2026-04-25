@@ -31,7 +31,7 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
 
   return (
     <div
-      className="bg-white overflow-hidden border border-[#e5e7eb] hover:shadow-lg transition-all duration-300 cursor-pointer group"
+      className="bg-white overflow-hidden border border-[var(--border-default)] hover:shadow-lg transition-all duration-300 cursor-pointer group"
       style={{ borderRadius: '8px' }}
       onClick={onClick}
       role="button"
@@ -44,7 +44,7 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
       }}
       aria-label={`View details for ${title}`}
     >
-      <div className="relative overflow-hidden bg-gray-200" style={{ height: '200px' }}>
+      <div className="relative overflow-hidden bg-gray-200" style={{ aspectRatio: '4/3' }}>
         <img
           src={image}
           alt={title}
@@ -70,16 +70,16 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
               e.stopPropagation();
               setIsFavorite(!isFavorite);
             }}
-            className="bg-white/95 backdrop-blur-sm flex items-center justify-center rounded-full hover:bg-white transition-all hover:scale-105 shadow-md shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
+            className="bg-white/95 backdrop-blur-sm flex items-center justify-center rounded-full hover:bg-white transition-all hover:scale-105 shadow-md shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
             style={{ width: '44px', height: '44px' }}
             aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
           >
             <Heart
-              className={`w-5 h-5 transition-colors ${isFavorite ? 'fill-[#b10832] text-[#b10832]' : 'text-gray-600'}`}
+              className={`w-5 h-5 transition-colors ${isFavorite ? 'fill-[var(--brand)] text-[var(--brand)]' : 'text-gray-600'}`}
             />
           </button>
           {featured && (
-            <div className="bg-[#b10832] text-white px-3 py-1.5 rounded-full text-xs font-medium shadow-md">
+            <div className="bg-[var(--brand)] text-white px-3 py-1.5 rounded-full text-xs font-medium shadow-md">
               Featured
             </div>
           )}
@@ -90,35 +90,35 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
         <div className="mb-2">
           <h3
             className="font-semibold text-[18px] text-black mb-1 line-clamp-1"
-            style={{ fontFamily: 'Inter, sans-serif' }}
+           
             title={title}
           >
             {title}
           </h3>
-          <div className="flex items-center text-[#868686] text-[14px]">
+          <div className="flex items-center text-[var(--text-secondary)] text-[14px]">
             <MapPin className="w-4 h-4 mr-1 flex-shrink-0" />
-            <span className="line-clamp-1" style={{ fontFamily: 'Inter, sans-serif' }}>{location}</span>
+            <span className="line-clamp-1">{location}</span>
           </div>
         </div>
 
-        <div className="flex items-center gap-3 text-[14px] text-[#868686] mb-3 py-2 border-t border-[#e5e7eb] min-w-0">
+        <div className="flex items-center gap-3 text-[14px] text-[var(--text-secondary)] mb-3 py-2 border-t border-[var(--border-default)] min-w-0">
           <div className="flex items-center gap-1" title={`${beds} bedrooms`}>
             <Bed className="w-4 h-4" />
-            <span style={{ fontFamily: 'Inter, sans-serif' }}>{beds}</span>
+            <span>{beds}</span>
           </div>
           <span>•</span>
           <div className="flex items-center gap-1" title={`${baths} bathrooms`}>
             <Bath className="w-4 h-4" />
-            <span style={{ fontFamily: 'Inter, sans-serif' }}>{baths}</span>
+            <span>{baths}</span>
           </div>
           <span>•</span>
-          <span className="truncate" style={{ fontFamily: 'Inter, sans-serif' }} title={sqft}>{sqft}</span>
+          <span className="truncate" title={sqft}>{sqft}</span>
         </div>
 
         <div className="flex items-center justify-between">
           <p
-            className="text-[24px] font-bold text-[#b10832] break-all leading-tight"
-            style={{ fontFamily: 'Inter, sans-serif' }}
+            className="text-[24px] font-bold text-[var(--brand)] break-all leading-tight"
+           
           >
             {price}
           </p>

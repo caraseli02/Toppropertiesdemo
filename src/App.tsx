@@ -9,7 +9,6 @@ import { PropertyDetail } from './components/PropertyDetail';
 import { LoadingCard } from './components/LoadingCard';
 import { Footer } from './components/Footer';
 import { HeroSection } from './components/HeroSection';
-import { ComingSoonToast } from './components/ComingSoonToast';
 import { LayoutGrid, Map } from 'lucide-react';
 import { properties } from '@/data/properties';
 import { Property, FilterState } from '@/types';
@@ -54,7 +53,6 @@ export default function App() {
   const [pendingScrollTarget, setPendingScrollTarget] = useState<'grid' | 'map' | null>(null);
 
   const [searchQuery, setSearchQuery] = useState('');
-  const [comingSoonMessage, setComingSoonMessage] = useState<string | null>(null);
 
   const filteredProperties = useMemo(() => {
     return filterProperties(properties, searchQuery, activeFilters);
@@ -72,13 +70,6 @@ export default function App() {
   // Handler updates state, Effect does the work
   const handleSearch = useCallback((query: string) => {
     setSearchQuery(query);
-  }, []);
-
-  const handleComingSoon = useCallback((feature: string) => {
-    setComingSoonMessage(`${feature} is coming soon.`);
-  }, []);
-  const dismissComingSoon = useCallback(() => {
-    setComingSoonMessage(null);
   }, []);
 
   const applyFilters = useCallback((filters: FilterState) => {
@@ -144,13 +135,20 @@ export default function App() {
     }
   }, []);
 
+  // Separate featured vs standard properties
+  const featuredProperties = useMemo(() => {
+    return filteredProperties.filter(p => p.featured).slice(0, 6);
+  }, [filteredProperties]);
+  const standardProperties = useMemo(() => {
+    return filteredProperties.filter(p => !p.featured || featuredProperties.indexOf(p as any) === -1);
+  }, [filteredProperties, featuredProperties]);
+
   return (
     <div className="min-h-screen bg-white">
       <Header
         onNavigateToMap={openMapFromMenu}
         onNavigateToProperties={openGridFromMenu}
         forceMenuOpen={forceMenuOpen}
-        onComingSoon={handleComingSoon}
       />
       <SearchBar
         onSearch={handleSearch}
@@ -177,17 +175,24 @@ export default function App() {
             ))}
           </div>
         ) : filteredProperties.length === 0 ? (
+          /* Illustrated Empty State */
           <div className="text-center py-20">
-            <div className="mb-4">
-              <svg className="mx-auto w-24 h-24 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            <div className="mb-6">
+              <svg className="mx-auto w-32 h-32 text-gray-200" fill="none" viewBox="0 0 200 200">
+                {/* Stylized house with magnifying glass */}
+                <path d="M100 35 L160 85 L160 155 L40 155 L40 85 Z" stroke="currentColor" strokeWidth="2.5" fill="none" />
+                <rect x="75" y="105" width="50" height="50" rx="3" stroke="currentColor" strokeWidth="2" fill="none" />
+                <line x1="100" y1="105" x2="100" y2="155" stroke="currentColor" strokeWidth="1.5" />
+                <line x1="75" y1="130" x2="125" y2="130" stroke="currentColor" strokeWidth="1.5" />
+                <circle cx="145" cy="50" r="20" stroke="currentColor" strokeWidth="2.5" fill="none" />
+                <line x1="159" y1="64" x2="172" y2="77" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-black mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>
-              No Properties Found
+            <h3 className="text-2xl font-semibold text-black mb-2">
+              No luxury properties match your criteria
             </h3>
-            <p className="font-light text-[16px] text-[#868686] mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
-              Try adjusting your filters or search criteria
+            <p className="font-light text-[16px] text-[var(--text-secondary)] mb-8 max-w-md mx-auto">
+              We couldn't find properties matching your current filters. Try broadening your search or resetting filters.
             </p>
             <button
               onClick={() => {
@@ -201,8 +206,7 @@ export default function App() {
                 }
                 setViewMode('grid');
               }}
-              className="bg-[#b10832] text-white px-6 py-3 rounded-lg hover:bg-[#8e0628] transition-colors font-medium"
-              style={{ fontFamily: 'Inter, sans-serif' }}
+              className="bg-[var(--brand)] text-white px-8 py-3 rounded-lg hover:bg-[var(--brand-dark)] transition-colors font-medium"
             >
               {emptyStateCtaLabel}
             </button>
@@ -212,22 +216,21 @@ export default function App() {
             {/* View Toggle */}
             <div className="flex items-center justify-between gap-4 mb-4 md:mb-6">
               <div>
-                <h1 className="text-xl md:text-2xl font-bold text-black mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <h1 className="text-xl md:text-2xl font-bold text-black mb-1">
                   Luxury Properties
                 </h1>
-                <p className="text-[#868686] text-[13px] md:text-[14px]" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <p className="text-[var(--text-secondary)] text-[13px] md:text-[14px]">
                   {filteredProperties.length} properties available
                 </p>
               </div>
 
-              <div className="flex gap-2 bg-white rounded-lg p-1 shadow-sm border border-[#e5e7eb]">
+              <div className="flex gap-2 bg-white rounded-lg p-1 shadow-sm border border-[var(--border-default)]">
                 <button
                   onClick={() => setViewMode('grid')}
                   className={`flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 rounded-md transition-colors text-xs sm:text-sm ${viewMode === 'grid'
-                    ? 'bg-[#b10832] text-white'
+                    ? 'bg-[var(--brand)] text-white'
                     : 'text-gray-600 hover:bg-gray-100'
                     }`}
-                  style={{ fontFamily: 'Inter, sans-serif' }}
                   aria-pressed={viewMode === 'grid'}
                   aria-label="Grid view"
                 >
@@ -237,10 +240,9 @@ export default function App() {
                 <button
                   onClick={() => setViewMode('map')}
                   className={`flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 rounded-md transition-colors text-xs sm:text-sm ${viewMode === 'map'
-                    ? 'bg-[#b10832] text-white'
+                    ? 'bg-[var(--brand)] text-white'
                     : 'text-gray-600 hover:bg-gray-100'
                     }`}
-                  style={{ fontFamily: 'Inter, sans-serif' }}
                   aria-pressed={viewMode === 'map'}
                   aria-label="Map view"
                 >
@@ -252,15 +254,50 @@ export default function App() {
 
             {/* Content Area */}
             {viewMode === 'grid' ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {filteredProperties.map((property) => (
-                  <PropertyCard
-                    key={property.id}
-                    {...property}
-                    onClick={() => setSelectedProperty(property)}
-                  />
-                ))}
-              </div>
+              <>
+                {/* Featured Properties - Masonry Layout */}
+                {featuredProperties.length >= 2 && !hasActiveSearchOrFilter && (
+                  <section className="mb-8">
+                    <h2 className="text-lg font-semibold text-black mb-4">
+                      Featured
+                    </h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {featuredProperties.slice(0, 6).map((property, index) => (
+                        <div
+                          key={property.id}
+                          className={index === 0 ? 'md:col-span-2 md:row-span-2' : ''}
+                        >
+                          <PropertyCard
+                            {...property}
+                            featured={index === 0}
+                            onClick={() => setSelectedProperty(property)}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                )}
+
+                {/* Standard Grid */}
+                {(hasActiveSearchOrFilter ? filteredProperties : standardProperties).length > 0 && (
+                  <section>
+                    {featuredProperties.length >= 2 && !hasActiveSearchOrFilter && (
+                      <h2 className="text-lg font-semibold text-black mb-4">
+                        All Properties
+                      </h2>
+                    )}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {(hasActiveSearchOrFilter ? filteredProperties : standardProperties).map((property) => (
+                        <PropertyCard
+                          key={property.id}
+                          {...property}
+                          onClick={() => setSelectedProperty(property)}
+                        />
+                      ))}
+                    </div>
+                  </section>
+                )}
+              </>
             ) : (
               <div id="map-section" style={{ height: 'clamp(320px, 45vh, 560px)' }}>
                 <MapView
@@ -283,7 +320,7 @@ export default function App() {
       </div>
 
       {/* Footer */}
-      <Footer onComingSoon={handleComingSoon} />
+      <Footer />
 
       {/* Filter Modal */}
       <FilterModal
@@ -315,10 +352,6 @@ export default function App() {
           }}
           initialOverlay={detailOverlay}
         />
-      )}
-
-      {comingSoonMessage && (
-        <ComingSoonToast message={comingSoonMessage} onDismiss={dismissComingSoon} />
       )}
     </div>
   );

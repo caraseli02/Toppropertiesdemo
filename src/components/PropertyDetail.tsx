@@ -138,7 +138,7 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
           <div className="flex items-center justify-between">
             <button
               onClick={onClose}
-              className="flex items-center justify-center gap-2 hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
+              className="flex items-center justify-center gap-2 hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
               style={{ height: '44px', paddingLeft: '12px', paddingRight: '12px' }}
               aria-label="Close property details"
             >
@@ -149,7 +149,7 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
             </button>
             <div className="flex items-center gap-2">
               <button
-                className="flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
+                className="flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
                 style={{ width: '44px', height: '44px' }}
                 aria-label="Share property"
               >
@@ -157,12 +157,12 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
               </button>
               <button
                 onClick={() => setIsFavorite(!isFavorite)}
-                className="flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
+                className="flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
                 style={{ width: '44px', height: '44px' }}
                 aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
               >
                 <Heart
-                  className={`w-5 h-5 transition-colors ${isFavorite ? 'fill-[#b10832] text-[#b10832]' : 'text-gray-600'
+                  className={`w-5 h-5 transition-colors ${isFavorite ? 'fill-[var(--brand)] text-[var(--brand)]' : 'text-gray-600'
                     }`}
                 />
               </button>
@@ -217,7 +217,7 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
             {/* Virtual Tour Button */}
             <button
               onClick={() => setShowVirtualTour(!showVirtualTour)}
-              className="absolute bottom-4 left-4 bg-[#b10832] hover:bg-[#8e0628] text-white px-6 py-3 rounded-lg transition-colors font-medium"
+              className="absolute bottom-4 left-4 bg-[var(--brand)] hover:bg-[var(--brand-dark)] text-white px-6 py-3 rounded-lg transition-colors font-medium"
             >
               {showVirtualTour ? 'Close Virtual Tour' : 'View Virtual Tour'}
             </button>
@@ -253,7 +253,7 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl flex items-center justify-center text-white">
               <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-[#b10832] rounded-full flex items-center justify-center">
+                <div className="w-16 h-16 mx-auto mb-4 bg-[var(--brand)] rounded-full flex items-center justify-center">
                   <Maximize className="w-8 h-8" />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">360° Virtual Tour</h3>
@@ -373,7 +373,7 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
                     position={[property.lat, property.lng]}
                     icon={L.divIcon({
                       className: 'custom-pin-marker',
-                      html: '<div style="width:48px;height:48px;background:rgba(177,8,50,0.2);border-radius:9999px;display:flex;align-items:center;justify-content:center;"><div style="width:16px;height:16px;background:#b10832;border-radius:9999px;box-shadow:0 4px 10px rgba(0,0,0,0.2);border:2px solid #fff;"></div></div>',
+                      html: '<div style="width:48px;height:48px;background:rgba(177,8,50,0.2);border-radius:9999px;display:flex;align-items:center;justify-content:center;"><div style="width:16px;height:16px;background:var(--brand);border-radius:9999px;box-shadow:0 4px 10px rgba(0,0,0,0.2);border:2px solid #fff;"></div></div>',
                       iconSize: [48, 48],
                       iconAnchor: [24, 24]
                     })}
@@ -388,18 +388,18 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
             <div className="sticky top-24 space-y-6">
               {/* Price Card */}
               <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-lg">
-                <p className="text-3xl font-bold text-[#b10832] mb-6">{property.price}</p>
+                <p className="text-3xl font-bold text-[var(--brand)] mb-6">{property.price}</p>
 
                 <div className="space-y-3">
                   <button
                     onClick={() => { setContactMode('viewing'); setIsContactModalOpen(true); }}
-                    className="w-full bg-[#b10832] hover:bg-[#8e0628] text-white py-3 rounded-lg font-medium transition-colors"
+                    className="w-full bg-[var(--brand)] hover:bg-[var(--brand-dark)] text-white py-3 rounded-lg font-medium transition-colors"
                   >
                     Schedule Viewing
                   </button>
                   <button
                     onClick={() => { setContactMode('contact'); setIsContactModalOpen(true); }}
-                    className="w-full border-2 border-[#b10832] text-[#b10832] hover:bg-[#b10832] hover:text-white py-3 rounded-lg font-medium transition-colors"
+                    className="w-full border-2 border-[var(--brand)] text-[var(--brand)] hover:bg-[var(--brand)] hover:text-white py-3 rounded-lg font-medium transition-colors"
                   >
                     Contact Agent
                   </button>
@@ -444,7 +444,7 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
               <div className="bg-white border border-gray-200 rounded-xl p-6">
                 <h3 className="font-semibold text-lg mb-4">Your Agent</h3>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold text-lg" style={{ backgroundColor: '#b10832' }}>
+                  <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold text-lg" style={{ backgroundColor: 'var(--brand)' }}>
                     SA
                   </div>
                   <div>

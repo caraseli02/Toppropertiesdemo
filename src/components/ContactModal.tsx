@@ -175,7 +175,7 @@ export function ContactModal({ isOpen, onClose, propertyTitle, mode = 'contact' 
           <h2 id="contact-modal-title" className="text-xl font-bold font-display">{config.title}</h2>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
             aria-label="Close"
           >
             <X className="w-5 h-5 text-gray-500" />
@@ -194,8 +194,8 @@ export function ContactModal({ isOpen, onClose, propertyTitle, mode = 'contact' 
               <p className="text-gray-600">Sarah Anderson will contact you within 24 hours to discuss your request.</p>
               <button
                 type="button"
-                className="mt-6 w-full bg-[#b10832] hover:bg-[#8e0628] text-white py-3 rounded-lg font-medium transition-colors"
-                style={{ fontFamily: 'Inter, sans-serif' }}
+                className="mt-6 w-full bg-[var(--brand)] hover:bg-[var(--brand-dark)] text-white py-3 rounded-lg font-medium transition-colors"
+               
                 onClick={() => {
                   resetForm();
                   onClose();
@@ -210,7 +210,7 @@ export function ContactModal({ isOpen, onClose, propertyTitle, mode = 'contact' 
                 <label htmlFor="contact-name" className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
                 <input
                   type="text"
-                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#b10832] focus:border-transparent outline-none ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
+                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[var(--brand)] focus:border-transparent outline-none ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
                   value={formData.name}
                   onChange={e => handleChange('name', e.target.value)}
                   onBlur={() => handleBlur('name')}
@@ -233,7 +233,7 @@ export function ContactModal({ isOpen, onClose, propertyTitle, mode = 'contact' 
                 <label htmlFor="contact-email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
                 <input
                   type="email"
-                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#b10832] focus:border-transparent outline-none ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
+                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[var(--brand)] focus:border-transparent outline-none ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
                   value={formData.email}
                   onChange={e => handleChange('email', e.target.value)}
                   onBlur={() => handleBlur('email')}
@@ -256,7 +256,7 @@ export function ContactModal({ isOpen, onClose, propertyTitle, mode = 'contact' 
                 <label htmlFor="contact-phone" className="block text-sm font-medium text-gray-700 mb-1">Phone (Optional)</label>
                 <input
                   type="tel"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#b10832] focus:border-transparent outline-none"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--brand)] focus:border-transparent outline-none"
                   value={formData.phone}
                   onChange={e => setFormData({ ...formData, phone: e.target.value })}
                   placeholder="+1 (555) 000-0000"
@@ -270,7 +270,7 @@ export function ContactModal({ isOpen, onClose, propertyTitle, mode = 'contact' 
               <div>
                 <label htmlFor="contact-message" className="block text-sm font-medium text-gray-700 mb-1">Message</label>
                 <textarea
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#b10832] focus:border-transparent outline-none h-32 resize-none"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--brand)] focus:border-transparent outline-none h-32 resize-none"
                   value={formData.message}
                   onChange={e => setFormData({ ...formData, message: e.target.value })}
                   id="contact-message"
@@ -282,8 +282,8 @@ export function ContactModal({ isOpen, onClose, propertyTitle, mode = 'contact' 
                 type="submit"
                 disabled={isSubmitting}
                 aria-disabled={isSubmitting ? 'true' : undefined}
-                className="w-full bg-[#b10832] text-white py-3 rounded-lg font-medium transition-colors disabled:opacity-70 disabled:cursor-not-allowed disabled:bg-[#8e0628] hover:bg-[#8e0628] disabled:hover:bg-[#8e0628]"
-                style={{ fontFamily: 'Inter, sans-serif' }}
+                className="w-full bg-[var(--brand)] text-white py-3 rounded-lg font-medium transition-colors disabled:opacity-70 disabled:cursor-not-allowed disabled:bg-[var(--brand-dark)] hover:bg-[var(--brand-dark)] disabled:hover:bg-[var(--brand-dark)]"
+               
               >
                 {isSubmitting ? 'Sending…' : 'Send Message'}
               </button>
