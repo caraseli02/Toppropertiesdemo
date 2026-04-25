@@ -37,7 +37,10 @@ const getModalConfig = (mode: ContactMode) => {
   }
 };
 
+import { useFocusTrap } from '@/hooks/useFocusTrap';
+
 export function ContactModal({ isOpen, onClose, propertyTitle, mode = 'contact' }: ContactModalProps) {
+  const focusTrapRef = useFocusTrap(true);
   const config = useMemo(() => getModalConfig(mode), [mode]);
   const submitTimeoutRef = useRef<number | null>(null);
   const nameInputRef = useRef<HTMLInputElement | null>(null);
@@ -159,6 +162,7 @@ export function ContactModal({ isOpen, onClose, propertyTitle, mode = 'contact' 
 
   return (
     <div
+      ref={focusTrapRef}
       className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4"
       style={{ zIndex: 1300 }}
       onClick={(e) => {

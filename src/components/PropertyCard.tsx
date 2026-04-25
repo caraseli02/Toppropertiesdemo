@@ -117,7 +117,7 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
 
         <div className="flex items-center justify-between">
           <p
-            className="text-[24px] font-bold text-[var(--brand)] break-all leading-tight"
+            className="text-[24px] font-bold text-[var(--brand)] leading-tight"
            
           >
             {price}

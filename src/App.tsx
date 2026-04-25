@@ -6,7 +6,6 @@ import { MapView } from './components/MapView';
 import { FilterModal } from './components/FilterModal';
 import { SearchModal } from './components/SearchModal';
 import { PropertyDetail } from './components/PropertyDetail';
-import { LoadingCard } from './components/LoadingCard';
 import { Footer } from './components/Footer';
 import { HeroSection } from './components/HeroSection';
 import { LayoutGrid, Map } from 'lucide-react';
@@ -48,7 +47,6 @@ export default function App() {
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
   const [detailOverlay, setDetailOverlay] = useState<'contact' | 'image' | null>(null);
   const [forceMenuOpen, setForceMenuOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [activeFilters, setActiveFilters] = useState<FilterState>(() => getDefaultFilters());
   const [pendingScrollTarget, setPendingScrollTarget] = useState<'grid' | 'map' | null>(null);
 
@@ -145,6 +143,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-white">
+      <a href="#properties-section" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[9999] focus:bg-white focus:text-black focus:px-4 focus:py-2 focus:rounded focus:shadow-lg focus:border focus:border-gray-200">
+        Skip to content
+      </a>
       <Header
         onNavigateToMap={openMapFromMenu}
         onNavigateToProperties={openGridFromMenu}
@@ -167,14 +168,8 @@ export default function App() {
       )}
 
       {/* Main Content */}
-      <div id="properties-section" className="py-4 pb-8" style={{ paddingLeft: '10px', paddingRight: '10px' }}>
-        {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <LoadingCard key={i} />
-            ))}
-          </div>
-        ) : filteredProperties.length === 0 ? (
+      <div id="properties-section" className="py-8 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {filteredProperties.length === 0 ? (
           /* Illustrated Empty State */
           <div className="text-center py-20">
             <div className="mb-6">
@@ -257,11 +252,11 @@ export default function App() {
               <>
                 {/* Featured Properties - Masonry Layout */}
                 {featuredProperties.length >= 2 && !hasActiveSearchOrFilter && (
-                  <section className="mb-8">
-                    <h2 className="text-lg font-semibold text-black mb-4">
+                  <section className="mb-12">
+                    <h2 className="text-xs font-semibold tracking-[0.15em] uppercase text-[var(--text-secondary)] mb-6">
                       Featured
                     </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                       {featuredProperties.slice(0, 6).map((property, index) => (
                         <div
                           key={property.id}
@@ -282,11 +277,11 @@ export default function App() {
                 {(hasActiveSearchOrFilter ? filteredProperties : standardProperties).length > 0 && (
                   <section>
                     {featuredProperties.length >= 2 && !hasActiveSearchOrFilter && (
-                      <h2 className="text-lg font-semibold text-black mb-4">
+                      <h2 className="text-xs font-semibold tracking-[0.15em] uppercase text-[var(--text-secondary)] mb-6">
                         All Properties
                       </h2>
                     )}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                       {(hasActiveSearchOrFilter ? filteredProperties : standardProperties).map((property) => (
                         <PropertyCard
                           key={property.id}

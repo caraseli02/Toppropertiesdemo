@@ -32,7 +32,10 @@ interface SearchModalProps {
 const MAX_QUERY_LENGTH = 120;
 const normalizeQuery = (value: string) => value.trim().replace(/\s+/g, ' ');
 
+import { useFocusTrap } from '@/hooks/useFocusTrap';
+
 export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectProperty }: SearchModalProps) {
+  const focusTrapRef = useFocusTrap(true);
   const [query, setQuery] = useState('');
   useBodyScrollLock(isOpen);
   const isAtLimit = query.length >= MAX_QUERY_LENGTH;
@@ -97,7 +100,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
   };
 
   return (
-    <div className="fixed inset-0 bg-white" style={{ zIndex: 1200 }} role="dialog" aria-modal="true" aria-labelledby="search-modal-title">
+    <div ref={focusTrapRef} className="fixed inset-0 bg-white" style={{ zIndex: 1200 }} role="dialog" aria-modal="true" aria-labelledby="search-modal-title">
       <div className="bg-white h-full flex flex-col">
         {/* Search Input */}
         <div className="px-6 py-4 border-b border-gray-200">
@@ -276,7 +279,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
           </button>
           <button
             onClick={handleSearch}
-            className="px-8 py-3 bg-[#2b2b2b] text-white rounded-lg hover:bg-black transition-colors font-medium"
+            className="px-8 py-3 bg-[var(--surface-elevated)] text-white rounded-lg hover:bg-black transition-colors font-medium"
            
           >
             Show results
