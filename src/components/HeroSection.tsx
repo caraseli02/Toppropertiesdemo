@@ -82,7 +82,7 @@ export function HeroSection({ properties, onViewProperty, onSearchClick }: HeroS
   return (
     <section
       className="relative w-full overflow-hidden"
-      style={{ height: '520px', backgroundColor: '#1a1a1a' }}
+      style={{ height: '520px', backgroundColor: 'var(--surface-dark)' }}
     >
       {/* Background Images with blur-up */}
       {bgImages.map((src, i) => (
@@ -110,7 +110,7 @@ export function HeroSection({ properties, onViewProperty, onSearchClick }: HeroS
       />
 
       {/* Brand accent line */}
-      <div className="absolute top-0 left-0 right-0 h-1" style={{ backgroundColor: '#b10832' }} />
+      <div className="absolute top-0 left-0 right-0 h-1" style={{ backgroundColor: 'var(--brand)' }} />
 
       {/* Content */}
       <div
@@ -122,7 +122,7 @@ export function HeroSection({ properties, onViewProperty, onSearchClick }: HeroS
           <span
             className="inline-block font-semibold uppercase tracking-widest mb-4"
             style={{
-              color: '#b10832',
+              color: 'var(--brand)',
               fontSize: '11px',
               letterSpacing: '0.15em',
             }}
@@ -154,7 +154,7 @@ export function HeroSection({ properties, onViewProperty, onSearchClick }: HeroS
 
           <button
             onClick={handleCta}
-            className="bg-[#b10832] text-white rounded-lg font-medium hover:bg-[#8e0628] transition-colors flex items-center gap-2"
+            className="bg-[var(--brand)] text-white rounded-lg font-medium hover:bg-[var(--brand-dark)] transition-colors flex items-center gap-2"
             style={{ padding: '14px 28px', fontSize: '15px' }}
           >
             {slide.cta} <ChevronRight className="w-4 h-4" />
@@ -175,7 +175,7 @@ export function HeroSection({ properties, onViewProperty, onSearchClick }: HeroS
                   className="rounded-full transition-all duration-500"
                   style={
                     i === current
-                      ? { width: '32px', height: '4px', backgroundColor: '#b10832' }
+                      ? { width: '32px', height: '4px', backgroundColor: 'var(--brand)' }
                       : { width: '12px', height: '4px', backgroundColor: 'rgba(255,255,255,0.3)' }
                   }
                 />

@@ -15,7 +15,7 @@ function Frame() {
 function Group4() {
   return (
     <div className="absolute contents left-0 top-[788px]">
-      <div className="absolute bg-[#b10832] h-[64px] left-0 rounded-tl-[8px] rounded-tr-[8px] top-[788px] w-[393px]" />
+      <div className="absolute bg-[var(--brand)] h-[64px] left-0 rounded-tl-[8px] rounded-tr-[8px] top-[788px] w-[393px]" />
       <Frame />
       <p className="-translate-x-1/2 absolute font-['Inter:Regular',sans-serif] font-normal h-[20px] leading-[normal] left-[calc(50%+0.5px)] not-italic text-[16px] text-center text-white top-[calc(50%+384px)] w-[306px] whitespace-pre-wrap">Discover more than 15 luxury properties</p>
     </div>
@@ -27,21 +27,21 @@ function LogoSa() {
     <div className="absolute h-[49.091px] left-[10px] top-[10px] w-[193.766px]" data-name="logoSA 1">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 193.766 49.0909">
         <g id="logoSA 1">
-          <path d={svgPaths.p389b9f00} fill="var(--fill-0, #B20933)" id="path22" />
+          <path d={svgPaths.p389b9f00} fill="var(--fill-0, var(--brand))" id="path22" />
           <g id="g44">
-            <path d={svgPaths.p2e44d080} fill="var(--fill-0, #B20933)" id="path24" />
-            <path d={svgPaths.p1ab49a80} fill="var(--fill-0, #B20933)" id="path26" />
-            <path d={svgPaths.p37944180} fill="var(--fill-0, #B20933)" id="path28" />
-            <path d={svgPaths.p9d20e00} fill="var(--fill-0, #B20933)" id="path30" />
-            <path d={svgPaths.p3a2fa180} fill="var(--fill-0, #B20933)" id="path32" />
-            <path d={svgPaths.p16a78d00} fill="var(--fill-0, #B20933)" id="path34" />
-            <path d={svgPaths.p2b1c5000} fill="var(--fill-0, #B20933)" id="path36" />
-            <path d={svgPaths.p38c37000} fill="var(--fill-0, #B20933)" id="path38" />
-            <path d={svgPaths.p34a991f0} fill="var(--fill-0, #B20933)" id="path40" />
-            <path d={svgPaths.p2bb04800} fill="var(--fill-0, #B20933)" id="path42" />
+            <path d={svgPaths.p2e44d080} fill="var(--fill-0, var(--brand))" id="path24" />
+            <path d={svgPaths.p1ab49a80} fill="var(--fill-0, var(--brand))" id="path26" />
+            <path d={svgPaths.p37944180} fill="var(--fill-0, var(--brand))" id="path28" />
+            <path d={svgPaths.p9d20e00} fill="var(--fill-0, var(--brand))" id="path30" />
+            <path d={svgPaths.p3a2fa180} fill="var(--fill-0, var(--brand))" id="path32" />
+            <path d={svgPaths.p16a78d00} fill="var(--fill-0, var(--brand))" id="path34" />
+            <path d={svgPaths.p2b1c5000} fill="var(--fill-0, var(--brand))" id="path36" />
+            <path d={svgPaths.p38c37000} fill="var(--fill-0, var(--brand))" id="path38" />
+            <path d={svgPaths.p34a991f0} fill="var(--fill-0, var(--brand))" id="path40" />
+            <path d={svgPaths.p2bb04800} fill="var(--fill-0, var(--brand))" id="path42" />
           </g>
-          <path d={svgPaths.p20b84580} fill="var(--fill-0, #B20933)" id="path46" />
-          <path d={svgPaths.p31acb680} fill="var(--fill-0, #B20933)" id="path48" />
+          <path d={svgPaths.p20b84580} fill="var(--fill-0, var(--brand))" id="path46" />
+          <path d={svgPaths.p31acb680} fill="var(--fill-0, var(--brand))" id="path48" />
           <g id="g74">
             <path d={svgPaths.p2289de80} fill="var(--fill-0, #3C3C3B)" id="path50" />
             <path d={svgPaths.p1a42c9c0} fill="var(--fill-0, #3C3C3B)" id="path52" />
@@ -72,18 +72,18 @@ function LogoSa() {
             <path d={svgPaths.p22b61570} fill="var(--fill-0, #3C3C3B)" id="path100" />
           </g>
           <g id="g128">
-            <path d={svgPaths.p16b4e200} fill="var(--fill-0, #B20933)" id="path104" />
-            <path d={svgPaths.p28d52b00} fill="var(--fill-0, #B20933)" id="path106" />
-            <path d={svgPaths.p1c862a00} fill="var(--fill-0, #B20933)" id="path108" />
-            <path d={svgPaths.p19be9c00} fill="var(--fill-0, #B20933)" id="path110" />
-            <path d={svgPaths.p16fb900} fill="var(--fill-0, #B20933)" id="path112" />
-            <path d={svgPaths.p12a02d00} fill="var(--fill-0, #B20933)" id="path114" />
-            <path d={svgPaths.p2b53ad00} fill="var(--fill-0, #B20933)" id="path116" />
-            <path d={svgPaths.p9643980} fill="var(--fill-0, #B20933)" id="path118" />
-            <path d={svgPaths.p2a435f40} fill="var(--fill-0, #B20933)" id="path120" />
-            <path d={svgPaths.p22861d00} fill="var(--fill-0, #B20933)" id="path122" />
-            <path d={svgPaths.p24bad700} fill="var(--fill-0, #B20933)" id="path124" />
-            <path d={svgPaths.p3f2a4800} fill="var(--fill-0, #B20933)" id="path126" />
+            <path d={svgPaths.p16b4e200} fill="var(--fill-0, var(--brand))" id="path104" />
+            <path d={svgPaths.p28d52b00} fill="var(--fill-0, var(--brand))" id="path106" />
+            <path d={svgPaths.p1c862a00} fill="var(--fill-0, var(--brand))" id="path108" />
+            <path d={svgPaths.p19be9c00} fill="var(--fill-0, var(--brand))" id="path110" />
+            <path d={svgPaths.p16fb900} fill="var(--fill-0, var(--brand))" id="path112" />
+            <path d={svgPaths.p12a02d00} fill="var(--fill-0, var(--brand))" id="path114" />
+            <path d={svgPaths.p2b53ad00} fill="var(--fill-0, var(--brand))" id="path116" />
+            <path d={svgPaths.p9643980} fill="var(--fill-0, var(--brand))" id="path118" />
+            <path d={svgPaths.p2a435f40} fill="var(--fill-0, var(--brand))" id="path120" />
+            <path d={svgPaths.p22861d00} fill="var(--fill-0, var(--brand))" id="path122" />
+            <path d={svgPaths.p24bad700} fill="var(--fill-0, var(--brand))" id="path124" />
+            <path d={svgPaths.p3f2a4800} fill="var(--fill-0, var(--brand))" id="path126" />
           </g>
         </g>
       </svg>
@@ -158,8 +158,8 @@ function Group2() {
 function Frame6() {
   return (
     <div className="content-stretch flex h-[42px] items-center px-[9px] py-[7px] relative rounded-[8px] shrink-0 w-[320px]">
-      <div aria-hidden="true" className="absolute border border-[#e5e7eb] border-solid inset-0 pointer-events-none rounded-[8px]" />
-      <p className="font-['Inter:Light',sans-serif] font-light leading-[normal] not-italic relative shrink-0 text-[#868686] text-[16px]">Everywhere</p>
+      <div aria-hidden="true" className="absolute border border-[var(--border-default)] border-solid inset-0 pointer-events-none rounded-[8px]" />
+      <p className="font-['Inter:Light',sans-serif] font-light leading-[normal] not-italic relative shrink-0 text-[var(--text-secondary)] text-[16px]">Everywhere</p>
     </div>
   );
 }
@@ -233,7 +233,7 @@ function Group6() {
 function Frame9() {
   return (
     <div className="content-stretch flex h-[42px] items-center px-[9px] py-[7px] relative rounded-[8px] shrink-0 w-[320px]">
-      <div aria-hidden="true" className="absolute border border-[#e5e7eb] border-solid inset-0 pointer-events-none rounded-[8px]" />
+      <div aria-hidden="true" className="absolute border border-[var(--border-default)] border-solid inset-0 pointer-events-none rounded-[8px]" />
       <p className="font-['Inter:Light',sans-serif] font-light leading-[normal] not-italic relative shrink-0 text-[16px] text-black">No Results</p>
     </div>
   );

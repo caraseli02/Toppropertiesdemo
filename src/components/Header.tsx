@@ -33,7 +33,7 @@ function MobileMenu({
           <span className="font-semibold text-lg text-black">Menu</span>
           <button
             onClick={onClose}
-            className="p-1 hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
+            className="p-1 hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
             aria-label="Close menu"
           >
             <X className="w-5 h-5 text-gray-600" />
@@ -48,7 +48,7 @@ function MobileMenu({
                 item.action?.();
                 onClose();
               }}
-              className="w-full text-left px-6 py-3 text-[15px] transition-colors flex items-center justify-between gap-3 text-gray-700 hover:bg-gray-50 hover:text-[#b10832]"
+              className="w-full text-left px-6 py-3 text-[15px] transition-colors flex items-center justify-between gap-3 text-gray-700 hover:bg-gray-50 hover:text-[var(--brand)]"
             >
               <span>{item.label}</span>
             </button>
@@ -73,16 +73,16 @@ export function Header({ onNavigateToMap, onNavigateToProperties, forceMenuOpen 
 
   return (
     <>
-      <header className="bg-white border-b border-[#e5e7eb]">
+      <header className="bg-white border-b border-[var(--border-default)]">
         <div style={{ padding: '10px' }}>
           <div className="flex items-center justify-between">
             <a href="/" className="flex items-center" aria-label="Top Properties - Home">
               <div className="flex items-center gap-2.5">
                 <div className="relative w-10 h-10 flex items-center justify-center">
-                  <div className="absolute inset-0 rounded-full" style={{ backgroundColor: '#B20933', opacity: 0.1 }}></div>
+                  <div className="absolute inset-0 rounded-full" style={{ backgroundColor: 'var(--brand)', opacity: 0.1 }}></div>
                   <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="4" y="8" width="6" height="12" fill="#B20933" rx="0.5" />
-                    <rect x="14" y="4" width="6" height="16" fill="#B20933" rx="0.5" />
+                    <rect x="4" y="8" width="6" height="12" fill="var(--brand)" rx="0.5" />
+                    <rect x="14" y="4" width="6" height="16" fill="var(--brand)" rx="0.5" />
                     <rect x="5" y="9" width="1.5" height="1.5" fill="white" />
                     <rect x="5" y="12" width="1.5" height="1.5" fill="white" />
                     <rect x="5" y="15" width="1.5" height="1.5" fill="white" />
@@ -109,7 +109,7 @@ export function Header({ onNavigateToMap, onNavigateToProperties, forceMenuOpen 
             <div className="flex items-center">
               <button
                 onClick={() => setIsMenuOpen(true)}
-                className="flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
+                className="flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
                 style={{ width: '44px', height: '44px' }}
                 aria-label="Open menu"
               >

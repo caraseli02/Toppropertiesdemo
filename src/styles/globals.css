@@ -2,6 +2,13 @@
 
 :root {
   --font-size: 16px;
+  --brand: #b10832;
+  --brand-dark: #8e0628;
+  --brand-light: #f2a4b8;
+  --brand-subtle: rgba(177, 8, 50, 0.1);
+  --surface-dark: #1a1a1a;
+  --text-secondary: #868686;
+  --border-default: #e5e7eb;
   --background: #ffffff;
   --foreground: oklch(0.145 0 0);
   --card: #ffffff;
@@ -83,6 +90,12 @@
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+  --color-brand: var(--brand);
+  --color-brand-dark: var(--brand-dark);
+  --color-brand-light: var(--brand-light);
+  --color-surface-dark: var(--surface-dark);
+  --color-text-secondary: var(--text-secondary);
+  --color-border-default: var(--border-default);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);

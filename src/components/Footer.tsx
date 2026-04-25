@@ -2,14 +2,14 @@ import { MapPin, Phone, Mail } from 'lucide-react';
 
 export function Footer() {
   return (
-    <footer style={{ backgroundColor: '#1a1a1a', color: 'white' }}>
+    <footer style={{ backgroundColor: 'var(--surface-dark)', color: 'white' }}>
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {/* Brand */}
           <div>
             <h3 className="text-xl font-bold mb-3 tracking-wide">
-              <span style={{ color: '#b10832' }}>Top Properties</span>
+              <span style={{ color: 'var(--brand)' }}>Top Properties</span>
             </h3>
             <p className="text-gray-400 text-sm leading-relaxed">
               A curated selection of the world's most exclusive real estate.
@@ -23,15 +23,15 @@ export function Footer() {
             </h4>
             <div className="space-y-3 text-sm text-gray-400">
               <div className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: '#b10832' }} />
+                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: 'var(--brand)' }} />
                 <span>123 Luxury Avenue, New York, NY 10001</span>
               </div>
               <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 flex-shrink-0" style={{ color: '#b10832' }} />
+                <Phone className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--brand)' }} />
                 <span>+1 (555) 123-4567</span>
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 flex-shrink-0" style={{ color: '#b10832' }} />
+                <Mail className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--brand)' }} />
                 <span>hello@topproperties.demo</span>
               </div>
             </div>

@@ -191,7 +191,7 @@ export default function App() {
             <h3 className="text-2xl font-semibold text-black mb-2">
               No luxury properties match your criteria
             </h3>
-            <p className="font-light text-[16px] text-[#868686] mb-8 max-w-md mx-auto">
+            <p className="font-light text-[16px] text-[var(--text-secondary)] mb-8 max-w-md mx-auto">
               We couldn't find properties matching your current filters. Try broadening your search or resetting filters.
             </p>
             <button
@@ -206,7 +206,7 @@ export default function App() {
                 }
                 setViewMode('grid');
               }}
-              className="bg-[#b10832] text-white px-8 py-3 rounded-lg hover:bg-[#8e0628] transition-colors font-medium"
+              className="bg-[var(--brand)] text-white px-8 py-3 rounded-lg hover:bg-[var(--brand-dark)] transition-colors font-medium"
             >
               {emptyStateCtaLabel}
             </button>
@@ -219,16 +219,16 @@ export default function App() {
                 <h1 className="text-xl md:text-2xl font-bold text-black mb-1">
                   Luxury Properties
                 </h1>
-                <p className="text-[#868686] text-[13px] md:text-[14px]">
+                <p className="text-[var(--text-secondary)] text-[13px] md:text-[14px]">
                   {filteredProperties.length} properties available
                 </p>
               </div>
 
-              <div className="flex gap-2 bg-white rounded-lg p-1 shadow-sm border border-[#e5e7eb]">
+              <div className="flex gap-2 bg-white rounded-lg p-1 shadow-sm border border-[var(--border-default)]">
                 <button
                   onClick={() => setViewMode('grid')}
                   className={`flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 rounded-md transition-colors text-xs sm:text-sm ${viewMode === 'grid'
-                    ? 'bg-[#b10832] text-white'
+                    ? 'bg-[var(--brand)] text-white'
                     : 'text-gray-600 hover:bg-gray-100'
                     }`}
                   aria-pressed={viewMode === 'grid'}
@@ -240,7 +240,7 @@ export default function App() {
                 <button
                   onClick={() => setViewMode('map')}
                   className={`flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 rounded-md transition-colors text-xs sm:text-sm ${viewMode === 'map'
-                    ? 'bg-[#b10832] text-white'
+                    ? 'bg-[var(--brand)] text-white'
                     : 'text-gray-600 hover:bg-gray-100'
                     }`}
                   aria-pressed={viewMode === 'map'}

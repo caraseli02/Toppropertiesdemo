@@ -141,7 +141,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
             <button
               onClick={() => setFilters(prev => ({ ...prev, rentType: 'short' }))}
               className={`px-3 py-2 sm:flex-1 sm:px-6 sm:py-3 rounded-full border-2 transition-all font-medium text-sm sm:text-base ${filters.rentType === 'short'
-                ? 'bg-[#b10832] text-white border-[#b10832]'
+                ? 'bg-[var(--brand)] text-white border-[var(--brand)]'
                 : 'bg-white text-black border-black'
                 }`}
              
@@ -153,7 +153,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
             <button
               onClick={() => setFilters(prev => ({ ...prev, rentType: 'long' }))}
               className={`px-3 py-2 sm:flex-1 sm:px-6 sm:py-3 rounded-full border-2 transition-all font-medium text-sm sm:text-base ${filters.rentType === 'long'
-                ? 'bg-[#b10832] text-white border-[#b10832]'
+                ? 'bg-[var(--brand)] text-white border-[var(--brand)]'
                 : 'bg-white text-black border-black'
                 }`}
              
@@ -165,7 +165,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
             <button
               onClick={() => setFilters(prev => ({ ...prev, rentType: 'sale' }))}
               className={`px-3 py-2 sm:flex-1 sm:px-6 sm:py-3 rounded-full border-2 transition-all font-medium text-sm sm:text-base ${filters.rentType === 'sale'
-                ? 'bg-[#b10832] text-white border-[#b10832]'
+                ? 'bg-[var(--brand)] text-white border-[var(--brand)]'
                 : 'bg-white text-black border-black'
                 }`}
              
@@ -194,9 +194,9 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                     priceRange: [prev.priceRange[0], parseInt(e.target.value)],
                   }))
                 }
-                className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-[#b10832]"
+                className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-[var(--brand)]"
                 style={{
-                  background: `linear-gradient(to right, #b10832 0%, #b10832 ${(filters.priceRange[1] / PRICE_MAX) * 100}%, #d1d5db ${(filters.priceRange[1] / PRICE_MAX) * 100}%, #d1d5db 100%)`
+                  background: `linear-gradient(to right, var(--brand) 0%, var(--brand) ${(filters.priceRange[1] / PRICE_MAX) * 100}%, #d1d5db ${(filters.priceRange[1] / PRICE_MAX) * 100}%, #d1d5db 100%)`
                 }}
               />
               <div className="flex items-center gap-3">
@@ -228,7 +228,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
             </span>
             <button
               onClick={() => setFilters(prev => ({ ...prev, showTrattativa: !prev.showTrattativa }))}
-              className={`relative w-14 h-8 rounded-full transition-colors border-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30 ${filters.showTrattativa ? 'bg-[#b10832] border-[#b10832]' : 'bg-gray-200 border-gray-300'
+              className={`relative w-14 h-8 rounded-full transition-colors border-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30 ${filters.showTrattativa ? 'bg-[var(--brand)] border-[var(--brand)]' : 'bg-gray-200 border-gray-300'
                 }`}
               type="button"
               role="switch"
@@ -253,7 +253,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                   key={type}
                   onClick={() => togglePropertyType(type)}
                   className={`px-6 py-2 rounded-full transition-all ${filters.propertyTypes.includes(type)
-                    ? 'bg-[#b10832] text-white'
+                    ? 'bg-[var(--brand)] text-white'
                     : 'bg-white text-black border border-gray-300'
                     }`}
                  
@@ -278,7 +278,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => setFilters(prev => ({ ...prev, rooms: Math.max(0, prev.rooms - 1) }))}
-                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
+                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
                     style={{ width: '44px', height: '44px' }}
                   >
                     <Minus className="w-4 h-4" />
@@ -288,7 +288,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                   </span>
                   <button
                     onClick={() => setFilters(prev => ({ ...prev, rooms: prev.rooms + 1 }))}
-                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
+                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
                     style={{ width: '44px', height: '44px' }}
                   >
                     <Plus className="w-4 h-4" />
@@ -313,9 +313,9 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                       sqm: [prev.sqm[0], parseInt(e.target.value)],
                     }))
                   }
-                  className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-[#b10832]"
+                  className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-[var(--brand)]"
                   style={{
-                    background: `linear-gradient(to right, #b10832 0%, #b10832 ${(filters.sqm[1] / 500) * 100}%, #d1d5db ${(filters.sqm[1] / 500) * 100}%, #d1d5db 100%)`
+                    background: `linear-gradient(to right, var(--brand) 0%, var(--brand) ${(filters.sqm[1] / 500) * 100}%, #d1d5db ${(filters.sqm[1] / 500) * 100}%, #d1d5db 100%)`
                   }}
                 />
               </div>
@@ -326,7 +326,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => setFilters(prev => ({ ...prev, beds: Math.max(0, prev.beds - 1) }))}
-                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
+                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
                     style={{ width: '44px', height: '44px' }}
                   >
                     <Minus className="w-4 h-4" />
@@ -336,7 +336,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                   </span>
                   <button
                     onClick={() => setFilters(prev => ({ ...prev, beds: prev.beds + 1 }))}
-                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
+                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
                     style={{ width: '44px', height: '44px' }}
                   >
                     <Plus className="w-4 h-4" />
@@ -359,7 +359,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                   </span>
                   <button
                     onClick={() => toggleTag(tag)}
-                    className={`relative rounded-full transition-colors flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30 ${filters.tags.includes(tag) ? 'bg-[#b10832] text-white' : 'bg-gray-300'}`}
+                    className={`relative rounded-full transition-colors flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30 ${filters.tags.includes(tag) ? 'bg-[var(--brand)] text-white' : 'bg-gray-300'}`}
                     style={{ width: '44px', height: '44px' }}
                     type="button"
                     aria-pressed={filters.tags.includes(tag)}
@@ -385,7 +385,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                   </span>
                   <button
                     onClick={() => toggleAmenity(amenity)}
-                    className={`relative rounded-full transition-colors flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30 ${filters.amenities?.includes(amenity) ? 'bg-[#b10832] text-white' : 'bg-gray-300'}`}
+                    className={`relative rounded-full transition-colors flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30 ${filters.amenities?.includes(amenity) ? 'bg-[var(--brand)] text-white' : 'bg-gray-300'}`}
                     style={{ width: '44px', height: '44px' }}
                     type="button"
                     aria-pressed={filters.amenities?.includes(amenity) ? true : false}

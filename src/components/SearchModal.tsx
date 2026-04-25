@@ -111,7 +111,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
             </h2>
             <button
               onClick={onClose}
-              className="flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
+              className="flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
               style={{ width: '44px', height: '44px' }}
               aria-label="Close search"
             >
@@ -193,7 +193,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
                     key={property.id}
                     type="button"
                     onClick={() => handleSelectProperty(property)}
-                    className="w-full text-left bg-white border border-gray-200 rounded-lg p-3 hover:shadow-md hover:border-gray-300 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b10832]/30"
+                    className="w-full text-left bg-white border border-gray-200 rounded-lg p-3 hover:shadow-md hover:border-gray-300 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
                   >
                     <div className="flex gap-3 items-start">
                       {/* Thumbnail */}
@@ -208,7 +208,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
                         <div className="flex items-center gap-2 mb-0.5">
                           {property.featured && (
                             <span
-                              className="bg-[#b10832] text-white px-1.5 py-0.5 rounded text-[10px] font-medium uppercase"
+                              className="bg-[var(--brand)] text-white px-1.5 py-0.5 rounded text-[10px] font-medium uppercase"
                              
                             >
                               Featured
@@ -241,7 +241,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
                     {/* Price */}
                     <div className="mt-2 flex items-center justify-between gap-3">
                       <span
-                        className="font-bold text-[15px] leading-tight text-[#b10832] max-w-[58%] overflow-hidden text-ellipsis whitespace-nowrap"
+                        className="font-bold text-[15px] leading-tight text-[var(--brand)] max-w-[58%] overflow-hidden text-ellipsis whitespace-nowrap"
                        
                       >
                         {property.price}

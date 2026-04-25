@@ -1,6 +1,6 @@
 export function LoadingCard() {
   return (
-    <div className="bg-white rounded-[8px] overflow-hidden border border-[#e5e7eb] animate-pulse">
+    <div className="bg-white rounded-[8px] overflow-hidden border border-[var(--border-default)] animate-pulse">
       <div className="h-[200px] bg-gray-200" />
       <div className="p-4 space-y-3">
         <div className="h-5 bg-gray-200 rounded w-3/4" />
