@@ -1,4 +1,4 @@
-import { X, ChevronLeft, ChevronRight, Heart, Share2, MapPin, Bed, Bath, Maximize, Calendar, Check } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, Heart, Share2, MapPin, Bed, Bath, Maximize, Calendar, Check, ShieldCheck, Clock, Sparkles } from 'lucide-react';
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { ContactModal } from './ContactModal';
@@ -134,6 +134,13 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
     'Security System',
     'Ocean View',
     'Fireplace',
+  ];
+
+  const neighborhood = property.location.split(',')[0]?.trim() || property.location;
+  const whyThisWorks = [
+    `${property.beds} bedrooms and ${property.baths} bathrooms support flexible stays`,
+    `${property.sqft} gives you clear scale before you enquire`,
+    amenities.slice(0, 2).join(' + ') || 'Strong lifestyle amenities',
   ];
 
   const detailContent = (
@@ -287,7 +294,11 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
           <div className="lg:col-span-2 space-y-8">
             {/* Title and Location */}
             <div>
-              <h1 id="property-detail-title" className="text-4xl font-display text-ink mb-3">{property.title}</h1>
+              <div className="flex flex-wrap gap-2 mb-4">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--brand)]/10 px-3 py-1.5 text-sm font-semibold text-[var(--brand)]"><ShieldCheck className="w-4 h-4" /> Price visible</span>
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1.5 text-sm font-semibold text-gray-700"><Clock className="w-4 h-4" /> Updated this week</span>
+              </div>
+              <h1 id="property-detail-title" className="text-3xl sm:text-4xl lg:text-5xl font-display text-ink mb-3">{property.title}</h1>
               <div className="flex items-center text-gray-600 text-lg">
                 <MapPin className="w-5 h-5 mr-2" />
                 <span>{property.location}</span>
@@ -301,34 +312,54 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
                   <Bed className="w-5 h-5" />
                   <span className="text-sm">Bedrooms</span>
                 </div>
-                <p className="text-2xl font-bold text-gray-900">{property.beds}</p>
+                <p className="text-2xl font-bold text-ink">{property.beds}</p>
               </div>
               <div className="bg-gray-50 p-4 rounded-xl">
                 <div className="flex items-center gap-2 text-gray-600 mb-2">
                   <Bath className="w-5 h-5" />
                   <span className="text-sm">Bathrooms</span>
                 </div>
-                <p className="text-2xl font-bold text-gray-900">{property.baths}</p>
+                <p className="text-2xl font-bold text-ink">{property.baths}</p>
               </div>
               <div className="bg-gray-50 p-4 rounded-xl">
                 <div className="flex items-center gap-2 text-gray-600 mb-2">
                   <Maximize className="w-5 h-5" />
                   <span className="text-sm">Area</span>
                 </div>
-                <p className="text-2xl font-bold text-gray-900">{property.sqft}</p>
+                <p className="text-2xl font-bold text-ink">{property.sqft}</p>
               </div>
               <div className="bg-gray-50 p-4 rounded-xl">
                 <div className="flex items-center gap-2 text-gray-600 mb-2">
                   <Calendar className="w-5 h-5" />
                   <span className="text-sm">Year Built</span>
                 </div>
-                <p className="text-2xl font-bold text-gray-900">{property.yearBuilt || 2020}</p>
+                <p className="text-2xl font-bold text-ink">{property.yearBuilt || 2020}</p>
               </div>
+            </div>
+
+            <div className="rounded-2xl border border-[var(--border-default)] bg-[var(--surface-muted)] p-5 sm:p-6">
+              <div className="flex items-center gap-2 mb-4">
+                <Sparkles className="w-5 h-5 text-[var(--brand)]" />
+                <h2 className="text-2xl font-bold text-ink">Why this home works</h2>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-3">
+                {whyThisWorks.map((item) => (
+                  <div key={item} className="rounded-xl bg-white border border-[var(--border-default)] p-4">
+                    <Check className="w-5 h-5 text-[var(--brand)] mb-3" />
+                    <p className="text-sm leading-relaxed text-gray-700">{item}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-[var(--border-default)] p-5 sm:p-6">
+              <h2 className="text-2xl font-bold text-ink mb-3">Neighborhood signal</h2>
+              <p className="text-gray-700 leading-relaxed">Start with {neighborhood}: compare the property around its local context first, then use the map and details below to decide whether it fits your lifestyle.</p>
             </div>
 
             {/* Description */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">About this property</h2>
+              <h2 className="text-2xl font-bold text-ink mb-4">About this property</h2>
               <p className="text-gray-700 leading-relaxed">
                 {property.description ||
                   `Full property notes for ${property.title} are being prepared. Contact the agent for availability, floor plans, viewing windows, and private media.`}
@@ -337,7 +368,7 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
 
             {/* Amenities */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Amenities</h2>
+              <h2 className="text-2xl font-bold text-ink mb-4">Amenities</h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                 {amenities.map((amenity) => (
                   <div key={amenity} className="flex items-center gap-2">
@@ -352,7 +383,7 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
 
             {/* Map */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Location</h2>
+              <h2 className="text-2xl font-bold text-ink mb-4">Location</h2>
               <div
                 className="rounded-xl overflow-hidden shadow-sm border border-gray-100 relative z-0"
                 style={{ minHeight: '320px', height: '384px' }}
@@ -394,20 +425,28 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
             <div className="sticky top-24 space-y-6">
               {/* Price Card */}
               <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-lg">
-                <p className="text-3xl font-bold text-[var(--brand)] mb-6">{property.price}</p>
+                <p className="text-xs uppercase tracking-[0.14em] text-[var(--text-secondary)] font-semibold mb-2">Transparent asking price</p>
+                <p className="text-3xl font-bold text-[var(--brand)] mb-3">{property.price}</p>
+                <p className="text-sm text-gray-600 mb-6">Save it, request the details, or schedule a viewing when ready.</p>
 
                 <div className="space-y-3">
                   <button
                     onClick={() => { setContactMode('viewing'); setIsContactModalOpen(true); }}
-                    className="w-full bg-[var(--brand)] hover:bg-[var(--brand-dark)] text-white py-3 rounded-lg font-medium transition-colors"
+                    className="w-full bg-[var(--brand)] hover:bg-[var(--brand-dark)] text-white py-3 min-h-[44px] rounded-lg font-medium transition-colors"
                   >
                     Schedule Viewing
                   </button>
                   <button
                     onClick={() => { setContactMode('contact'); setIsContactModalOpen(true); }}
-                    className="w-full border-2 border-[var(--brand)] text-[var(--brand)] hover:bg-[var(--brand)] hover:text-white py-3 rounded-lg font-medium transition-colors"
+                    className="w-full border-2 border-[var(--brand)] text-[var(--brand)] hover:bg-[var(--brand)] hover:text-white py-3 min-h-[44px] rounded-lg font-medium transition-colors"
                   >
                     Message Agent
+                  </button>
+                  <button
+                    onClick={() => { setContactMode('info'); setIsContactModalOpen(true); }}
+                    className="w-full border border-gray-300 hover:bg-gray-50 py-3 min-h-[44px] rounded-lg font-medium transition-colors"
+                  >
+                    Request Info
                   </button>
                 </div>
               </div>

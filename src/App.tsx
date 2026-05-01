@@ -8,11 +8,45 @@ import { SearchModal } from './components/SearchModal';
 import { PropertyDetail } from './components/PropertyDetail';
 import { Footer } from './components/Footer';
 import { HeroSection } from './components/HeroSection';
-import { LayoutGrid, Map } from 'lucide-react';
+import { LayoutGrid, Map, Waves, Building2, Users, Sparkles } from 'lucide-react';
 import { properties } from '@/data/properties';
-import { Property, FilterState } from '@/types';
+import { Property, FilterState, PropertyType, Amenity } from '@/types';
 import { filterProperties } from '@/services/filterService';
 import { getDefaultFilters } from '@/constants/filters';
+
+
+const DISCOVERY_PRESETS: Array<{
+  label: string;
+  description: string;
+  icon: typeof Waves;
+  search?: string;
+  filters?: Partial<FilterState>;
+}> = [
+  {
+    label: 'Coastal homes',
+    description: 'Sea view, beach, outdoor living',
+    icon: Waves,
+    filters: { amenities: ['Ocean View'] as Amenity[] },
+  },
+  {
+    label: 'City penthouses',
+    description: 'Skyline, balcony, central locations',
+    icon: Building2,
+    filters: { propertyTypes: ['Penthouse'] as PropertyType[] },
+  },
+  {
+    label: 'Family-ready',
+    description: 'More bedrooms, gardens, space',
+    icon: Users,
+    filters: { beds: 4, amenities: ['Garden', 'Garage', 'Security System'] as Amenity[] },
+  },
+  {
+    label: 'Statement homes',
+    description: 'Featured luxury and rare architecture',
+    icon: Sparkles,
+    filters: { propertyTypes: ['Luxury Villa'] as PropertyType[] },
+  },
+];
 
 const isDefaultFilterState = (filters: FilterState): boolean => {
   const defaults = getDefaultFilters();
@@ -61,6 +95,21 @@ export default function App() {
   const applyFilters = useCallback((filters: FilterState) => {
     setActiveFilters(filters);
   }, []);
+
+  const applyDiscoveryPreset = useCallback((preset: typeof DISCOVERY_PRESETS[number]) => {
+    const defaults = getDefaultFilters();
+    setSearchQuery(preset.search || '');
+    setActiveFilters({
+      ...defaults,
+      ...preset.filters,
+      propertyTypes: preset.filters?.propertyTypes || [],
+      tags: preset.filters?.tags || [],
+      amenities: preset.filters?.amenities || [],
+    });
+    setViewMode('grid');
+    setPendingScrollTarget('grid');
+  }, []);
+
 
   const scrollToSection = useCallback((id: string) => {
     requestAnimationFrame(() => {
@@ -196,11 +245,47 @@ export default function App() {
           </div>
         ) : (
           <>
+
+            {!hasActiveSearchOrFilter && (
+              <section className="mb-8 rounded-2xl border border-[var(--border-default)] bg-[var(--surface-muted)] p-4 sm:p-5" aria-labelledby="discovery-presets-title">
+                <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-4">
+                  <div>
+                    <p className="text-xs font-semibold tracking-[0.15em] uppercase text-[var(--text-secondary)] mb-2">Popular ways to start</p>
+                    <h2 id="discovery-presets-title" className="text-2xl font-bold text-ink">Choose by lifestyle, not just price</h2>
+                  </div>
+                  <p className="text-sm text-[var(--text-secondary)] max-w-md">One tap applies a useful starting point. You can still adjust every filter after.</p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                  {DISCOVERY_PRESETS.map((preset) => {
+                    const Icon = preset.icon;
+                    return (
+                      <button
+                        key={preset.label}
+                        type="button"
+                        onClick={() => applyDiscoveryPreset(preset)}
+                        className="min-h-[92px] rounded-xl border border-[var(--border-default)] bg-white p-4 text-left hover:shadow-md hover:border-[var(--brand)] transition-[box-shadow,border-color] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
+                      >
+                        <div className="flex items-start gap-3">
+                          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--brand)]/10 text-[var(--brand)] shrink-0">
+                            <Icon className="w-5 h-5" />
+                          </span>
+                          <span>
+                            <span className="block font-semibold text-ink">{preset.label}</span>
+                            <span className="block text-sm text-[var(--text-secondary)] mt-1">{preset.description}</span>
+                          </span>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </section>
+            )}
+
             {/* View Toggle */}
             <div className="flex items-center justify-between gap-4 mb-4 md:mb-6">
               <div>
                 <h2 className="text-xl md:text-2xl font-display text-ink mb-1">
-                  Luxury Properties
+                  Decision-ready properties
                 </h2>
                 <p className="text-[var(--text-secondary)] text-[13px] md:text-[14px]">
                   {filteredProperties.length} properties available
