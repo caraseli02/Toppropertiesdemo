@@ -1,6 +1,6 @@
 {
-  "name": "Enhance Design with Media",
-  "version": "0.1.0",
+  "name": "top-properties",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@types/leaflet": "^1.9.21",
