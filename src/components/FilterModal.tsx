@@ -2,6 +2,7 @@ import { X, Plus, Minus, Check } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { FilterState, Amenity, PropertyType } from '@/types';
 import { useBodyScrollLock } from '@/hooks/useBodyScrollLock';
+import { getDefaultFilters, PRICE_MAX } from '@/constants/filters';
 
 const AMENITIES: Amenity[] = [
   'Swimming Pool', 'Garden', 'Garage', 'Ocean View',
@@ -20,7 +21,6 @@ interface FilterModalProps {
 
 const propertyTypesList: PropertyType[] = ['Luxury Villa', 'Penthouse', 'Apartment', 'Estate', 'Mansion', 'Loft', 'Modern Villa', 'Beach House'];
 const tagsList = ['Luxury Houses', 'Top Properties', 'Castle', 'Sea View'];
-const PRICE_MAX = 25000000;
 
 const formatPrice = (value: number): string => {
   if (value >= 1000000) {
@@ -31,17 +31,6 @@ const formatPrice = (value: number): string => {
   }
   return value.toString();
 };
-
-const getDefaultFilters = (): FilterState => ({
-  rentType: 'long',
-  priceRange: [0, PRICE_MAX],
-  showTrattativa: false,
-  propertyTypes: [],
-  rooms: 0,
-  beds: 0,
-  sqm: [0, 500],
-  tags: [],
-});
 
 import { useFocusTrap } from '@/hooks/useFocusTrap';
 
