@@ -36,6 +36,7 @@ import { useFocusTrap } from '@/hooks/useFocusTrap';
 
 export function FilterModal({ isOpen, onClose, onApply, initialFilters }: FilterModalProps) {
   const [filters, setFilters] = useState<FilterState>(() => initialFilters || getDefaultFilters());
+  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
   const focusTrapRef = useFocusTrap(isOpen);
   useBodyScrollLock(isOpen);
 
@@ -99,7 +100,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
   return (
     <div
       ref={focusTrapRef}
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-stretch justify-center p-0 sm:items-center sm:p-4"
+      className="fixed inset-0 bg-overlay-soft backdrop-blur-sm flex items-stretch justify-center p-0 sm:items-center sm:p-4"
       style={{ zIndex: 1200 }}
       onClick={(e) => {
         if (e.target === e.currentTarget) {
@@ -121,6 +122,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
           <button
             onClick={onClose}
             className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+            style={{ width: '44px', height: '44px' }}
             aria-label="Close filters"
           >
             <X className="w-5 h-5" />
@@ -135,7 +137,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
               onClick={() => setFilters(prev => ({ ...prev, rentType: 'short' }))}
               className={`px-3 py-2 sm:flex-1 sm:px-6 sm:py-3 rounded-full border-2 transition-all font-medium text-sm sm:text-base ${filters.rentType === 'short'
                 ? 'bg-[var(--brand)] text-white border-[var(--brand)]'
-                : 'bg-white text-black border-black'
+                : 'bg-white text-ink border-[var(--border-default)]'
                 }`}
              
               type="button"
@@ -147,7 +149,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
               onClick={() => setFilters(prev => ({ ...prev, rentType: 'long' }))}
               className={`px-3 py-2 sm:flex-1 sm:px-6 sm:py-3 rounded-full border-2 transition-all font-medium text-sm sm:text-base ${filters.rentType === 'long'
                 ? 'bg-[var(--brand)] text-white border-[var(--brand)]'
-                : 'bg-white text-black border-black'
+                : 'bg-white text-ink border-[var(--border-default)]'
                 }`}
              
               type="button"
@@ -159,7 +161,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
               onClick={() => setFilters(prev => ({ ...prev, rentType: 'sale' }))}
               className={`px-3 py-2 sm:flex-1 sm:px-6 sm:py-3 rounded-full border-2 transition-all font-medium text-sm sm:text-base ${filters.rentType === 'sale'
                 ? 'bg-[var(--brand)] text-white border-[var(--brand)]'
-                : 'bg-white text-black border-black'
+                : 'bg-white text-ink border-[var(--border-default)]'
                 }`}
              
               type="button"
@@ -181,14 +183,16 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                 max={PRICE_MAX}
                 step={PRICE_MAX / 200}
                 value={filters.priceRange[1]}
+                aria-label="Maximum price"
                 onChange={(e) =>
                   setFilters(prev => ({
                     ...prev,
                     priceRange: [prev.priceRange[0], parseInt(e.target.value)],
                   }))
                 }
-                className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-[var(--brand)]"
+                className="w-full h-3 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-[var(--brand)]"
                 style={{
+                  minHeight: '44px',
                   background: `linear-gradient(to right, var(--brand) 0%, var(--brand) ${(filters.priceRange[1] / PRICE_MAX) * 100}%, var(--slider-track) ${(filters.priceRange[1] / PRICE_MAX) * 100}%, var(--slider-track) 100%)`
                 }}
               />
@@ -221,8 +225,9 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
             </span>
             <button
               onClick={() => setFilters(prev => ({ ...prev, showTrattativa: !prev.showTrattativa }))}
-              className={`relative w-14 h-8 rounded-full transition-colors border-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30 ${filters.showTrattativa ? 'bg-[var(--brand)] border-[var(--brand)]' : 'bg-gray-200 border-gray-300'
+              className={`relative w-14 rounded-full transition-colors border-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30 ${filters.showTrattativa ? 'bg-[var(--brand)] border-[var(--brand)]' : 'bg-gray-200 border-gray-300'
                 }`}
+              style={{ height: '44px' }}
               type="button"
               role="switch"
               aria-checked={filters.showTrattativa}
@@ -247,10 +252,11 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                   onClick={() => togglePropertyType(type)}
                   className={`px-6 py-2 rounded-full transition-all ${filters.propertyTypes.includes(type)
                     ? 'bg-[var(--brand)] text-white'
-                    : 'bg-white text-black border border-gray-300'
+                    : 'bg-white text-ink border border-gray-300'
                     }`}
                  
                   type="button"
+                  style={{ minHeight: '44px' }}
                   aria-pressed={filters.propertyTypes.includes(type)}
                 >
                   {type}
@@ -300,14 +306,16 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                   max="500"
                   step="10"
                   value={filters.sqm[1]}
+                  aria-label="Maximum square meters"
                   onChange={(e) =>
                     setFilters(prev => ({
                       ...prev,
                       sqm: [prev.sqm[0], parseInt(e.target.value)],
                     }))
                   }
-                  className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-[var(--brand)]"
+                  className="w-full h-3 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-[var(--brand)]"
                   style={{
+                    minHeight: '44px',
                     background: `linear-gradient(to right, var(--brand) 0%, var(--brand) ${(filters.sqm[1] / 500) * 100}%, var(--slider-track) ${(filters.sqm[1] / 500) * 100}%, var(--slider-track) 100%)`
                   }}
                 />
@@ -339,6 +347,18 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
             </div>
           </div>
 
+          <button
+            type="button"
+            onClick={() => setShowAdvancedFilters((value) => !value)}
+            className="w-full rounded-xl border border-[var(--border-default)] bg-white px-4 py-3 text-left font-semibold text-ink transition-colors hover-bg-brand-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
+            aria-expanded={showAdvancedFilters}
+          >
+            {showAdvancedFilters ? 'Hide advanced filters' : 'Show advanced filters'}
+            <span className="block text-sm font-normal text-[var(--text-secondary)]">Amenities and lifestyle tags</span>
+          </button>
+
+          {showAdvancedFilters && (
+            <>
           {/* Tags */}
           <div>
             <h3 className="font-semibold text-lg mb-4">
@@ -390,6 +410,8 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
               ))}
             </div>
           </div>
+            </>
+          )}
         </div>
 
         {/* Footer */}
@@ -403,7 +425,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
           </button>
           <button
             onClick={handleApply}
-            className="px-8 py-3 bg-[var(--surface-elevated)] text-white rounded-lg hover:bg-black transition-colors font-medium"
+            className="px-8 py-3 bg-[var(--brand)] text-white rounded-lg hover:bg-[var(--brand-dark)] transition-colors font-medium"
            
           >
             Results

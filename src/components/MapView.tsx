@@ -59,6 +59,14 @@ function MapSizeInvalidator({ viewKey }: { viewKey: string }) {
   return null;
 }
 
+
+const propertyMarkerIcon = L.divIcon({
+  className: 'topproperties-map-marker',
+  html: '<div style="width:44px;height:44px;border-radius:9999px;background:rgba(177,8,50,0.16);display:flex;align-items:center;justify-content:center;"><div style="width:18px;height:18px;border-radius:9999px;background:var(--brand);border:2px solid white;box-shadow:0 6px 18px rgba(0,0,0,0.24);"></div></div>',
+  iconSize: [44, 44],
+  iconAnchor: [22, 22],
+});
+
 const formatMarkerPrice = (price: string): string => {
   const numeric = Number.parseFloat(price.replace(/[^0-9.]/g, ''));
   if (!Number.isFinite(numeric)) return price;
@@ -108,6 +116,9 @@ export const MapView = React.memo<MapViewProps>(function MapView({ properties, o
           <Marker
             key={property.id}
             position={[property.lat, property.lng]}
+            icon={propertyMarkerIcon}
+            title={`View ${property.title} on map`}
+            alt={`View ${property.title} on map`}
             eventHandlers={{
               click: () => {
                 setActiveId(property.id);
