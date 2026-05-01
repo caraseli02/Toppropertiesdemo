@@ -12,19 +12,7 @@ import { LayoutGrid, Map } from 'lucide-react';
 import { properties } from '@/data/properties';
 import { Property, FilterState } from '@/types';
 import { filterProperties } from '@/services/filterService';
-
-const PRICE_MAX = 25000000;
-
-const getDefaultFilters = (): FilterState => ({
-  rentType: 'long',
-  priceRange: [0, PRICE_MAX],
-  showTrattativa: false,
-  propertyTypes: [],
-  rooms: 0,
-  beds: 0,
-  sqm: [0, 500],
-  tags: [],
-});
+import { getDefaultFilters } from '@/constants/filters';
 
 const isDefaultFilterState = (filters: FilterState): boolean => {
   const defaults = getDefaultFilters();
