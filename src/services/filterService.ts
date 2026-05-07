@@ -59,6 +59,7 @@ export function filterProperties(
 
   // 6. Apply Amenity Filter with null check and proper logic
   if (activeFilters.amenities !== undefined && activeFilters.amenities.length > 0) {
+    const requiredAmenities = activeFilters.amenities;
     filtered = filtered.filter(property => {
       // Property must have amenities array
       if (!property.amenities || property.amenities.length === 0) {
@@ -66,7 +67,7 @@ export function filterProperties(
       }
 
       // All selected amenities must be present (AND logic)
-      return activeFilters.amenities.every((amenity: Amenity) =>
+      return requiredAmenities.every((amenity: Amenity) =>
         property.amenities!.includes(amenity)
       );
     });

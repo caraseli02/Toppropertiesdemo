@@ -5,30 +5,14 @@ import { ContactModal } from './ContactModal';
 import { ImageModal } from './ImageModal';
 import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
 import { useBodyScrollLock } from '@/hooks/useBodyScrollLock';
+import type { Property } from '@/types';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 type ContactMode = 'contact' | 'viewing' | 'info';
 
 interface PropertyDetailProps {
-  property: {
-    id: string;
-    image: string;
-    title: string;
-    location: string;
-    price: string;
-    beds: number;
-    baths: number;
-    sqft: string;
-    description?: string;
-    yearBuilt?: number;
-    propertyType?: string;
-    gallery?: string[];
-    amenities?: string[];
-    virtualTour?: string;
-    lat: number;
-    lng: number;
-  };
+  property: Property;
   onClose: () => void;
   initialOverlay?: 'contact' | 'image' | null;
 }
@@ -134,7 +118,7 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
   ];
 
   const detailContent = (
-    <div ref={(el) => { (containerRef as React.MutableRefObject<HTMLDivElement | null>).current = el; focusTrapRef.current = el; }} className="fixed inset-0 bg-white overflow-y-auto" style={{ zIndex: 2000 }}>
+    <div ref={(el) => { (containerRef as React.MutableRefObject<HTMLDivElement | null>).current = el; (focusTrapRef as React.MutableRefObject<HTMLElement | null>).current = el; }} className="fixed inset-0 bg-white overflow-y-auto" style={{ zIndex: 2000 }}>
       {/* Header */}
       <div className="sticky top-0 bg-white/95 backdrop-blur-sm border-b border-gray-200 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">

@@ -1,31 +1,13 @@
 import { useState, useEffect, useMemo } from 'react';
 import { X } from 'lucide-react';
 import { useBodyScrollLock } from '@/hooks/useBodyScrollLock';
-
-interface Property {
-  id: string;
-  image: string;
-  title: string;
-  location: string;
-  price: string;
-  beds: number;
-  baths: number;
-  sqft: string;
-  featured?: boolean;
-  lat: number;
-  lng: number;
-  gallery?: string[];
-  description?: string;
-  yearBuilt?: number;
-  propertyType?: string;
-  amenities?: string[];
-}
+import type { Property } from '@/types';
 
 interface SearchModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSearch: (query: string) => void;
-  properties: Property[];
+  properties: readonly Property[];
   onSelectProperty?: (property: Property) => void;
 }
 

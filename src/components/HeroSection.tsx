@@ -1,21 +1,9 @@
 import { useState, useEffect } from 'react';
 import { ChevronRight } from 'lucide-react';
-
-interface Property {
-  id: string;
-  image: string;
-  title: string;
-  location: string;
-  price: string;
-  beds: number;
-  baths: number;
-  sqft: string;
-  featured?: boolean;
-  description?: string;
-}
+import type { Property } from '@/types';
 
 interface HeroSectionProps {
-  properties: Property[];
+  properties: readonly Property[];
   onViewProperty: (property: Property) => void;
   onSearchClick: () => void;
 }
