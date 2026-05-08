@@ -111,12 +111,3 @@ export interface FilterState {
   tags: string[];
   amenities?: Amenity[];
 }
-
-// Property marker for map
-export interface PropertyMarker {
-  id: string;
-  lat: number;
-  lng: number;
-  price: string;
-  title: string;
-}

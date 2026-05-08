@@ -38,7 +38,6 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
   const focusTrapRef = useFocusTrap(true);
   const [query, setQuery] = useState('');
   useBodyScrollLock(isOpen);
-  const isAtLimit = query.length >= MAX_QUERY_LENGTH;
   const normalizedQuery = useMemo(() => normalizeQuery(query), [query]);
   const normalizedQueryLower = normalizedQuery.toLowerCase();
 

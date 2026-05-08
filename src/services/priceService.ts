@@ -1,5 +1,3 @@
-import { Amenity, Property } from '@/types';
-
 /**
  * Safely parse price string to number with currency conversion.
  * Returns null if parsing fails, otherwise returns USD equivalent.
@@ -32,15 +30,4 @@ export function parsePrice(priceString: string): number | null {
 
   // Default: assume USD
   return parsed;
-}
-
-/**
- * Format a number as currency string.
- *
- * @param amount - The amount to format
- * @param currency - Currency symbol (default: $)
- * @returns Formatted currency string
- */
-export function formatCurrency(amount: number, currency: string = '$'): string {
-  return `${currency}${amount.toLocaleString()}`;
 }
