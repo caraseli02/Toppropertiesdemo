@@ -6,30 +6,14 @@ import { ImageModal } from './ImageModal';
 import { ComingSoonToast } from './ComingSoonToast';
 import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
 import { useBodyScrollLock } from '@/hooks/useBodyScrollLock';
+import type { Property } from '@/types';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 type ContactMode = 'contact' | 'viewing' | 'info';
 
 interface PropertyDetailProps {
-  property: {
-    id: string;
-    image: string;
-    title: string;
-    location: string;
-    price: string;
-    beds: number;
-    baths: number;
-    sqft: string;
-    description?: string;
-    yearBuilt?: number;
-    propertyType?: string;
-    gallery?: string[];
-    amenities?: string[];
-    virtualTour?: string;
-    lat: number;
-    lng: number;
-  };
+  property: Property;
   onClose: () => void;
   initialOverlay?: 'contact' | 'image' | null;
 }
@@ -138,7 +122,10 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
 
   const detailContent = (
     <div
-      ref={(el) => { (containerRef as React.MutableRefObject<HTMLDivElement | null>).current = el; focusTrapRef.current = el; }}
+      ref={(el) => {
+        (containerRef as React.MutableRefObject<HTMLDivElement | null>).current = el;
+        focusTrapRef.current = el;
+      }}
       className="fixed inset-0 bg-white overflow-y-auto"
       style={{ zIndex: 2000 }}
       role="dialog"

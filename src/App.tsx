@@ -150,7 +150,7 @@ export default function App() {
       {hasVisibleResults && !hasActiveSearchOrFilter && (
         <HeroSection
           properties={properties}
-          onViewProperty={(p) => setSelectedProperty(p as any)}
+          onViewProperty={(p) => setSelectedProperty(p)}
           onSearchClick={() => setIsSearchModalOpen(true)}
         />
       )}
