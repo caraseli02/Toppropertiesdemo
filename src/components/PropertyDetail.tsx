@@ -212,12 +212,14 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
                 <button
                   onClick={prevImage}
                   className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full transition-colors"
+                  aria-label="Previous image"
                 >
                   <ChevronLeft className="w-6 h-6" />
                 </button>
                 <button
                   onClick={nextImage}
                   className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full transition-colors"
+                  aria-label="Next image"
                 >
                   <ChevronRight className="w-6 h-6" />
                 </button>
@@ -247,6 +249,7 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
                 onClick={() => openImageModal(index)}
                 className={`relative flex-shrink-0 w-24 h-16 rounded-lg overflow-hidden transition-all ${index === currentImageIndex ? 'ring-2 ring-white' : 'opacity-60 hover:opacity-100'
                   }`}
+                aria-label={`View image ${index + 1} of ${gallery.length}`}
               >
                 <img src={img} alt={`View ${index + 1} of ${gallery.length}`} className="w-full h-full object-cover" />
               </button>
