@@ -27,10 +27,10 @@ function MobileMenu({
 
   return (
     <div className="fixed inset-0" style={{ zIndex: 1200 }}>
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
+      <div className="absolute inset-0 bg-overlay-soft backdrop-blur-sm" onClick={onClose} />
       <div className="absolute left-0 top-0 bottom-0 w-72 bg-white shadow-2xl animate-slide-in-left flex flex-col">
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-          <span className="font-semibold text-lg text-black">Menu</span>
+          <span className="font-semibold text-lg text-ink">Menu</span>
           <button
             onClick={onClose}
             className="p-1 hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
@@ -76,7 +76,7 @@ export function Header({ onNavigateToMap, onNavigateToProperties, forceMenuOpen 
       <header className="bg-white border-b border-[var(--border-default)]">
         <div style={{ padding: '10px' }}>
           <div className="flex items-center justify-between">
-            <a href="/" className="flex items-center" aria-label="Top Properties - Home">
+            <a href="/" className="flex items-center" style={{ minHeight: '44px' }} aria-label="Top Properties - Home">
               <div className="flex items-center gap-2.5">
                 <div className="relative w-10 h-10 flex items-center justify-center">
                   <div className="absolute inset-0 rounded-full" style={{ backgroundColor: 'var(--brand)', opacity: 0.1 }}></div>
@@ -100,7 +100,7 @@ export function Header({ onNavigateToMap, onNavigateToProperties, forceMenuOpen 
                   </svg>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-bold text-lg text-black hidden sm:inline" style={{ letterSpacing: '-0.5px' }}>Top Properties</span>
+                  <span className="font-display text-lg text-ink hidden sm:inline" style={{ letterSpacing: '-0.5px' }}>Top Properties</span>
                   <span className="text-xs text-gray-500 hidden sm:inline" style={{ marginTop: '-2px' }}>Luxury Real Estate</span>
                 </div>
               </div>

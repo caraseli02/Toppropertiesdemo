@@ -24,7 +24,7 @@ export function Footer() {
             <div className="space-y-3 text-sm text-gray-400">
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: 'var(--brand)' }} />
-                <span>123 Luxury Avenue, New York, NY 10001</span>
+                <span>Passeig de Gràcia, Barcelona 08007</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--brand)' }} />

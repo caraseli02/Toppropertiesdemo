@@ -40,17 +40,17 @@ export function ImageModal({ images, initialIndex, isOpen, onClose }: ImageModal
 
   return (
     <div
-      className="fixed inset-0 bg-black/90 flex items-center justify-center p-4"
+      className="fixed inset-0 bg-overlay-strong flex items-center justify-center p-4"
       style={{ zIndex: 1300 }}
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-label="Property image gallery"
     >
-      <div className="relative max-w-6xl bg-black rounded-xl overflow-hidden" style={{ maxHeight: '90vh' }} onClick={(e) => e.stopPropagation()}>
+      <div className="relative max-w-6xl bg-ink rounded-xl overflow-hidden" style={{ maxHeight: '90vh' }} onClick={(e) => e.stopPropagation()}>
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 text-white/80 hover:text-white bg-black/50 hover:bg-black/70 rounded-full p-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+          className="absolute top-4 right-4 z-10 text-white/80 hover:text-white bg-overlay-soft hover:bg-ink rounded-full p-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
           aria-label="Close gallery"
         >
           <X className="w-6 h-6" />
@@ -66,7 +66,7 @@ export function ImageModal({ images, initialIndex, isOpen, onClose }: ImageModal
           }}
         />
 
-        <div className="absolute bottom-0 left-0 right-0 p-4 flex justify-between items-center bg-gradient-to-t from-black/50 to-transparent">
+        <div className="absolute bottom-0 left-0 right-0 p-4 flex justify-between items-center bg-gradient-to-t from-[var(--overlay-soft)] to-transparent">
           <span className="text-white text-sm font-medium">
             {currentIndex + 1} / {images.length}
           </span>

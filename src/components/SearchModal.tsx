@@ -20,7 +20,6 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
   const focusTrapRef = useFocusTrap(true);
   const [query, setQuery] = useState('');
   useBodyScrollLock(isOpen);
-  const isAtLimit = query.length >= MAX_QUERY_LENGTH;
   const normalizedQuery = useMemo(() => normalizeQuery(query), [query]);
   const normalizedQueryLower = normalizedQuery.toLowerCase();
 
@@ -111,7 +110,8 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
                 onChange={(e) => setQuery(e.target.value.slice(0, MAX_QUERY_LENGTH))}
                 onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                 placeholder="Search location, name, or type..."
-                className="flex-1 font-light text-[16px] text-black placeholder:text-gray-400 outline-none bg-transparent"
+                className="flex-1 font-light text-[16px] text-ink placeholder:text-gray-400 outline-none bg-transparent"
+                style={{ minHeight: '44px' }}
                
                 autoFocus
                 aria-label="Search properties"
@@ -152,7 +152,8 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
                   <button
                     key={loc}
                     onClick={() => handleLocationClick(loc)}
-                    className="max-w-full px-3 py-1.5 rounded-full border border-gray-200 text-sm text-gray-700 hover:bg-gray-100 hover:border-gray-300 transition-all"
+                    className="max-w-full px-4 py-2 rounded-full border border-gray-200 text-sm text-gray-700 hover:bg-gray-100 hover:border-gray-300 transition-all"
+                    style={{ minHeight: '44px' }}
                    
                   >
                     <span className="inline-block max-w-[170px] truncate align-middle">{loc}</span>
@@ -209,7 +210,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
                           )}
                         </div>
                         <h4
-                          className="font-semibold text-[15px] text-black overflow-hidden text-ellipsis whitespace-nowrap"
+                          className="font-semibold text-[15px] text-ink overflow-hidden text-ellipsis whitespace-nowrap"
                          
                         >
                           {property.title}
@@ -261,7 +262,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
           </button>
           <button
             onClick={handleSearch}
-            className="px-8 py-3 bg-[var(--surface-elevated)] text-white rounded-lg hover:bg-black transition-colors font-medium"
+            className="px-8 py-3 bg-[var(--brand)] text-white rounded-lg hover:bg-[var(--brand-dark)] transition-colors font-medium"
            
           >
             Show results

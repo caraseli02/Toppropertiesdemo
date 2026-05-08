@@ -84,7 +84,7 @@ export function HeroSection({ properties, onViewProperty, onSearchClick }: HeroS
         >
           <img
             src={getImageSrc(src)}
-            alt=""
+            alt="Luxury property showcase"
             className={`w-full h-full object-cover transition-[filter] duration-700 ${imagesLoaded.has(src) ? 'blur-0' : 'blur-xl scale-105'}`}
             onLoad={() => setImagesLoaded(prev => new Set(prev).add(src))}
             onError={() => setFailedImages(prev => new Set(prev).add(src))}
@@ -160,6 +160,7 @@ export function HeroSection({ properties, onViewProperty, onSearchClick }: HeroS
                 key={i}
                 onClick={() => setCurrent(i)}
                 className="h-11 flex items-center justify-center"
+                style={{ minWidth: '44px' }}
                 aria-label={`Go to: ${s.label}`}
               >
                 <span

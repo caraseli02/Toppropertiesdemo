@@ -3,6 +3,7 @@ import { useState, useEffect, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { ContactModal } from './ContactModal';
 import { ImageModal } from './ImageModal';
+import { ComingSoonToast } from './ComingSoonToast';
 import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
 import { useBodyScrollLock } from '@/hooks/useBodyScrollLock';
 import type { Property } from '@/types';
@@ -41,6 +42,7 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
   const [showVirtualTour, setShowVirtualTour] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [contactMode, setContactMode] = useState<ContactMode>('contact');
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [brokenImages, setBrokenImages] = useState<Set<number>>(new Set());
 
   useBodyScrollLock(true);
@@ -53,6 +55,7 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
     setShowVirtualTour(false);
     setIsImageModalOpen(false);
     setIsContactModalOpen(false);
+    setToastMessage(null);
     setContactMode('contact');
   }, [property.id]);
 
@@ -118,7 +121,17 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
   ];
 
   const detailContent = (
-    <div ref={(el) => { (containerRef as React.MutableRefObject<HTMLDivElement | null>).current = el; (focusTrapRef as React.MutableRefObject<HTMLElement | null>).current = el; }} className="fixed inset-0 bg-white overflow-y-auto" style={{ zIndex: 2000 }}>
+    <div
+      ref={(el) => {
+        (containerRef as React.MutableRefObject<HTMLDivElement | null>).current = el;
+        focusTrapRef.current = el;
+      }}
+      className="fixed inset-0 bg-white overflow-y-auto"
+      style={{ zIndex: 2000 }}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="property-detail-title"
+    >
       {/* Header */}
       <div className="sticky top-0 bg-white/95 backdrop-blur-sm border-b border-gray-200 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -136,6 +149,8 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
             </button>
             <div className="flex items-center gap-2">
               <button
+                type="button"
+                onClick={() => setToastMessage('Share links are being prepared for this demo.')}
                 className="flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
                 style={{ width: '44px', height: '44px' }}
                 aria-label="Share property"
@@ -159,7 +174,7 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
       </div>
 
       {/* Image Gallery */}
-      <div className="relative bg-gray-900">
+      <div className="relative bg-[var(--surface-dark)]">
         <div className="max-w-7xl mx-auto">
           <div className="relative w-full" style={{ height: '50vh', minHeight: '320px' }}>
             {brokenImages.has(currentImageIndex) ? (
@@ -184,40 +199,44 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
                 <button
                   onClick={prevImage}
                   className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full transition-colors"
+                  aria-label="Previous image"
                 >
                   <ChevronLeft className="w-6 h-6" />
                 </button>
                 <button
                   onClick={nextImage}
                   className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full transition-colors"
+                  aria-label="Next image"
                 >
                   <ChevronRight className="w-6 h-6" />
                 </button>
 
                 {/* Image Counter */}
-                <div className="absolute bottom-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm">
+                <div className="absolute bottom-4 right-4 bg-overlay-soft text-white px-3 py-1 rounded-full text-sm">
                   {currentImageIndex + 1} / {gallery.length}
                 </div>
               </>
             )}
 
-            {/* Virtual Tour Button */}
+            {/* Virtual tour status */}
             <button
+              type="button"
               onClick={() => setShowVirtualTour(!showVirtualTour)}
-              className="absolute bottom-4 left-4 bg-[var(--brand)] hover:bg-[var(--brand-dark)] text-white px-6 py-3 rounded-lg transition-colors font-medium"
+              className="absolute bottom-4 left-4 bg-white/95 text-ink px-5 py-3 rounded-lg transition-colors font-medium hover-bg-brand-subtle"
             >
-              {showVirtualTour ? 'Close Virtual Tour' : 'View Virtual Tour'}
+              {showVirtualTour ? 'Hide tour status' : 'Virtual tour coming soon'}
             </button>
           </div>
 
           {/* Thumbnail Gallery */}
-          <div className="flex gap-2 p-4 overflow-x-auto bg-gray-900">
+          <div className="flex gap-2 p-4 overflow-x-auto bg-[var(--surface-dark)]">
             {gallery.map((img, index) => (
               <button
                 key={index}
                 onClick={() => openImageModal(index)}
                 className={`relative flex-shrink-0 w-24 h-16 rounded-lg overflow-hidden transition-all ${index === currentImageIndex ? 'ring-2 ring-white' : 'opacity-60 hover:opacity-100'
                   }`}
+                aria-label={`View image ${index + 1} of ${gallery.length}`}
               >
                 <img src={img} alt={`View ${index + 1} of ${gallery.length}`} className="w-full h-full object-cover" />
               </button>
@@ -236,21 +255,15 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
 
       {/* Virtual Tour Overlay */}
       {showVirtualTour && (
-        <div className="bg-gray-900 py-8">
+        <div className="bg-[var(--surface-dark)] py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl flex items-center justify-center text-white">
-              <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-[var(--brand)] rounded-full flex items-center justify-center">
-                  <Maximize className="w-8 h-8" />
+            <div className="rounded-xl border border-white/10 bg-white/5 px-6 py-8 text-white">
+              <div className="max-w-2xl">
+                <div className="w-12 h-12 mb-4 bg-[var(--brand)] rounded-full flex items-center justify-center">
+                  <Maximize className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">360° Virtual Tour</h3>
-                <p className="text-gray-400">Interactive virtual tour experience</p>
-                <div className="mt-6 flex gap-3 justify-center">
-                  <div className="bg-gray-800 px-4 py-2 rounded-lg">Living Room</div>
-                  <div className="bg-gray-800 px-4 py-2 rounded-lg">Kitchen</div>
-                  <div className="bg-gray-800 px-4 py-2 rounded-lg">Bedroom</div>
-                  <div className="bg-gray-800 px-4 py-2 rounded-lg">Exterior</div>
-                </div>
+                <h3 className="text-xl font-display mb-2">Virtual tour is being prepared</h3>
+                <p className="text-white/70">This demo does not fake a 360° walkthrough. Contact the agent to request media availability for this property.</p>
               </div>
             </div>
           </div>
@@ -264,7 +277,7 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
           <div className="lg:col-span-2 space-y-8">
             {/* Title and Location */}
             <div>
-              <h1 className="text-4xl font-bold text-gray-900 mb-3">{property.title}</h1>
+              <h1 id="property-detail-title" className="text-4xl font-display text-ink mb-3">{property.title}</h1>
               <div className="flex items-center text-gray-600 text-lg">
                 <MapPin className="w-5 h-5 mr-2" />
                 <span>{property.location}</span>
@@ -308,13 +321,7 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
               <h2 className="text-2xl font-bold text-gray-900 mb-4">About this property</h2>
               <p className="text-gray-700 leading-relaxed">
                 {property.description ||
-                  `Experience unparalleled luxury in this stunning ${property.title.toLowerCase()}. 
-                  Featuring ${property.beds} spacious bedrooms and ${property.baths} elegant bathrooms, 
-                  this ${property.sqft} residence offers the perfect blend of sophistication and comfort. 
-                  Located in the prestigious ${property.location} area, this property showcases exceptional 
-                  craftsmanship, premium finishes, and breathtaking views. The open-concept design seamlessly 
-                  integrates indoor and outdoor living spaces, creating an ideal environment for both intimate 
-                  gatherings and grand entertaining.`}
+                  `Full property notes for ${property.title} are being prepared. Contact the agent for availability, floor plans, viewing windows, and private media.`}
               </p>
             </div>
 
@@ -324,8 +331,8 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                 {amenities.map((amenity) => (
                   <div key={amenity} className="flex items-center gap-2">
-                    <div className="flex-shrink-0 w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                      <Check className="w-4 h-4 text-green-600" />
+                    <div className="flex-shrink-0 w-6 h-6 bg-success-soft rounded-full flex items-center justify-center">
+                      <Check className="w-4 h-4 text-success" />
                     </div>
                     <span className="text-gray-700">{amenity}</span>
                   </div>
@@ -358,6 +365,8 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
                   {/* Custom Circle Marker similar to Airbnb */}
                   <Marker
                     position={[property.lat, property.lng]}
+                    title={`Location of ${property.title}`}
+                    alt={`Location of ${property.title}`}
                     icon={L.divIcon({
                       className: 'custom-pin-marker',
                       html: '<div style="width:48px;height:48px;background:rgba(177,8,50,0.2);border-radius:9999px;display:flex;align-items:center;justify-content:center;"><div style="width:16px;height:16px;background:var(--brand);border-radius:9999px;box-shadow:0 4px 10px rgba(0,0,0,0.2);border:2px solid #fff;"></div></div>',
@@ -388,13 +397,7 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
                     onClick={() => { setContactMode('contact'); setIsContactModalOpen(true); }}
                     className="w-full border-2 border-[var(--brand)] text-[var(--brand)] hover:bg-[var(--brand)] hover:text-white py-3 rounded-lg font-medium transition-colors"
                   >
-                    Contact Agent
-                  </button>
-                  <button
-                    onClick={() => { setContactMode('info'); setIsContactModalOpen(true); }}
-                    className="w-full border border-gray-300 hover:bg-gray-50 py-3 rounded-lg font-medium transition-colors"
-                  >
-                    Request Info
+                    Message Agent
                   </button>
                 </div>
               </div>
@@ -412,16 +415,12 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
                     <span className="font-medium">{property.yearBuilt || 2020}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Parking</span>
-                    <span className="font-medium">3 Spaces</span>
+                    <span className="text-gray-600">Media</span>
+                    <span className="font-medium">By request</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Stories</span>
-                    <span className="font-medium">2</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Lot Size</span>
-                    <span className="font-medium">10,000 sq ft</span>
+                    <span className="text-gray-600">Viewing</span>
+                    <span className="font-medium">Appointment only</span>
                   </div>
                 </div>
               </div>
@@ -439,8 +438,13 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
                     <p className="text-sm text-gray-600">Luxury Properties Specialist</p>
                   </div>
                 </div>
-                <button className="w-full border border-gray-300 hover:bg-gray-50 py-2 rounded-lg text-sm font-medium transition-colors">
-                  View Profile
+                <button
+                  type="button"
+                  onClick={() => setToastMessage('Agent profiles are coming soon in this demo.')}
+                  className="w-full border border-gray-300 hover:bg-gray-50 py-2 rounded-lg text-sm font-medium transition-colors"
+                  style={{ minHeight: '44px' }}
+                >
+                  Agent profile coming soon
                 </button>
               </div>
             </div>
@@ -454,6 +458,12 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
         propertyTitle={property.title}
         mode={contactMode}
       />
+      {toastMessage && (
+        <ComingSoonToast
+          message={toastMessage}
+          onDismiss={() => setToastMessage(null)}
+        />
+      )}
     </div>
   );
 

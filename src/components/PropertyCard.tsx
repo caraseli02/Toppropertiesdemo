@@ -30,21 +30,17 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
-    <div
-      className="bg-white overflow-hidden border border-[var(--border-default)] hover:shadow-lg transition-all duration-300 cursor-pointer group"
+    <article
+      className="bg-white overflow-hidden border border-[var(--border-default)] hover:shadow-lg transition-all duration-300 group"
       style={{ borderRadius: '8px' }}
-      onClick={onClick}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          onClick?.();
-        }
-      }}
-      aria-label={`View details for ${title}`}
     >
       <div className="relative overflow-hidden bg-gray-200" style={{ aspectRatio: '4/3' }}>
+        <button
+          type="button"
+          onClick={onClick}
+          className="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--brand)]/40"
+          aria-label={`View details for ${title}`}
+        />
         <img
           src={image}
           alt={title}
@@ -64,13 +60,13 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
         {!imageLoaded && (
           <div className="absolute inset-0 bg-gray-200 animate-pulse" />
         )}
-        <div className="absolute top-3 left-3 right-3 flex items-start justify-between z-10">
+        <div className="absolute top-3 left-3 right-3 flex items-start justify-between z-20 pointer-events-none">
           <button
             onClick={(e) => {
               e.stopPropagation();
               setIsFavorite(!isFavorite);
             }}
-            className="bg-white/95 backdrop-blur-sm flex items-center justify-center rounded-full hover:bg-white transition-all hover:scale-105 shadow-md shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
+            className="bg-white/95 backdrop-blur-sm flex items-center justify-center rounded-full hover:bg-white transition-all hover:scale-105 shadow-md shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30 pointer-events-auto"
             style={{ width: '44px', height: '44px' }}
             aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
           >
@@ -89,7 +85,7 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
       <div className="p-4">
         <div className="mb-2">
           <h3
-            className="font-semibold text-[18px] text-black mb-1 line-clamp-1"
+            className="font-display text-[18px] text-ink mb-1 line-clamp-1"
            
             title={title}
           >
@@ -124,6 +120,6 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
           </p>
         </div>
       </div>
-    </div>
+    </article>
   );
 });

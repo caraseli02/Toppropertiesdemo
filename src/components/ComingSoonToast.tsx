@@ -16,7 +16,7 @@ export function ComingSoonToast({ message, onDismiss }: ComingSoonToastProps) {
   return createPortal(
     <div className="fixed inset-x-0 bottom-6 z-[5000] flex justify-center px-4">
       <div
-        className="w-full max-w-sm rounded-2xl border border-black/10 bg-white/95 shadow-xl backdrop-blur-md"
+        className="w-full max-w-sm rounded-2xl border border-ink-soft bg-white/95 shadow-xl backdrop-blur-md"
         role="status"
         aria-live="polite"
       >
@@ -33,7 +33,7 @@ export function ComingSoonToast({ message, onDismiss }: ComingSoonToastProps) {
           <button
             type="button"
             onClick={onDismiss}
-            className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-black/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
+            className="flex h-9 w-9 items-center justify-center rounded-full hover-bg-brand-subtle transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
             aria-label="Dismiss"
           >
             <X className="h-4 w-4 text-gray-500" />

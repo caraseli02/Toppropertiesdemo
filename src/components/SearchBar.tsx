@@ -33,16 +33,16 @@ export function SearchBar({ onSearch, onFilterClick, onSearchClick, value }: Sea
           <button
             type="button"
             onClick={onFilterClick}
-            className="shrink-0 bg-white flex items-center border border-black border-solid hover:bg-gray-50 transition-colors"
+            className="shrink-0 bg-white flex items-center border border-[var(--border-default)] border-solid hover-bg-brand-subtle transition-colors"
             style={{ height: '44px', gap: '10px', padding: '0 14px', borderRadius: '50px' }}
             aria-label="Filters"
             title="Filters"
           >
             <span className="sr-only">Filters</span>
             <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
-              <path d={svgPaths.p39efcaf0} stroke="black" strokeLinecap="round" strokeLinejoin="round" />
+              <path d={svgPaths.p39efcaf0} stroke="var(--text-primary)" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            <span className="font-normal text-[16px] text-black whitespace-nowrap hidden sm:inline">
+            <span className="font-normal text-[16px] text-ink whitespace-nowrap hidden sm:inline">
               Filters
             </span>
           </button>
@@ -60,8 +60,10 @@ export function SearchBar({ onSearch, onFilterClick, onSearchClick, value }: Sea
                 setLocalQuery(e.target.value);
                 if (!onSearchClick) onSearch?.(e.target.value);
               }}
-              placeholder="Everywhere"
-              className="flex-1 font-light text-[16px] text-black placeholder:text-[var(--text-secondary)] outline-none bg-transparent cursor-pointer"
+              placeholder="Try Barcelona, penthouse, or sea view"
+              aria-label="Search by city, property type, or feature"
+              className="flex-1 font-light text-[16px] text-ink placeholder:text-[var(--text-secondary)] outline-none bg-transparent cursor-pointer"
+              style={{ minHeight: '44px' }}
              
               readOnly={!!onSearchClick}
             />
@@ -70,7 +72,7 @@ export function SearchBar({ onSearch, onFilterClick, onSearchClick, value }: Sea
           {/* Search Button */}
           <button
             type="submit"
-            className="shrink-0 bg-black rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
+            className="shrink-0 bg-[var(--brand)] rounded-full flex items-center justify-center hover:bg-[var(--brand-dark)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
             style={{ width: '44px', height: '44px' }}
             aria-label="Open search"
           >
