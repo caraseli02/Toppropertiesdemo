@@ -172,6 +172,7 @@ export function HeroSection({ properties, onViewProperty, onSearchClick }: HeroS
                 key={i}
                 onClick={() => setCurrent(i)}
                 className="h-11 flex items-center justify-center"
+                style={{ minWidth: '44px' }}
                 aria-label={`Go to: ${s.label}`}
               >
                 <span

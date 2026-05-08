@@ -131,7 +131,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-white">
-      <a href="#properties-section" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[9999] focus:bg-white focus:text-black focus:px-4 focus:py-2 focus:rounded focus:shadow-lg focus:border focus:border-gray-200">
+      <a href="#properties-section" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[9999] focus:bg-white focus:text-ink focus:px-4 focus:py-2 focus:rounded focus:shadow-lg focus:border focus:border-gray-200">
         Skip to content
       </a>
       <Header
@@ -171,7 +171,7 @@ export default function App() {
                 <line x1="159" y1="64" x2="172" y2="77" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
               </svg>
             </div>
-            <h3 className="text-2xl font-semibold text-black mb-2">
+            <h3 className="text-2xl font-display text-ink mb-2">
               No luxury properties match your criteria
             </h3>
             <p className="font-light text-[16px] text-[var(--text-secondary)] mb-8 max-w-md mx-auto">
@@ -199,9 +199,9 @@ export default function App() {
             {/* View Toggle */}
             <div className="flex items-center justify-between gap-4 mb-4 md:mb-6">
               <div>
-                <h1 className="text-xl md:text-2xl font-bold text-black mb-1">
+                <h2 className="text-xl md:text-2xl font-display text-ink mb-1">
                   Luxury Properties
-                </h1>
+                </h2>
                 <p className="text-[var(--text-secondary)] text-[13px] md:text-[14px]">
                   {filteredProperties.length} properties available
                 </p>
@@ -216,6 +216,7 @@ export default function App() {
                     }`}
                   aria-pressed={viewMode === 'grid'}
                   aria-label="Grid view"
+                  style={{ minHeight: '44px' }}
                 >
                   <LayoutGrid className="w-4 h-4" />
                   <span>Grid</span>
@@ -228,6 +229,7 @@ export default function App() {
                     }`}
                   aria-pressed={viewMode === 'map'}
                   aria-label="Map view"
+                  style={{ minHeight: '44px' }}
                 >
                   <Map className="w-4 h-4" />
                   <span>Map</span>

@@ -163,7 +163,7 @@ export function ContactModal({ isOpen, onClose, propertyTitle, mode = 'contact' 
   return (
     <div
       ref={focusTrapRef}
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4"
+      className="fixed inset-0 bg-overlay-soft backdrop-blur-sm flex items-center justify-center p-4"
       style={{ zIndex: 1300 }}
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
@@ -189,8 +189,8 @@ export function ContactModal({ isOpen, onClose, propertyTitle, mode = 'contact' 
         <div className="p-6">
           {isSubmitted ? (
             <div className="flex flex-col items-center justify-center py-8 text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                <svg className="w-8 h-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="w-16 h-16 bg-success-soft rounded-full flex items-center justify-center mb-4">
+                <svg className="w-8 h-8 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
