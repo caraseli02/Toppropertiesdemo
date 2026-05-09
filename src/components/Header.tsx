@@ -29,7 +29,7 @@ function MobileMenu({
     <div className="fixed inset-0" style={{ zIndex: 1200 }}>
       <div className="absolute inset-0 bg-overlay-soft backdrop-blur-sm" onClick={onClose} />
       <div className="absolute left-0 top-0 bottom-0 w-72 bg-white shadow-2xl animate-slide-in-left flex flex-col">
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--border-default)]">
           <span className="font-semibold text-lg text-ink">Menu</span>
           <button
             onClick={onClose}
@@ -54,7 +54,7 @@ function MobileMenu({
             </button>
           ))}
         </nav>
-        <div className="px-6 py-4 border-t border-gray-200">
+        <div className="px-6 py-4 border-t border-[var(--border-default)]">
           <p className="text-xs text-gray-400">© 2026 Top Properties</p>
         </div>
       </div>

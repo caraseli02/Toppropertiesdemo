@@ -133,7 +133,7 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
       aria-labelledby="property-detail-title"
     >
       {/* Header */}
-      <div className="sticky top-0 bg-white/95 backdrop-blur-sm border-b border-gray-200 z-10">
+      <div className="sticky top-0 bg-white/95 backdrop-blur-sm border-b border-[var(--border-default)] z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <button
@@ -344,7 +344,7 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Location</h2>
               <div
-                className="rounded-xl overflow-hidden shadow-sm border border-gray-100 relative z-0"
+                className="rounded-xl overflow-hidden shadow-sm border border-[var(--border-default)] relative z-0"
                 style={{ minHeight: '320px', height: '384px' }}
               >
                 <MapContainer
@@ -383,7 +383,7 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
           <div className="lg:col-span-1">
             <div className="sticky top-24 space-y-6">
               {/* Price Card */}
-              <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-lg">
+              <div className="bg-white border border-[var(--border-default)] rounded-xl p-6 shadow-lg">
                 <p className="text-3xl font-bold text-[var(--brand)] mb-6">{property.price}</p>
 
                 <div className="space-y-3">
@@ -403,7 +403,7 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
               </div>
 
               {/* Property Details */}
-              <div className="bg-white border border-gray-200 rounded-xl p-6">
+              <div className="bg-white border border-[var(--border-default)] rounded-xl p-6">
                 <h3 className="font-semibold text-lg mb-4">Property Details</h3>
                 <div className="space-y-3 text-sm">
                   <div className="flex justify-between">
@@ -427,7 +427,7 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
 
 
               {/* Agent Card */}
-              <div className="bg-white border border-gray-200 rounded-xl p-6">
+              <div className="bg-white border border-[var(--border-default)] rounded-xl p-6">
                 <h3 className="font-semibold text-lg mb-4">Your Agent</h3>
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold text-lg" style={{ backgroundColor: 'var(--brand)' }}>

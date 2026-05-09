@@ -94,7 +94,7 @@ export const MapView = React.memo<MapViewProps>(function MapView({ properties, o
 
   return (
     <div
-      className="w-full h-full rounded-xl overflow-hidden shadow-lg border border-gray-200 z-0 relative"
+      className="w-full h-full rounded-xl overflow-hidden shadow-lg border border-[var(--border-default)] z-0 relative"
       style={{ backgroundColor: 'var(--map-water)' }}
     >
       <MapContainer

@@ -175,7 +175,7 @@ export function ContactModal({ isOpen, onClose, propertyTitle, mode = 'contact' 
         aria-modal="true"
         aria-labelledby="contact-modal-title"
       >
-        <div className="flex justify-between items-center p-6 border-b border-gray-100">
+        <div className="flex justify-between items-center p-6 border-b border-[var(--border-default)]">
           <h2 id="contact-modal-title" className="text-xl font-bold font-display">{config.title}</h2>
           <button
             onClick={onClose}

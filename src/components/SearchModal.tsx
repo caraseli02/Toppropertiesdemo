@@ -84,7 +84,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
     <div ref={focusTrapRef} className="fixed inset-0 bg-white" style={{ zIndex: 1200 }} role="dialog" aria-modal="true" aria-labelledby="search-modal-title">
       <div className="bg-white h-full flex flex-col">
         {/* Search Input */}
-        <div className="px-6 py-4 border-b border-gray-200">
+        <div className="px-6 py-4 border-b border-[var(--border-default)]">
           <div className="flex items-center justify-between mb-3">
             <h2
               id="search-modal-title"
@@ -179,7 +179,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
                     key={property.id}
                     type="button"
                     onClick={() => handleSelectProperty(property)}
-                    className="w-full text-left bg-white border border-gray-200 rounded-lg p-3 hover:shadow-md hover:border-gray-300 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
+                    className="w-full text-left bg-white border border-[var(--border-default)] rounded-lg p-3 hover:shadow-md hover:border-gray-300 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
                   >
                     <div className="flex gap-3 items-start">
                       {/* Thumbnail */}
@@ -252,7 +252,7 @@ export function SearchModal({ isOpen, onClose, onSearch, properties, onSelectPro
         </div>
 
         {/* Footer */}
-        <div className="border-t border-gray-200 px-6 py-4 flex items-center justify-between gap-4">
+        <div className="border-t border-[var(--border-default)] px-6 py-4 flex items-center justify-between gap-4">
           <button
             onClick={onClose}
             className="px-6 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors font-medium"
