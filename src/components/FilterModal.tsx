@@ -115,7 +115,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
         className="bg-[var(--surface-muted)] w-full h-full flex flex-col shadow-2xl rounded-none sm:rounded-2xl sm:h-auto sm:max-h-[90vh] sm:max-w-3xl"
       >
         {/* Header */}
-        <div className="sticky top-0 bg-white px-6 py-4 flex items-center justify-between border-b border-gray-200 z-10">
+        <div className="sticky top-0 bg-white px-6 py-4 flex items-center justify-between border-b border-[var(--border-default)] z-10">
           <h2 id="filter-modal-title" className="text-xl font-bold">
             Filters
           </h2>
@@ -419,7 +419,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
         </div>
 
         {/* Footer */}
-        <div className="sticky bottom-0 bg-white px-6 py-4 flex items-center justify-between gap-4 border-t border-gray-200 rounded-b-2xl flex-shrink-0">
+        <div className="sticky bottom-0 bg-white px-6 py-4 flex items-center justify-between gap-4 border-t border-[var(--border-default)] rounded-b-2xl flex-shrink-0">
           <button
             onClick={handleReset}
             className="px-6 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors font-medium"
