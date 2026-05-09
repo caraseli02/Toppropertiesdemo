@@ -6,7 +6,7 @@ import { useEffect, useRef } from 'react';
  * Automatically focuses the first focusable element on mount.
  */
 export function useFocusTrap(isActive: boolean) {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!isActive || !containerRef.current) return;
