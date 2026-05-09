@@ -275,23 +275,25 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
               <div className="flex items-center justify-between">
                 <span className="font-medium">Rooms</span>
                 <div className="flex items-center gap-3">
-                  <button
-                    onClick={() => setFilters(prev => ({ ...prev, rooms: Math.max(0, prev.rooms - 1) }))}
-                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
-                    style={{ width: '44px', height: '44px' }}
-                  >
-                    <Minus className="w-4 h-4" />
-                  </button>
+                 <button
+                   onClick={() => setFilters(prev => ({ ...prev, rooms: Math.max(0, prev.rooms - 1) }))}
+                   className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
+                   style={{ width: '44px', height: '44px' }}
+                   aria-label="Decrease rooms"
+                 >
+                   <Minus className="w-4 h-4" />
+                 </button>
                   <span className="text-2xl font-bold w-8 text-center">
                     {filters.rooms}
                   </span>
-                  <button
-                    onClick={() => setFilters(prev => ({ ...prev, rooms: prev.rooms + 1 }))}
-                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
-                    style={{ width: '44px', height: '44px' }}
-                  >
-                    <Plus className="w-4 h-4" />
-                  </button>
+                 <button
+                   onClick={() => setFilters(prev => ({ ...prev, rooms: prev.rooms + 1 }))}
+                   className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
+                   style={{ width: '44px', height: '44px' }}
+                   aria-label="Increase rooms"
+                 >
+                   <Plus className="w-4 h-4" />
+                 </button>
                 </div>
               </div>
 
@@ -325,23 +327,25 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
               <div className="flex items-center justify-between">
                 <span className="font-medium">Beds</span>
                 <div className="flex items-center gap-3">
-                  <button
-                    onClick={() => setFilters(prev => ({ ...prev, beds: Math.max(0, prev.beds - 1) }))}
-                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
-                    style={{ width: '44px', height: '44px' }}
-                  >
-                    <Minus className="w-4 h-4" />
-                  </button>
+                 <button
+                   onClick={() => setFilters(prev => ({ ...prev, beds: Math.max(0, prev.beds - 1) }))}
+                   className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
+                   style={{ width: '44px', height: '44px' }}
+                   aria-label="Decrease beds"
+                 >
+                   <Minus className="w-4 h-4" />
+                 </button>
                   <span className="text-2xl font-bold w-8 text-center">
                     {filters.beds}
                   </span>
-                  <button
-                    onClick={() => setFilters(prev => ({ ...prev, beds: prev.beds + 1 }))}
-                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
-                    style={{ width: '44px', height: '44px' }}
-                  >
-                    <Plus className="w-4 h-4" />
-                  </button>
+                 <button
+                   onClick={() => setFilters(prev => ({ ...prev, beds: prev.beds + 1 }))}
+                   className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
+                   style={{ width: '44px', height: '44px' }}
+                   aria-label="Increase beds"
+                 >
+                   <Plus className="w-4 h-4" />
+                 </button>
                 </div>
               </div>
             </div>
