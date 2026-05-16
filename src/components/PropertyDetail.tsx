@@ -340,6 +340,44 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
               </div>
             </div>
 
+            {/* Neighborhood */}
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Neighborhood</h2>
+              <p className="text-gray-600 mb-4">Discover the lifestyle that comes with this address.</p>
+              <div className="grid grid-cols-3 gap-3">
+                <div className="relative rounded-xl overflow-hidden aspect-[4/3]">
+                  <img
+                    src="/images/neighborhoods/cote-dazur/marina.png"
+                    alt="Marina and waterfront"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/60 to-transparent p-3">
+                    <span className="text-white text-sm font-medium">Marina</span>
+                  </div>
+                </div>
+                <div className="relative rounded-xl overflow-hidden aspect-[4/3]">
+                  <img
+                    src="/images/neighborhoods/cote-dazur/dining.png"
+                    alt="Fine dining"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/60 to-transparent p-3">
+                    <span className="text-white text-sm font-medium">Dining</span>
+                  </div>
+                </div>
+                <div className="relative rounded-xl overflow-hidden aspect-[4/3]">
+                  <img
+                    src="/images/neighborhoods/cote-dazur/beach.png"
+                    alt="Beach club"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/60 to-transparent p-3">
+                    <span className="text-white text-sm font-medium">Beach</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* Map */}
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Location</h2>
@@ -430,9 +468,11 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
               <div className="bg-white border border-[var(--border-default)] rounded-xl p-6">
                 <h3 className="font-semibold text-lg mb-4">Your Agent</h3>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold text-lg" style={{ backgroundColor: 'var(--brand)' }}>
-                    SA
-                  </div>
+                  <img
+                    src="/images/agents/sarah-anderson.png"
+                    alt="Sarah Anderson, Luxury Properties Specialist"
+                    className="w-12 h-12 rounded-full object-cover"
+                  />
                   <div>
                     <p className="font-medium">Sarah Anderson</p>
                     <p className="text-sm text-gray-600">Luxury Properties Specialist</p>
