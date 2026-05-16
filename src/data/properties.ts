@@ -3,7 +3,7 @@ import { Property } from '@/types';
 export const properties: readonly Property[] = [
   {
     id: '1',
-    image: 'https://images.unsplash.com/photo-1598635031829-4bfae29d33eb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    image: '/images/properties/villa-azure/hero.png',
     title: 'Villa Azure',
     location: 'Côte d\'Azur, France',
     price: '€4,500,000',
@@ -17,11 +17,11 @@ export const properties: readonly Property[] = [
     propertyType: 'Luxury Villa',
     description: 'A stunning Mediterranean villa overlooking the azure waters of the French Riviera. Sun-soaked terraces, a private infinity pool, and lush gardens create the ultimate Côte d\'Azur lifestyle.',
     gallery: [
-      'https://images.unsplash.com/photo-1598635031829-4bfae29d33eb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
-      'https://images.unsplash.com/photo-1638885930125-85350348d266?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
-      'https://images.unsplash.com/photo-1620086464194-5127366b51ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
-      'https://images.unsplash.com/photo-1702411200201-3061d0eea802?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
-      'https://images.unsplash.com/photo-1720975658882-54ccac0b8c9f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      '/images/properties/villa-azure/hero.png',
+      '/images/properties/villa-azure/living-room.png',
+      '/images/properties/villa-azure/pool.png',
+      '/images/properties/villa-azure/bedroom.png',
+      '/images/properties/villa-azure/terrace.png',
     ],
     amenities: ['Swimming Pool', 'Garden', 'Garage', 'Ocean View', 'Smart Home', 'Security System'] as const,
   },
