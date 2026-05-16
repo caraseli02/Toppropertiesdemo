@@ -83,7 +83,7 @@ const formatMarkerPrice = (price: string): string => {
 };
 
 export const MapView = React.memo<MapViewProps>(function MapView({ properties, onMarkerClick }: MapViewProps) {
-  const [activeId, setActiveId] = useState<string | null>(null);
+  const [_activeId, setActiveId] = useState<string | null>(null);
   const defaultCenter: [number, number] = [34.0522, -118.2437]; // Default to LA
 
   // Calculate center based on properties if available
