@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: voidzero-dev/setup-vp@v1
+
+      - run: vp install
+
+      - name: Format check
+        run: vp fmt --check src/ vite.config.ts package.json tsconfig.json tsconfig.node.json index.html pnpm-workspace.yaml
+
+      - run: vp lint
+      - run: vp build
