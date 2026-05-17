@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
-import { createPortal } from 'react-dom';
-import { X } from 'lucide-react';
+import { useEffect } from "react";
+import { createPortal } from "react-dom";
+import { X } from "lucide-react";
 
 interface ComingSoonToastProps {
   message: string;
@@ -23,12 +23,8 @@ export function ComingSoonToast({ message, onDismiss }: ComingSoonToastProps) {
         <div className="flex items-start gap-3 px-4 py-3">
           <div className="mt-0.5 h-2.5 w-2.5 rounded-full bg-[var(--brand)]" aria-hidden="true" />
           <div className="min-w-0 flex-1">
-            <p className="text-sm font-semibold text-gray-900">
-              Coming soon
-            </p>
-            <p className="text-sm text-gray-600">
-              {message}
-            </p>
+            <p className="text-sm font-semibold text-gray-900">Coming soon</p>
+            <p className="text-sm text-gray-600">{message}</p>
           </div>
           <button
             type="button"
@@ -44,4 +40,3 @@ export function ComingSoonToast({ message, onDismiss }: ComingSoonToastProps) {
     document.body,
   );
 }
-

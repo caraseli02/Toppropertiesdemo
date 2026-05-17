@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { X } from 'lucide-react';
+import { useEffect, useState } from "react";
+import { X } from "lucide-react";
 
 interface HeaderProps {
   onNavigateToMap?: () => void;
@@ -21,8 +21,8 @@ function MobileMenu({
   if (!isOpen) return null;
 
   const menuItems = [
-    { label: 'Properties', action: () => onNavigateToProperties?.() },
-    { label: 'Map View', action: () => onNavigateToMap?.() },
+    { label: "Properties", action: () => onNavigateToProperties?.() },
+    { label: "Map View", action: () => onNavigateToMap?.() },
   ];
 
   return (
@@ -62,7 +62,11 @@ function MobileMenu({
   );
 }
 
-export function Header({ onNavigateToMap, onNavigateToProperties, forceMenuOpen = false }: HeaderProps) {
+export function Header({
+  onNavigateToMap,
+  onNavigateToProperties,
+  forceMenuOpen = false,
+}: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -74,13 +78,26 @@ export function Header({ onNavigateToMap, onNavigateToProperties, forceMenuOpen 
   return (
     <>
       <header className="bg-white border-b border-[var(--border-default)]">
-        <div style={{ padding: '10px' }}>
+        <div style={{ padding: "10px" }}>
           <div className="flex items-center justify-between">
-            <a href="/" className="flex items-center" style={{ minHeight: '44px' }} aria-label="Top Properties - Home">
+            <a
+              href="/"
+              className="flex items-center"
+              style={{ minHeight: "44px" }}
+              aria-label="Top Properties - Home"
+            >
               <div className="flex items-center gap-2.5">
                 <div className="relative w-10 h-10 flex items-center justify-center">
-                  <div className="absolute inset-0 rounded-full" style={{ backgroundColor: 'var(--brand)', opacity: 0.1 }}></div>
-                  <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <div
+                    className="absolute inset-0 rounded-full"
+                    style={{ backgroundColor: "var(--brand)", opacity: 0.1 }}
+                  ></div>
+                  <svg
+                    className="w-6 h-6"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <rect x="4" y="8" width="6" height="12" fill="var(--brand)" rx="0.5" />
                     <rect x="14" y="4" width="6" height="16" fill="var(--brand)" rx="0.5" />
                     <rect x="5" y="9" width="1.5" height="1.5" fill="white" />
@@ -100,8 +117,18 @@ export function Header({ onNavigateToMap, onNavigateToProperties, forceMenuOpen 
                   </svg>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-display text-lg text-ink hidden sm:inline" style={{ letterSpacing: '-0.5px' }}>Top Properties</span>
-                  <span className="text-xs text-gray-500 hidden sm:inline" style={{ marginTop: '-2px' }}>Luxury Real Estate</span>
+                  <span
+                    className="font-display text-lg text-ink hidden sm:inline"
+                    style={{ letterSpacing: "-0.5px" }}
+                  >
+                    Top Properties
+                  </span>
+                  <span
+                    className="text-xs text-gray-500 hidden sm:inline"
+                    style={{ marginTop: "-2px" }}
+                  >
+                    Luxury Real Estate
+                  </span>
                 </div>
               </div>
             </a>
@@ -110,11 +137,21 @@ export function Header({ onNavigateToMap, onNavigateToProperties, forceMenuOpen 
               <button
                 onClick={() => setIsMenuOpen(true)}
                 className="flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
-                style={{ width: '44px', height: '44px' }}
+                style={{ width: "44px", height: "44px" }}
                 aria-label="Open menu"
               >
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.875}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
+                <svg
+                  className="w-5 h-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.875}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"
+                  />
                 </svg>
               </button>
             </div>

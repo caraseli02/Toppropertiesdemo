@@ -1,21 +1,33 @@
-import { X, ChevronLeft, ChevronRight, Heart, Share2, MapPin, Bed, Bath, Maximize, Calendar, Check } from 'lucide-react';
-import { useState, useEffect, useMemo, useRef } from 'react';
-import { createPortal } from 'react-dom';
-import { ContactModal } from './ContactModal';
-import { ImageModal } from './ImageModal';
-import { ComingSoonToast } from './ComingSoonToast';
-import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
-import { useBodyScrollLock } from '@/hooks/useBodyScrollLock';
-import type { Property } from '@/types';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
+import {
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Heart,
+  Share2,
+  MapPin,
+  Bed,
+  Bath,
+  Maximize,
+  Calendar,
+  Check,
+} from "lucide-react";
+import { useState, useEffect, useMemo, useRef } from "react";
+import { createPortal } from "react-dom";
+import { ContactModal } from "./ContactModal";
+import { ImageModal } from "./ImageModal";
+import { ComingSoonToast } from "./ComingSoonToast";
+import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
+import type { Property } from "@/types";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 
-type ContactMode = 'contact' | 'viewing' | 'info';
+type ContactMode = "contact" | "viewing" | "info";
 
 interface PropertyDetailProps {
   property: Property;
   onClose: () => void;
-  initialOverlay?: 'contact' | 'image' | null;
+  initialOverlay?: "contact" | "image" | null;
 }
 
 // Helper to fix map rendering issues in modals
@@ -31,7 +43,7 @@ function MapInvalidator() {
   return null;
 }
 
-import { useFocusTrap } from '@/hooks/useFocusTrap';
+import { useFocusTrap } from "@/hooks/useFocusTrap";
 
 export function PropertyDetail({ property, onClose, initialOverlay = null }: PropertyDetailProps) {
   const focusTrapRef = useFocusTrap(true);
@@ -41,14 +53,14 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
   const [isFavorite, setIsFavorite] = useState(false);
   const [showVirtualTour, setShowVirtualTour] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
-  const [contactMode, setContactMode] = useState<ContactMode>('contact');
+  const [contactMode, setContactMode] = useState<ContactMode>("contact");
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [brokenImages, setBrokenImages] = useState<Set<number>>(new Set());
 
   useBodyScrollLock(true);
 
   useEffect(() => {
-    containerRef.current?.scrollTo({ top: 0, behavior: 'auto' });
+    containerRef.current?.scrollTo({ top: 0, behavior: "auto" });
     setCurrentImageIndex(0);
     setBrokenImages(new Set());
     setIsFavorite(false);
@@ -56,24 +68,24 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
     setIsImageModalOpen(false);
     setIsContactModalOpen(false);
     setToastMessage(null);
-    setContactMode('contact');
+    setContactMode("contact");
   }, [property.id]);
 
   useEffect(() => {
-    if (initialOverlay === 'contact') {
-      setContactMode('contact');
+    if (initialOverlay === "contact") {
+      setContactMode("contact");
       setIsContactModalOpen(true);
       return;
     }
 
-    if (initialOverlay === 'image') {
+    if (initialOverlay === "image") {
       setCurrentImageIndex(0);
       setIsImageModalOpen(true);
     }
   }, [initialOverlay, property.id]);
 
   const handleImageError = (index: number) => {
-    setBrokenImages(prev => new Set(prev).add(index));
+    setBrokenImages((prev) => new Set(prev).add(index));
   };
 
   const gallery = useMemo(
@@ -110,14 +122,14 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
   };
 
   const amenities = property.amenities || [
-    'Swimming Pool',
-    'Gym',
-    'Garden',
-    'Garage',
-    'Smart Home',
-    'Security System',
-    'Ocean View',
-    'Fireplace',
+    "Swimming Pool",
+    "Gym",
+    "Garden",
+    "Garage",
+    "Smart Home",
+    "Security System",
+    "Ocean View",
+    "Fireplace",
   ];
 
   const detailContent = (
@@ -139,20 +151,18 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
             <button
               onClick={onClose}
               className="flex items-center justify-center gap-2 hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
-              style={{ height: '44px', paddingLeft: '12px', paddingRight: '12px' }}
+              style={{ height: "44px", paddingLeft: "12px", paddingRight: "12px" }}
               aria-label="Close property details"
             >
               <X className="w-5 h-5 md:w-6 md:h-6" />
-              <span className="text-xs md:text-sm font-medium text-gray-700">
-                Close
-              </span>
+              <span className="text-xs md:text-sm font-medium text-gray-700">Close</span>
             </button>
             <div className="flex items-center gap-2">
               <button
                 type="button"
-                onClick={() => setToastMessage('Share links are being prepared for this demo.')}
+                onClick={() => setToastMessage("Share links are being prepared for this demo.")}
                 className="flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
-                style={{ width: '44px', height: '44px' }}
+                style={{ width: "44px", height: "44px" }}
                 aria-label="Share property"
               >
                 <Share2 className="w-5 h-5" />
@@ -160,12 +170,13 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
               <button
                 onClick={() => setIsFavorite(!isFavorite)}
                 className="flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
-                style={{ width: '44px', height: '44px' }}
-                aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+                style={{ width: "44px", height: "44px" }}
+                aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
               >
                 <Heart
-                  className={`w-5 h-5 transition-colors ${isFavorite ? 'fill-[var(--brand)] text-[var(--brand)]' : 'text-gray-600'
-                    }`}
+                  className={`w-5 h-5 transition-colors ${
+                    isFavorite ? "fill-[var(--brand)] text-[var(--brand)]" : "text-gray-600"
+                  }`}
                 />
               </button>
             </div>
@@ -176,11 +187,23 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
       {/* Image Gallery */}
       <div className="relative bg-[var(--surface-dark)]">
         <div className="max-w-7xl mx-auto">
-          <div className="relative w-full" style={{ height: '50vh', minHeight: '320px' }}>
+          <div className="relative w-full" style={{ height: "50vh", minHeight: "320px" }}>
             {brokenImages.has(currentImageIndex) ? (
               <div className="w-full h-full bg-gradient-to-br from-gray-700 via-gray-800 to-gray-900 flex items-center justify-center">
                 <div className="text-center text-white/60">
-                  <svg className="mx-auto w-16 h-16 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" /></svg>
+                  <svg
+                    className="mx-auto w-16 h-16 mb-3"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"
+                    />
+                  </svg>
                   <p className="text-sm font-medium">Image unavailable</p>
                 </div>
               </div>
@@ -224,7 +247,7 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
               onClick={() => setShowVirtualTour(!showVirtualTour)}
               className="absolute bottom-4 left-4 bg-white/95 text-ink px-5 py-3 rounded-lg transition-colors font-medium hover-bg-brand-subtle"
             >
-              {showVirtualTour ? 'Hide tour status' : 'Virtual tour coming soon'}
+              {showVirtualTour ? "Hide tour status" : "Virtual tour coming soon"}
             </button>
           </div>
 
@@ -234,11 +257,16 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
               <button
                 key={index}
                 onClick={() => openImageModal(index)}
-                className={`relative flex-shrink-0 w-24 h-16 rounded-lg overflow-hidden transition-all ${index === currentImageIndex ? 'ring-2 ring-white' : 'opacity-60 hover:opacity-100'
-                  }`}
+                className={`relative flex-shrink-0 w-24 h-16 rounded-lg overflow-hidden transition-all ${
+                  index === currentImageIndex ? "ring-2 ring-white" : "opacity-60 hover:opacity-100"
+                }`}
                 aria-label={`View image ${index + 1} of ${gallery.length}`}
               >
-                <img src={img} alt={`View ${index + 1} of ${gallery.length}`} className="w-full h-full object-cover" />
+                <img
+                  src={img}
+                  alt={`View ${index + 1} of ${gallery.length}`}
+                  className="w-full h-full object-cover"
+                />
               </button>
             ))}
           </div>
@@ -263,7 +291,10 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
                   <Maximize className="w-6 h-6" />
                 </div>
                 <h3 className="text-xl font-display mb-2">Virtual tour is being prepared</h3>
-                <p className="text-white/70">This demo does not fake a 360° walkthrough. Contact the agent to request media availability for this property.</p>
+                <p className="text-white/70">
+                  This demo does not fake a 360° walkthrough. Contact the agent to request media
+                  availability for this property.
+                </p>
               </div>
             </div>
           </div>
@@ -277,7 +308,9 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
           <div className="lg:col-span-2 space-y-8">
             {/* Title and Location */}
             <div>
-              <h1 id="property-detail-title" className="text-4xl font-display text-ink mb-3">{property.title}</h1>
+              <h1 id="property-detail-title" className="text-4xl font-display text-ink mb-3">
+                {property.title}
+              </h1>
               <div className="flex items-center text-gray-600 text-lg">
                 <MapPin className="w-5 h-5 mr-2" />
                 <span>{property.location}</span>
@@ -343,7 +376,9 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
             {/* Neighborhood */}
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Neighborhood</h2>
-              <p className="text-gray-600 mb-4">Discover the lifestyle that comes with this address.</p>
+              <p className="text-gray-600 mb-4">
+                Discover the lifestyle that comes with this address.
+              </p>
               <div className="grid grid-cols-3 gap-3">
                 <div className="relative rounded-xl overflow-hidden aspect-[4/3]">
                   <img
@@ -383,12 +418,12 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Location</h2>
               <div
                 className="rounded-xl overflow-hidden shadow-sm border border-[var(--border-default)] relative z-0"
-                style={{ minHeight: '320px', height: '384px' }}
+                style={{ minHeight: "320px", height: "384px" }}
               >
                 <MapContainer
                   center={[property.lat, property.lng]}
                   zoom={15}
-                  style={{ height: '100%', width: '100%' }}
+                  style={{ height: "100%", width: "100%" }}
                   scrollWheelZoom={false}
                   zoomControl={false}
                   dragging={false} // Static feel like Airbnb preview
@@ -406,10 +441,10 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
                     title={`Location of ${property.title}`}
                     alt={`Location of ${property.title}`}
                     icon={L.divIcon({
-                      className: 'custom-pin-marker',
+                      className: "custom-pin-marker",
                       html: '<div style="width:48px;height:48px;background:rgba(177,8,50,0.2);border-radius:9999px;display:flex;align-items:center;justify-content:center;"><div style="width:16px;height:16px;background:var(--brand);border-radius:9999px;box-shadow:0 4px 10px rgba(0,0,0,0.2);border:2px solid #fff;"></div></div>',
                       iconSize: [48, 48],
-                      iconAnchor: [24, 24]
+                      iconAnchor: [24, 24],
                     })}
                   />
                 </MapContainer>
@@ -426,13 +461,19 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
 
                 <div className="space-y-3">
                   <button
-                    onClick={() => { setContactMode('viewing'); setIsContactModalOpen(true); }}
+                    onClick={() => {
+                      setContactMode("viewing");
+                      setIsContactModalOpen(true);
+                    }}
                     className="w-full bg-[var(--brand)] hover:bg-[var(--brand-dark)] text-white py-3 rounded-lg font-medium transition-colors"
                   >
                     Schedule Viewing
                   </button>
                   <button
-                    onClick={() => { setContactMode('contact'); setIsContactModalOpen(true); }}
+                    onClick={() => {
+                      setContactMode("contact");
+                      setIsContactModalOpen(true);
+                    }}
                     className="w-full border-2 border-[var(--brand)] text-[var(--brand)] hover:bg-[var(--brand)] hover:text-white py-3 rounded-lg font-medium transition-colors"
                   >
                     Message Agent
@@ -446,7 +487,7 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
                 <div className="space-y-3 text-sm">
                   <div className="flex justify-between">
                     <span className="text-gray-600">Property Type</span>
-                    <span className="font-medium">{property.propertyType || 'Luxury Villa'}</span>
+                    <span className="font-medium">{property.propertyType || "Luxury Villa"}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Year Built</span>
@@ -462,7 +503,6 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
                   </div>
                 </div>
               </div>
-
 
               {/* Agent Card */}
               <div className="bg-white border border-[var(--border-default)] rounded-xl p-6">
@@ -480,9 +520,9 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
                 </div>
                 <button
                   type="button"
-                  onClick={() => setToastMessage('Agent profiles are coming soon in this demo.')}
+                  onClick={() => setToastMessage("Agent profiles are coming soon in this demo.")}
                   className="w-full border border-gray-300 hover:bg-gray-50 py-2 rounded-lg text-sm font-medium transition-colors"
-                  style={{ minHeight: '44px' }}
+                  style={{ minHeight: "44px" }}
                 >
                   Agent profile coming soon
                 </button>
@@ -499,10 +539,7 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
         mode={contactMode}
       />
       {toastMessage && (
-        <ComingSoonToast
-          message={toastMessage}
-          onDismiss={() => setToastMessage(null)}
-        />
+        <ComingSoonToast message={toastMessage} onDismiss={() => setToastMessage(null)} />
       )}
     </div>
   );
