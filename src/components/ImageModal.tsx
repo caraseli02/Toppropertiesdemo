@@ -1,5 +1,5 @@
-import { X } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { X } from "lucide-react";
+import { useState, useEffect } from "react";
 
 interface ImageModalProps {
   images: readonly string[];
@@ -27,13 +27,13 @@ export function ImageModal({ images, initialIndex, isOpen, onClose }: ImageModal
     if (!isOpen) return;
 
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight') handleNext();
-      if (e.key === 'ArrowLeft') handlePrevious();
-      if (e.key === 'Escape') onClose();
+      if (e.key === "ArrowRight") handleNext();
+      if (e.key === "ArrowLeft") handlePrevious();
+      if (e.key === "Escape") onClose();
     };
 
-    document.addEventListener('keydown', onKeyDown);
-    return () => document.removeEventListener('keydown', onKeyDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
   }, [isOpen, onClose, images.length]);
 
   if (!isOpen) return null;
@@ -47,7 +47,11 @@ export function ImageModal({ images, initialIndex, isOpen, onClose }: ImageModal
       aria-modal="true"
       aria-label="Property image gallery"
     >
-      <div className="relative max-w-6xl bg-ink rounded-xl overflow-hidden" style={{ maxHeight: '90vh' }} onClick={(e) => e.stopPropagation()}>
+      <div
+        className="relative max-w-6xl bg-ink rounded-xl overflow-hidden"
+        style={{ maxHeight: "90vh" }}
+        onClick={(e) => e.stopPropagation()}
+      >
         <button
           onClick={onClose}
           className="absolute top-4 right-4 z-10 text-white/80 hover:text-white bg-overlay-soft hover:bg-ink rounded-full p-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
@@ -60,9 +64,10 @@ export function ImageModal({ images, initialIndex, isOpen, onClose }: ImageModal
           src={images[currentIndex]}
           alt={`Property image ${currentIndex + 1} of ${images.length}`}
           className="max-w-full object-contain"
-          style={{ maxHeight: '80vh' }}
+          style={{ maxHeight: "80vh" }}
           onError={(e) => {
-            e.currentTarget.src = 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1080&h=720&fit=crop&q=80';
+            e.currentTarget.src =
+              "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1080&h=720&fit=crop&q=80";
           }}
         />
 
@@ -77,7 +82,12 @@ export function ImageModal({ images, initialIndex, isOpen, onClose }: ImageModal
               aria-label="Previous image"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7 7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7 7"
+                />
               </svg>
             </button>
             <button
@@ -86,7 +96,12 @@ export function ImageModal({ images, initialIndex, isOpen, onClose }: ImageModal
               aria-label="Next image"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
               </svg>
             </button>
           </div>

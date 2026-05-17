@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 /**
  * Traps keyboard focus within the container element.
@@ -13,17 +13,17 @@ export function useFocusTrap(isActive: boolean) {
 
     const container = containerRef.current;
     const focusableSelector = [
-      'a[href]',
-      'button:not([disabled])',
-      'input:not([disabled])',
-      'select:not([disabled])',
-      'textarea:not([disabled])',
+      "a[href]",
+      "button:not([disabled])",
+      "input:not([disabled])",
+      "select:not([disabled])",
+      "textarea:not([disabled])",
       '[tabindex]:not([tabindex="-1"])',
-    ].join(', ');
+    ].join(", ");
 
     const getFocusableElements = () =>
       Array.from(container.querySelectorAll<HTMLElement>(focusableSelector)).filter(
-        (el) => !el.hasAttribute('aria-hidden') && el.offsetParent !== null
+        (el) => !el.hasAttribute("aria-hidden") && el.offsetParent !== null,
       );
 
     // Focus first element on mount
@@ -33,7 +33,7 @@ export function useFocusTrap(isActive: boolean) {
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key !== 'Tab') return;
+      if (e.key !== "Tab") return;
 
       const elements = getFocusableElements();
       if (elements.length === 0) return;
@@ -54,8 +54,8 @@ export function useFocusTrap(isActive: boolean) {
       }
     };
 
-    container.addEventListener('keydown', handleKeyDown);
-    return () => container.removeEventListener('keydown', handleKeyDown);
+    container.addEventListener("keydown", handleKeyDown);
+    return () => container.removeEventListener("keydown", handleKeyDown);
   }, [isActive]);
 
   return containerRef;

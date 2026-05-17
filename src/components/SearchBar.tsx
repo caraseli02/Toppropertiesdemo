@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import svgPaths from '../imports/svg-lbcekml827';
+import { useState } from "react";
+import svgPaths from "../imports/svg-lbcekml827";
 
 interface SearchBarProps {
   onSearch?: (query: string) => void;
@@ -9,10 +9,10 @@ interface SearchBarProps {
 }
 
 export function SearchBar({ onSearch, onFilterClick, onSearchClick, value }: SearchBarProps) {
-  const [localQuery, setLocalQuery] = useState(value || '');
+  const [localQuery, setLocalQuery] = useState(value || "");
 
   // Sync with parent value if provided
-  if (value !== undefined && value !== localQuery && document.activeElement?.tagName !== 'INPUT') {
+  if (value !== undefined && value !== localQuery && document.activeElement?.tagName !== "INPUT") {
     setLocalQuery(value);
   }
 
@@ -27,20 +27,25 @@ export function SearchBar({ onSearch, onFilterClick, onSearchClick, value }: Sea
 
   return (
     <div className="bg-white border-b border-[var(--border-default)]">
-      <div className="max-w-3xl mx-auto" style={{ padding: '8px 10px' }}>
-        <form onSubmit={handleSubmit} className="flex items-center" style={{ gap: '10px' }}>
+      <div className="max-w-3xl mx-auto" style={{ padding: "8px 10px" }}>
+        <form onSubmit={handleSubmit} className="flex items-center" style={{ gap: "10px" }}>
           {/* Filters Button */}
           <button
             type="button"
             onClick={onFilterClick}
             className="shrink-0 bg-white flex items-center border border-[var(--border-default)] border-solid hover-bg-brand-subtle transition-colors"
-            style={{ height: '44px', gap: '10px', padding: '0 14px', borderRadius: '50px' }}
+            style={{ height: "44px", gap: "10px", padding: "0 14px", borderRadius: "50px" }}
             aria-label="Filters"
             title="Filters"
           >
             <span className="sr-only">Filters</span>
             <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
-              <path d={svgPaths.p39efcaf0} stroke="var(--text-primary)" strokeLinecap="round" strokeLinejoin="round" />
+              <path
+                d={svgPaths.p39efcaf0}
+                stroke="var(--text-primary)"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
             <span className="font-normal text-[16px] text-ink whitespace-nowrap hidden sm:inline">
               Filters
@@ -50,7 +55,7 @@ export function SearchBar({ onSearch, onFilterClick, onSearchClick, value }: Sea
           {/* Search Input */}
           <div
             className="flex-1 flex items-center border border-[var(--border-default)] border-solid cursor-pointer"
-            style={{ height: '44px', padding: '7px 9px', borderRadius: '8px' }}
+            style={{ height: "44px", padding: "7px 9px", borderRadius: "8px" }}
             onClick={onSearchClick}
           >
             <input
@@ -63,8 +68,7 @@ export function SearchBar({ onSearch, onFilterClick, onSearchClick, value }: Sea
               placeholder="Try Barcelona, penthouse, or sea view"
               aria-label="Search by city, property type, or feature"
               className="flex-1 font-light text-[16px] text-ink placeholder:text-[var(--text-secondary)] outline-none bg-transparent cursor-pointer"
-              style={{ minHeight: '44px' }}
-             
+              style={{ minHeight: "44px" }}
               readOnly={!!onSearchClick}
             />
           </div>
@@ -73,7 +77,7 @@ export function SearchBar({ onSearch, onFilterClick, onSearchClick, value }: Sea
           <button
             type="submit"
             className="shrink-0 bg-[var(--brand)] rounded-full flex items-center justify-center hover:bg-[var(--brand-dark)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
-            style={{ width: '44px', height: '44px' }}
+            style={{ width: "44px", height: "44px" }}
             aria-label="Open search"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">

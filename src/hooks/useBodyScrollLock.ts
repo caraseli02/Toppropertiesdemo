@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 let lockCount = 0;
 let previousOverflow: string | null = null;
@@ -9,7 +9,7 @@ export function useBodyScrollLock(locked: boolean) {
 
     if (lockCount === 0) {
       previousOverflow = document.body.style.overflow;
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     }
 
     lockCount += 1;
@@ -17,10 +17,9 @@ export function useBodyScrollLock(locked: boolean) {
     return () => {
       lockCount = Math.max(0, lockCount - 1);
       if (lockCount === 0) {
-        document.body.style.overflow = previousOverflow ?? '';
+        document.body.style.overflow = previousOverflow ?? "";
         previousOverflow = null;
       }
     };
   }, [locked]);
 }
-
