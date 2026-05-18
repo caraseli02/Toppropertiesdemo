@@ -25,10 +25,12 @@ The mobile menu drawer behaves like a modal, but it lacks key accessibility and 
 **Approach:** Replace the hand-rolled drawer with shadcn/ui’s `Sheet` so focus trapping, Escape-to-close, and aria semantics are handled consistently.
 
 **Pros:**
+
 - Best a11y defaults with minimal custom code
 - Matches the project’s “shadcn/ui + Tailwind” direction
 
 **Cons:**
+
 - Slight refactor of markup/styling
 
 **Effort:** 30–60 minutes
@@ -40,15 +42,18 @@ The mobile menu drawer behaves like a modal, but it lacks key accessibility and 
 ### Option 2: Improve the existing drawer
 
 **Approach:** Keep current markup but add:
+
 - `role="dialog"`, `aria-modal="true"`, `aria-label` or `aria-labelledby`
 - Escape listener while open
 - Focus trap (or at least initial focus + tab loop)
 - Focus restore to menu button on close
 
 **Pros:**
+
 - Minimal visual changes
 
 **Cons:**
+
 - Easy to miss edge cases vs. Radix primitives
 
 **Effort:** 45–90 minutes
@@ -62,6 +67,7 @@ The mobile menu drawer behaves like a modal, but it lacks key accessibility and 
 ## Technical Details
 
 **Affected files:**
+
 - `src/components/Header.tsx` (`MobileMenu`)
 
 ## Acceptance Criteria
@@ -78,5 +84,5 @@ The mobile menu drawer behaves like a modal, but it lacks key accessibility and 
 **By:** Codex ($workflows-review)
 
 **Actions:**
-- Audited navigation drawer behavior for keyboard/screen reader flows
 
+- Audited navigation drawer behavior for keyboard/screen reader flows

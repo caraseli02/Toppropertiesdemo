@@ -17,32 +17,32 @@ Base: latest `main` after PR #11 + PR #12 merges
 
 ## Design Health Score — Critique
 
-| # | Heuristic | Score | Key Issue |
-|---|---|---:|---|
-| 1 | Visibility of system status | 1/4 | Favorites/search/filter states have weak feedback |
-| 2 | Match system / real world | 2/4 | Mixed units and unexplained `Trattativa`; footer address mismatch |
-| 3 | User control and freedom | 3/4 | Escape/reset/back are mostly solid |
-| 4 | Consistency and standards | 2/4 | `bg-black`, brand red, and surface tokens compete |
-| 5 | Error prevention | 3/4 | Contact form validation is decent |
-| 6 | Recognition rather than recall | 3/4 | Filter options are visible and labeled |
-| 7 | Flexibility and efficiency | 2/4 | No saved filters, links, shortcuts, or persistent favorites |
-| 8 | Aesthetic and minimalist design | 2/4 | Filter modal + detail CTAs create avoidable clutter |
-| 9 | Error recovery | 2/4 | Some form errors; little guidance elsewhere |
-| 10 | Help and documentation | 1/4 | No help/tooltips; ambiguous labels remain unexplained |
-| **Total** |  | **21/40** | **Acceptable foundation, but demo trust leaks** |
+| #         | Heuristic                       |     Score | Key Issue                                                         |
+| --------- | ------------------------------- | --------: | ----------------------------------------------------------------- |
+| 1         | Visibility of system status     |       1/4 | Favorites/search/filter states have weak feedback                 |
+| 2         | Match system / real world       |       2/4 | Mixed units and unexplained `Trattativa`; footer address mismatch |
+| 3         | User control and freedom        |       3/4 | Escape/reset/back are mostly solid                                |
+| 4         | Consistency and standards       |       2/4 | `bg-black`, brand red, and surface tokens compete                 |
+| 5         | Error prevention                |       3/4 | Contact form validation is decent                                 |
+| 6         | Recognition rather than recall  |       3/4 | Filter options are visible and labeled                            |
+| 7         | Flexibility and efficiency      |       2/4 | No saved filters, links, shortcuts, or persistent favorites       |
+| 8         | Aesthetic and minimalist design |       2/4 | Filter modal + detail CTAs create avoidable clutter               |
+| 9         | Error recovery                  |       2/4 | Some form errors; little guidance elsewhere                       |
+| 10        | Help and documentation          |       1/4 | No help/tooltips; ambiguous labels remain unexplained             |
+| **Total** |                                 | **21/40** | **Acceptable foundation, but demo trust leaks**                   |
 
 ---
 
 ## Technical Audit Score
 
-| # | Dimension | Score | Key Finding |
-|---|---|---:|---|
-| 1 | Accessibility | 3/4 | Strong focus-trap/ARIA foundations, but contrast/touch details need polish |
-| 2 | Performance | 2/4 | Impeccable flags layout-property transitions in compiled CSS |
-| 3 | Responsive Design | 3/4 | Responsive patterns exist; modal/filter density still risky on mobile |
-| 4 | Theming | 1/4 | Many hard-coded black/gray Tailwind utilities; weak token discipline |
-| 5 | Anti-Patterns | 2/4 | Pure black, overused Inter, gray-on-color, repetitive cards |
-| **Total** |  | **11/20** | **Acceptable, significant theming/anti-pattern work needed** |
+| #         | Dimension         |     Score | Key Finding                                                                |
+| --------- | ----------------- | --------: | -------------------------------------------------------------------------- |
+| 1         | Accessibility     |       3/4 | Strong focus-trap/ARIA foundations, but contrast/touch details need polish |
+| 2         | Performance       |       2/4 | Impeccable flags layout-property transitions in compiled CSS               |
+| 3         | Responsive Design |       3/4 | Responsive patterns exist; modal/filter density still risky on mobile      |
+| 4         | Theming           |       1/4 | Many hard-coded black/gray Tailwind utilities; weak token discipline       |
+| 5         | Anti-Patterns     |       2/4 | Pure black, overused Inter, gray-on-color, repetitive cards                |
+| **Total** |                   | **11/20** | **Acceptable, significant theming/anti-pattern work needed**               |
 
 ---
 

@@ -27,10 +27,12 @@ When a user clicks a specific thumbnail in property detail, the image modal is f
 **Approach:** Set `initialIndex={currentImageIndex}` when rendering `ImageModal`.
 
 **Pros:**
+
 - Minimal and direct fix.
 - Matches user click intent.
 
 **Cons:**
+
 - Depends on issue `014` being fixed first (modal currently crashes).
 
 **Effort:** Small
@@ -44,10 +46,12 @@ When a user clicks a specific thumbnail in property detail, the image modal is f
 **Approach:** Keep current index only in `PropertyDetail` and make `ImageModal` fully controlled (`currentIndex`, `onNext`, `onPrev`).
 
 **Pros:**
+
 - Removes duplicated index state.
 - Clear single source of truth.
 
 **Cons:**
+
 - Bigger refactor.
 - More prop plumbing.
 
@@ -60,6 +64,7 @@ When a user clicks a specific thumbnail in property detail, the image modal is f
 ## Technical Details
 
 Affected files:
+
 - `/Users/vladislavcaraseli/Documents/Toppropertiesdemo/src/components/PropertyDetail.tsx`
 - `/Users/vladislavcaraseli/Documents/Toppropertiesdemo/src/components/ImageModal.tsx`
 
@@ -80,10 +85,12 @@ Affected files:
 **By:** Codex
 
 **Actions:**
+
 - Traced thumbnail click state update path.
 - Verified modal receives hardcoded `initialIndex={0}`.
 
 **Learnings:**
+
 - UX behavior remains incorrect even after crash fix unless index wiring is corrected.
 
 ### 2026-02-18 - Fix Applied
@@ -91,9 +98,11 @@ Affected files:
 **By:** Codex
 
 **Actions:**
+
 - Updated `PropertyDetail` to pass `initialIndex={currentImageIndex}` into `ImageModal`.
 - Verified by clicking thumbnail `View 3 of 5` and confirming modal counter shows `3 / 5`.
 
 **Validation:**
+
 - `npm run build` passes.
 - Browser smoke flow confirms clicked thumbnail index opens correctly.

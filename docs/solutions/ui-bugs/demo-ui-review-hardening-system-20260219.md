@@ -18,14 +18,17 @@ tags: [ui-review, demo-hardening, empty-state, modal-behavior, responsive]
 # Troubleshooting: Demo UI Review Hardening For Portfolio Flow
 
 ## Problem
+
 A full UI review uncovered multiple medium-impact demo issues across navigation, hero, search, and modal flows. Individually small, together they made the app feel unfinished and occasionally contradictory during primary browsing flows.
 
 ## Environment
+
 - Module: System-wide demo UI
 - Affected Component: Header, footer, hero, search/filter/contact modals, property cards
 - Date: 2026-02-19
 
 ## Symptoms
+
 - Top/header and footer controls appeared interactive but were not implemented.
 - Empty results state could coexist with a promotional hero, creating conflicting messages.
 - Search UI needed stronger length/overflow handling and more deterministic behavior.
@@ -35,17 +38,21 @@ A full UI review uncovered multiple medium-impact demo issues across navigation,
 ## What Didn't Work
 
 **Attempted Solution 1:** Leave placeholders active and communicate via temporary toasts/implicit behavior.
+
 - **Why it failed:** Users still interpret active controls as implemented features. Toast-only messaging is not sufficient for demo trust.
 
 **Attempted Solution 2:** Apply a broad visual redesign in one pass after feedback.
+
 - **Why it failed:** Large combined UI restyling introduced subjective regressions and was rolled back; targeted fixes are safer for demo stabilization.
 
 **Attempted Solution 3:** Fix only isolated visual details without behavior alignment.
+
 - **Why it failed:** Core friction was mostly behavioral consistency (empty states, modal flow, disabled affordances), not only visual polish.
 
 ## Solution
 
 Stabilize the demo around explicit behavior rules:
+
 1. Unimplemented features must be visibly disabled, not pseudo-functional.
 2. Global states must not conflict (hero hidden when result set is empty).
 3. Modal/search behavior must be deterministic (sync, reset, escape handling, input constraints).
@@ -117,4 +124,3 @@ The root issue was not a single CSS bug; it was incomplete demo-state design acr
   - `/Users/vladislavcaraseli/Documents/Toppropertiesdemo/todos/017-pending-p2-contact-modal-blocking-alert-on-submit.md`
   - `/Users/vladislavcaraseli/Documents/Toppropertiesdemo/todos/018-pending-p3-search-modal-query-normalization-mismatch.md`
   - `/Users/vladislavcaraseli/Documents/Toppropertiesdemo/todos/019-pending-p3-contact-modal-escape-listener-attached-while-closed.md`
-

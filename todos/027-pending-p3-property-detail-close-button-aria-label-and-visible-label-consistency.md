@@ -23,10 +23,12 @@ On desktop, the close control visually reads “Back”, but its `aria-label` re
 **Approach:** Change to “Back to results” (or similar) so the label matches user mental model and visible text.
 
 **Pros:**
+
 - Clearer for assistive tech
 - Better UX copy
 
 **Cons:**
+
 - None significant
 
 **Effort:** 5-10 minutes
@@ -49,8 +51,9 @@ On desktop, the close control visually reads “Back”, but its `aria-label` re
 **By:** Codex
 
 **Actions:**
+
 - Noted label mismatch while reviewing header affordances
 
 **Learnings:**
-- Visible and accessible labels should reinforce the same action semantics
 
+- Visible and accessible labels should reinforce the same action semantics

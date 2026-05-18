@@ -13,6 +13,7 @@ dependencies: []
 The application lacks proper React.memo, useMemo, and useCallback implementations, causing unnecessary re-renders across components. This will become a significant performance bottleneck as the property list grows beyond the current 24 items.
 
 **Affected files:**
+
 - `src/App.tsx` (lines 541-595) - No memoization on filtering or handlers
 - `src/components/MapView.tsx` (lines 42-96) - Component not memoized
 - `src/components/PropertyDetail.tsx` (lines 285-293) - Inline icon creation
@@ -24,6 +25,7 @@ The application lacks proper React.memo, useMemo, and useCallback implementation
 ### 1. App.tsx - Missing Memoization (lines 541-595)
 
 **Problem:** Filtering logic runs on every render. With O(n) complexity per filter operation:
+
 - Current (24 properties): ~1ms per filter change
 - At 500 properties: ~20-30ms (janky UI)
 - At 2000 properties: ~100ms+ (unusable)
@@ -42,6 +44,7 @@ useEffect(() => {
 ### 2. MapView.tsx - No Component Memoization
 
 **Problems:**
+
 - `createCustomIcon` creates new `L.divIcon` instance on every render
 - Component not wrapped in `React.memo`
 - `center` array recreated on every render
@@ -67,6 +70,7 @@ icon={createCustomIcon(property.price, activeId === property.id)}
 **Approach:** Wrap components in React.memo and use useMemo/useCallback for expensive operations.
 
 **Changes needed:**
+
 1. Wrap MapView in React.memo
 2. Memoize center calculation
 3. Memoize icon creation with useCallback
@@ -74,11 +78,13 @@ icon={createCustomIcon(property.price, activeId === property.id)}
 5. Wrap handlers in useCallback
 
 **Pros:**
+
 - Significant performance improvement
 - React best practice
 - Maintains current architecture
 
 **Cons:**
+
 - Requires careful dependency array management
 - Adds some code complexity
 
@@ -97,7 +103,7 @@ icon={createCustomIcon(property.price, activeId === property.id)}
 export function usePropertyFilters(properties: Property[]) {
   const [filteredProperties, setFilteredProperties] = useState(properties);
   // ... filtering logic with useMemo
-  return { filteredProperties, /* ... */ };
+  return { filteredProperties /* ... */ };
 }
 
 // hooks/useMapConfig.ts
@@ -107,11 +113,13 @@ export function useMapConfig(properties: PropertyMarker[]) {
 ```
 
 **Pros:**
+
 - Better separation of concerns
 - Reusable logic
 - Easier to test
 
 **Cons:**
+
 - More files to manage
 - Slightly more complex initially
 
@@ -126,10 +134,12 @@ export function useMapConfig(properties: PropertyMarker[]) {
 **Approach:** Use react-window or react-virtualized for property lists.
 
 **Pros:**
+
 - Handles thousands of items efficiently
 - Only renders visible items
 
 **Cons:**
+
 - Overkill for current list size (24 items)
 - Changes scrolling behavior
 - Complex implementation
@@ -152,12 +162,14 @@ Implement Option 1 (Add React.memo and useMemo) immediately:
 ## Technical Details
 
 **Files to modify:**
+
 - `src/App.tsx` - Add useMemo for filtered properties, useCallback for handlers
 - `src/components/MapView.tsx` - Add React.memo, useMemo, useCallback
 - `src/components/PropertyDetail.tsx` - Memoize marker icon
 - `src/components/PropertyCard.tsx` - Consider React.memo
 
 **Key areas:**
+
 - Filter calculations
 - Map marker creation
 - Event handler stability
@@ -186,12 +198,14 @@ Implement Option 1 (Add React.memo and useMemo) immediately:
 **By:** Claude Code (Performance Oracle)
 
 **Actions:**
+
 - Profiled component render cycles
 - Identified missing memoization patterns
 - Measured current performance with 24 properties
 - Projected performance with larger datasets
 
 **Learnings:**
+
 - Filtering logic is O(n) and runs on every render
 - Map markers recreate on every render
 - PropertyCard re-renders unnecessarily on parent updates

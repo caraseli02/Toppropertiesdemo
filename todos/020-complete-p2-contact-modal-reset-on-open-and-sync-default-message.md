@@ -25,10 +25,12 @@ dependencies: []
 **Approach:** In a `useEffect([isOpen, mode, propertyTitle])`, when `isOpen` transitions to `true`, call `resetForm()` to set message from current `config`.
 
 **Pros:**
+
 - Predictable fresh start every time
 - Avoids stale validation errors across opens
 
 **Cons:**
+
 - User loses partially typed draft if they accidentally close
 
 **Effort:** 20-40 minutes
@@ -42,9 +44,11 @@ dependencies: []
 **Approach:** Track `isMessageDirty`; on open/mode change, update message only if user hasn’t edited it.
 
 **Pros:**
+
 - Avoids clobbering user-entered text
 
 **Cons:**
+
 - Slightly more state/branching
 
 **Effort:** 45-75 minutes
@@ -58,6 +62,7 @@ dependencies: []
 ## Technical Details
 
 **Affected files:**
+
 - `/Users/vladislavcaraseli/Documents/Toppropertiesdemo/src/components/ContactModal.tsx`
 - `/Users/vladislavcaraseli/Documents/Toppropertiesdemo/src/components/PropertyDetail.tsx`
 
@@ -75,10 +80,12 @@ dependencies: []
 **By:** Codex
 
 **Actions:**
+
 - Verified mode-specific title changes while message template can remain stale across opens
 - Identified state reset gaps on open/close lifecycle
 
 **Learnings:**
+
 - In a portfolio demo, consistency matters more than preserving partial drafts
 
 ### 2026-02-25 - Implemented
@@ -86,9 +93,11 @@ dependencies: []
 **By:** Codex
 
 **Actions:**
+
 - Reset full form state on open and synced the default message template with the active `mode`.
 - Ensured pending submit timeouts are cleared on close/unmount.
 - Verified `npm run build` passes.
 
 **Learnings:**
+
 - “Always fresh on open” reduces surprising state carryover during demos.

@@ -24,10 +24,12 @@ On small screens, the “Grid/Map” toggle hides the text labels and shows icon
 **Approach:** Add `aria-label="Grid view"` and `aria-label="Map view"` to the respective buttons (keep `aria-pressed`).
 
 **Pros:**
+
 - Smallest change
 - Works regardless of visual label visibility
 
 **Cons:**
+
 - None significant
 
 **Effort:** 5-10 minutes
@@ -41,9 +43,11 @@ On small screens, the “Grid/Map” toggle hides the text labels and shows icon
 **Approach:** Keep visual labels hidden on mobile, but add a `<span className="sr-only">Grid</span>` etc.
 
 **Pros:**
+
 - Keeps content in DOM text nodes
 
 **Cons:**
+
 - Slightly more markup
 
 **Effort:** 10-15 minutes
@@ -57,6 +61,7 @@ On small screens, the “Grid/Map” toggle hides the text labels and shows icon
 ## Technical Details
 
 **Affected files:**
+
 - `/Users/vladislavcaraseli/Documents/Toppropertiesdemo/src/App.tsx`
 
 ## Acceptance Criteria
@@ -72,9 +77,11 @@ On small screens, the “Grid/Map” toggle hides the text labels and shows icon
 **By:** Codex
 
 **Actions:**
+
 - Identified icon-only state under `sm` lacks accessible naming
 
 **Learnings:**
+
 - Hiding visible text should always be paired with accessible alternatives
 
 ### 2026-02-25 - Implemented
@@ -82,8 +89,10 @@ On small screens, the “Grid/Map” toggle hides the text labels and shows icon
 **By:** Codex
 
 **Actions:**
+
 - Added `aria-label` to the icon-only Grid/Map toggle buttons on mobile while keeping `aria-pressed`.
 - Verified `npm run build` passes.
 
 **Learnings:**
+
 - Icon-only controls need accessible names to avoid ambiguity.

@@ -19,6 +19,7 @@ The chart component uses `dangerouslySetInnerHTML` to inject CSS variables into 
 ## Findings
 
 **Location - chart.tsx (line 83):**
+
 ```tsx
 return (
   <style
@@ -29,9 +30,7 @@ return (
 ${prefix} [data-chart=${id}] {
 ${colorConfig
   .map(([key, itemConfig]) => {
-    const color =
-      itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
-      itemConfig.color;
+    const color = itemConfig.theme?.[theme as keyof typeof itemConfig.theme] || itemConfig.color;
     return color ? `  --color-${key}: ${color};` : null;
   })
   .join("\n")}
@@ -45,6 +44,7 @@ ${colorConfig
 ```
 
 **Root Cause:**
+
 - `dangerouslySetInnerHTML` is used without sanitization
 - `id` and `color` values are directly interpolated
 - No validation of CSS identifier format
@@ -57,18 +57,20 @@ ${colorConfig
 **Approach:** Create validation functions for CSS identifiers and color values before injection.
 
 ```typescript
-const sanitizeCssIdentifier = (str: string) => str.replace(/[^a-zA-Z0-9-_]/g, '');
+const sanitizeCssIdentifier = (str: string) => str.replace(/[^a-zA-Z0-9-_]/g, "");
 
-const isValidColor = (color: string) => 
+const isValidColor = (color: string) =>
   /^((#[0-9A-Fa-f]{3,8})|(rgb|hsl)a?\([^)]+\)|var\(--[^)]+\))$/.test(color);
 ```
 
 **Pros:**
+
 - No additional dependencies
 - Targeted fix for this component
 - Minimal bundle impact
 
 **Cons:**
+
 - Manual validation may miss edge cases
 - Must be maintained as CSS spec evolves
 
@@ -83,11 +85,13 @@ const isValidColor = (color: string) =>
 **Approach:** Replace dangerouslySetInnerHTML with a CSS-in-JS solution like styled-components or emotion.
 
 **Pros:**
+
 - React-safe styling
 - No raw HTML injection
 - Better maintainability
 
 **Cons:**
+
 - Significant refactoring
 - Additional bundle size
 - May conflict with existing Tailwind setup
@@ -103,11 +107,13 @@ const isValidColor = (color: string) =>
 **Approach:** Pre-define all theme variations in static CSS, use data attributes to select them.
 
 **Pros:**
+
 - No runtime style injection
 - Better performance
 - Eliminates XSS vector entirely
 
 **Cons:**
+
 - Less dynamic theming flexibility
 - Requires restructuring component
 
@@ -127,13 +133,16 @@ Implement Option 1 (Sanitize CSS Identifiers) as immediate fix, then consider Op
 ## Technical Details
 
 **Affected file:**
+
 - `src/components/ui/chart.tsx:83` - Style injection
 
 **Related components:**
+
 - Chart component
 - Any component using chart theming
 
 **Validation needed:**
+
 - CSS identifiers (chart ID)
 - Color values (hex, rgb, hsl, var())
 
@@ -159,12 +168,14 @@ Implement Option 1 (Sanitize CSS Identifiers) as immediate fix, then consider Op
 **By:** Claude Code (Security Sentinel)
 
 **Actions:**
+
 - Identified dangerouslySetInnerHTML usage in chart.tsx
 - Analyzed CSS injection vectors through colorConfig prop
 - Reviewed potential XSS paths through style tags
 - Evaluated sanitization approaches
 
 **Learnings:**
+
 - dangerouslySetInnerHTML should always be paired with sanitization
 - CSS injection can lead to data exfiltration via attribute selectors
 - Chart theming should have strict validation

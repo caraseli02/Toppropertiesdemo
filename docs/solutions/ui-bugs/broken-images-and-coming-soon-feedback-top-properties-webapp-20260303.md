@@ -56,7 +56,7 @@ useEffect(() => {
   setCurrentImageIndex(0);
   setBrokenImages(new Set());
   setIsFavorite(false);
-  setContactMode('contact');
+  setContactMode("contact");
   setShowVirtualTour(false);
   setIsImageModalOpen(false);
   setIsContactModalOpen(false);
@@ -130,4 +130,3 @@ npm run build
   - `todos/030-pending-p2-mobile-menu-a11y-dialog-focus-escape.md`
   - `todos/031-pending-p2-property-detail-nonfunctional-actions-use-coming-soon.md`
   - `todos/032-pending-p3-property-detail-thumbnails-handle-broken-images.md`
-

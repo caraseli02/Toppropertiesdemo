@@ -7,21 +7,23 @@
 
 ## Audit Health Score
 
-| # | Dimension | Score | Key Finding |
-|---|-----------|-------|-------------|
-| 1 | Accessibility | 3.5 | Skip link ✅, focus traps ✅, reduced motion ✅. Minor: no heading hierarchy audit |
-| 2 | Performance | 3 | Lazy loading ✅, memo ✅. Loading state is dead code. No page skeleton. |
-| 3 | Theming | 3 | Tokens for brand colors ✅. 8 remaining hardcoded hex values. No dark mode toggle. |
-| 4 | Responsive | 2 | Mobile works but stacked. Hero 520px too tall on mobile. No mobile-specific nav. |
-| 5 | Anti-Patterns | 3.5 | Clean design, distinctive brand. No AI slop tells. Editorial hero. |
-| **Total** | | **15/20** | **Good** |
+| #         | Dimension     | Score     | Key Finding                                                                        |
+| --------- | ------------- | --------- | ---------------------------------------------------------------------------------- |
+| 1         | Accessibility | 3.5       | Skip link ✅, focus traps ✅, reduced motion ✅. Minor: no heading hierarchy audit |
+| 2         | Performance   | 3         | Lazy loading ✅, memo ✅. Loading state is dead code. No page skeleton.            |
+| 3         | Theming       | 3         | Tokens for brand colors ✅. 8 remaining hardcoded hex values. No dark mode toggle. |
+| 4         | Responsive    | 2         | Mobile works but stacked. Hero 520px too tall on mobile. No mobile-specific nav.   |
+| 5         | Anti-Patterns | 3.5       | Clean design, distinctive brand. No AI slop tells. Editorial hero.                 |
+| **Total** |               | **15/20** | **Good**                                                                           |
 
 **Improvement from last audit: 14 → 15/20** (+0.5 from P1 a11y fixes)
 
 ---
 
 ## Anti-Patterns Verdict
+
 **PASS.** No AI-generated visual tells. The site has:
+
 - Distinctive burgundy brand identity
 - Editorial narrative hero (not random carousel)
 - Intentional visual hierarchy with featured masonry grid
@@ -33,18 +35,21 @@
 ## Critique Scores (Impeccable 5 Dimensions)
 
 ### 1. First Impression — 7/10
+
 - Hero has narrative arc and brand presence
 - Burgundy accent line and editorial type create luxury feel immediately
 - CTA is clear and branded
 - **Gap:** Hero images are Unsplash — could be more distinctive with custom photography or art direction
 
 ### 2. Visual Hierarchy — 7/10
+
 - Clear flow: hero → featured → all properties
 - Featured grid has 2x hero card creating visual anchor
 - Price, location, specs well-organized in cards
 - **Gap:** Section headings ("Featured", "All Properties") could be more expressive
 
 ### 3. Interaction Quality — 7/10
+
 - Cards have hover lift + image zoom
 - Filter/search flow works end-to-end
 - Empty states are illustrated with CTA
@@ -53,12 +58,14 @@
 - **Gap:** No micro-interactions on scroll, no card stagger, no entrance animations
 
 ### 4. Content & Copy — 6/10
+
 - Property data is consistent and well-structured
 - Hero narrative slides have good messaging
 - Empty state copy is friendly
 - **Gap:** Filter labels are generic. No agent copy. Contact form is basic.
 
 ### 5. Emotional Resonance — 6/10
+
 - Burgundy palette communicates luxury
 - Editorial layout feels curated
 - **Gap:** Missing "why this property" storytelling. No neighborhood/lifestyle context. No social proof.
@@ -71,24 +78,24 @@
 
 ### P2 (5 issues)
 
-| # | Issue | Location | Impact |
-|---|-------|----------|--------|
-| 1 | No dark mode toggle | globals.css has tokens, no UI | Theme incomplete |
-| 2 | 8 hardcoded hex values remain | FilterModal, MapView, SearchModal | Token drift |
-| 3 | `isLoading` state is dead code | App.tsx:130 (always false) | Misleading code |
-| 4 | Hero 520px too tall on mobile | HeroSection.tsx | Poor mobile viewport usage |
-| 5 | No page loading skeleton | index.html | White flash before React hydrates |
+| #   | Issue                          | Location                          | Impact                            |
+| --- | ------------------------------ | --------------------------------- | --------------------------------- |
+| 1   | No dark mode toggle            | globals.css has tokens, no UI     | Theme incomplete                  |
+| 2   | 8 hardcoded hex values remain  | FilterModal, MapView, SearchModal | Token drift                       |
+| 3   | `isLoading` state is dead code | App.tsx:130 (always false)        | Misleading code                   |
+| 4   | Hero 520px too tall on mobile  | HeroSection.tsx                   | Poor mobile viewport usage        |
+| 5   | No page loading skeleton       | index.html                        | White flash before React hydrates |
 
 ### P3 (6 issues)
 
-| # | Issue | Location | Impact |
-|---|-------|----------|--------|
-| 1 | No micro-interactions | Throughout | Missed delight |
-| 2 | SearchModal/PropertyDetail focus trap on `true` not `isOpen` | SearchModal, PropertyDetail | Trap active even when closed (harmless but wasteful) |
-| 3 | Unsplash URLs fragile | data/properties.ts | Images can 404 |
-| 4 | Favicon is inline SVG | index.html | Could be sharper |
-| 5 | Footer minimal | Footer.tsx | Only brand + contact |
-| 6 | `role="button"` on PropertyCard div | PropertyCard.tsx | Could use actual `<button>` or `<a>` |
+| #   | Issue                                                        | Location                    | Impact                                               |
+| --- | ------------------------------------------------------------ | --------------------------- | ---------------------------------------------------- |
+| 1   | No micro-interactions                                        | Throughout                  | Missed delight                                       |
+| 2   | SearchModal/PropertyDetail focus trap on `true` not `isOpen` | SearchModal, PropertyDetail | Trap active even when closed (harmless but wasteful) |
+| 3   | Unsplash URLs fragile                                        | data/properties.ts          | Images can 404                                       |
+| 4   | Favicon is inline SVG                                        | index.html                  | Could be sharper                                     |
+| 5   | Footer minimal                                               | Footer.tsx                  | Only brand + contact                                 |
+| 6   | `role="button"` on PropertyCard div                          | PropertyCard.tsx            | Could use actual `<button>` or `<a>`                 |
 
 ---
 
@@ -112,7 +119,7 @@
 ## Recommended Next Commands
 
 1. **P2:** `/impeccable typeset` — Refine heading hierarchy and section labels
-2. **P2:** `/impeccable layout` — Fix mobile hero height, improve responsive breakpoints  
+2. **P2:** `/impeccable layout` — Fix mobile hero height, improve responsive breakpoints
 3. **P2:** `/impeccable colorize` — Consolidate remaining hardcoded hex values into tokens
 4. **P3:** `/impeccable animate` — Add entrance animations, card stagger, scroll reveals
 5. **P3:** `/impeccable clarify` — Improve copy in filters, empty states, contact form

@@ -19,6 +19,7 @@ The application uses a derived state anti-pattern where `filteredProperties` is 
 ## Findings
 
 **Current Anti-Pattern:**
+
 ```typescript
 // ❌ Anti-pattern: Syncing state via useEffect
 const [filteredProperties, setFilteredProperties] = useState(properties);
@@ -36,12 +37,14 @@ useEffect(() => {
 ```
 
 **Problems:**
+
 1. **Synchronization hazard**: Two sources of truth (properties + filteredProperties)
 2. **Stale data risk**: filteredProperties can get out of sync
 3. **Unnecessary complexity**: useEffect + setTimeout adds complexity
 4. **Performance**: Triggers extra render cycles
 
 **Why this is bad:**
+
 - React documentation explicitly warns against this pattern
 - Harder to reason about data flow
 - Can cause subtle bugs with rapid state changes
@@ -58,8 +61,8 @@ const filteredProperties = useMemo(() => {
   if (!searchQuery && !hasActiveFilters(activeFilters)) {
     return properties;
   }
-  
-  return properties.filter(property => {
+
+  return properties.filter((property) => {
     // ... filtering logic
   });
 }, [properties, searchQuery, activeFilters]);
@@ -75,12 +78,14 @@ useEffect(() => {
 ```
 
 **Pros:**
+
 - Single source of truth
 - No synchronization issues
 - More efficient (memoized)
 - Follows React best practices
 
 **Cons:**
+
 - Need separate loading state management
 - Slight refactor required
 
@@ -97,39 +102,41 @@ useEffect(() => {
 ```typescript
 // hooks/usePropertyFilters.ts
 export function usePropertyFilters(properties: Property[]) {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [activeFilters, setActiveFilters] = useState<FilterState>(DEFAULT_FILTERS);
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const filteredProperties = useMemo(() => {
     // ... filtering logic
   }, [properties, searchQuery, activeFilters]);
-  
+
   // Debounce loading state
   useEffect(() => {
     setIsLoading(true);
     const timer = setTimeout(() => setIsLoading(false), 300);
     return () => clearTimeout(timer);
   }, [searchQuery, activeFilters]);
-  
+
   return {
     filteredProperties,
     searchQuery,
     setSearchQuery,
     activeFilters,
     setActiveFilters,
-    isLoading
+    isLoading,
   };
 }
 ```
 
 **Pros:**
+
 - Encapsulates complex logic
 - Reusable across components
 - Easier to test
 - Cleaner App.tsx
 
 **Cons:**
+
 - More files to manage
 - Abstraction overhead
 
@@ -144,20 +151,22 @@ export function usePropertyFilters(properties: Property[]) {
 **Approach:** Use a state machine for filter state management.
 
 ```typescript
-type FilterState = 
-  | { status: 'idle'; properties: Property[] }
-  | { status: 'filtering'; properties: Property[] }
-  | { status: 'completed'; properties: Property[] };
+type FilterState =
+  | { status: "idle"; properties: Property[] }
+  | { status: "filtering"; properties: Property[] }
+  | { status: "completed"; properties: Property[] };
 
 // Use useReducer for state transitions
 ```
 
 **Pros:**
+
 - Explicit state transitions
 - No impossible states
 - Better for complex filtering
 
 **Cons:**
+
 - Overkill for current needs
 - Steep learning curve
 
@@ -177,14 +186,17 @@ Implement Option 1 (useMemo for Derived State) as immediate fix:
 ## Technical Details
 
 **Affected file:**
+
 - `src/App.tsx:541-595` - Filtering effect
 
 **Related patterns:**
+
 - React derived state
 - Memoization
 - State synchronization
 
 **Anti-pattern reference:**
+
 - https://react.dev/learn/you-might-not-need-an-effect#updating-state-based-on-props-or-state
 
 ## Resources
@@ -209,12 +221,14 @@ Implement Option 1 (useMemo for Derived State) as immediate fix:
 **By:** Claude Code (Architecture Strategist)
 
 **Actions:**
+
 - Identified derived state anti-pattern in App.tsx
 - Analyzed synchronization risks
 - Reviewed React best practices
 - Evaluated refactoring approaches
 
 **Learnings:**
+
 - Derived state via useEffect is an anti-pattern
 - useMemo is the correct tool for computed data
 - Separating loading state from data state improves clarity
@@ -226,7 +240,7 @@ Implement Option 1 (useMemo for Derived State) as immediate fix:
 
 - **Priority Justification:** P2 IMPORTANT because it can cause subtle bugs and is explicitly warned against in React docs
 - **Timeline:** Should be fixed before adding more complex state logic
-- **Related Issues:** 
+- **Related Issues:**
   - Issue 003 (Missing Memoization) - related to performance
   - Issue 006 (Extract Hardcoded Data) - can refactor together
 - **Risk:** Low - straightforward refactor with clear benefits

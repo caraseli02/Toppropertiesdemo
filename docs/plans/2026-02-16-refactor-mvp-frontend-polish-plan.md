@@ -37,25 +37,41 @@ Three-phase incremental approach that delivers noticeable improvements quickly w
 #### 1.1 Add React.memo to Expensive Components
 
 **Files to modify:**
+
 - `src/components/PropertyCard.tsx` - Wrap entire component in React.memo
 - `src/components/MapView.tsx` - Wrap entire component in React.memo
 
 **Implementation:**
+
 ```typescript
 // src/components/PropertyCard.tsx
 // Note: PropertyCard receives individual spread props (image, title, location, etc.) and manages
 // its own isFavorite state internally. The memo comparison should cover the relevant props.
-export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard({
-  id, image, title, location, price, beds, baths, sqft, featured, onClick
-}) {
-  // existing implementation
-}, (prevProps, nextProps) => {
-  // Custom comparison to prevent unnecessary re-renders
-  return prevProps.id === nextProps.id &&
-         prevProps.image === nextProps.image &&
-         prevProps.featured === nextProps.featured &&
-         prevProps.onClick === nextProps.onClick;
-});
+export const PropertyCard = React.memo<PropertyCardProps>(
+  function PropertyCard({
+    id,
+    image,
+    title,
+    location,
+    price,
+    beds,
+    baths,
+    sqft,
+    featured,
+    onClick,
+  }) {
+    // existing implementation
+  },
+  (prevProps, nextProps) => {
+    // Custom comparison to prevent unnecessary re-renders
+    return (
+      prevProps.id === nextProps.id &&
+      prevProps.image === nextProps.image &&
+      prevProps.featured === nextProps.featured &&
+      prevProps.onClick === nextProps.onClick
+    );
+  },
+);
 ```
 
 **Why**: Currently both components re-render on every parent state change. With 24 properties, this causes 24+ unnecessary renders on filter updates.
@@ -65,6 +81,7 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
 **File to modify:** `src/App.tsx` lines 594-654 (827-line file)
 
 **Current Anti-Pattern:**
+
 ```typescript
 // ❌ WRONG: Derived state in useState + useEffect
 const [filteredProperties, setFilteredProperties] = useState<Property[]>(properties);
@@ -82,6 +99,7 @@ useEffect(() => {
 ```
 
 **Correct Implementation:**
+
 ```typescript
 // ✅ CORRECT: Derived state via useMemo
 const filteredProperties = useMemo(() => {
@@ -98,6 +116,7 @@ const filteredProperties = useMemo(() => {
 **File to modify:** `src/App.tsx` lines 657-663
 
 **Implementation:**
+
 ```typescript
 const handleSearch = useCallback((query: string) => {
   setSearchQuery(query);
@@ -115,10 +134,13 @@ const applyFilters = useCallback((filters: FilterState) => {
 **File to modify:** `src/components/MapView.tsx` lines 58-65 (104-line file)
 
 **Implementation:**
+
 ```typescript
 const createCustomIcon = useMemo(() => {
   return (price: string, isActive: boolean) => {
-    return L.divIcon({ /* ... */ });
+    return L.divIcon({
+      /* ... */
+    });
   };
 }, []);
 ```
@@ -126,6 +148,7 @@ const createCustomIcon = useMemo(() => {
 **Why**: Icon currently recreated on every render call, unnecessary DOM operations.
 
 **Success Criteria for Phase 1:**
+
 - Property card render time < 16ms on mid-range mobile device
 - Filter application completes within 100ms for all 24 properties
 - Lighthouse Performance score improvement (measure baseline first)
@@ -144,36 +167,38 @@ const createCustomIcon = useMemo(() => {
 **Create:** `src/data/properties.ts`
 
 **Implementation:**
+
 ```typescript
 // src/data/properties.ts
-import { Property } from '@/types';
+import { Property } from "@/types";
 
 export const properties: Property[] = [
   {
-    id: '1',
-    image: 'https://images.unsplash.com/...',
-    title: 'Villa Azure',
+    id: "1",
+    image: "https://images.unsplash.com/...",
+    title: "Villa Azure",
     location: "Côte d'Azur, France",
-    price: '€4,500,000',
+    price: "€4,500,000",
     beds: 5,
     baths: 4,
-    sqft: '4,200 sq ft',
+    sqft: "4,200 sq ft",
     featured: true,
     lat: 43.7,
     lng: 7.3,
     yearBuilt: 2018,
-    propertyType: 'Luxury Villa',
-    description: '...',
-    gallery: ['...', '...'],
-    amenities: ['Pool', 'Garden', 'Parking', 'Terrace'],
+    propertyType: "Luxury Villa",
+    description: "...",
+    gallery: ["...", "..."],
+    amenities: ["Pool", "Garden", "Parking", "Terrace"],
   },
   // ... remaining 22 properties
 ];
 ```
 
 **Update:** `src/App.tsx` to import instead of inline:
+
 ```typescript
-import { properties } from '@/data/properties';
+import { properties } from "@/data/properties";
 ```
 
 **Why**: App.tsx is 827 lines, making it difficult to maintain. Data should be in a separate layer.
@@ -181,12 +206,14 @@ import { properties } from '@/data/properties';
 #### 2.2 Create Centralized Types
 
 **Current duplicates:**
+
 - Property interface in: App.tsx (lines 15-32), PropertyDetail.tsx (lines 9-28), SearchModal.tsx (lines 3-20), HeroSection.tsx (lines 4-15)
 - FilterState in: App.tsx (lines 563-572), FilterModal.tsx (lines 4-13)
 
 **Create:** `src/types/index.ts` (new directory)
 
 **Implementation:**
+
 ```typescript
 // src/types/index.ts
 export interface Property {
@@ -209,7 +236,7 @@ export interface Property {
 }
 
 export interface FilterState {
-  rentType: 'short' | 'long' | 'sale';
+  rentType: "short" | "long" | "sale";
   priceRange: [number, number];
   showTrattativa: boolean;
   propertyTypes: string[];
@@ -217,7 +244,7 @@ export interface FilterState {
   beds: number;
   sqm: [number, number];
   tags: string[];
-  amenities?: string[];  // NEW for Phase 3
+  amenities?: string[]; // NEW for Phase 3
 }
 
 export interface PropertyMarker {
@@ -236,6 +263,7 @@ export interface PropertyMarker {
 #### 2.3 Reduce App.tsx Complexity
 
 **Goal**: Reduce App.tsx from 827 lines to < 300 lines by:
+
 - Extracting property data (completed in 2.1)
 - Extracting type definitions (completed in 2.2)
 - Extracting business logic to custom hooks
@@ -243,30 +271,31 @@ export interface PropertyMarker {
 **Create:** `src/hooks/usePropertyFilters.ts` (new directory)
 
 **Implementation:**
+
 ```typescript
 // src/hooks/usePropertyFilters.ts
-import { useMemo } from 'react';
-import { Property, FilterState } from '@/types';
+import { useMemo } from "react";
+import { Property, FilterState } from "@/types";
 
 // Multi-currency price conversion (preserved from App.tsx lines 612-624)
 function getPriceInUSD(priceString: string): number {
-  const numericPrice = parseFloat(priceString.replace(/[^0-9.]/g, ''));
-  if (priceString.includes('€')) return numericPrice * 1.1;
-  if (priceString.includes('£')) return numericPrice * 1.3;
-  if (priceString.includes('CHF')) return numericPrice * 1.15;
-  if (priceString.includes('AED')) return numericPrice * 0.27;
-  if (priceString.includes('¥')) return numericPrice * 0.0067;
-  if (priceString.includes('AUD')) return numericPrice * 0.65;
-  if (priceString.includes('CAD')) return numericPrice * 0.74;
-  if (priceString.includes('SGD')) return numericPrice * 0.75;
-  if (priceString.includes('ZAR')) return numericPrice * 0.055;
+  const numericPrice = parseFloat(priceString.replace(/[^0-9.]/g, ""));
+  if (priceString.includes("€")) return numericPrice * 1.1;
+  if (priceString.includes("£")) return numericPrice * 1.3;
+  if (priceString.includes("CHF")) return numericPrice * 1.15;
+  if (priceString.includes("AED")) return numericPrice * 0.27;
+  if (priceString.includes("¥")) return numericPrice * 0.0067;
+  if (priceString.includes("AUD")) return numericPrice * 0.65;
+  if (priceString.includes("CAD")) return numericPrice * 0.74;
+  if (priceString.includes("SGD")) return numericPrice * 0.75;
+  if (priceString.includes("ZAR")) return numericPrice * 0.055;
   return numericPrice;
 }
 
 export function usePropertyFilters(
   properties: Property[],
   searchQuery: string,
-  activeFilters: FilterState
+  activeFilters: FilterState,
 ) {
   return useMemo(() => {
     let filtered = properties;
@@ -275,40 +304,39 @@ export function usePropertyFilters(
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(
-        p =>
-          p.title.toLowerCase().includes(query) ||
-          p.location.toLowerCase().includes(query)
+        (p) => p.title.toLowerCase().includes(query) || p.location.toLowerCase().includes(query),
       );
     }
 
     // Price range filter (multi-currency via USD conversion)
-    filtered = filtered.filter(p => {
+    filtered = filtered.filter((p) => {
       const price = getPriceInUSD(p.price);
-      return price >= activeFilters.priceRange[0] * 1000 &&
-             price <= activeFilters.priceRange[1] * 1000;
+      return (
+        price >= activeFilters.priceRange[0] * 1000 && price <= activeFilters.priceRange[1] * 1000
+      );
     });
 
     // Bedrooms filter
     if (activeFilters.beds > 0) {
-      filtered = filtered.filter(p => p.beds >= activeFilters.beds);
+      filtered = filtered.filter((p) => p.beds >= activeFilters.beds);
     }
 
     // Rooms filter
     if (activeFilters.rooms > 0) {
-      filtered = filtered.filter(p => p.beds >= activeFilters.rooms);
+      filtered = filtered.filter((p) => p.beds >= activeFilters.rooms);
     }
 
     // Property type filter (array-based, plural)
     if (activeFilters.propertyTypes.length > 0) {
       filtered = filtered.filter(
-        p => p.propertyType && activeFilters.propertyTypes.includes(p.propertyType)
+        (p) => p.propertyType && activeFilters.propertyTypes.includes(p.propertyType),
       );
     }
 
     // Amenity filter (NEW for Phase 3)
     if (activeFilters.amenities && activeFilters.amenities.length > 0) {
-      filtered = filtered.filter(p =>
-        activeFilters.amenities!.every(a => (p.amenities ?? []).includes(a))
+      filtered = filtered.filter((p) =>
+        activeFilters.amenities!.every((a) => (p.amenities ?? []).includes(a)),
       );
     }
 
@@ -318,8 +346,9 @@ export function usePropertyFilters(
 ```
 
 **Update App.tsx** to use the hook:
+
 ```typescript
-import { usePropertyFilters } from '@/hooks/usePropertyFilters';
+import { usePropertyFilters } from "@/hooks/usePropertyFilters";
 
 const filteredProperties = usePropertyFilters(properties, searchQuery, activeFilters);
 ```
@@ -327,6 +356,7 @@ const filteredProperties = usePropertyFilters(properties, searchQuery, activeFil
 **Why**: Separates business logic from presentation, makes testing easier.
 
 **Success Criteria for Phase 2:**
+
 - Property type definition appears exactly once in codebase
 - FilterState type definition appears exactly once in codebase
 - App.tsx reduced to < 300 lines (down from 827)
@@ -344,6 +374,7 @@ const filteredProperties = usePropertyFilters(properties, searchQuery, activeFil
 **Create:** `src/components/ImageLightbox.tsx`
 
 **Features:**
+
 - Opens on click from property detail gallery
 - Scroll-based zoom on desktop (max 3x)
 - Pinch-to-zoom on mobile
@@ -354,6 +385,7 @@ const filteredProperties = usePropertyFilters(properties, searchQuery, activeFil
 
 **Implementation Approach:**
 Use CSS transforms for performance (avoid React state for zoom level):
+
 ```typescript
 // src/components/ImageLightbox.tsx
 interface ImageLightboxProps {
@@ -385,6 +417,7 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
 **Integration:** Update `src/components/PropertyDetail.tsx` to trigger lightbox on image click.
 
 **Acceptance Criteria:**
+
 - [ ] Lightbox opens on click from property detail gallery
 - [ ] Users can zoom images up to 3x
 - [ ] Zoom is scroll-based on desktop, pinch-based on mobile
@@ -400,6 +433,7 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
 **Goal**: Add smooth, performance-conscious animations throughout the app.
 
 **Implementation Strategy:**
+
 - Use CSS transitions for simple effects (opacity, transform)
 - Use Framer Motion for complex sequences if needed
 - All animations respect `prefers-reduced-motion`
@@ -425,7 +459,9 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
 
 @media (prefers-reduced-motion: reduce) {
   /* Disable all animations */
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -433,8 +469,12 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {
@@ -461,12 +501,14 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
 ```
 
 **Integration:** Apply classes to relevant components in:
+
 - `src/App.tsx` - Page load fade-in
 - `src/components/PropertyCard.tsx` - Card entrance animation (staggered)
 - `src/components/PropertyDetail.tsx` - Modal open animation
 - Filtered list transitions in `src/App.tsx`
 
 **Acceptance Criteria:**
+
 - [ ] Page elements fade in on load (< 300ms duration)
 - [ ] Property cards animate in with staggered delay
 - [ ] Modals scale/fade in smoothly on open
@@ -480,12 +522,14 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
 **Create:** Amenity filter section in existing `src/components/FilterModal.tsx`
 
 **Features:**
+
 - At least 8 common amenities as checkboxes
 - AND logic: match all selected amenities
 - Show count of properties matching each amenity
 - Update filter state via `FilterState.amenities`
 
 **Implementation:**
+
 ```typescript
 // src/components/FilterModal.tsx
 const AMENITIES = [
@@ -516,6 +560,7 @@ const AMENITIES = [
 ```
 
 **Acceptance Criteria:**
+
 - [ ] Amenities section added to FilterModal
 - [ ] At least 8 common amenities available as filters
 - [ ] Amenity filters use AND logic (match all selected)
@@ -528,6 +573,7 @@ const AMENITIES = [
 **Create:** `src/components/PropertyComparison.tsx`
 
 **Features:**
+
 - "Add to Comparison" button on property cards
 - Users can select 2-4 properties for comparison
 - Comparison modal displays side-by-side property details
@@ -535,6 +581,7 @@ const AMENITIES = [
 - Comparison state persists in component state (not across sessions)
 
 **Implementation:**
+
 ```typescript
 // src/components/PropertyComparison.tsx
 interface ComparisonProps {
@@ -589,6 +636,7 @@ export const PropertyComparison: React.FC<ComparisonProps> = ({
 ```
 
 **Acceptance Criteria:**
+
 - [ ] "Add to Comparison" button appears on property cards
 - [ ] Users can select 2-4 properties for comparison
 - [ ] Comparison modal displays side-by-side property details
@@ -603,6 +651,7 @@ export const PropertyComparison: React.FC<ComparisonProps> = ({
 **Create:** Share functionality in `src/components/PropertyDetail.tsx`
 
 **Features:**
+
 - Share button opens share modal/dropdown
 - "Copy Link" option copies property URL to clipboard
 - Share URL format: `/property/{id}`
@@ -611,13 +660,14 @@ export const PropertyComparison: React.FC<ComparisonProps> = ({
 - Toast notification confirms successful link copy
 
 **Implementation:**
+
 ```typescript
 // src/components/PropertyDetail.tsx
 const handleShare = async () => {
   const shareData = {
     title: property.title,
     text: `${property.title} - ${property.location}`,
-    url: `${window.location.origin}/property/${property.id}`
+    url: `${window.location.origin}/property/${property.id}`,
   };
 
   // Try native share on mobile
@@ -632,20 +682,21 @@ const handleShare = async () => {
 
   // Copy to clipboard
   await navigator.clipboard.writeText(shareData.url);
-  toast.success('Link copied to clipboard!');
+  toast.success("Link copied to clipboard!");
 };
 
 // Email sharing
 const handleEmailShare = () => {
   const subject = encodeURIComponent(property.title);
   const body = encodeURIComponent(
-    `Check out this property:\n\n${property.title}\n${property.location}\nPrice: ${property.price}\n\n${window.location.origin}/property/${property.id}`
+    `Check out this property:\n\n${property.title}\n${property.location}\nPrice: ${property.price}\n\n${window.location.origin}/property/${property.id}`,
   );
   window.location.href = `mailto:?subject=${subject}&body=${body}`;
 };
 ```
 
 **Acceptance Criteria:**
+
 - [ ] Share button opens share modal/dropdown in PropertyDetail
 - [ ] "Copy Link" option copies property URL to clipboard
 - [ ] Share URL format is `/property/{id}` (or client-side hash `#property/${property.id}`)
@@ -659,6 +710,7 @@ const handleEmailShare = () => {
 **Create:** Print styles and print button in `src/components/PropertyDetail.tsx`
 
 **Features:**
+
 - "Print" button available in PropertyDetail modal
 - Print stylesheet activates on print
 - Printed output includes: property image, price, location, key specs, description, agent contact
@@ -666,6 +718,7 @@ const handleEmailShare = () => {
 - Comparison view printable (optional)
 
 **Implementation:**
+
 ```css
 /* src/styles/print.css */
 @media print {
@@ -709,6 +762,7 @@ const handlePrint = () => {
 ```
 
 **Acceptance Criteria:**
+
 - [ ] "Print" button available in PropertyDetail modal
 - [ ] Print stylesheet activates on print
 - [ ] Printed output includes: property image, price, location, key specs, description, agent contact
@@ -717,6 +771,7 @@ const handlePrint = () => {
 - [ ] Comparison view can be printed (optional)
 
 **Success Criteria for Phase 3:**
+
 - All 6 UX features fully implemented and functional
 - No performance regression from Phase 1/2 improvements
 - All features work on desktop and mobile
@@ -730,6 +785,7 @@ const handlePrint = () => {
 ### Phase 1: Performance Fixes (1-2 days)
 
 **Tasks:**
+
 1. Add React.memo to PropertyCard and MapView
 2. Replace derived state anti-pattern with useMemo
 3. Add useCallback to event handlers
@@ -737,11 +793,13 @@ const handlePrint = () => {
 5. Measure performance baseline and verify improvements
 
 **Success Criteria:**
+
 - Filter application < 100ms for all properties
 - Property card render time < 16ms
 - No jank during interactions
 
 **Risks & Mitigation:**
+
 - Risk: Memoization may not improve performance if props change frequently
 - Mitigation: Use custom comparison functions in React.memo; measure before/after
 
@@ -750,21 +808,24 @@ const handlePrint = () => {
 ### Phase 2: Code Cleanup (2-3 days)
 
 **Tasks:**
+
 1. Create `src/types/` and `src/hooks/` directories
 2. Extract 528 lines of property data to `src/data/properties.ts`
 3. Create `src/types/index.ts` with centralized types (matching actual `FilterState` schema)
 4. Update all files to import from `src/types/`
 5. Create `src/hooks/usePropertyFilters.ts` custom hook (preserving multi-currency `getPriceInUSD`)
 6. Reduce App.tsx to < 300 lines
-6. Run TypeScript compiler and ESLint, resolve all errors
+7. Run TypeScript compiler and ESLint, resolve all errors
 
 **Success Criteria:**
+
 - App.tsx < 300 lines (down from 827)
 - Type definitions appear exactly once
 - Zero TypeScript errors
 - Zero ESLint warnings
 
 **Risks & Mitigation:**
+
 - Risk: Type extraction may introduce circular dependencies
 - Mitigation: Structure types carefully; use barrel exports in index.ts
 
@@ -773,6 +834,7 @@ const handlePrint = () => {
 ### Phase 3: UX Enhancements (5-7 days)
 
 **Tasks:**
+
 1. Implement image lightbox/zoom (1-2 days)
 2. Add enhanced animations (1 day)
 3. Enhance filtering with amenities (1 day)
@@ -781,12 +843,14 @@ const handlePrint = () => {
 6. Implement print functionality (0.5 day)
 
 **Success Criteria:**
+
 - All 6 features functional on desktop and mobile
 - No performance regression
 - Accessibility audit passes
 - Cross-browser testing complete
 
 **Risks & Mitigation:**
+
 - Risk: Lightbox performance with high-res images on mobile
 - Mitigation: Use CSS transforms for smooth 60fps; lazy load images
 - Risk: Comparison modal unusable on mobile
@@ -799,11 +863,13 @@ const handlePrint = () => {
 ### Performance Testing
 
 **Tools:**
+
 - Chrome DevTools Performance tab
 - Lighthouse CI
 - React DevTools Profiler
 
 **Metrics to Track:**
+
 - Time to Interactive (TTI)
 - First Contentful Paint (FCP)
 - Largest Contentful Paint (LCP)
@@ -813,12 +879,14 @@ const handlePrint = () => {
 ### Cross-Browser Testing
 
 **Browsers:**
+
 - Chrome (desktop and mobile)
 - Safari (desktop and mobile)
 - Firefox (desktop and mobile)
 - Edge (desktop and mobile)
 
 **Focus Areas:**
+
 - Print styles
 - Share functionality (clipboard API, native share)
 - Lightbox touch gestures
@@ -827,12 +895,14 @@ const handlePrint = () => {
 ### Accessibility Testing
 
 **Tools:**
+
 - axe DevTools
 - WAVE browser extension
 - Screen reader testing (VoiceOver, NVDA)
 - Keyboard navigation testing
 
 **Focus Areas:**
+
 - Lightbox keyboard navigation (ESC, arrow keys)
 - Comparison modal keyboard accessibility
 - Print accessibility
@@ -841,6 +911,7 @@ const handlePrint = () => {
 ### Regression Testing
 
 **Manual Testing Checklist:**
+
 - [ ] Property grid renders correctly
 - [ ] Search filters work
 - [ ] Map view displays markers
@@ -860,11 +931,13 @@ const handlePrint = () => {
 **None** - This is frontend-only refactoring with no backend integration.
 
 **Potential Blockers:**
+
 - None identified - all tasks are self-contained within the codebase
 
 ### Risks
 
 **Technical Risks:**
+
 1. **Memoization overhead**: React.memo may not improve performance if props change frequently
    - **Mitigation**: Use custom comparison functions; measure before/after; remove if no improvement
 
@@ -878,6 +951,7 @@ const handlePrint = () => {
    - **Mitigation**: Test thoroughly across browsers; use well-supported CSS properties
 
 **Schedule Risks:**
+
 1. **Phase 3 scope creep**: UX enhancements may expand beyond original scope
    - **Mitigation**: Stick to defined acceptance criteria; defer nice-to-haves
 
@@ -889,18 +963,21 @@ const handlePrint = () => {
 ## Success Metrics
 
 **Performance Metrics:**
+
 - Filter application time: < 100ms (target: < 50ms)
 - Property card render time: < 16ms (target: < 10ms)
 - Lighthouse Performance score: > 80 (target: > 90)
 - Time to Interactive: < 2s (target: < 1.5s)
 
 **Code Quality Metrics:**
+
 - App.tsx lines: < 300 (down from 827, target: < 250)
 - Type definition duplication: 0 (currently: 5+)
 - TypeScript errors: 0
 - ESLint warnings: 0
 
 **UX Metrics:**
+
 - All 6 UX features functional: 100%
 - Mobile responsiveness: 100%
 - Accessibility audit pass rate: 100%
@@ -937,6 +1014,7 @@ From brainstorm and spec-flow analysis:
 ## Future Considerations
 
 **Beyond MVP Polish:**
+
 1. **Backend integration**: When ready to add API, extract property data to API calls
 2. **Virtual tours**: Remove placeholder or implement basic 360° image viewer
 3. **User accounts**: Add authentication, favorites persistence, saved searches
@@ -947,6 +1025,7 @@ From brainstorm and spec-flow analysis:
 8. **Testing**: Add comprehensive unit tests (Vitest) and E2E tests (Playwright)
 
 **Technical Debt Remaining:**
+
 - XSS vulnerability in chart component (noted in research, deprioritized)
 - Missing security headers (CSP, X-Frame-Options) - add before production deployment
 - Error boundaries not implemented - consider adding for graceful failure handling
@@ -958,39 +1037,47 @@ From brainstorm and spec-flow analysis:
 ### Internal References
 
 **Codebase Findings:**
+
 - App.tsx (827 lines): Lines 575-592 (useState hooks), Lines 594-654 (derived state anti-pattern), Lines 34-561 (528 lines of property data), Lines 612-624 (multi-currency getPriceInUSD)
 - PropertyCard.tsx (125 lines): Lines 4-15 (PropertyCardProps interface with individual spread props) - needs React.memo
 - MapView.tsx (104 lines): Lines 58-65 (createCustomIcon function) - needs memoization
 - FilterModal.tsx: Lines 4-13 (FilterState duplicate) - needs removal
 
 **Type Duplication:**
+
 - Property interface: App.tsx (lines 15-32), SearchModal.tsx (line 3), HeroSection.tsx (line 4)
 - Note: PropertyDetail.tsx has PropertyDetailProps (not a full Property duplicate), PropertyCard.tsx has PropertyCardProps (subset interface)
 - FilterState: App.tsx (lines 563-572), FilterModal.tsx (lines 4-13)
 
 **Documentation:**
+
 - docs/brainstorms/2026-02-16-mvp-frontend-polish-brainstorm.md
 
 ### External References
 
 **React Performance:**
+
 - React.memo documentation: https://react.dev/reference/react/memo
 - useMemo documentation: https://react.dev/reference/react/useMemo
 - useCallback documentation: https://react.dev/reference/react/useCallback
 
 **Derived State Anti-Pattern:**
+
 - React docs: https://react.dev/learn/you-might-not-need-an-effect#adjusting-state-based-on-props-or-state
 
 **Accessibility:**
+
 - prefers-reduced-motion: https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion
 - ARIA best practices: https://www.w3.org/WAI/ARIA/apg/
 
 **Image Handling:**
+
 - CSS transforms for performance: https://developer.mozilla.org/en-US/docs/Web/CSS/transform
 
 ### Related Work
 
 **Documented Issues (from research):**
+
 - todos/007-pending-p2-derived-state-anti-pattern.md - Derived state hazard
 - todos/003-pending-p1-missing-memoization.md - No React.memo/useMemo/useCallback
 - todos/009-pending-p2-shared-types-directory.md - Type duplication

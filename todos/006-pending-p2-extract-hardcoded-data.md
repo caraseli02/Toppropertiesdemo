@@ -19,20 +19,22 @@ The App.tsx file contains 475 lines of hardcoded property data mixed with compon
 ## Findings
 
 **Current State:**
+
 - App.tsx is 766 lines total
 - 475 lines (62%) are hardcoded property data
 - Data includes: property details, images, amenities, coordinates
 - Mixes data layer with presentation layer
 
 **Sample of embedded data:**
+
 ```typescript
 const properties: Property[] = [
   {
-    id: '1',
-    image: 'https://images.unsplash.com/photo-...',
-    title: 'Villa Azure',
-    location: 'Côte d\'Azur, France',
-    price: '€4,500,000',
+    id: "1",
+    image: "https://images.unsplash.com/photo-...",
+    title: "Villa Azure",
+    location: "Côte d'Azur, France",
+    price: "€4,500,000",
     beds: 5,
     baths: 4,
     // ... 24 properties total
@@ -42,6 +44,7 @@ const properties: Property[] = [
 ```
 
 **Problems:**
+
 1. Impossible to unit test without mocking large data structure
 2. Hard to find component logic among data
 3. Bundle includes all data even if not displayed
@@ -61,16 +64,18 @@ export const properties: Property[] = [
 ];
 
 // src/App.tsx
-import { properties } from './data/properties';
+import { properties } from "./data/properties";
 ```
 
 **Pros:**
+
 - Clear separation of concerns
 - Easy to maintain data separately
 - Better code organization
 - Enables testing with mock data
 
 **Cons:**
+
 - Still in bundle (but tree-shakeable if not imported)
 
 **Effort:** 20 minutes
@@ -88,7 +93,7 @@ import { properties } from './data/properties';
 [
   {
     "id": "1",
-    "title": "Villa Azure",
+    "title": "Villa Azure"
     // ...
   }
 ]
@@ -96,16 +101,18 @@ import { properties } from './data/properties';
 
 ```typescript
 // src/data/properties.ts
-import propertiesJson from './properties.json';
+import propertiesJson from "./properties.json";
 export const properties: Property[] = propertiesJson;
 ```
 
 **Pros:**
+
 - Language-agnostic format
 - Easy for non-developers to edit
 - Can be fetched dynamically
 
 **Cons:**
+
 - No type safety in JSON
 - Requires type assertions
 
@@ -121,21 +128,23 @@ export const properties: Property[] = propertiesJson;
 
 ```typescript
 // src/mocks/handlers.ts
-import { http, HttpResponse } from 'msw';
+import { http, HttpResponse } from "msw";
 
 export const handlers = [
-  http.get('/api/properties', () => {
+  http.get("/api/properties", () => {
     return HttpResponse.json(properties);
   }),
 ];
 ```
 
 **Pros:**
+
 - Simulates real API
 - Easy to switch to real backend
 - Supports loading states, errors
 
 **Cons:**
+
 - Additional dependency
 - More setup required
 
@@ -156,13 +165,16 @@ Implement Option 1 (Separate Data File) immediately, then consider Option 3 for 
 ## Technical Details
 
 **Files to create:**
+
 - `src/data/properties.ts` - Property data
 - `src/data/index.ts` - Barrel exports
 
 **Files to modify:**
+
 - `src/App.tsx` - Remove inline data, add import
 
 **Structure:**
+
 ```
 src/
   data/
@@ -171,6 +183,7 @@ src/
 ```
 
 **DHH Principle Applied:**
+
 > "Data should be separate from code"
 > Similar to Rails' separation of models from controllers
 
@@ -196,12 +209,14 @@ src/
 **By:** Claude Code (Pattern Recognition Specialist)
 
 **Actions:**
+
 - Analyzed App.tsx structure and line count
 - Identified 475 lines of hardcoded data
 - Evaluated separation of concerns violation
 - Reviewed DHH-style principles for data organization
 
 **Learnings:**
+
 - 62% of App.tsx is data, not logic
 - Hardcoded data prevents proper testing
 - File size makes code reviews difficult

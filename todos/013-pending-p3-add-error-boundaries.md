@@ -13,6 +13,7 @@ dependencies: []
 The application lacks error boundaries, meaning any component error (e.g., Map fails to load, image rendering error) will crash the entire application. Error boundaries would catch these errors and display fallback UI instead.
 
 **Affected areas:**
+
 - Map component (Leaflet errors)
 - Image gallery (loading failures)
 - Chart component (recharts errors)
@@ -23,18 +24,21 @@ The application lacks error boundaries, meaning any component error (e.g., Map f
 ## Findings
 
 **Current State:**
+
 - No error boundaries implemented
 - Single component error crashes entire app
 - No fallback UI for failed components
 - Users see blank screen or error stack traces
 
 **Potential Error Scenarios:**
+
 1. **Map errors:** Leaflet fails to load tiles, invalid coordinates
 2. **Image errors:** Unsplash images fail to load, broken URLs
 3. **Component errors:** Chart rendering failures, null reference errors
 4. **Network errors:** API calls fail (when backend is added)
 
 **User Impact:**
+
 - Complete app crash on any error
 - Poor user experience
 - No way to recover
@@ -98,6 +102,7 @@ export class ErrorBoundary extends Component<Props, State> {
 ```
 
 **Usage:**
+
 ```typescript
 // App.tsx
 <ErrorBoundary>
@@ -110,12 +115,14 @@ export class ErrorBoundary extends Component<Props, State> {
 ```
 
 **Pros:**
+
 - Catches React component errors
 - Prevents app crashes
 - Shows user-friendly fallback
 - Can log to error tracking
 
 **Cons:**
+
 - Doesn't catch event handler errors
 - Doesn't catch async errors
 - Class component required (no hooks equivalent)
@@ -148,11 +155,13 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
 ```
 
 **Pros:**
+
 - Battle-tested library
 - Reset functionality built-in
 - More features
 
 **Cons:**
+
 - Additional dependency
 - Not necessary for simple needs
 
@@ -184,10 +193,12 @@ function MapViewWithErrorHandling(props: MapViewProps) {
 ```
 
 **Pros:**
+
 - Component-specific handling
 - Can use hooks
 
 **Cons:**
+
 - Repetitive
 - More code
 - Doesn't catch all errors
@@ -209,23 +220,28 @@ Implement Option 1 (Custom Error Boundary):
 ## Technical Details
 
 **Files to create:**
+
 - `src/components/ErrorBoundary.tsx` - Error boundary component
 
 **Files to modify:**
+
 - `src/App.tsx` - Wrap components with ErrorBoundary
 
 **Components to wrap:**
+
 - MapView - Map loading errors
 - PropertyDetail - Property rendering errors
 - Chart components - Data visualization errors
 - Image galleries - Image loading errors
 
 **Error types ErrorBoundary catches:**
+
 - Render phase errors
 - Lifecycle method errors
 - Constructor errors
 
 **Error types NOT caught:**
+
 - Event handler errors (use try/catch)
 - Async code errors (use .catch())
 - Server-side rendering errors
@@ -254,12 +270,14 @@ Implement Option 1 (Custom Error Boundary):
 **By:** Claude Code (Kieran TypeScript Reviewer / Architecture Review)
 
 **Actions:**
+
 - Reviewed error handling strategy
 - Identified missing error boundaries
 - Analyzed potential error scenarios
 - Evaluated error boundary libraries
 
 **Learnings:**
+
 - No error boundaries currently implemented
 - Map and image components are high-risk for errors
 - Error boundaries require class components

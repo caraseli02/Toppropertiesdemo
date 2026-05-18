@@ -21,14 +21,17 @@ The main hero image now skips broken images, but the thumbnail strip can still r
 ### Option 1: Add per-thumbnail fallback UI (Recommended)
 
 **Approach:** Add `onError` on thumbnail images to either:
+
 - swap to a known-good placeholder, or
 - hide the thumbnail and show a neutral “Image unavailable” tile
 
 **Pros:**
+
 - Resilient UI under partial failures
 - Aligns with main hero fallback behavior
 
 **Cons:**
+
 - Slightly more state (track broken indices/URLs for thumbnails too)
 
 **Effort:** 20–45 minutes
@@ -42,9 +45,11 @@ The main hero image now skips broken images, but the thumbnail strip can still r
 **Approach:** Use the existing `brokenImages` set for both hero and thumbnails, and conditionally render a placeholder tile for broken indices.
 
 **Pros:**
+
 - Minimal additional state
 
 **Cons:**
+
 - Requires wiring `onError` for thumbnails
 
 **Effort:** 15–30 minutes
@@ -67,5 +72,5 @@ The main hero image now skips broken images, but the thumbnail strip can still r
 **By:** Codex ($workflows-review)
 
 **Actions:**
-- Checked image-failure behavior across hero + thumbnails
 
+- Checked image-failure behavior across hero + thumbnails

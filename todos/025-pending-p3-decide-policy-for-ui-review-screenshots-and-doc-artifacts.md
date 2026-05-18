@@ -25,10 +25,12 @@ The repo currently has untracked UI review artifacts (markdown report + screensh
 **Approach:** Add these artifacts under `docs/` and keep them versioned; optionally add a short `docs/README.md` index.
 
 **Pros:**
+
 - Demonstrates QA rigor + process
 - Reproducible evidence for future regressions
 
 **Cons:**
+
 - Repo grows over time with images
 
 **Effort:** 10-20 minutes
@@ -42,9 +44,11 @@ The repo currently has untracked UI review artifacts (markdown report + screensh
 **Approach:** Ignore `ui-review-screenshots-*` and keep the report text only (or ignore all).
 
 **Pros:**
+
 - Keeps repo lean
 
 **Cons:**
+
 - Loses evidence trail unless stored elsewhere
 
 **Effort:** 5-10 minutes
@@ -67,9 +71,10 @@ The repo currently has untracked UI review artifacts (markdown report + screensh
 **By:** Codex
 
 **Actions:**
+
 - Identified untracked QA artifacts created during UI review work
 - Documented commit-vs-ignore options
 
 **Learnings:**
-- Portfolio projects often benefit from committed QA evidence
 
+- Portfolio projects often benefit from committed QA evidence

@@ -19,6 +19,7 @@ The image gallery navigation in PropertyDetail.tsx uses modulo arithmetic withou
 ## Findings
 
 **Vulnerable Code (lines 52-58):**
+
 ```typescript
 const nextImage = () => {
   setCurrentImageIndex((prev) => (prev + 1) % gallery.length);
@@ -30,12 +31,14 @@ const prevImage = () => {
 ```
 
 **Empty Gallery Bug (line 50):**
+
 ```typescript
 const gallery = property.gallery || [property.image];
 // If property.gallery is [], the fallback won't trigger!
 ```
 
 **Root Cause:**
+
 - Modulo by zero when `gallery.length === 0`
 - Empty array check missing
 - No defensive programming for edge cases
@@ -61,11 +64,13 @@ const prevImage = useCallback(() => {
 ```
 
 **Pros:**
+
 - Quick to implement
 - Prevents crash
 - Maintains current behavior
 
 **Cons:**
+
 - Doesn't address underlying data quality issues
 
 **Effort:** 15 minutes
@@ -82,7 +87,7 @@ const prevImage = useCallback(() => {
 // Validate gallery before use
 const gallery = useMemo(() => {
   const images = property.gallery?.length ? property.gallery : [property.image];
-  return images.filter(url => isValidImageUrl(url));
+  return images.filter((url) => isValidImageUrl(url));
 }, [property.gallery, property.image]);
 
 // Disable navigation if insufficient images
@@ -90,11 +95,13 @@ const canNavigate = gallery.length > 1;
 ```
 
 **Pros:**
+
 - Robust error handling
 - Better UX with disabled states
 - Validates image URLs
 
 **Cons:**
+
 - More code to maintain
 - Slightly more complex
 
@@ -114,29 +121,31 @@ function useImageGallery(images: string[], fallbackImage: string) {
     const gallery = images?.length ? images : [fallbackImage];
     return gallery.filter(isValidImageUrl);
   }, [images, fallbackImage]);
-  
+
   const [currentIndex, setCurrentIndex] = useState(0);
-  
+
   const next = useCallback(() => {
     if (validImages.length <= 1) return;
     setCurrentIndex((prev) => (prev + 1) % validImages.length);
   }, [validImages.length]);
-  
+
   const prev = useCallback(() => {
     if (validImages.length <= 1) return;
     setCurrentIndex((prev) => (prev - 1 + validImages.length) % validImages.length);
   }, [validImages.length]);
-  
+
   return { images: validImages, currentIndex, next, prev };
 }
 ```
 
 **Pros:**
+
 - Reusable across components
 - Centralized logic
 - Easy to test
 
 **Cons:**
+
 - More initial setup
 - May be overkill for single use
 
@@ -157,9 +166,11 @@ Implemented fix for division by zero and empty gallery issues:
 ## Technical Details
 
 **Files modified:**
+
 - `src/components/PropertyDetail.tsx:50-58` - Gallery initialization and navigation
 
 **Edge cases handled:**
+
 - Empty gallery array `[]`
 - Single image gallery `[image]`
 - Invalid image URLs (future consideration)
@@ -186,12 +197,14 @@ Implemented fix for division by zero and empty gallery issues:
 **By:** Claude Code (Kieran TypeScript Reviewer)
 
 **Actions:**
+
 - Identified gallery initialization bug
 - Analyzed JavaScript truthiness behavior
 - Found 6 properties with empty galleries
 - Verified impact on user experience
 
 **Learnings:**
+
 - Empty array `[]` is truthy (common gotcha)
 - `||` operator doesn't work as expected with arrays
 - 25% of properties have empty galleries
@@ -204,6 +217,7 @@ Implemented fix for division by zero and empty gallery issues:
 **By:** Claude Code
 
 **Actions:**
+
 - Fixed empty array check: `property.gallery?.length ? property.gallery : [property.image]`
 - Added guard clauses to nextImage: `if (gallery.length <= 1) return;`
 - Added guard clauses to prevImage: `if (gallery.length <= 1) return;`
@@ -211,12 +225,14 @@ Implemented fix for division by zero and empty gallery issues:
 - Built successfully with no errors
 
 **Learnings:**
+
 - Guard clauses prevent division by zero and invalid array access
 - `.length` check is the correct pattern for empty arrays
 - All 24 properties now display correctly
 - No crashes when viewing properties with empty galleries
 
-**Status:** 
+**Status:**
+
 - ✅ Empty gallery array bug FIXED
 - ✅ Division by zero bug FIXED
 - ✅ All properties work correctly

@@ -24,10 +24,12 @@ Search results are clickable via pointer only. Keyboard users cannot focus or ac
 **Approach:** Replace the clickable `<div>` with `<button type="button">`, preserve layout with `w-full text-left`, and add `focus-visible` ring styles.
 
 **Pros:**
+
 - Best semantic correctness
 - No custom keyboard event code needed
 
 **Cons:**
+
 - Minor CSS tweaks needed to match existing card styles
 
 **Effort:** 30-60 minutes
@@ -41,9 +43,11 @@ Search results are clickable via pointer only. Keyboard users cannot focus or ac
 **Approach:** Keep `<div>`, add `tabIndex={0}`, `role="button"`, and handle Enter/Space.
 
 **Pros:**
+
 - Minimal markup change
 
 **Cons:**
+
 - Easier to get wrong than native buttons
 
 **Effort:** 20-40 minutes
@@ -57,6 +61,7 @@ Search results are clickable via pointer only. Keyboard users cannot focus or ac
 ## Technical Details
 
 **Affected files:**
+
 - `/Users/vladislavcaraseli/Documents/Toppropertiesdemo/src/components/SearchModal.tsx`
 
 ## Acceptance Criteria
@@ -73,10 +78,12 @@ Search results are clickable via pointer only. Keyboard users cannot focus or ac
 **By:** Codex
 
 **Actions:**
+
 - Verified results list is pointer-only despite being a primary navigation mechanism
 - Documented semantic and fallback approaches
 
 **Learnings:**
+
 - Native buttons usually reduce both code and accessibility risk
 
 ### 2026-02-25 - Implemented
@@ -84,9 +91,11 @@ Search results are clickable via pointer only. Keyboard users cannot focus or ac
 **By:** Codex
 
 **Actions:**
+
 - Converted result rows from `div` + `onClick` to semantic `<button type="button">`.
 - Added focus-visible ring styling for keyboard navigation.
 - Verified `npm run build` passes.
 
 **Learnings:**
+
 - Using native interactive elements avoids extra keyboard-event handling and improves correctness.

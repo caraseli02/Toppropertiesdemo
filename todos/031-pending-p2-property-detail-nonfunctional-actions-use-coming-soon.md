@@ -24,10 +24,12 @@ Some primary actions inside `PropertyDetail` are clickable but do nothing (no-op
 **Approach:** Lift `onComingSoon(feature)` down into `PropertyDetail` (prop drilling from `App`) and trigger toast for these actions.
 
 **Pros:**
+
 - Consistent “demo” behavior across the app
 - Improves perceived completeness and UX polish
 
 **Cons:**
+
 - Adds one more prop to `PropertyDetail`
 
 **Effort:** 15–30 minutes
@@ -41,9 +43,11 @@ Some primary actions inside `PropertyDetail` are clickable but do nothing (no-op
 **Approach:** Render as disabled with an inline “Demo” badge/tooltip.
 
 **Pros:**
+
 - No “dead clicks”
 
 **Cons:**
+
 - Disabled controls can look unfinished
 
 **Effort:** 10–20 minutes
@@ -57,6 +61,7 @@ Some primary actions inside `PropertyDetail` are clickable but do nothing (no-op
 ## Technical Details
 
 **Affected files:**
+
 - `src/App.tsx` (prop plumbing)
 - `src/components/PropertyDetail.tsx` (wire handlers)
 
@@ -73,5 +78,5 @@ Some primary actions inside `PropertyDetail` are clickable but do nothing (no-op
 **By:** Codex ($workflows-review)
 
 **Actions:**
-- Click-tested primary controls for “dead click” behavior
 
+- Click-tested primary controls for “dead click” behavior

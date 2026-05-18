@@ -22,13 +22,16 @@ Some SearchModal micro-interactions are slightly inconsistent or hard to tap on 
 ### Option 1: Add Padding + Use `normalizedQuery` For Count Trigger (Recommended)
 
 **Approach:**
+
 - Add `p-2` (or similar) to the clear button.
 - Replace `query && …` with `normalizedQuery && …` for the count label.
 
 **Pros:**
+
 - Tiny changes with immediate UX/a11y improvement
 
 **Cons:**
+
 - None significant
 
 **Effort:** 10-20 minutes
@@ -52,8 +55,9 @@ Some SearchModal micro-interactions are slightly inconsistent or hard to tap on 
 **By:** Codex
 
 **Actions:**
+
 - Audited tap targets and derived labels after query normalization change
 
 **Learnings:**
-- After normalizing query logic, ensure all UI labels use the same source of truth
 
+- After normalizing query logic, ensure all UI labels use the same source of truth

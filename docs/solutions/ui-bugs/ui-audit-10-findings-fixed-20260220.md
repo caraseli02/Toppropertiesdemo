@@ -22,9 +22,11 @@ tags: [ui, accessibility, mobile, forms, filters, hero]
 # Troubleshooting: UI Audit - 10 Findings Fixed
 
 ## Problem
+
 A comprehensive UI audit of the Top Properties luxury real estate webapp revealed 10 issues across visual/layout, user journey, and responsive design categories. Issues ranged from non-functional price filters to confusing modal titles.
 
 ## Environment
+
 - Module: Top Properties Webapp (React + Vite)
 - Viewport tested: 375px (mobile), 768px (tablet), 1440px (desktop)
 - Affected Components: FilterModal, ContactModal, PropertyDetail, HeroSection, SearchBar, Footer
@@ -33,17 +35,20 @@ A comprehensive UI audit of the Top Properties luxury real estate webapp reveale
 ## Symptoms
 
 ### High Severity
+
 1. **Price filter non-functional** - Slider maxes at $10,000 while listings are €3M-$25M
 2. **Currency mismatch** - Filter shows `$` but listings use €, £, CHF
 3. **Hero context mismatch** - Searching "Paris" shows Villa Azure in hero
 
 ### Medium Severity
+
 4. **Mobile search unusable** - Input ~120px wide at 375px
 5. **Agent avatar missing** - Gray placeholder circle looks unfinished
 6. **Toggle invisible** - Private Negotiation toggle nearly invisible
 7. **Modal title confusing** - "Schedule Viewing" opens "Contact Agent" modal
 
 ### Low Severity
+
 8. **Native validation tooltips** - Browser tooltips don't match design
 9. **Generic success message** - No follow-up context or agent info
 10. **Tablet footer layout** - Left-aligned content creates whitespace
@@ -53,6 +58,7 @@ A comprehensive UI audit of the Top Properties luxury real estate webapp reveale
 ### Fix 1: Price Slider Max & Formatting
 
 **Before:**
+
 ```tsx
 const getDefaultFilters = () => ({
   priceRange: [0, 10000],
@@ -64,6 +70,7 @@ ${filters.priceRange[1]}
 ```
 
 **After:**
+
 ```tsx
 const PRICE_MAX = 25000000;
 
@@ -89,6 +96,7 @@ const getDefaultFilters = () => ({
 ### Fix 2: Hide Hero During Active Search
 
 **Before:**
+
 ```tsx
 {hasVisibleResults && (
   <HeroSection ... />
@@ -96,6 +104,7 @@ const getDefaultFilters = () => ({
 ```
 
 **After:**
+
 ```tsx
 const hasActiveSearchOrFilter = searchQuery.trim() !== '' || !isDefaultFilterState(activeFilters);
 
@@ -107,11 +116,13 @@ const hasActiveSearchOrFilter = searchQuery.trim() !== '' || !isDefaultFilterSta
 ### Fix 3: Mobile Search Bar
 
 **Before:**
+
 ```tsx
 <span className="...">Filters</span>
 ```
 
 **After:**
+
 ```tsx
 <span className="... hidden sm:inline">Filters</span>
 ```
@@ -119,14 +130,18 @@ const hasActiveSearchOrFilter = searchQuery.trim() !== '' || !isDefaultFilterSta
 ### Fix 4: Agent Avatar Initials
 
 **Before:**
+
 ```tsx
 <div className="w-12 h-12 bg-gray-200 rounded-full" />
 ```
 
 **After:**
+
 ```tsx
-<div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold text-lg" 
-     style={{ backgroundColor: '#b10832' }}>
+<div
+  className="w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold text-lg"
+  style={{ backgroundColor: "#b10832" }}
+>
   SA
 </div>
 ```
@@ -134,12 +149,14 @@ const hasActiveSearchOrFilter = searchQuery.trim() !== '' || !isDefaultFilterSta
 ### Fix 5: Toggle Visibility
 
 **Before:**
+
 ```tsx
 className={`... ${on ? 'bg-green-500' : 'bg-gray-300'}`}
 <div className={`... w-8 h-8 ...`} />
 ```
 
 **After:**
+
 ```tsx
 className={`... border-2 ${on ? 'bg-[#b10832] border-[#b10832]' : 'bg-gray-200 border-gray-300'}`}
 <div className={`... w-6 h-6 border border-gray-200 ...`} />
@@ -148,11 +165,13 @@ className={`... border-2 ${on ? 'bg-[#b10832] border-[#b10832]' : 'bg-gray-200 b
 ### Fix 6: Dynamic Modal Titles
 
 **Before:**
+
 ```tsx
 <h2>Contact Agent</h2>
 ```
 
 **After:**
+
 ```tsx
 type ContactMode = 'contact' | 'viewing' | 'info';
 
@@ -170,35 +189,41 @@ const getModalConfig = (mode: ContactMode) => {
 ### Fix 7: Custom Form Validation
 
 **Before:**
+
 ```tsx
 <input required ... />
 ```
 
 **After:**
+
 ```tsx
 const [errors, setErrors] = useState<FormErrors>({});
 const [touched, setTouched] = useState({ name: false, email: false });
 
 const validateField = (name: string, value: string) => {
-  if (name === 'name' && !value.trim()) return 'Please enter your name';
-  if (name === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-    return 'Please enter a valid email address';
+  if (name === "name" && !value.trim()) return "Please enter your name";
+  if (name === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+    return "Please enter a valid email address";
   }
 };
 
-<input className={`... ${errors.name ? 'border-red-500' : 'border-gray-300'}`} />
-{errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+<input className={`... ${errors.name ? "border-red-500" : "border-gray-300"}`} />;
+{
+  errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>;
+}
 ```
 
 ### Fix 8: Improved Success Message
 
 **Before:**
+
 ```tsx
 <h3>Message Sent!</h3>
 <p>Our agent will get back to you shortly.</p>
 ```
 
 **After:**
+
 ```tsx
 <h3>Request Received!</h3>
 <p>Sarah Anderson will contact you within 24 hours to discuss your request.</p>
@@ -207,11 +232,13 @@ const validateField = (name: string, value: string) => {
 ### Fix 9: Tablet Footer Layout
 
 **Before:**
+
 ```tsx
 <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
 ```
 
 **After:**
+
 ```tsx
 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
 ```

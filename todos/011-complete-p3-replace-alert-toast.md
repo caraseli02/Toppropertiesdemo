@@ -19,6 +19,7 @@ The application uses native `alert()` for user feedback in the contact form. Nat
 ## Findings
 
 **Current Implementation:**
+
 ```typescript
 const handleSubmit = (e: React.FormEvent) => {
   e.preventDefault();
@@ -31,6 +32,7 @@ const handleSubmit = (e: React.FormEvent) => {
 ```
 
 **Problems with alert():**
+
 1. Blocks UI thread - user can't interact with page until dismissed
 2. Can be blocked by browser popup blockers
 3. Poor visual design - doesn't match app aesthetic
@@ -40,6 +42,7 @@ const handleSubmit = (e: React.FormEvent) => {
 
 **Available Alternative:**
 The app already has `sonner` (toast library) in dependencies:
+
 ```json
 "sonner": "^2.0.3"
 ```
@@ -51,17 +54,17 @@ The app already has `sonner` (toast library) in dependencies:
 **Approach:** Replace alert() with sonner toast notifications.
 
 ```typescript
-import { toast } from 'sonner';
+import { toast } from "sonner";
 
 const handleSubmit = (e: React.FormEvent) => {
   e.preventDefault();
   setIsSubmitted(true);
-  
-  toast.success('Message sent successfully!', {
-    description: 'An agent will contact you shortly.',
+
+  toast.success("Message sent successfully!", {
+    description: "An agent will contact you shortly.",
     duration: 4000,
   });
-  
+
   setTimeout(() => {
     onClose();
   }, 1500);
@@ -69,6 +72,7 @@ const handleSubmit = (e: React.FormEvent) => {
 ```
 
 **Pros:**
+
 - Non-blocking
 - Matches app design
 - Already in dependencies
@@ -76,6 +80,7 @@ const handleSubmit = (e: React.FormEvent) => {
 - Accessible
 
 **Cons:**
+
 - Need to wrap app with Toaster component
 
 **Effort:** 15 minutes
@@ -91,7 +96,7 @@ const handleSubmit = (e: React.FormEvent) => {
 ```typescript
 // components/ui/Toast.tsx
 export function useToast() {
-  const showToast = (message: string, type: 'success' | 'error') => {
+  const showToast = (message: string, type: "success" | "error") => {
     // Custom implementation
   };
   return { showToast };
@@ -99,10 +104,12 @@ export function useToast() {
 ```
 
 **Pros:**
+
 - Full control over design
 - No additional dependencies
 
 **Cons:**
+
 - Reinventing the wheel
 - More code to maintain
 - Already have sonner
@@ -130,10 +137,12 @@ export function useToast() {
 ```
 
 **Pros:**
+
 - Contextual feedback
 - No additional components needed
 
 **Cons:**
+
 - User might not see it if modal closes
 - Less noticeable
 
@@ -167,9 +176,11 @@ Used in Header for "coming soon" notifications on Favorites and Login buttons.
 ## Technical Details
 
 **Files modified:**
+
 - `src/components/Header.tsx` - Added Toast component and showToast function
 
 **Toast features:**
+
 - Non-blocking notifications
 - Custom styled to match app design
 - Auto-dismiss after 3 seconds
@@ -199,6 +210,7 @@ Used in Header for "coming soon" notifications on Favorites and Login buttons.
 **By:** Claude Code
 
 **Actions:**
+
 - Added Toast component to Header.tsx
 - Added showToast function with useState
 - Used toast for "Favorites" and "Login" notifications
@@ -207,6 +219,7 @@ Used in Header for "coming soon" notifications on Favorites and Login buttons.
 - Verified toast auto-dismisses after 3 seconds
 
 **Learnings:**
+
 - Sonner library already in dependencies
 - Custom toast component works without Sonner
 - Better UX than native alert()
@@ -214,6 +227,7 @@ Used in Header for "coming soon" notifications on Favorites and Login buttons.
 - Very quick win for user experience
 
 **Status:**
+
 - ✅ Toast notification system implemented
 - ✅ alert() replaced in Header.tsx
 - ✅ Custom styling matches app design

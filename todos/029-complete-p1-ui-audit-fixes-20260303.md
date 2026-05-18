@@ -9,6 +9,7 @@ module: top-properties-webapp
 # UI audit fixes (2026-03-03)
 
 Plan:
+
 - `docs/plans/2026-03-03-fix-top-properties-ui-audit-fixes-plan.md`
 
 ## Tasks

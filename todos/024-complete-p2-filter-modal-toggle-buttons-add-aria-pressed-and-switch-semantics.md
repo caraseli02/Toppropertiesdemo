@@ -22,14 +22,17 @@ Several filter controls behave like toggles (on/off or selected/unselected) but 
 ### Option 1: Add Switch Semantics + `aria-pressed` (Recommended)
 
 **Approach:**
+
 - For the private negotiation control: `role="switch"` + `aria-checked={filters.showTrattativa}` and ensure it has an accessible name.
 - For toggle chips: add `aria-pressed={isSelected}` to each button.
 
 **Pros:**
+
 - Minimal structural change
 - Improves a11y immediately
 
 **Cons:**
+
 - Still not a full form field (but fine for this UI)
 
 **Effort:** 30-60 minutes
@@ -43,9 +46,11 @@ Several filter controls behave like toggles (on/off or selected/unselected) but 
 **Approach:** Use an actual checkbox (visually styled as a switch) with `<label htmlFor>`.
 
 **Pros:**
+
 - Strongest semantic correctness
 
 **Cons:**
+
 - Slightly more markup / styling work
 
 **Effort:** 1-2 hours
@@ -59,6 +64,7 @@ Several filter controls behave like toggles (on/off or selected/unselected) but 
 ## Technical Details
 
 **Affected files:**
+
 - `/Users/vladislavcaraseli/Documents/Toppropertiesdemo/src/components/FilterModal.tsx`
 
 ## Acceptance Criteria
@@ -75,10 +81,12 @@ Several filter controls behave like toggles (on/off or selected/unselected) but 
 **By:** Codex
 
 **Actions:**
+
 - Audited toggle-like controls for missing state semantics
 - Documented minimal ARIA additions vs semantic input conversion
 
 **Learnings:**
+
 - For demo UIs, ARIA state props give large accessibility gains with low risk
 
 ### 2026-02-25 - Implemented
@@ -86,10 +94,12 @@ Several filter controls behave like toggles (on/off or selected/unselected) but 
 **By:** Codex
 
 **Actions:**
+
 - Added `aria-pressed` to toggle-like buttons (rent type, property type, tags, amenities).
 - Updated “Show Private Negotiation” to use `role="switch"` + `aria-checked` with proper labeling.
 - Added focus-visible ring styling to interactive toggles.
 - Verified `npm run build` passes.
 
 **Learnings:**
+
 - Exposing selection state via ARIA is an easy win for accessibility with minimal UI impact.

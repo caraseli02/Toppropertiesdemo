@@ -26,10 +26,12 @@ Search input is normalized only at submit time, while in-modal preview filtering
 **Approach:** Create a `normalizedQuery` memo and use it for preview filtering, location filtering, and submit.
 
 **Pros:**
+
 - Single source of truth
 - Predictable UX
 
 **Cons:**
+
 - Slight refactor across computed sections
 
 **Effort:** 20-40 minutes
@@ -43,9 +45,11 @@ Search input is normalized only at submit time, while in-modal preview filtering
 **Approach:** Normalize in `onChange` before setting state.
 
 **Pros:**
+
 - Simplifies downstream logic
 
 **Cons:**
+
 - Can feel surprising while typing (cursor/spacing behavior)
 
 **Effort:** 20-30 minutes
@@ -59,13 +63,16 @@ Search input is normalized only at submit time, while in-modal preview filtering
 ## Technical Details
 
 **Affected files:**
+
 - `/Users/vladislavcaraseli/Documents/Toppropertiesdemo/src/components/SearchModal.tsx:53`
 - `/Users/vladislavcaraseli/Documents/Toppropertiesdemo/src/components/SearchModal.tsx:80`
 
 **Related components:**
+
 - `SearchBar` and app-level filter service consume submitted query
 
 **Database changes (if any):**
+
 - No
 
 ## Resources
@@ -86,11 +93,13 @@ Search input is normalized only at submit time, while in-modal preview filtering
 **By:** Codex
 
 **Actions:**
+
 - Compared query handling paths in SearchModal
 - Identified mismatch between preview and submit search logic
 - Documented low-risk normalization options
 
 **Learnings:**
+
 - Input hardening is partially implemented; behavior consistency is the remaining gap
 
 ### 2026-02-25 - Implemented
@@ -98,9 +107,11 @@ Search input is normalized only at submit time, while in-modal preview filtering
 **By:** Codex
 
 **Actions:**
+
 - Added a shared `normalizedQuery` memo and used it for preview filtering and submit path.
 - Verified whitespace-heavy input no longer produces “no results” preview followed by results on submit.
 - Verified `npm run build` passes.
 
 **Learnings:**
+
 - Normalize at the edges (derived UI + submit) to avoid cursor/typing weirdness.

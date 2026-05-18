@@ -19,28 +19,30 @@ The price conversion function in App.tsx only handles 4 currencies (€, £, CHF
 ## Findings
 
 **Current Implementation:**
+
 ```typescript
 const getPriceInUSD = (priceString: string): number => {
-  const numericPrice = parseFloat(priceString.replace(/[^0-9.]/g, ''));
-  if (priceString.includes('€')) return numericPrice * 1.1;
-  if (priceString.includes('£')) return numericPrice * 1.3;
-  if (priceString.includes('CHF')) return numericPrice * 1.15;
-  if (priceString.includes('AED')) return numericPrice * 0.27;
+  const numericPrice = parseFloat(priceString.replace(/[^0-9.]/g, ""));
+  if (priceString.includes("€")) return numericPrice * 1.1;
+  if (priceString.includes("£")) return numericPrice * 1.3;
+  if (priceString.includes("CHF")) return numericPrice * 1.15;
+  if (priceString.includes("AED")) return numericPrice * 0.27;
   return numericPrice; // Assumes USD for others
 };
 ```
 
 **Missing Currencies in Properties Data:**
 
-| Currency | Symbol | Properties Affected | Current Behavior |
-|----------|--------|---------------------|------------------|
-| Japanese Yen | ¥ | Tokyo Penthouse, Kyoto Traditional | Treated as USD |
-| Australian Dollar | AUD | Seaside Retreat | Treated as USD |
-| Canadian Dollar | CAD | Eco-Friendly Home | Treated as USD |
-| Singapore Dollar | SGD | Singapore High-Rise | Treated as USD |
-| South African Rand | ZAR | Cape Town Villa | Treated as USD |
+| Currency           | Symbol | Properties Affected                | Current Behavior |
+| ------------------ | ------ | ---------------------------------- | ---------------- |
+| Japanese Yen       | ¥      | Tokyo Penthouse, Kyoto Traditional | Treated as USD   |
+| Australian Dollar  | AUD    | Seaside Retreat                    | Treated as USD   |
+| Canadian Dollar    | CAD    | Eco-Friendly Home                  | Treated as USD   |
+| Singapore Dollar   | SGD    | Singapore High-Rise                | Treated as USD   |
+| South African Rand | ZAR    | Cape Town Villa                    | Treated as USD   |
 
 **Properties with missing exchange rates:**
+
 - ¥850,000,000 (Tokyo) - treated as $850M instead of ~$5.7M
 - AUD 9,500,000 (Sydney) - treated as $9.5M instead of ~$6.2M
 - CAD 5,500,000 (Vancouver) - treated as $5.5M instead of ~$4.1M
@@ -55,36 +57,38 @@ const getPriceInUSD = (priceString: string): number => {
 
 ```typescript
 const EXCHANGE_RATES = {
-  '€': 1.1,      // EUR to USD
-  '£': 1.3,      // GBP to USD
-  'CHF': 1.15,   // CHF to USD
-  'AED': 0.27,   // AED to USD
-  '¥': 0.0067,   // JPY to USD (NEW)
-  'AUD': 0.65,   // AUD to USD (NEW)
-  'CAD': 0.74,   // CAD to USD (NEW)
-  'SGD': 0.75,   // SGD to USD (NEW)
-  'ZAR': 0.055,  // ZAR to USD (NEW)
+  "€": 1.1, // EUR to USD
+  "£": 1.3, // GBP to USD
+  CHF: 1.15, // CHF to USD
+  AED: 0.27, // AED to USD
+  "¥": 0.0067, // JPY to USD (NEW)
+  AUD: 0.65, // AUD to USD (NEW)
+  CAD: 0.74, // CAD to USD (NEW)
+  SGD: 0.75, // SGD to USD (NEW)
+  ZAR: 0.055, // ZAR to USD (NEW)
 } as const;
 
 const getPriceInUSD = (priceString: string): number => {
-  const numericPrice = parseFloat(priceString.replace(/[^0-9.]/g, ''));
-  
+  const numericPrice = parseFloat(priceString.replace(/[^0-9.]/g, ""));
+
   for (const [symbol, rate] of Object.entries(EXCHANGE_RATES)) {
     if (priceString.includes(symbol)) {
       return numericPrice * rate;
     }
   }
-  
+
   return numericPrice; // Default: assume USD
 };
 ```
 
 **Pros:**
+
 - Quick fix
 - Solves immediate problem
 - Easy to understand
 
 **Cons:**
+
 - Hardcoded rates will become outdated
 - Magic numbers
 
@@ -102,16 +106,16 @@ const getPriceInUSD = (priceString: string): number => {
 // lib/currency.ts
 export const CURRENCY_CONFIG = {
   rates: {
-    EUR: { symbol: '€', rate: 1.1, name: 'Euro' },
-    GBP: { symbol: '£', rate: 1.3, name: 'British Pound' },
-    CHF: { symbol: 'CHF', rate: 1.15, name: 'Swiss Franc' },
-    AED: { symbol: 'AED', rate: 0.27, name: 'UAE Dirham' },
-    JPY: { symbol: '¥', rate: 0.0067, name: 'Japanese Yen' },
-    AUD: { symbol: 'AUD', rate: 0.65, name: 'Australian Dollar' },
-    CAD: { symbol: 'CAD', rate: 0.74, name: 'Canadian Dollar' },
-    SGD: { symbol: 'SGD', rate: 0.75, name: 'Singapore Dollar' },
-    ZAR: { symbol: 'ZAR', rate: 0.055, name: 'South African Rand' },
-    USD: { symbol: '$', rate: 1.0, name: 'US Dollar' },
+    EUR: { symbol: "€", rate: 1.1, name: "Euro" },
+    GBP: { symbol: "£", rate: 1.3, name: "British Pound" },
+    CHF: { symbol: "CHF", rate: 1.15, name: "Swiss Franc" },
+    AED: { symbol: "AED", rate: 0.27, name: "UAE Dirham" },
+    JPY: { symbol: "¥", rate: 0.0067, name: "Japanese Yen" },
+    AUD: { symbol: "AUD", rate: 0.65, name: "Australian Dollar" },
+    CAD: { symbol: "CAD", rate: 0.74, name: "Canadian Dollar" },
+    SGD: { symbol: "SGD", rate: 0.75, name: "Singapore Dollar" },
+    ZAR: { symbol: "ZAR", rate: 0.055, name: "South African Rand" },
+    USD: { symbol: "$", rate: 1.0, name: "US Dollar" },
   },
   // Note: Rates as of Feb 2026, should be updated periodically
 } as const;
@@ -122,11 +126,13 @@ export function convertToUSD(priceString: string): number {
 ```
 
 **Pros:**
+
 - Better organization
 - Self-documenting
 - Easier to maintain
 
 **Cons:**
+
 - Still hardcoded rates
 
 **Effort:** 30 minutes
@@ -143,22 +149,24 @@ export function convertToUSD(priceString: string): number {
 // hooks/useExchangeRates.ts
 export function useExchangeRates() {
   const [rates, setRates] = useState<ExchangeRates | null>(null);
-  
+
   useEffect(() => {
-    fetch('https://api.exchangerate-api.com/v4/latest/USD')
-      .then(res => res.json())
-      .then(data => setRates(data.rates));
+    fetch("https://api.exchangerate-api.com/v4/latest/USD")
+      .then((res) => res.json())
+      .then((data) => setRates(data.rates));
   }, []);
-  
+
   return rates;
 }
 ```
 
 **Pros:**
+
 - Accurate rates
 - Always up-to-date
 
 **Cons:**
+
 - Requires network request
 - Adds complexity
 - API dependency
@@ -178,9 +186,11 @@ Implemented fix for missing currency exchange rates:
 ## Technical Details
 
 **Files modified:**
+
 - `src/App.tsx:610-617` - getPriceInUSD function
 
 **Added exchange rates:**
+
 - ¥ (JPY): 0.0067 - Japanese Yen
 - AUD: 0.65 - Australian Dollar
 - CAD: 0.74 - Canadian Dollar
@@ -188,6 +198,7 @@ Implemented fix for missing currency exchange rates:
 - ZAR: 0.055 - South African Rand
 
 **Properties now correctly handled:**
+
 - Tokyo Penthouse: ¥850,000,000 → ~$5.7M
 - Sydney Seaside: AUD 9,500,000 → ~$6.2M
 - Eco-Friendly Home: CAD 5,500,000 → ~$4.1M
@@ -216,12 +227,14 @@ Implemented fix for missing currency exchange rates:
 **By:** Claude Code (Kieran TypeScript Reviewer)
 
 **Actions:**
+
 - Analyzed getPriceInUSD function
 - Cross-referenced with property data
 - Identified 5 missing currencies
 - Calculated impact on filtering accuracy
 
 **Learnings:**
+
 - 8 out of 24 properties have unsupported currencies
 - Multi-character currency codes need different detection
 - Hardcoded rates will drift over time
@@ -234,6 +247,7 @@ Implemented fix for missing currency exchange rates:
 **By:** Claude Code
 
 **Actions:**
+
 - Added ¥ rate: 0.0067 (JPY to USD)
 - Added AUD rate: 0.65 (AUD to USD)
 - Added CAD rate: 0.74 (CAD to USD)
@@ -244,6 +258,7 @@ Implemented fix for missing currency exchange rates:
 - Built successfully with no errors
 
 **Learnings:**
+
 - All 9 currencies now supported
 - Filter accuracy improved for 8 properties
 - Simple iterative approach works well
@@ -251,6 +266,7 @@ Implemented fix for missing currency exchange rates:
 - Should consider real-time API for production
 
 **Status:**
+
 - ✅ All 5 missing currency rates added
 - ✅ Currency detection logic updated
 - ✅ Price filtering works for all properties

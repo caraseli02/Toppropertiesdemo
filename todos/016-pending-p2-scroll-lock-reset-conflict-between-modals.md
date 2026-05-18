@@ -34,10 +34,12 @@ Body scroll locking is managed independently in multiple modal components. Closi
 **Approach:** Implement a shared scroll-lock utility/hook using a reference counter (lock++ on open, lock-- on close, unlock only at zero).
 
 **Pros:**
+
 - Correct behavior for nested/stacked modals.
 - Reusable across app.
 
 **Cons:**
+
 - Slightly more setup than local effects.
 
 **Effort:** Medium
@@ -51,10 +53,12 @@ Body scroll locking is managed independently in multiple modal components. Closi
 **Approach:** Keep lock only at top-level container (`PropertyDetail`), remove body-overflow effects from child modals.
 
 **Pros:**
+
 - Simpler than global manager for this demo app.
 - Fixes immediate nested conflict.
 
 **Cons:**
+
 - Must ensure other modal entry points still lock correctly.
 
 **Effort:** Small
@@ -66,6 +70,7 @@ Body scroll locking is managed independently in multiple modal components. Closi
 ## Technical Details
 
 Affected files:
+
 - `/Users/vladislavcaraseli/Documents/Toppropertiesdemo/src/components/PropertyDetail.tsx`
 - `/Users/vladislavcaraseli/Documents/Toppropertiesdemo/src/components/ContactModal.tsx`
 - `/Users/vladislavcaraseli/Documents/Toppropertiesdemo/src/components/SearchModal.tsx`
@@ -87,10 +92,12 @@ Affected files:
 **By:** Codex
 
 **Actions:**
+
 - Traced body overflow writes in modal components.
 - Reproduced nested flow and observed overflow reset to `unset` while detail was still open.
 
 **Learnings:**
+
 - Independent `document.body.style.overflow` effects create modal-stack race/conflict.
 
 ### 2026-02-18 - Fix Applied
@@ -98,11 +105,13 @@ Affected files:
 **By:** Codex
 
 **Actions:**
+
 - Added shared hook: `src/hooks/useBodyScrollLock.ts` with reference counting.
 - Replaced direct `document.body.style.overflow` writes in `PropertyDetail`, `ContactModal`, `SearchModal`, and `FilterModal`.
 - Revalidated nested modal flow in browser automation.
 
 **Validation:**
+
 - With property detail open: `document.body.style.overflow` is `"hidden"`.
 - After opening and closing contact modal: overflow remains `"hidden"`.
 - After closing property detail: overflow resets to `""`.

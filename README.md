@@ -17,13 +17,13 @@ Luxury real estate browser with interactive maps, multi-currency pricing, and ad
 
 ## Tech Stack
 
-| Layer | Tech |
-|---|---|
-| UI | React 18, Lucide Icons, shadcn/ui components |
-| Maps | Leaflet, react-leaflet |
-| Styling | CSS modules, Tailwind utilities |
-| Build | Vite 6, SWC |
-| Types | TypeScript (union types for domain safety) |
+| Layer   | Tech                                         |
+| ------- | -------------------------------------------- |
+| UI      | React 18, Lucide Icons, shadcn/ui components |
+| Maps    | Leaflet, react-leaflet                       |
+| Styling | CSS modules, Tailwind utilities              |
+| Build   | Vite 6, SWC                                  |
+| Types   | TypeScript (union types for domain safety)   |
 
 ## Getting Started
 

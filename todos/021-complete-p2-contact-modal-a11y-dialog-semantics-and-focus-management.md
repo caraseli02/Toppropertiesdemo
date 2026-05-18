@@ -23,15 +23,18 @@ dependencies: []
 ### Option 1: Minimal Semantics + Initial Focus (Recommended)
 
 **Approach:**
+
 - Add `role="dialog" aria-modal="true" aria-labelledby="contact-modal-title"`.
 - Add `aria-label="Close"` to the icon button.
 - Focus the first input on open via `useRef` + `useEffect`.
 
 **Pros:**
+
 - Small, safe change
 - Fixes the most visible a11y gaps quickly
 
 **Cons:**
+
 - Still allows focus to escape the modal
 
 **Effort:** 30-60 minutes
@@ -45,9 +48,11 @@ dependencies: []
 **Approach:** Implement a lightweight focus trap (or adopt a proven dialog primitive if the project already uses one).
 
 **Pros:**
+
 - Full keyboard-accessible modal behavior
 
 **Cons:**
+
 - Higher implementation complexity / regression risk
 
 **Effort:** 1-2 hours
@@ -61,6 +66,7 @@ dependencies: []
 ## Technical Details
 
 **Affected files:**
+
 - `/Users/vladislavcaraseli/Documents/Toppropertiesdemo/src/components/ContactModal.tsx`
 
 ## Acceptance Criteria
@@ -77,10 +83,12 @@ dependencies: []
 **By:** Codex
 
 **Actions:**
+
 - Compared modal semantics between `ContactModal` vs `SearchModal` / `FilterModal`
 - Identified missing aria wiring and focus setup
 
 **Learnings:**
+
 - “Good enough” semantics + initial focus is a high ROI improvement for demos
 
 ### 2026-02-25 - Implemented
@@ -88,10 +96,12 @@ dependencies: []
 **By:** Codex
 
 **Actions:**
+
 - Added `role="dialog"`, `aria-modal`, and `aria-labelledby` wiring.
 - Added accessible name + focus-visible styles to the icon-only close button.
 - Implemented initial focus on the Full Name field when opened.
 - Verified `npm run build` passes.
 
 **Learnings:**
+
 - Minimal dialog semantics + initial focus covers the most obvious accessibility gaps without needing a focus trap.

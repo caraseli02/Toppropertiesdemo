@@ -183,9 +183,9 @@ Pseudo:
 ```tsx
 // src/components/ContactModal.tsx
 useEffect(() => {
-  const onKey = (e: KeyboardEvent) => e.key === 'Escape' && isOpen && onClose();
-  document.addEventListener('keydown', onKey);
-  return () => document.removeEventListener('keydown', onKey);
+  const onKey = (e: KeyboardEvent) => e.key === "Escape" && isOpen && onClose();
+  document.addEventListener("keydown", onKey);
+  return () => document.removeEventListener("keydown", onKey);
 }, [isOpen, onClose]);
 ```
 

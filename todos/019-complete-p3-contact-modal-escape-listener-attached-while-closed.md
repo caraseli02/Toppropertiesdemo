@@ -25,10 +25,12 @@ The contact modal now adds a document-level `keydown` listener regardless of ope
 **Approach:** Early-return inside `useEffect` when `!isOpen`; only add/remove listener during open lifecycle.
 
 **Pros:**
+
 - Cleaner event lifecycle
 - Fewer global listeners
 
 **Cons:**
+
 - None significant
 
 **Effort:** 10-15 minutes
@@ -42,10 +44,12 @@ The contact modal now adds a document-level `keydown` listener regardless of ope
 **Approach:** Move Escape handling to shared hook (`useEscapeToClose`) and reuse across modals.
 
 **Pros:**
+
 - Consistent behavior
 - Less duplicate modal logic
 
 **Cons:**
+
 - Slightly larger refactor
 
 **Effort:** 30-60 minutes
@@ -59,12 +63,15 @@ The contact modal now adds a document-level `keydown` listener regardless of ope
 ## Technical Details
 
 **Affected files:**
+
 - `/Users/vladislavcaraseli/Documents/Toppropertiesdemo/src/components/ContactModal.tsx:22`
 
 **Related components:**
+
 - `FilterModal`, `SearchModal` (similar Escape patterns)
 
 **Database changes (if any):**
+
 - No
 
 ## Resources
@@ -85,11 +92,13 @@ The contact modal now adds a document-level `keydown` listener regardless of ope
 **By:** Codex
 
 **Actions:**
+
 - Reviewed Escape key implementation in ContactModal
 - Confirmed listener lifecycle currently spans closed state
 - Documented scoped listener options and validation criteria
 
 **Learnings:**
+
 - Existing hook structure allows low-risk cleanup with minimal code churn
 
 ### 2026-02-25 - Implemented
@@ -97,9 +106,11 @@ The contact modal now adds a document-level `keydown` listener regardless of ope
 **By:** Codex
 
 **Actions:**
+
 - Scoped Escape key listener to open state (`if (!isOpen) return;` inside effect).
 - Verified modal still closes on Escape.
 - Verified `npm run build` passes.
 
 **Learnings:**
+
 - Keeping event listeners strictly lifecycle-scoped reduces modal interaction drift.

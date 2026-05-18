@@ -13,6 +13,7 @@ dependencies: []
 Type definitions are scattered across multiple files with duplication and inconsistencies. The `Property` interface is defined in App.tsx but extended/redefined in PropertyDetail.tsx, and `FilterState` is duplicated in both App.tsx and FilterModal.tsx.
 
 **Affected files:**
+
 - `src/App.tsx` (lines 13-30, 509-518) - Property and FilterState
 - `src/components/PropertyDetail.tsx` (lines 9-28) - Partial Property redefinition
 - `src/components/FilterModal.tsx` (lines 4-13) - FilterState duplicate
@@ -25,27 +26,90 @@ Type definitions are scattered across multiple files with duplication and incons
 **Type Duplication Issues:**
 
 1. **Property Interface** - 3 variations:
+
    ```typescript
    // App.tsx - Full definition
-   interface Property { id, image, title, location, price, beds, baths, sqft, featured, lat, lng, gallery?, description?, yearBuilt?, propertyType?, amenities? }
-   
+   interface Property {
+     id;
+     image;
+     title;
+     location;
+     price;
+     beds;
+     baths;
+     sqft;
+     featured;
+     lat;
+     lng;
+     gallery?;
+     description?;
+     yearBuilt?;
+     propertyType?;
+     amenities?;
+   }
+
    // PropertyDetail.tsx - Partial/extended
-   interface PropertyDetailProps { property: { id, image, title, location, price, beds, baths, sqft, description?, yearBuilt?, propertyType?, gallery?, amenities?, virtualTour?, lat, lng } }
-   
+   interface PropertyDetailProps {
+     property: {
+       id;
+       image;
+       title;
+       location;
+       price;
+       beds;
+       baths;
+       sqft;
+       description?;
+       yearBuilt?;
+       propertyType?;
+       gallery?;
+       amenities?;
+       virtualTour?;
+       lat;
+       lng;
+     };
+   }
+
    // MapView.tsx - Subset
-   interface PropertyMarker { id, lat, lng, price, title }
+   interface PropertyMarker {
+     id;
+     lat;
+     lng;
+     price;
+     title;
+   }
    ```
 
 2. **FilterState Interface** - 2 identical definitions:
+
    ```typescript
    // App.tsx lines 509-518
-   interface FilterState { rentType, priceRange, showTrattativa, propertyTypes, rooms, beds, sqm, tags }
-   
+   interface FilterState {
+     rentType;
+     priceRange;
+     showTrattativa;
+     propertyTypes;
+     rooms;
+     beds;
+     sqm;
+     tags;
+   }
+
    // FilterModal.tsx lines 4-13
-   interface FilterState { rentType, priceRange, showTrattativa, propertyTypes, rooms, beds, sqm, tags }
+   interface FilterState {
+     rentType;
+     priceRange;
+     showTrattativa;
+     propertyTypes;
+     rooms;
+     beds;
+     sqm;
+     tags;
+   }
    ```
 
 **Problems:**
+
 - Maintenance nightmare - changes need to be made in multiple places
 - Risk of interfaces drifting apart
 - No single source of truth
@@ -79,11 +143,11 @@ export interface Property {
   virtualTour?: string;
 }
 
-export type PropertyMarker = Pick<Property, 'id' | 'lat' | 'lng' | 'price' | 'title'>;
+export type PropertyMarker = Pick<Property, "id" | "lat" | "lng" | "price" | "title">;
 
 // src/types/filters.ts
 export interface FilterState {
-  rentType: 'short' | 'long' | 'sale';
+  rentType: "short" | "long" | "sale";
   priceRange: [number, number];
   showTrattativa: boolean;
   propertyTypes: string[];
@@ -94,17 +158,19 @@ export interface FilterState {
 }
 
 // src/types/index.ts
-export * from './property';
-export * from './filters';
+export * from "./property";
+export * from "./filters";
 ```
 
 **Pros:**
+
 - Single source of truth
 - Easy to maintain
 - Clear organization
 - TypeScript barrel exports
 
 **Cons:**
+
 - More files to manage
 
 **Effort:** 30 minutes
@@ -127,10 +193,12 @@ src/
 ```
 
 **Pros:**
+
 - Types close to usage
 - Feature-based organization
 
 **Cons:**
+
 - Harder to share across features
 - Multiple type files
 
@@ -154,10 +222,12 @@ interface PropertyDetailProps { property: Property; }
 ```
 
 **Pros:**
+
 - No new files
 - Uses ES modules
 
 **Cons:**
+
 - Creates tight coupling
 - Circular dependency risk
 - App.tsx becomes type definition file
@@ -179,17 +249,20 @@ Implement Option 1 (Centralized Types Directory):
 ## Technical Details
 
 **Files to create:**
+
 - `src/types/property.ts`
 - `src/types/filters.ts`
 - `src/types/index.ts`
 
 **Files to modify:**
+
 - `src/App.tsx` - Remove inline interfaces, import from types
 - `src/components/PropertyDetail.tsx` - Import Property type
 - `src/components/FilterModal.tsx` - Import FilterState
 - `src/components/MapView.tsx` - Import PropertyMarker
 
 **Type relationships:**
+
 ```
 Property (base)
   └── PropertyMarker (Pick subset)
@@ -222,12 +295,14 @@ FilterState (standalone)
 **By:** Claude Code (Architecture Strategist)
 
 **Actions:**
+
 - Analyzed type definitions across files
 - Identified 3 variations of Property interface
 - Found duplicate FilterState definitions
 - Evaluated type organization patterns
 
 **Learnings:**
+
 - Property interface defined in 3 places with slight variations
 - FilterState duplicated in App.tsx and FilterModal.tsx
 - Type drift already starting (PropertyDetail has virtualTour, App doesn't)

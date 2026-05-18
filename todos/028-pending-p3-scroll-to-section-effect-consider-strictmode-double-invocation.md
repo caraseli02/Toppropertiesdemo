@@ -24,10 +24,12 @@ The new “scroll to map/properties after switching view mode” behavior is imp
 **Approach:** Track the last `(pendingScrollTarget, viewMode)` pair in a ref and skip if already applied in the current commit.
 
 **Pros:**
+
 - Keeps current architecture
 - Removes potential dev-only jank
 
 **Cons:**
+
 - Slight added complexity for a dev-only issue
 
 **Effort:** 20-40 minutes
@@ -41,9 +43,11 @@ The new “scroll to map/properties after switching view mode” behavior is imp
 **Approach:** Do nothing unless it shows up in recordings.
 
 **Pros:**
+
 - Zero complexity
 
 **Cons:**
+
 - May appear in demo captures if run in dev mode
 
 **Effort:** 0 minutes
@@ -66,8 +70,9 @@ The new “scroll to map/properties after switching view mode” behavior is imp
 **By:** Codex
 
 **Actions:**
+
 - Reviewed effect-based scroll implementation and noted StrictMode behavior risk
 
 **Learnings:**
-- Idempotency guards are often cheaper than debugging “only in dev” UI behavior later
 
+- Idempotency guards are often cheaper than debugging “only in dev” UI behavior later

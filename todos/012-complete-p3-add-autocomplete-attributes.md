@@ -19,6 +19,7 @@ The contact form inputs lack autocomplete attributes, which help browsers with a
 ## Findings
 
 **Current Inputs (no autocomplete):**
+
 ```typescript
 <input
   type="text"
@@ -48,11 +49,13 @@ The contact form inputs lack autocomplete attributes, which help browsers with a
 ```
 
 **Missing Attributes:**
+
 - `name` - Input name for form submission
 - `autoComplete` - Helps browsers autofill correctly
 - `aria-label` or `<label>` - For screen readers
 
 **Impact:**
+
 - Users can't use browser autofill
 - Screen readers lack context
 - Mobile keyboards don't optimize for input type
@@ -111,12 +114,14 @@ The contact form inputs lack autocomplete attributes, which help browsers with a
 ```
 
 **Pros:**
+
 - Better accessibility
 - Browser autofill works
 - Mobile keyboards optimized
 - HTML5 standard
 
 **Cons:**
+
 - None
 
 **Effort:** 15 minutes
@@ -141,11 +146,13 @@ const { register, handleSubmit } = useForm();
 ```
 
 **Pros:**
+
 - Validation built-in
 - Better form state management
 - Already in dependencies
 
 **Cons:**
+
 - More refactoring
 - Overkill for simple form
 
@@ -160,10 +167,12 @@ const { register, handleSubmit } = useForm();
 **Approach:** Full accessibility audit of all forms.
 
 **Pros:**
+
 - Complete accessibility compliance
 - WCAG compliance
 
 **Cons:**
+
 - Larger scope
 - More time intensive
 
@@ -186,14 +195,17 @@ Implement Option 1 (Add Autocomplete Attributes):
 ## Technical Details
 
 **Files to modify:**
+
 - `src/components/ContactModal.tsx` - Add labels and autocomplete
 
 **Autocomplete values:**
+
 - `name` - Full name
 - `email` - Email address
 - `tel` - Telephone number
 
 **Related form components:**
+
 - Search inputs (SearchBar.tsx, SearchModal.tsx)
 - Filter inputs (FilterModal.tsx)
 
@@ -223,19 +235,23 @@ Implement Option 1 (Add Autocomplete Attributes):
 **By:** Codex
 
 **Actions:**
+
 - Added `id`/`name`/`autoComplete` and `inputMode` to contact form fields.
 - Linked labels to inputs with `htmlFor` (`src/components/ContactModal.tsx`).
 
 **Learnings:**
+
 - Tying `label[htmlFor]` to `input#id` is a high-leverage a11y win.
 
 **Actions:**
+
 - Reviewed ContactModal.tsx form implementation
 - Identified missing autocomplete attributes
 - Checked for label associations
 - Evaluated accessibility impact
 
 **Learnings:**
+
 - Autocomplete attributes improve UX significantly
 - Labels are required for accessibility
 - Very easy fix with high accessibility impact

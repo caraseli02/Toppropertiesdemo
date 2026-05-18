@@ -12,6 +12,7 @@ Frontend-only polish to make the Top Properties luxury real estate app productio
 ## Why This Approach
 
 We chose the incremental approach because it delivers the most noticeable improvements quickly while maintaining flexibility. The user confirmed:
+
 - Frontend polish only (no backend integration)
 - Anonymous browsing (no user accounts)
 - Contact form is demo-only
@@ -26,12 +27,14 @@ This approach starts with quick wins (performance fixes, code organization) befo
 **Anonymous-Only Experience**: Users can browse, search, filter, and view properties without creating accounts. No favorites persistence, saved searches, or user profiles needed.
 
 **Performance First Strategy**: Before adding new UX features, we'll fix performance issues:
+
 - Add React.memo to MapView and PropertyCard to prevent unnecessary re-renders
 - Use useMemo for filtered properties instead of derived state via useEffect
 - Move 475 lines of hardcoded data from App.tsx to src/data/properties.ts
 - Extract shared types to src/types/ directory to eliminate duplication
 
 **UX Enhancements**: After performance and code structure improvements, we'll add:
+
 - Image lightbox/zoom for property galleries
 - Better animations and transitions
 - Enhanced filtering UI (amenities, features)
@@ -50,6 +53,7 @@ This approach starts with quick wins (performance fixes, code organization) befo
 ## Next Steps
 
 → `/workflows:plan` for implementation details on:
+
 1. Extract property data to src/data/properties.ts
 2. Create src/types/ directory with shared types
 3. Add React.memo and useMemo optimizations

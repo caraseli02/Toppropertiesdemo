@@ -143,7 +143,7 @@ Pseudo:
 
 ```tsx
 // src/App.tsx
-<Header onOpenMap={() => setViewMode('map')} onOpenGrid={() => setViewMode('grid')} />
+<Header onOpenMap={() => setViewMode("map")} onOpenGrid={() => setViewMode("grid")} />
 ```
 
 #### 4. Fix empty-state reset recovery
@@ -161,7 +161,7 @@ Pseudo:
 ```tsx
 // src/App.tsx
 setActiveFilters(defaultFilters);
-setSearchQuery('');
+setSearchQuery("");
 ```
 
 ### Phase 2: Demo Polish for Mobile Usability
