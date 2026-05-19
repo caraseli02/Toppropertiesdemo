@@ -2,7 +2,7 @@ import { Building2, Mail, Phone, MapPin } from "lucide-react";
 
 const footerLinks = {
   properties: [
-    { label: "Featured Properties", href: "#properties-section" },
+    { label: "Featured Properties", href: "#properties" },
     { label: "New Listings", href: "#" },
     { label: "Price Reduced", href: "#" },
     { label: "Off-Market", href: "#" },
@@ -61,14 +61,14 @@ const socialIcons = [
   },
 ];
 
-export function Footer() {
+export default function Footer() {
   return (
     <footer className="bg-charcoal border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 lg:gap-8">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <a href="/" className="flex items-center gap-3 mb-6">
+            <a href="#" className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-lg bg-burgundy flex items-center justify-center">
                 <Building2 className="w-5 h-5 text-white" />
               </div>
@@ -153,27 +153,27 @@ export function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-burgundy-light mt-0.5 flex-shrink-0" />
                 <span className="text-white/40 text-sm">
-                  Passeig de Gràcia
+                  450 Park Avenue, Suite 2100
                   <br />
-                  Barcelona 08007
+                  New York, NY 10022
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-burgundy-light flex-shrink-0" />
                 <a
-                  href="tel:+15551234567"
+                  href="tel:+12125551234"
                   className="text-white/40 text-sm hover:text-white transition-colors"
                 >
-                  +1 (555) 123-4567
+                  +1 (212) 555-1234
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-burgundy-light flex-shrink-0" />
                 <a
-                  href="mailto:hello@topproperties.demo"
+                  href="mailto:hello@topproperties.com"
                   className="text-white/40 text-sm hover:text-white transition-colors"
                 >
-                  hello@topproperties.demo
+                  hello@topproperties.com
                 </a>
               </li>
             </ul>

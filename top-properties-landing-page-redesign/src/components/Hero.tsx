@@ -1,22 +1,7 @@
 import { motion } from "framer-motion";
 import { Search, ChevronRight } from "lucide-react";
-import type { Property } from "@/types";
 
-interface HeroSectionProps {
-  properties: readonly Property[];
-  onViewProperty: (property: Property) => void;
-  onSearchClick: () => void;
-  onFilterClick: () => void;
-}
-
-export function HeroSection({
-  properties,
-  onViewProperty,
-  onSearchClick,
-  onFilterClick,
-}: HeroSectionProps) {
-  const firstFeatured = properties.find((p) => p.featured) || properties[0];
-
+export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -68,21 +53,19 @@ export function HeroSection({
             transition={{ duration: 0.8, delay: 0.7 }}
             className="flex flex-col sm:flex-row gap-4"
           >
-            <button
-              onClick={() => firstFeatured && onViewProperty(firstFeatured)}
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-burgundy text-white rounded-full font-semibold text-base hover:bg-burgundy-dark transition-all duration-300 group cursor-pointer"
+            <a
+              href="#properties"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-burgundy text-white rounded-full font-semibold text-base hover:bg-burgundy-dark transition-all duration-300 group"
             >
               Explore Properties
               <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button
-              onClick={() =>
-                document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
-              }
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-full font-semibold text-base border border-white/20 hover:bg-white/20 transition-all duration-300 cursor-pointer"
+            </a>
+            <a
+              href="#contact"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-full font-semibold text-base border border-white/20 hover:bg-white/20 transition-all duration-300"
             >
               Schedule a Private Viewing
-            </button>
+            </a>
           </motion.div>
         </div>
 
@@ -95,43 +78,43 @@ export function HeroSection({
         >
           <div className="bg-white/95 backdrop-blur-md rounded-2xl p-6 lg:p-8 shadow-2xl max-w-4xl">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="space-y-2 cursor-pointer" onClick={onSearchClick}>
-                <label className="text-xs uppercase tracking-wider text-warm-gray font-semibold cursor-pointer">
+              <div className="space-y-2">
+                <label className="text-xs uppercase tracking-wider text-warm-gray font-semibold">
                   Location
                 </label>
                 <input
                   type="text"
                   placeholder="City, neighborhood..."
-                  readOnly
-                  className="w-full px-4 py-3 bg-cream rounded-xl text-charcoal placeholder:text-warm-gray/60 focus:outline-none focus:ring-2 focus:ring-burgundy/30 text-sm cursor-pointer"
+                  className="w-full px-4 py-3 bg-cream rounded-xl text-charcoal placeholder:text-warm-gray/60 focus:outline-none focus:ring-2 focus:ring-burgundy/30 text-sm"
                 />
               </div>
-
-              <div className="space-y-2 cursor-pointer" onClick={onFilterClick}>
-                <label className="text-xs uppercase tracking-wider text-warm-gray font-semibold cursor-pointer">
+              <div className="space-y-2">
+                <label className="text-xs uppercase tracking-wider text-warm-gray font-semibold">
                   Property Type
                 </label>
-                <div className="w-full px-4 py-3 bg-cream rounded-xl text-warm-gray/60 text-left text-sm cursor-pointer flex justify-between items-center h-[44px]">
-                  <span>All Types</span>
-                  <span className="text-[10px] text-warm-gray">▼</span>
-                </div>
+                <select className="w-full px-4 py-3 bg-cream rounded-xl text-charcoal focus:outline-none focus:ring-2 focus:ring-burgundy/30 text-sm appearance-none cursor-pointer">
+                  <option>All Types</option>
+                  <option>Villa</option>
+                  <option>Penthouse</option>
+                  <option>Estate</option>
+                  <option>Apartment</option>
+                  <option>Chalet</option>
+                </select>
               </div>
-
-              <div className="space-y-2 cursor-pointer" onClick={onFilterClick}>
-                <label className="text-xs uppercase tracking-wider text-warm-gray font-semibold cursor-pointer">
+              <div className="space-y-2">
+                <label className="text-xs uppercase tracking-wider text-warm-gray font-semibold">
                   Budget
                 </label>
-                <div className="w-full px-4 py-3 bg-cream rounded-xl text-warm-gray/60 text-left text-sm cursor-pointer flex justify-between items-center h-[44px]">
-                  <span>Any Budget</span>
-                  <span className="text-[10px] text-warm-gray">▼</span>
-                </div>
+                <select className="w-full px-4 py-3 bg-cream rounded-xl text-charcoal focus:outline-none focus:ring-2 focus:ring-burgundy/30 text-sm appearance-none cursor-pointer">
+                  <option>Any Budget</option>
+                  <option>$1M - $5M</option>
+                  <option>$5M - $10M</option>
+                  <option>$10M - $25M</option>
+                  <option>$25M+</option>
+                </select>
               </div>
-
               <div className="flex items-end">
-                <button
-                  onClick={onSearchClick}
-                  className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-burgundy text-white rounded-xl font-semibold text-sm hover:bg-burgundy-dark transition-all duration-300 cursor-pointer h-[44px]"
-                >
+                <button className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-burgundy text-white rounded-xl font-semibold text-sm hover:bg-burgundy-dark transition-all duration-300">
                   <Search className="w-4 h-4" />
                   Search
                 </button>
