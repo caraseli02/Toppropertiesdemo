@@ -372,7 +372,7 @@ export default function App() {
                       {featuredProperties.slice(0, 6).map((property, index) => (
                         <div
                           key={property.id}
-                          className={index === 0 ? "md:col-span-2 md:row-span-2" : ""}
+                          className={`h-full ${index === 0 ? "md:col-span-2 md:row-span-2" : ""}`}
                         >
                           <PropertyCard
                             {...property}

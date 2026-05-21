@@ -33,11 +33,11 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
 
   return (
     <article
-      className="bg-white overflow-hidden border border-[var(--border-default)] hover:shadow-lg transition-shadow duration-300 group"
+      className="bg-white overflow-hidden border border-[var(--border-default)] hover:shadow-lg transition-shadow duration-300 group h-full flex flex-col"
       style={{ borderRadius: "8px" }}
     >
       <div
-        className="relative overflow-hidden bg-[linear-gradient(135deg,#f7f2ec_0%,#ece3d8_48%,#d8c9ba_100%)]"
+        className="relative overflow-hidden bg-[linear-gradient(135deg,#f7f2ec_0%,#ece3d8_48%,#d8c9ba_100%)] flex-shrink-0"
         style={{ aspectRatio: "4/3" }}
       >
         <button
@@ -89,7 +89,7 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
         </div>
       </div>
 
-      <div className="p-4">
+      <div className="p-4 flex flex-col flex-1">
         <div className="mb-2">
           <h3 className="font-display text-[18px] text-ink mb-1 line-clamp-1" title={title}>
             {title}
