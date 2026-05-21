@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Building2 } from "lucide-react";
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 
 interface HeaderProps {
   onNavigateToMap?: () => void;
@@ -21,6 +22,7 @@ export function Header({
 }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  useBodyScrollLock(mobileOpen);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -194,14 +196,14 @@ export function Header({
                 </button>
               )}
               <button
-                onClick={() => onNavigateToProperties?.()}
+                onClick={onOpenLogin}
                 className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer ${
                   scrolled
                     ? "bg-burgundy text-white hover:bg-burgundy-dark"
                     : "bg-white text-charcoal hover:bg-white/90"
                 }`}
               >
-                Explore Properties
+                Client Portal
               </button>
             </div>
 
@@ -229,8 +231,19 @@ export function Header({
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-40 bg-white pt-24 px-6 overflow-y-auto"
             style={{ zIndex: 1100 }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile navigation"
           >
-            <div className="flex flex-col gap-6">
+            <button
+              type="button"
+              onClick={() => setMobileOpen(false)}
+              className="absolute top-5 right-5 flex h-11 w-11 items-center justify-center rounded-full border border-charcoal/10 bg-white text-charcoal shadow-sm lg:flex"
+              aria-label="Close navigation menu"
+            >
+              <X className="h-5 w-5" />
+            </button>
+            <div className="mx-auto flex w-full max-w-md flex-col gap-6">
               {navLinks.map((link, i) => (
                 <motion.button
                   key={link.label}

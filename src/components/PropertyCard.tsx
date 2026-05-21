@@ -1,6 +1,7 @@
 import { Heart, MapPin, Bed, Bath } from "lucide-react";
 import { useState } from "react";
 import React from "react";
+import { formatUsdComparison } from "@/services/priceService";
 
 interface PropertyCardProps {
   id: string;
@@ -28,6 +29,7 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
 }: PropertyCardProps) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const usdComparison = formatUsdComparison(price);
 
   return (
     <article
@@ -110,7 +112,14 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
         </div>
 
         <div className="flex items-center justify-between">
-          <p className="text-[24px] font-bold text-[var(--brand)] leading-tight">{price}</p>
+          <div>
+            <p className="text-[24px] font-bold text-[var(--brand)] leading-tight">{price}</p>
+            {usdComparison && (
+              <p className="mt-1 text-xs font-medium text-[var(--text-secondary)]">
+                {usdComparison}
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </article>

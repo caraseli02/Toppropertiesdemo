@@ -366,7 +366,7 @@ export const properties: readonly Property[] = [
   {
     id: "16",
     image:
-      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "https://images.unsplash.com/photo-1600566753086-00f18cf6b3ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     title: "Eco-Friendly Home",
     location: "Vancouver, Canada",
     price: "CAD 5,500,000",
@@ -381,8 +381,8 @@ export const properties: readonly Property[] = [
     description:
       "Vancouver's greenest luxury home, featuring solar arrays, a living green roof, and rainwater harvesting systems. Certified LEED Platinum with smart-controlled climate and energy management.",
     gallery: [
-      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
       "https://images.unsplash.com/photo-1600566753086-00f18cf6b3ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     ],
     amenities: ["Solar Panels", "Green Roof", "Rainwater Harvesting", "Smart Controls"] as const,
   },
@@ -486,7 +486,7 @@ export const properties: readonly Property[] = [
   {
     id: "21",
     image:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "https://images.unsplash.com/photo-1600566752355-35792bedcfe1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     title: "Kyoto Traditional",
     location: "Kyoto, Japan",
     price: "¥250,000,000",
@@ -501,8 +501,8 @@ export const properties: readonly Property[] = [
     description:
       "A beautifully preserved Kyoto machiya townhouse, thoughtfully restored with traditional tatami rooms, a serene Zen garden, and a ceremonial tea room. A rare piece of living Japanese heritage.",
     gallery: [
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
       "https://images.unsplash.com/photo-1600566752355-35792bedcfe1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
       "https://images.unsplash.com/photo-1600585154526-990dced4db0d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     ],
     amenities: ["Zen Garden", "Tea Room", "Tatami Mats", "Inner Courtyard"] as const,
@@ -510,7 +510,7 @@ export const properties: readonly Property[] = [
   {
     id: "22",
     image:
-      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     title: "Cape Town Villa",
     location: "Cape Town, South Africa",
     price: "ZAR 45,000,000",
@@ -525,16 +525,16 @@ export const properties: readonly Property[] = [
     description:
       "A contemporary villa on the slopes of Table Mountain with panoramic ocean views and a vanishing-edge infinity pool. Lush indigenous gardens and world-class security in a gated estate.",
     gallery: [
-      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
-      "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
       "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     ],
     amenities: ["Ocean View", "Infinity Pool", "Security", "Wine Cellar"] as const,
   },
   {
     id: "23",
     image:
-      "https://images.unsplash.com/photo-1600566753190-17906967096e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "https://images.unsplash.com/photo-1600607686527-6fb886090705?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     title: "Barcelona Penthouse",
     location: "Barcelona, Spain",
     price: "€2,900,000",
@@ -549,8 +549,8 @@ export const properties: readonly Property[] = [
     description:
       "A stunning penthouse in Barcelona's iconic Eixample district, blending Modernista architectural heritage with contemporary luxury. A private terrace offers sweeping views of the city and Sagrada Família.",
     gallery: [
-      "https://images.unsplash.com/photo-1600566753190-17906967096e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
       "https://images.unsplash.com/photo-1600607686527-6fb886090705?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "https://images.unsplash.com/photo-1600566753190-17906967096e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
       "https://images.unsplash.com/photo-1600210491892-03d54cc0a35b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     ],
     amenities: ["Terrace", "Gaudi Architecture", "City View", "Lift"] as const,

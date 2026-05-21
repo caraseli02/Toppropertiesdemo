@@ -133,6 +133,16 @@ export default function App() {
     });
   }, []);
 
+  const openClientPortal = useCallback(() => {
+    setSelectedProperty(null);
+    setDetailOverlay(null);
+    setIsFilterModalOpen(false);
+    setIsSearchModalOpen(false);
+    setIsAboutModalOpen(false);
+    setIsLegalModalOpen(false);
+    setIsLoginModalOpen(true);
+  }, []);
+
   useEffect(() => {
     if (!pendingScrollTarget) return;
     const targetId = pendingScrollTarget === "map" ? "map-section" : "properties-section";
@@ -209,7 +219,7 @@ export default function App() {
         onNavigateToProperties={openGridFromMenu}
         forceMenuOpen={forceMenuOpen}
         user={user}
-        onOpenLogin={() => setIsLoginModalOpen(true)}
+        onOpenLogin={openClientPortal}
         onLogout={() => {
           setUser(null);
           setToastMessage("You have signed out of your client portal session.");
@@ -398,7 +408,7 @@ export default function App() {
                 )}
               </>
             ) : (
-              <div id="map-section" style={{ height: "clamp(320px, 45vh, 560px)" }}>
+              <div id="map-section" style={{ height: "clamp(520px, 68vh, 760px)" }}>
                 <MapView
                   properties={filteredProperties.map((p) => ({
                     id: p.id,
@@ -406,6 +416,7 @@ export default function App() {
                     lng: p.lng,
                     price: p.price,
                     title: p.title,
+                    location: p.location,
                   }))}
                   onMarkerClick={(id) => {
                     const property = properties.find((p) => p.id === id);

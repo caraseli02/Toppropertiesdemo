@@ -48,8 +48,8 @@ export function HeroSection({
             transition={{ duration: 0.8, delay: 0.3 }}
             className="font-serif text-5xl sm:text-6xl lg:text-7xl text-white leading-[1.1] mb-6"
           >
-            Exceptional Homes for
-            <span className="block text-white/90">Discerning Lives</span>
+            Exceptional Homes
+            <span className="block text-white/90">for Discerning Lives</span>
           </motion.h1>
 
           <motion.p
@@ -137,6 +137,14 @@ export function HeroSection({
                 </button>
               </div>
             </div>
+            <button
+              type="button"
+              onClick={onFilterClick}
+              className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-charcoal hover:text-burgundy transition-colors cursor-pointer"
+            >
+              Advanced filters: beds, amenities, price range, currency-normalized comparisons
+              <ChevronRight className="w-4 h-4" />
+            </button>
           </div>
         </motion.div>
       </div>
