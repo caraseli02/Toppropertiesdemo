@@ -1,6 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { Header } from "./components/Header";
-import { SearchBar } from "./components/SearchBar";
 import { PropertyCard } from "./components/PropertyCard";
 import { MapView } from "./components/MapView";
 import { FilterModal } from "./components/FilterModal";
@@ -8,6 +7,10 @@ import { SearchModal } from "./components/SearchModal";
 import { PropertyDetail } from "./components/PropertyDetail";
 import { Footer } from "./components/Footer";
 import { HeroSection } from "./components/HeroSection";
+import { CuratedCollections } from "./components/CuratedCollections";
+import { Testimonials } from "./components/Testimonials";
+import { FinalCTA } from "./components/FinalCTA";
+import { SearchBar } from "./components/SearchBar";
 import { LayoutGrid, Map } from "lucide-react";
 import { properties } from "@/data/properties";
 import { Property, FilterState } from "@/types";
@@ -37,16 +40,17 @@ export default function App() {
   const [forceMenuOpen, setForceMenuOpen] = useState(false);
   const [activeFilters, setActiveFilters] = useState<FilterState>(() => getDefaultFilters());
   const [pendingScrollTarget, setPendingScrollTarget] = useState<"grid" | "map" | null>(null);
-
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredProperties = useMemo(() => {
     return filterProperties(properties, searchQuery, activeFilters);
   }, [searchQuery, activeFilters]);
+
   const hasVisibleResults = filteredProperties.length > 0;
   const hasActiveSearch = searchQuery.trim() !== "";
   const hasActiveFilters = !isDefaultFilterState(activeFilters);
   const hasActiveSearchOrFilter = hasActiveSearch || hasActiveFilters;
+
   const emptyStateCtaLabel =
     hasActiveSearch && hasActiveFilters
       ? "Reset search & filters"
@@ -54,7 +58,6 @@ export default function App() {
         ? "Clear search"
         : "Reset filters";
 
-  // Handler updates state, Effect does the work
   const handleSearch = useCallback((query: string) => {
     setSearchQuery(query);
   }, []);
@@ -71,7 +74,6 @@ export default function App() {
 
   useEffect(() => {
     if (!pendingScrollTarget) return;
-
     const targetId = pendingScrollTarget === "map" ? "map-section" : "properties-section";
     scrollToSection(targetId);
     setPendingScrollTarget(null);
@@ -90,9 +92,7 @@ export default function App() {
   useEffect(() => {
     const uiState = new URLSearchParams(window.location.search).get("ui");
     if (!uiState) return;
-
     const previewProperty = properties[0];
-
     switch (uiState) {
       case "map":
         setViewMode("map");
@@ -122,10 +122,10 @@ export default function App() {
     }
   }, []);
 
-  // Separate featured vs standard properties
   const featuredProperties = useMemo(() => {
     return filteredProperties.filter((p) => p.featured).slice(0, 6);
   }, [filteredProperties]);
+
   const standardProperties = useMemo(() => {
     return filteredProperties.filter(
       (p) => !p.featured || featuredProperties.indexOf(p as any) === -1,
@@ -133,42 +133,49 @@ export default function App() {
   }, [filteredProperties, featuredProperties]);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-ivory">
+      {/* Skip link */}
       <a
         href="#properties-section"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[9999] focus:bg-white focus:text-ink focus:px-4 focus:py-2 focus:rounded focus:shadow-lg focus:border focus:border-[var(--border-default)]"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[9999] focus:bg-white focus:text-charcoal focus:px-4 focus:py-2 focus:rounded focus:shadow-lg focus:border focus:border-border-light"
       >
         Skip to content
       </a>
+
+      {/* Transparent navbar — sits over the hero */}
       <Header
         onNavigateToMap={openMapFromMenu}
         onNavigateToProperties={openGridFromMenu}
         forceMenuOpen={forceMenuOpen}
       />
-      <SearchBar
-        onSearch={handleSearch}
-        onFilterClick={() => setIsFilterModalOpen(true)}
-        onSearchClick={() => setIsSearchModalOpen(true)}
-        value={searchQuery}
-      />
 
-      {/* Hero is hidden when searching/filtering to avoid contradictory messaging */}
-      {hasVisibleResults && !hasActiveSearchOrFilter && (
+      {/* Hero — only shown when not actively searching/filtering */}
+      {hasVisibleResults && !hasActiveSearchOrFilter ? (
         <HeroSection
           properties={properties}
           onViewProperty={(p) => setSelectedProperty(p)}
           onSearchClick={() => setIsSearchModalOpen(true)}
+          onFilterClick={() => setIsFilterModalOpen(true)}
         />
+      ) : (
+        /* When searching/filtering, show compact search bar instead */
+        <div className="pt-20">
+          <SearchBar
+            onSearch={handleSearch}
+            onFilterClick={() => setIsFilterModalOpen(true)}
+            onSearchClick={() => setIsSearchModalOpen(true)}
+            value={searchQuery}
+          />
+        </div>
       )}
 
-      {/* Main Content */}
+      {/* ── Properties Section ─────────────────────────────── */}
       <div id="properties-section" className="py-8 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {filteredProperties.length === 0 ? (
-          /* Illustrated Empty State */
+          /* Empty State */
           <div className="text-center py-20">
             <div className="mb-6">
               <svg className="mx-auto w-32 h-32 text-gray-200" fill="none" viewBox="0 0 200 200">
-                {/* Stylized house with magnifying glass */}
                 <path
                   d="M100 35 L160 85 L160 155 L40 155 L40 85 Z"
                   stroke="currentColor"
@@ -206,10 +213,10 @@ export default function App() {
                 />
               </svg>
             </div>
-            <h3 className="text-2xl font-display text-ink mb-2">
+            <h3 className="text-2xl font-serif text-charcoal mb-2">
               No luxury properties match your criteria
             </h3>
-            <p className="font-light text-[16px] text-[var(--text-secondary)] mb-8 max-w-md mx-auto">
+            <p className="font-light text-[16px] text-warm-gray mb-8 max-w-md mx-auto">
               We couldn't find properties matching your current filters. Try broadening your search
               or resetting filters.
             </p>
@@ -225,7 +232,7 @@ export default function App() {
                 }
                 setViewMode("grid");
               }}
-              className="bg-[var(--brand)] text-white px-8 py-3 rounded-lg hover:bg-[var(--brand-dark)] transition-colors font-medium"
+              className="bg-burgundy text-white px-8 py-3 rounded-lg hover:bg-burgundy-dark transition-colors font-medium"
             >
               {emptyStateCtaLabel}
             </button>
@@ -235,20 +242,20 @@ export default function App() {
             {/* View Toggle */}
             <div className="flex items-center justify-between gap-4 mb-4 md:mb-6">
               <div>
-                <h2 className="text-xl md:text-2xl font-display text-ink mb-1">
+                <h2 className="text-xl md:text-2xl font-serif text-charcoal mb-1">
                   Luxury Properties
                 </h2>
-                <p className="text-[var(--text-secondary)] text-[13px] md:text-[14px]">
+                <p className="text-warm-gray text-[13px] md:text-[14px]">
                   {filteredProperties.length} properties available
                 </p>
               </div>
 
-              <div className="flex gap-2 bg-white rounded-lg p-1 shadow-sm border border-[var(--border-default)]">
+              <div className="flex gap-2 bg-white rounded-lg p-1 shadow-sm border border-border-light">
                 <button
                   onClick={() => setViewMode("grid")}
                   className={`flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 rounded-md transition-colors text-xs sm:text-sm ${
                     viewMode === "grid"
-                      ? "bg-[var(--brand)] text-white"
+                      ? "bg-burgundy text-white"
                       : "text-gray-600 hover:bg-gray-100"
                   }`}
                   aria-pressed={viewMode === "grid"}
@@ -262,7 +269,7 @@ export default function App() {
                   onClick={() => setViewMode("map")}
                   className={`flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 rounded-md transition-colors text-xs sm:text-sm ${
                     viewMode === "map"
-                      ? "bg-[var(--brand)] text-white"
+                      ? "bg-burgundy text-white"
                       : "text-gray-600 hover:bg-gray-100"
                   }`}
                   aria-pressed={viewMode === "map"}
@@ -275,13 +282,13 @@ export default function App() {
               </div>
             </div>
 
-            {/* Content Area */}
+            {/* Content */}
             {viewMode === "grid" ? (
               <>
-                {/* Featured Properties - Masonry Layout */}
+                {/* Featured */}
                 {featuredProperties.length >= 2 && !hasActiveSearchOrFilter && (
                   <section className="mb-12">
-                    <h2 className="text-xs font-semibold tracking-[0.15em] uppercase text-[var(--text-secondary)] mb-6">
+                    <h2 className="text-xs font-semibold tracking-[0.15em] uppercase text-warm-gray mb-6">
                       Featured
                     </h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -305,7 +312,7 @@ export default function App() {
                 {(hasActiveSearchOrFilter ? filteredProperties : standardProperties).length > 0 && (
                   <section>
                     {featuredProperties.length >= 2 && !hasActiveSearchOrFilter && (
-                      <h2 className="text-xs font-semibold tracking-[0.15em] uppercase text-[var(--text-secondary)] mb-6">
+                      <h2 className="text-xs font-semibold tracking-[0.15em] uppercase text-warm-gray mb-6">
                         All Properties
                       </h2>
                     )}
@@ -344,10 +351,15 @@ export default function App() {
         )}
       </div>
 
-      {/* Footer */}
+      {/* ── Redesign sections ──────────────────────────────── */}
+      <CuratedCollections />
+      <Testimonials />
+      <FinalCTA />
+
+      {/* ── Footer ──────────────────────────────────────────── */}
       <Footer />
 
-      {/* Filter Modal */}
+      {/* ── Modals ──────────────────────────────────────────── */}
       <FilterModal
         isOpen={isFilterModalOpen}
         onClose={() => setIsFilterModalOpen(false)}
@@ -355,7 +367,6 @@ export default function App() {
         initialFilters={activeFilters}
       />
 
-      {/* Search Modal */}
       <SearchModal
         isOpen={isSearchModalOpen}
         onClose={() => setIsSearchModalOpen(false)}
@@ -367,7 +378,6 @@ export default function App() {
         }}
       />
 
-      {/* Property Detail */}
       {selectedProperty && (
         <PropertyDetail
           property={selectedProperty}

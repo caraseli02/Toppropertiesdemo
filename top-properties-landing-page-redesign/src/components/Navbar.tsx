@@ -2,67 +2,25 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Building2 } from "lucide-react";
 
-interface HeaderProps {
-  onNavigateToMap?: () => void;
-  onNavigateToProperties?: () => void;
-  forceMenuOpen?: boolean;
-}
+const navLinks = [
+  { label: "Properties", href: "#properties" },
+  { label: "Collections", href: "#collections" },
+  { label: "How It Works", href: "#how-it-works" },
+  { label: "About", href: "#benefits" },
+  { label: "Contact", href: "#contact" },
+];
 
-export function Header({
-  onNavigateToMap,
-  onNavigateToProperties,
-  forceMenuOpen = false,
-}: HeaderProps) {
+export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 60);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 60);
+    };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  useEffect(() => {
-    if (forceMenuOpen) setMobileOpen(true);
-  }, [forceMenuOpen]);
-
-  const navLinks = [
-    {
-      label: "Properties",
-      action: () => {
-        onNavigateToProperties?.();
-        setMobileOpen(false);
-      },
-    },
-    {
-      label: "Map View",
-      action: () => {
-        onNavigateToMap?.();
-        setMobileOpen(false);
-      },
-    },
-    {
-      label: "Collections",
-      action: () => {
-        document.getElementById("collections")?.scrollIntoView({ behavior: "smooth" });
-        setMobileOpen(false);
-      },
-    },
-    {
-      label: "Testimonials",
-      action: () => {
-        document.getElementById("testimonials")?.scrollIntoView({ behavior: "smooth" });
-        setMobileOpen(false);
-      },
-    },
-    {
-      label: "Contact",
-      action: () => {
-        document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-        setMobileOpen(false);
-      },
-    },
-  ];
 
   return (
     <>
@@ -79,17 +37,15 @@ export function Header({
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <a
-              href="/"
-              className="flex items-center gap-3 group"
-              aria-label="Top Properties - Home"
-            >
+            <a href="#" className="flex items-center gap-3 group">
               <div
                 className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors duration-300 ${
                   scrolled ? "bg-burgundy" : "bg-white/20 backdrop-blur-sm"
                 }`}
               >
-                <Building2 className="w-5 h-5 text-white" />
+                <Building2
+                  className={`w-5 h-5 transition-colors duration-300 ${scrolled ? "text-white" : "text-white"}`}
+                />
               </div>
               <div className="flex flex-col">
                 <span
@@ -112,42 +68,40 @@ export function Header({
             {/* Desktop Nav */}
             <div className="hidden lg:flex items-center gap-10">
               {navLinks.map((link) => (
-                <button
+                <a
                   key={link.label}
-                  onClick={link.action}
-                  className={`text-sm font-medium tracking-wide transition-colors duration-300 hover:text-burgundy cursor-pointer ${
+                  href={link.href}
+                  className={`text-sm font-medium tracking-wide transition-colors duration-300 hover:text-burgundy ${
                     scrolled ? "text-charcoal-light" : "text-white/90"
                   }`}
                 >
                   {link.label}
-                </button>
+                </a>
               ))}
             </div>
 
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center gap-4">
-              <button
-                onClick={() =>
-                  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
-                }
-                className={`text-sm font-medium transition-colors duration-300 cursor-pointer ${
+              <a
+                href="#contact"
+                className={`text-sm font-medium transition-colors duration-300 ${
                   scrolled
                     ? "text-charcoal-light hover:text-burgundy"
                     : "text-white/90 hover:text-white"
                 }`}
               >
                 Sign In
-              </button>
-              <button
-                onClick={() => onNavigateToProperties?.()}
-                className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer ${
+              </a>
+              <a
+                href="#properties"
+                className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${
                   scrolled
                     ? "bg-burgundy text-white hover:bg-burgundy-dark"
                     : "bg-white text-charcoal hover:bg-white/90"
                 }`}
               >
                 Explore Properties
-              </button>
+              </a>
             </div>
 
             {/* Mobile Menu Button */}
@@ -156,7 +110,6 @@ export function Header({
               className={`lg:hidden p-2 rounded-lg transition-colors ${
                 scrolled ? "text-charcoal" : "text-white"
               }`}
-              aria-label="Toggle menu"
             >
               {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -173,40 +126,36 @@ export function Header({
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-40 bg-white pt-24 px-6"
-            style={{ zIndex: 1100 }}
           >
             <div className="flex flex-col gap-6">
               {navLinks.map((link, i) => (
-                <motion.button
+                <motion.a
                   key={link.label}
-                  onClick={link.action}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.05 }}
-                  className="text-2xl font-serif text-charcoal hover:text-burgundy transition-colors text-left cursor-pointer"
+                  className="text-2xl font-serif text-charcoal hover:text-burgundy transition-colors"
                 >
                   {link.label}
-                </motion.button>
+                </motion.a>
               ))}
               <div className="mt-6 flex flex-col gap-3">
-                <button
-                  onClick={() => {
-                    onNavigateToProperties?.();
-                    setMobileOpen(false);
-                  }}
-                  className="w-full py-4 bg-burgundy text-white text-center rounded-xl font-semibold text-lg cursor-pointer"
+                <a
+                  href="#properties"
+                  onClick={() => setMobileOpen(false)}
+                  className="w-full py-4 bg-burgundy text-white text-center rounded-xl font-semibold text-lg"
                 >
                   Explore Properties
-                </button>
-                <button
-                  onClick={() => {
-                    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-                    setMobileOpen(false);
-                  }}
-                  className="w-full py-4 border border-charcoal/10 text-charcoal text-center rounded-xl font-medium text-lg cursor-pointer"
+                </a>
+                <a
+                  href="#contact"
+                  onClick={() => setMobileOpen(false)}
+                  className="w-full py-4 border border-charcoal/10 text-charcoal text-center rounded-xl font-medium text-lg"
                 >
                   Schedule a Private Viewing
-                </button>
+                </a>
               </div>
             </div>
           </motion.div>
