@@ -33,10 +33,13 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
 
   return (
     <article
-      className="bg-white overflow-hidden border border-[var(--border-default)] hover:shadow-lg transition-all duration-300 group"
+      className="bg-white overflow-hidden border border-[var(--border-default)] hover:shadow-lg transition-shadow duration-300 group"
       style={{ borderRadius: "8px" }}
     >
-      <div className="relative overflow-hidden bg-gray-200" style={{ aspectRatio: "4/3" }}>
+      <div
+        className="relative overflow-hidden bg-[linear-gradient(135deg,#f7f2ec_0%,#ece3d8_48%,#d8c9ba_100%)]"
+        style={{ aspectRatio: "4/3" }}
+      >
         <button
           type="button"
           onClick={onClick}
@@ -61,7 +64,9 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
           }}
           loading="lazy"
         />
-        {!imageLoaded && <div className="absolute inset-0 bg-gray-200 animate-pulse" />}
+        {!imageLoaded && (
+          <div className="absolute inset-0 animate-pulse bg-[linear-gradient(135deg,#f7f2ec_0%,#ece3d8_48%,#d8c9ba_100%)]" />
+        )}
         <div className="absolute top-3 left-3 right-3 flex items-start justify-between z-20 pointer-events-none">
           <button
             onClick={(e) => {
@@ -70,7 +75,7 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
             }}
             className="bg-white/95 backdrop-blur-sm flex items-center justify-center rounded-full hover:bg-white transition-all hover:scale-105 shadow-md shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30 pointer-events-auto"
             style={{ width: "44px", height: "44px" }}
-            aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+            aria-label={isFavorite ? `Remove ${title} from favorites` : `Add ${title} to favorites`}
           >
             <Heart
               className={`w-5 h-5 transition-colors ${isFavorite ? "fill-[var(--brand)] text-[var(--brand)]" : "text-gray-600"}`}
@@ -113,11 +118,9 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
 
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-[24px] font-bold text-[var(--brand)] leading-tight">{price}</p>
+            <p className="text-[22px] font-bold text-[var(--brand)] leading-tight">{price}</p>
             {usdComparison && (
-              <p className="mt-1 text-xs font-medium text-[var(--text-secondary)]">
-                {usdComparison}
-              </p>
+              <p className="mt-1 text-[13px] font-medium text-charcoal/70">{usdComparison}</p>
             )}
           </div>
         </div>

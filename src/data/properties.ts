@@ -198,7 +198,7 @@ export const properties: readonly Property[] = [
       "An exquisite Haussmann-era apartment in the heart of Paris, featuring original moldings, herringbone parquet floors, and sweeping views of the city skyline from a private balcony.",
     gallery: [
       "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
-      "https://images.unsplash.com/photo-1600566753086-00f18cf6b3ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     ],
     amenities: ["Balcony", "City View", "Historic Building", "Elevator"] as const,
   },
@@ -221,7 +221,7 @@ export const properties: readonly Property[] = [
       "An architectural masterpiece nestled among Aspen's snow-capped peaks, this glass-walled retreat offers ski-in/ski-out access with panoramic mountain views from every room.",
     gallery: [
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
-      "https://images.unsplash.com/photo-1600566752355-35792bedcfe1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "https://images.unsplash.com/photo-1600566753104-685f4f24cb4d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     ],
     amenities: ["Ski-in/Ski-out", "Mountain View", "Fireplace", "Heated Floors"] as const,
   },
@@ -251,7 +251,7 @@ export const properties: readonly Property[] = [
   {
     id: "11",
     image:
-      "https://images.unsplash.com/photo-1600566753190-17906967096e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "https://images.unsplash.com/photo-1600607688066-890987f18a86?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     title: "Tokyo Penthouse",
     location: "Tokyo, Japan",
     price: "¥850,000,000",
@@ -266,7 +266,7 @@ export const properties: readonly Property[] = [
     description:
       "A sleek penthouse crowning one of Tokyo's most prestigious towers, offering 360-degree views of sprawling metropolis and Mount Fuji. Japanese minimalist design meets cutting-edge technology.",
     gallery: [
-      "https://images.unsplash.com/photo-1600566753190-17906967096e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "https://images.unsplash.com/photo-1600607688066-890987f18a86?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
       "https://images.unsplash.com/photo-1600585154526-990dced4db0d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     ],
     amenities: ["Skyline View", "Concierge", "Gym", "Spa"] as const,
@@ -343,7 +343,7 @@ export const properties: readonly Property[] = [
   {
     id: "15",
     image:
-      "https://images.unsplash.com/photo-1600210491892-03d54cc0a35b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "https://images.unsplash.com/photo-1600585153490-76fb20a32601?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     title: "Desert Oasis",
     location: "Palm Springs, California",
     price: "$4,200,000",
@@ -358,7 +358,7 @@ export const properties: readonly Property[] = [
     description:
       "A mid-century modern gem reimagined for contemporary living, set against dramatic San Jacinto Mountains. Resort-style pool, fire pit lounge, and desert-scaped gardens define effortless indoor-outdoor living.",
     gallery: [
-      "https://images.unsplash.com/photo-1600210491892-03d54cc0a35b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "https://images.unsplash.com/photo-1600585153490-76fb20a32601?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
       "https://images.unsplash.com/photo-1600585154526-990dced4db0d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     ],
     amenities: ["Detailed Landscaping", "Pool", "Fire Pit", "Mountain View"] as const,
@@ -366,7 +366,7 @@ export const properties: readonly Property[] = [
   {
     id: "16",
     image:
-      "https://images.unsplash.com/photo-1600566753086-00f18cf6b3ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     title: "Eco-Friendly Home",
     location: "Vancouver, Canada",
     price: "CAD 5,500,000",
@@ -381,7 +381,7 @@ export const properties: readonly Property[] = [
     description:
       "Vancouver's greenest luxury home, featuring solar arrays, a living green roof, and rainwater harvesting systems. Certified LEED Platinum with smart-controlled climate and energy management.",
     gallery: [
-      "https://images.unsplash.com/photo-1600566753086-00f18cf6b3ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
       "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     ],
     amenities: ["Solar Panels", "Green Roof", "Rainwater Harvesting", "Smart Controls"] as const,
@@ -389,7 +389,7 @@ export const properties: readonly Property[] = [
   {
     id: "17",
     image:
-      "https://images.unsplash.com/photo-1575517111478-7f603ca8c63e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "https://images.unsplash.com/photo-1600585152220-90363fe7e115?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     title: "Miami Waterfront",
     location: "Miami, Florida",
     price: "$14,000,000",
@@ -404,8 +404,8 @@ export const properties: readonly Property[] = [
     description:
       "A spectacular waterfront mansion on Miami's exclusive Star Island with a private dock, rooftop infinity pool, and unobstructed views of Biscayne Bay. Italian marble and custom finishes throughout.",
     gallery: [
-      "https://images.unsplash.com/photo-1575517111478-7f603ca8c63e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
-      "https://images.unsplash.com/photo-1600596542815-2a4d9f799052?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
       "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     ],
     amenities: ["Private Dock", "Infinity Pool", "Rooftop", "Elevator"] as const,
@@ -454,7 +454,7 @@ export const properties: readonly Property[] = [
     gallery: [
       "https://images.unsplash.com/photo-1512915922686-57c11dde9b6b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
       "https://images.unsplash.com/photo-1642976975710-1d8890dbf5ab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
-      "https://images.unsplash.com/photo-1600566753190-17906967096e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "https://images.unsplash.com/photo-1600607688066-890987f18a86?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
       "https://images.unsplash.com/photo-1702411200201-3061d0eea802?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     ],
     amenities: ["Bay View", "Concierge", "Pool", "Gym"] as const,
@@ -462,7 +462,7 @@ export const properties: readonly Property[] = [
   {
     id: "20",
     image:
-      "https://images.unsplash.com/photo-1531971589569-0d9370cbe865?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     title: "Hamptons Estate",
     location: "East Hampton, New York",
     price: "$18,500,000",
@@ -477,7 +477,7 @@ export const properties: readonly Property[] = [
     description:
       "A sprawling oceanfront estate in the heart of the Hamptons, featuring a private tennis court, heated pool, and separate guest house. Manicured gardens lead to direct beach access.",
     gallery: [
-      "https://images.unsplash.com/photo-1531971589569-0d9370cbe865?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
       "https://images.unsplash.com/photo-1600210492493-0946911123ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     ],
@@ -486,7 +486,7 @@ export const properties: readonly Property[] = [
   {
     id: "21",
     image:
-      "https://images.unsplash.com/photo-1600566752355-35792bedcfe1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "https://images.unsplash.com/photo-1600566753104-685f4f24cb4d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     title: "Kyoto Traditional",
     location: "Kyoto, Japan",
     price: "¥250,000,000",
@@ -501,7 +501,7 @@ export const properties: readonly Property[] = [
     description:
       "A beautifully preserved Kyoto machiya townhouse, thoughtfully restored with traditional tatami rooms, a serene Zen garden, and a ceremonial tea room. A rare piece of living Japanese heritage.",
     gallery: [
-      "https://images.unsplash.com/photo-1600566752355-35792bedcfe1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "https://images.unsplash.com/photo-1600566753104-685f4f24cb4d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
       "https://images.unsplash.com/photo-1600585154526-990dced4db0d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     ],
@@ -550,8 +550,8 @@ export const properties: readonly Property[] = [
       "A stunning penthouse in Barcelona's iconic Eixample district, blending Modernista architectural heritage with contemporary luxury. A private terrace offers sweeping views of the city and Sagrada Família.",
     gallery: [
       "https://images.unsplash.com/photo-1600607686527-6fb886090705?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
-      "https://images.unsplash.com/photo-1600566753190-17906967096e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
-      "https://images.unsplash.com/photo-1600210491892-03d54cc0a35b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "https://images.unsplash.com/photo-1600607688066-890987f18a86?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "https://images.unsplash.com/photo-1600585153490-76fb20a32601?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     ],
     amenities: ["Terrace", "Gaudi Architecture", "City View", "Lift"] as const,
   },

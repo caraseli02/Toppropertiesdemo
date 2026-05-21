@@ -81,7 +81,7 @@ export function Header({
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
             ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-border-light"
-            : "bg-transparent"
+            : "bg-charcoal/20 backdrop-blur-[2px]"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -89,7 +89,7 @@ export function Header({
             {/* Logo */}
             <a
               href="/"
-              className="flex items-center gap-3 group"
+              className="flex min-h-11 items-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal/30 rounded-lg"
               aria-label="Top Properties - Home"
             >
               <div
@@ -123,7 +123,7 @@ export function Header({
                 <button
                   key={link.label}
                   onClick={link.action}
-                  className={`text-sm font-medium tracking-wide transition-colors duration-300 hover:text-burgundy cursor-pointer ${
+                  className={`min-h-11 text-sm font-medium tracking-wide transition-colors duration-300 hover:text-burgundy cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/45 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal/30 rounded-md ${
                     scrolled ? "text-charcoal-light" : "text-white/90"
                   }`}
                 >
@@ -137,7 +137,7 @@ export function Header({
               {user ? (
                 <div className="relative group">
                   <button
-                    className="flex items-center gap-2 cursor-pointer focus-visible:outline-none"
+                    className="flex min-h-11 items-center gap-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burgundy/30 rounded-full"
                     aria-label="User menu"
                   >
                     <img
@@ -186,7 +186,7 @@ export function Header({
               ) : (
                 <button
                   onClick={onOpenLogin}
-                  className={`text-sm font-medium transition-colors duration-300 cursor-pointer ${
+                  className={`min-h-11 text-sm font-medium transition-colors duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/45 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal/30 rounded-md ${
                     scrolled
                       ? "text-charcoal-light hover:text-burgundy"
                       : "text-white/90 hover:text-white"
@@ -197,7 +197,7 @@ export function Header({
               )}
               <button
                 onClick={onOpenLogin}
-                className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer ${
+                className={`min-h-11 px-5 py-2.5 rounded-full text-sm font-semibold transition-colors duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burgundy/30 focus-visible:ring-offset-2 ${
                   scrolled
                     ? "bg-burgundy text-white hover:bg-burgundy-dark"
                     : "bg-white text-charcoal hover:bg-white/90"
