@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { Header } from "./components/Header";
 import { PropertyCard } from "./components/PropertyCard";
+import { LuxuryPropertiesShowcase } from "./components/LuxuryPropertiesShowcase";
 import { MapView } from "./components/MapView";
 import { FilterModal } from "./components/FilterModal";
 import { SearchModal } from "./components/SearchModal";
@@ -193,16 +194,6 @@ export default function App() {
     }
   }, []);
 
-  const featuredProperties = useMemo(() => {
-    return filteredProperties.filter((p) => p.featured).slice(0, 6);
-  }, [filteredProperties]);
-
-  const standardProperties = useMemo(() => {
-    return filteredProperties.filter(
-      (p) => !p.featured || featuredProperties.indexOf(p as any) === -1,
-    );
-  }, [filteredProperties, featuredProperties]);
-
   return (
     <div className="min-h-screen bg-ivory">
       {/* Skip link */}
@@ -323,7 +314,9 @@ export default function App() {
                   Luxury Properties
                 </h2>
                 <p className="text-warm-gray text-[13px] md:text-[14px]">
-                  {filteredProperties.length} properties available
+                  {hasActiveSearchOrFilter
+                    ? `${filteredProperties.length} properties available`
+                    : `A 3-property private edit from ${filteredProperties.length} homes`}
                 </p>
               </div>
 
@@ -362,49 +355,28 @@ export default function App() {
             {/* Content */}
             {viewMode === "grid" ? (
               <>
-                {/* Featured */}
-                {featuredProperties.length >= 2 && !hasActiveSearchOrFilter && (
-                  <section className="mb-12">
-                    <h2 className="text-xs font-semibold tracking-[0.15em] uppercase text-warm-gray mb-6">
-                      Featured
-                    </h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {featuredProperties.slice(0, 6).map((property, index) => (
-                        <div
-                          key={property.id}
-                          className={`h-full ${index === 0 ? "md:col-span-2 md:row-span-2" : ""}`}
-                        >
-                          <PropertyCard
-                            {...property}
-                            featured={index === 0}
-                            onClick={() => setSelectedProperty(property)}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </section>
-                )}
-
-                {/* Standard Grid */}
-                {(hasActiveSearchOrFilter ? filteredProperties : standardProperties).length > 0 && (
-                  <section>
-                    {featuredProperties.length >= 2 && !hasActiveSearchOrFilter && (
+                {!hasActiveSearchOrFilter ? (
+                  <LuxuryPropertiesShowcase
+                    properties={filteredProperties}
+                    onSelect={(property) => setSelectedProperty(property)}
+                  />
+                ) : (
+                  filteredProperties.length > 0 && (
+                    <section>
                       <h2 className="text-xs font-semibold tracking-[0.15em] uppercase text-warm-gray mb-6">
-                        All Properties
+                        Matching Properties
                       </h2>
-                    )}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {(hasActiveSearchOrFilter ? filteredProperties : standardProperties).map(
-                        (property) => (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {filteredProperties.map((property) => (
                           <PropertyCard
                             key={property.id}
                             {...property}
                             onClick={() => setSelectedProperty(property)}
                           />
-                        ),
-                      )}
-                    </div>
-                  </section>
+                        ))}
+                      </div>
+                    </section>
+                  )
                 )}
               </>
             ) : (
