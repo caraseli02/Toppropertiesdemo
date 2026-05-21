@@ -36,7 +36,8 @@ We successfully ported the redesigned elements from `/top-properties-landing-pag
 The styling looks broken (components appear as unstyled vertical HTML list) because of a mismatch in **how Tailwind v4 classes are built in this environment**:
 
 ### 🔍 Technical Diagnosis:
-1. **The Pre-built Tailwind Setup:** 
+
+1. **The Pre-built Tailwind Setup:**
    - The project's existing `/src/index.css` was actually a **statically compiled Tailwind output** (a snapshot containing CSS rules only for classes used in the original legacy components).
 2. **Missing Utility Classes:**
    - When we added redesigned components, they used new utility classes (like `lg:flex`, `text-7xl`, `text-5xl`, etc.) and new color variables (`bg-burgundy`, `text-charcoal`).
@@ -53,35 +54,42 @@ The styling looks broken (components appear as unstyled vertical HTML list) beca
 To resolve the styles and finalize the visual beauty of the redesign, choose one of these two paths in the next session:
 
 ### Option A: Setup Live Tailwind Compilation in Vite (Recommended)
+
 1. Install the Tailwind v4 Vite plugin:
    ```bash
    pnpm add -D @tailwindcss/vite
    ```
 2. Update `vite.config.ts` to include the plugin:
+
    ```typescript
-   import tailwindcss from '@tailwindcss/vite';
-   
+   import tailwindcss from "@tailwindcss/vite";
+
    export default defineConfig({
      plugins: [
        react(),
-       tailwindcss() // <-- Add this here
+       tailwindcss(), // <-- Add this here
      ],
      // ... rest of config
    });
    ```
+
 3. Use the current `@import "tailwindcss";` in `src/index.css`. The build toolchain will now compile classes on-the-fly perfectly.
 
 ### Option B: Build the Static CSS File manually
+
 If you want to keep the static setup without changing the Vite configuration:
+
 1. Compile the CSS using the Tailwind CLI pointing to the source:
    ```bash
    npx tailwindcss -i src/index.css -o src/index.css
    ```
-   *(Ensure you run this command from the project root. It will scan the newly added `tsx` files, generate all missing classes, and write them back into the compiled file).*
+   _(Ensure you run this command from the project root. It will scan the newly added `tsx` files, generate all missing classes, and write them back into the compiled file)._
 
 ---
 
 ### 💾 Branch & Commit Details
+
 All of these changes have been saved, tracked, and committed to a separate branch:
+
 - **Branch name:** `feature/landing-page-redesign`
 - **Changes include:** Integrated Navbar, Hero, Curated Collections, Testimonials, Final CTA, updated Footer, App layout adjustments, and CSS structure ready for Tailwind integration.

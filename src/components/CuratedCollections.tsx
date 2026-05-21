@@ -6,25 +6,29 @@ const collections = [
     title: "Coastal Living",
     subtitle: "Waterfront villas & beachfront estates",
     count: 12,
-    image: "https://images.unsplash.com/photo-1602343168117-bb8ffe3e2e9f?w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&h=500&q=80",
   },
   {
     title: "Urban Penthouses",
     subtitle: "Sky-high living in global capitals",
     count: 8,
-    image: "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&h=500&q=80",
   },
   {
     title: "Mountain Retreats",
     subtitle: "Alpine chalets & ski-in properties",
     count: 6,
-    image: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1518098268026-4e43a1a009de?auto=format&fit=crop&w=800&h=500&q=80",
   },
   {
     title: "Historic Estates",
     subtitle: "Timeless architecture & heritage homes",
     count: 5,
-    image: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&h=500&q=80",
   },
 ];
 

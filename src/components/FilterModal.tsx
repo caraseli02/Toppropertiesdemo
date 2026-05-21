@@ -212,7 +212,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
                   <div className="text-xs text-gray-500 mb-1">Min price</div>
                   <div className="font-semibold">{formatPrice(filters.priceRange[0])}</div>
                 </div>
-                <span className="text-gray-400">—</span>
+                <span className="text-gray-400">to</span>
                 <div className="flex-1 bg-white rounded-lg border border-gray-300 p-3">
                   <div className="text-xs text-gray-500 mb-1">Max price</div>
                   <div className="font-semibold">{formatPrice(filters.priceRange[1])}</div>
