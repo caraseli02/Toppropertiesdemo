@@ -132,7 +132,8 @@ export function SearchModal({
               {query && (
                 <button
                   onClick={() => setQuery("")}
-                  className="ml-2 text-gray-400 hover:text-gray-600 transition-colors"
+                  className="ml-2 text-gray-400 hover:text-gray-600 transition-colors flex items-center justify-center"
+                  style={{ minWidth: "44px", minHeight: "44px" }}
                   aria-label="Clear search"
                 >
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -182,7 +183,7 @@ export function SearchModal({
           {/* Properties Section */}
           <div className="px-6 py-4">
             <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">
-              Properties {query && `(${filteredProperties.length})`}
+              Properties {normalizedQuery && `(${filteredProperties.length})`}
             </h3>
             {filteredProperties.length > 0 ? (
               <div className="space-y-3">
