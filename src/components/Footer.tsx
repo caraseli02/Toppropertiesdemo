@@ -61,7 +61,11 @@ const socialIcons = [
   },
 ];
 
-export function Footer() {
+interface FooterProps {
+  onSelectFooterLink?: (category: string, label: string) => void;
+}
+
+export function Footer({ onSelectFooterLink }: FooterProps) {
   return (
     <footer className="bg-charcoal border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-20">
@@ -88,6 +92,10 @@ export function Footer() {
                 <a
                   key={social.label}
                   href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onSelectFooterLink?.("social", social.label);
+                  }}
                   aria-label={social.label}
                   className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/50 hover:bg-burgundy/20 hover:text-white transition-colors duration-300"
                 >
@@ -105,6 +113,12 @@ export function Footer() {
                 <li key={link.label}>
                   <a
                     href={link.href}
+                    onClick={(e) => {
+                      if (link.href === "#") {
+                        e.preventDefault();
+                        onSelectFooterLink?.("properties", link.label);
+                      }
+                    }}
                     className="text-white/40 text-sm hover:text-white transition-colors duration-300"
                   >
                     {link.label}
@@ -121,6 +135,10 @@ export function Footer() {
                 <li key={link.label}>
                   <a
                     href={link.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onSelectFooterLink?.("company", link.label);
+                    }}
                     className="text-white/40 text-sm hover:text-white transition-colors duration-300"
                   >
                     {link.label}
@@ -137,6 +155,10 @@ export function Footer() {
                 <li key={link.label}>
                   <a
                     href={link.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onSelectFooterLink?.("resources", link.label);
+                    }}
                     className="text-white/40 text-sm hover:text-white transition-colors duration-300"
                   >
                     {link.label}
@@ -190,6 +212,10 @@ export function Footer() {
               <a
                 key={link.label}
                 href={link.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onSelectFooterLink?.("legal", link.label);
+                }}
                 className="text-white/30 text-xs hover:text-white/60 transition-colors"
               >
                 {link.label}

@@ -58,7 +58,7 @@ export function HeroSection({
             transition={{ duration: 0.8, delay: 0.5 }}
             className="text-lg sm:text-xl text-white/70 leading-relaxed mb-10 max-w-xl"
           >
-            From penthouses to private estates — each property is hand-selected for those who expect
+            From penthouses to private estates, each property is hand-selected for those who expect
             nothing less than extraordinary.
           </motion.p>
 

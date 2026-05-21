@@ -6,7 +6,7 @@ const testimonials = [
   {
     id: 1,
     quote:
-      "Top Properties understood exactly what we were looking for — a home that felt like a retreat without sacrificing access to the city. Their discretion and attention to detail made the entire process effortless.",
+      "Top Properties understood exactly what we were looking for: a home that felt like a retreat without sacrificing access to the city. Their discretion and attention to detail made the entire process effortless.",
     author: "Alexandra & James Whitfield",
     role: "Acquired Villa Azure, Côte d'Azur",
     avatar: "AW",
@@ -22,7 +22,7 @@ const testimonials = [
   {
     id: 3,
     quote:
-      "The private viewing experience was unlike anything I've encountered. No crowds, no pressure — just a thoughtful presentation of a property that genuinely matched my lifestyle.",
+      "The private viewing experience was unlike anything I've encountered. No crowds, no pressure, just a thoughtful presentation of a property that genuinely matched my lifestyle.",
     author: "Isabelle Moreau",
     role: "Acquired Alpine Chalet, Verbier",
     avatar: "IM",

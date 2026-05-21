@@ -16,6 +16,11 @@ import { properties } from "@/data/properties";
 import { Property, FilterState } from "@/types";
 import { filterProperties } from "@/services/filterService";
 import { getDefaultFilters } from "@/constants/filters";
+import { AnimatePresence } from "framer-motion";
+import { ClientPortalModal } from "./components/ClientPortalModal";
+import { AgencySpotlightModal } from "./components/AgencySpotlightModal";
+import { LegalDocumentModal } from "./components/LegalDocumentModal";
+import { ComingSoonToast } from "./components/ComingSoonToast";
 
 const isDefaultFilterState = (filters: FilterState): boolean => {
   const defaults = getDefaultFilters();
@@ -41,6 +46,62 @@ export default function App() {
   const [activeFilters, setActiveFilters] = useState<FilterState>(() => getDefaultFilters());
   const [pendingScrollTarget, setPendingScrollTarget] = useState<"grid" | "map" | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+
+  const [user, setUser] = useState<{ name: string; email: string; avatar: string } | null>(null);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isAboutModalOpen, setIsAboutModalOpen] = useState(false);
+  const [isLegalModalOpen, setIsLegalModalOpen] = useState(false);
+  const [legalDocTitle, setLegalDocTitle] = useState("Privacy Policy");
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  const handleSelectFooterLink = useCallback(
+    (category: string, label: string) => {
+      if (category === "properties") {
+        if (label === "New Listings") {
+          setActiveFilters((prev) => ({ ...prev, rentType: "sale" }));
+          setViewMode("grid");
+          setPendingScrollTarget("grid");
+        } else if (label === "Price Reduced") {
+          setActiveFilters((prev) => ({ ...prev, priceRange: [1000, 8000] }));
+          setViewMode("grid");
+          setPendingScrollTarget("grid");
+        } else if (label === "Off-Market") {
+          if (!user) {
+            setToastMessage(
+              "Access to off-market listings requires an active client portal session.",
+            );
+            setIsLoginModalOpen(true);
+          } else {
+            setToastMessage("Off-market catalog is now unlocked in your client portal dashboard!");
+          }
+        }
+      } else if (category === "company") {
+        if (label === "About Us" || label === "Our Team") {
+          setIsAboutModalOpen(true);
+        } else {
+          setToastMessage(
+            `${label} coordinates can be retrieved via private contact inquiry below.`,
+          );
+          setTimeout(() => {
+            document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+          }, 100);
+        }
+      } else if (category === "resources") {
+        setToastMessage(
+          `${label} insights are compiled dynamically for registered clients. Please sign in.`,
+        );
+        setIsLoginModalOpen(true);
+      } else if (category === "legal") {
+        setLegalDocTitle(label);
+        setIsLegalModalOpen(true);
+      } else if (category === "social") {
+        setToastMessage(
+          `${label} official corporate channel updates are coming soon in this demo.`,
+        );
+      }
+    },
+    [user],
+  );
 
   const filteredProperties = useMemo(() => {
     return filterProperties(properties, searchQuery, activeFilters);
@@ -147,6 +208,12 @@ export default function App() {
         onNavigateToMap={openMapFromMenu}
         onNavigateToProperties={openGridFromMenu}
         forceMenuOpen={forceMenuOpen}
+        user={user}
+        onOpenLogin={() => setIsLoginModalOpen(true)}
+        onLogout={() => {
+          setUser(null);
+          setToastMessage("You have signed out of your client portal session.");
+        }}
       />
 
       {/* Hero — only shown when not actively searching/filtering */}
@@ -357,7 +424,7 @@ export default function App() {
       <FinalCTA />
 
       {/* ── Footer ──────────────────────────────────────────── */}
-      <Footer />
+      <Footer onSelectFooterLink={handleSelectFooterLink} />
 
       {/* ── Modals ──────────────────────────────────────────── */}
       <FilterModal
@@ -387,6 +454,39 @@ export default function App() {
           }}
           initialOverlay={detailOverlay}
         />
+      )}
+
+      {/* ── Luxury Portfolio Preview Modals ─────────────────── */}
+      <AnimatePresence>
+        {isLoginModalOpen && (
+          <ClientPortalModal
+            isOpen={isLoginModalOpen}
+            onClose={() => setIsLoginModalOpen(false)}
+            onLoginSuccess={(loggedInUser) => {
+              setUser(loggedInUser);
+              setToastMessage(`Welcome back, ${loggedInUser.name}. Elite profile active.`);
+            }}
+          />
+        )}
+
+        {isAboutModalOpen && (
+          <AgencySpotlightModal
+            isOpen={isAboutModalOpen}
+            onClose={() => setIsAboutModalOpen(false)}
+          />
+        )}
+
+        {isLegalModalOpen && (
+          <LegalDocumentModal
+            isOpen={isLegalModalOpen}
+            onClose={() => setIsLegalModalOpen(false)}
+            title={legalDocTitle}
+          />
+        )}
+      </AnimatePresence>
+
+      {toastMessage && (
+        <ComingSoonToast message={toastMessage} onDismiss={() => setToastMessage(null)} />
       )}
     </div>
   );

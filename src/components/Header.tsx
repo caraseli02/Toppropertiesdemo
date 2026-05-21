@@ -6,12 +6,18 @@ interface HeaderProps {
   onNavigateToMap?: () => void;
   onNavigateToProperties?: () => void;
   forceMenuOpen?: boolean;
+  user: { name: string; email: string; avatar: string } | null;
+  onOpenLogin: () => void;
+  onLogout: () => void;
 }
 
 export function Header({
   onNavigateToMap,
   onNavigateToProperties,
   forceMenuOpen = false,
+  user,
+  onOpenLogin,
+  onLogout,
 }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -126,18 +132,67 @@ export function Header({
 
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center gap-4">
-              <button
-                onClick={() =>
-                  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
-                }
-                className={`text-sm font-medium transition-colors duration-300 cursor-pointer ${
-                  scrolled
-                    ? "text-charcoal-light hover:text-burgundy"
-                    : "text-white/90 hover:text-white"
-                }`}
-              >
-                Sign In
-              </button>
+              {user ? (
+                <div className="relative group">
+                  <button
+                    className="flex items-center gap-2 cursor-pointer focus-visible:outline-none"
+                    aria-label="User menu"
+                  >
+                    <img
+                      src={user.avatar}
+                      alt={user.name}
+                      className="w-8 h-8 rounded-full border border-burgundy object-cover"
+                    />
+                    <span
+                      className={`text-sm font-medium transition-colors duration-300 ${
+                        scrolled ? "text-charcoal" : "text-white/90 group-hover:text-white"
+                      }`}
+                    >
+                      {user.name}
+                    </span>
+                  </button>
+                  {/* Dropdown Menu */}
+                  <div className="absolute right-0 top-full mt-2 w-48 bg-white border border-charcoal/5 shadow-xl rounded-lg py-2 opacity-0 scale-95 pointer-events-none group-hover:opacity-100 group-hover:scale-100 group-hover:pointer-events-auto transition-all duration-200 origin-top-right z-50">
+                    <div className="px-4 py-2 border-b border-charcoal/5">
+                      <p className="text-[10px] uppercase tracking-wider text-warm-gray">
+                        Client Profile
+                      </p>
+                      <p className="text-xs font-semibold text-charcoal truncate">{user.email}</p>
+                    </div>
+                    <button
+                      onClick={() => onNavigateToProperties?.()}
+                      className="w-full text-left px-4 py-2 text-xs text-charcoal hover:bg-ivory hover:text-burgundy transition-colors cursor-pointer"
+                    >
+                      Saved Portfolio (3)
+                    </button>
+                    <button
+                      onClick={() => {
+                        document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                      }}
+                      className="w-full text-left px-4 py-2 text-xs text-charcoal hover:bg-ivory hover:text-burgundy transition-colors cursor-pointer"
+                    >
+                      Schedule Viewings
+                    </button>
+                    <button
+                      onClick={onLogout}
+                      className="w-full text-left px-4 py-2 text-xs text-burgundy hover:bg-burgundy/5 transition-colors cursor-pointer border-t border-charcoal/5"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <button
+                  onClick={onOpenLogin}
+                  className={`text-sm font-medium transition-colors duration-300 cursor-pointer ${
+                    scrolled
+                      ? "text-charcoal-light hover:text-burgundy"
+                      : "text-white/90 hover:text-white"
+                  }`}
+                >
+                  Sign In
+                </button>
+              )}
               <button
                 onClick={() => onNavigateToProperties?.()}
                 className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer ${
@@ -172,7 +227,7 @@ export function Header({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-white pt-24 px-6"
+            className="fixed inset-0 z-40 bg-white pt-24 px-6 overflow-y-auto"
             style={{ zIndex: 1100 }}
           >
             <div className="flex flex-col gap-6">
@@ -207,6 +262,42 @@ export function Header({
                 >
                   Schedule a Private Viewing
                 </button>
+
+                {user ? (
+                  <div className="flex items-center gap-3 p-4 border border-charcoal/5 rounded-xl bg-ivory/50 mt-4">
+                    <img
+                      src={user.avatar}
+                      alt={user.name}
+                      className="w-12 h-12 rounded-full border border-burgundy object-cover"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[10px] uppercase tracking-wider text-warm-gray">
+                        Client Session
+                      </p>
+                      <p className="text-sm font-semibold text-charcoal truncate">{user.name}</p>
+                      <p className="text-[10px] text-warm-gray truncate">{user.email}</p>
+                    </div>
+                    <button
+                      onClick={() => {
+                        onLogout();
+                        setMobileOpen(false);
+                      }}
+                      className="px-3 py-1.5 bg-burgundy/10 hover:bg-burgundy/20 text-burgundy text-xs font-semibold rounded-full transition-all shrink-0 cursor-pointer"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => {
+                      onOpenLogin();
+                      setMobileOpen(false);
+                    }}
+                    className="w-full py-4 border border-charcoal/10 text-charcoal text-center rounded-xl font-medium text-lg cursor-pointer mt-4"
+                  >
+                    Client Portal Sign In
+                  </button>
+                )}
               </div>
             </div>
           </motion.div>
