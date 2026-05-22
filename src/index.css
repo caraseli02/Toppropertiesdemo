@@ -9,13 +9,14 @@
  */
 @theme {
   /* Fonts */
-  --font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Outfit", sans-serif;
   --font-serif: "Young Serif", serif;
-  --font-display: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
   /* ── Redesign palette ── */
   --color-burgundy: #b10832;
-  --color-burgundy-dark: #8a0627;
+  --color-burgundy-dark: #8e0628;
   --color-burgundy-light: #d11a4a;
   --color-ivory: #faf8f5;
   --color-cream: #f5f2ed;
@@ -49,7 +50,7 @@ html {
 }
 
 body {
-  font-family: "Figtree", sans-serif;
+  font-family: "Outfit", sans-serif;
   background-color: var(--background, #ffffff);
   color: var(--foreground, #1a1a1a);
   -webkit-font-smoothing: antialiased;
@@ -120,16 +121,16 @@ a {
   background-color: var(--brand, #b10832);
 }
 .bg-brand-dark {
-  background-color: var(--brand-dark, #8a0627);
+  background-color: var(--brand-dark, #8e0628);
 }
 .hover\:bg-brand-dark:hover {
-  background-color: var(--brand-dark, #8a0627);
+  background-color: var(--brand-dark, #8e0628);
 }
 .border-brand {
   border-color: var(--brand, #b10832);
 }
 .font-display {
-  font-family: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  font-family: "Outfit", sans-serif;
 }
 .bg-overlay-soft {
   background-color: rgba(0, 0, 0, 0.4);
