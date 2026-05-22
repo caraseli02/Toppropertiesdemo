@@ -12,6 +12,7 @@ import { CuratedCollections } from "./components/CuratedCollections";
 import { Testimonials } from "./components/Testimonials";
 import { FinalCTA } from "./components/FinalCTA";
 import { SearchBar } from "./components/SearchBar";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 import { LayoutGrid, Map } from "lucide-react";
 import { properties } from "@/data/properties";
 import { Property, FilterState } from "@/types";
@@ -381,20 +382,29 @@ export default function App() {
               </>
             ) : (
               <div id="map-section" style={{ height: "clamp(520px, 68vh, 760px)" }}>
-                <MapView
-                  properties={filteredProperties.map((p) => ({
-                    id: p.id,
-                    lat: p.lat,
-                    lng: p.lng,
-                    price: p.price,
-                    title: p.title,
-                    location: p.location,
-                  }))}
-                  onMarkerClick={(id) => {
-                    const property = properties.find((p) => p.id === id);
-                    if (property) setSelectedProperty(property);
-                  }}
-                />
+                <ErrorBoundary
+                  label="Map"
+                  fallback={
+                    <div className="flex items-center justify-center h-full text-gray-500 text-sm">
+                      Map could not be loaded
+                    </div>
+                  }
+                >
+                  <MapView
+                    properties={filteredProperties.map((p) => ({
+                      id: p.id,
+                      lat: p.lat,
+                      lng: p.lng,
+                      price: p.price,
+                      title: p.title,
+                      location: p.location,
+                    }))}
+                    onMarkerClick={(id) => {
+                      const property = properties.find((p) => p.id === id);
+                      if (property) setSelectedProperty(property);
+                    }}
+                  />
+                </ErrorBoundary>
               </div>
             )}
           </>
@@ -429,14 +439,16 @@ export default function App() {
       />
 
       {selectedProperty && (
-        <PropertyDetail
-          property={selectedProperty}
-          onClose={() => {
-            setSelectedProperty(null);
-            setDetailOverlay(null);
-          }}
-          initialOverlay={detailOverlay}
-        />
+        <ErrorBoundary label="Property Details">
+          <PropertyDetail
+            property={selectedProperty}
+            onClose={() => {
+              setSelectedProperty(null);
+              setDetailOverlay(null);
+            }}
+            initialOverlay={detailOverlay}
+          />
+        </ErrorBoundary>
       )}
 
       {/* ── Luxury Portfolio Preview Modals ─────────────────── */}
