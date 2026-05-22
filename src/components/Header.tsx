@@ -1,11 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Building2 } from "lucide-react";
-<<<<<<< HEAD
 import { useFocusTrap } from "@/hooks/useFocusTrap";
-=======
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
->>>>>>> origin/main
 
 interface HeaderProps {
   onNavigateToMap?: () => void;
@@ -26,9 +23,9 @@ export function Header({
 }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-<<<<<<< HEAD
   const mobileMenuRef = useFocusTrap(mobileOpen);
   const menuButtonRef = useRef<HTMLButtonElement | null>(null);
+  useBodyScrollLock(mobileOpen);
 
   // Close mobile menu on Escape key
   useEffect(() => {
@@ -54,9 +51,6 @@ export function Header({
       return () => cancelAnimationFrame(rafId);
     }
   }, [mobileOpen]);
-=======
-  useBodyScrollLock(mobileOpen);
->>>>>>> origin/main
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -270,11 +264,7 @@ export function Header({
             style={{ zIndex: 1100 }}
             role="dialog"
             aria-modal="true"
-<<<<<<< HEAD
             aria-label="Navigation menu"
-=======
-            aria-label="Mobile navigation"
->>>>>>> origin/main
           >
             <button
               type="button"
