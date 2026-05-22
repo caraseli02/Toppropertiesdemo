@@ -9,7 +9,13 @@ interface LuxuryPropertiesShowcaseProps {
 
 const propertyKickers = ["Riviera Icon", "Skyline Residence", "Coastal Estate"] as const;
 
-function PropertyMeta({ property, tone = "dark" }: { property: Property; tone?: "dark" | "light" }) {
+function PropertyMeta({
+  property,
+  tone = "dark",
+}: {
+  property: Property;
+  tone?: "dark" | "light";
+}) {
   const textClass = tone === "light" ? "text-white/80" : "text-charcoal/65";
 
   return (
@@ -57,8 +63,8 @@ export function LuxuryPropertiesShowcase({ properties, onSelect }: LuxuryPropert
                 Sharper taste.
               </h3>
               <p className="mt-5 max-w-[420px] text-[14px] md:text-[15px] leading-relaxed text-charcoal/65">
-                A tighter luxury edit instead of another endless grid — built around the homes
-                with the strongest story, image, and price signal.
+                A tighter luxury edit instead of another endless grid — built around the homes with
+                the strongest story, image, and price signal.
               </p>
             </div>
           </div>
