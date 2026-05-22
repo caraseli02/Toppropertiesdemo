@@ -183,19 +183,19 @@ export function Footer({ onSelectFooterLink }: FooterProps) {
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-burgundy-light flex-shrink-0" />
                 <a
-                  href="tel:+15551234567"
+                  href="tel:+34931234567"
                   className="text-white/40 text-sm hover:text-white transition-colors"
                 >
-                  +1 (555) 123-4567
+                  +34 93 123 45 67
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-burgundy-light flex-shrink-0" />
                 <a
-                  href="mailto:hello@topproperties.demo"
+                  href="mailto:barcelona@topproperties.com"
                   className="text-white/40 text-sm hover:text-white transition-colors"
                 >
-                  hello@topproperties.demo
+                  barcelona@topproperties.com
                 </a>
               </li>
             </ul>
