@@ -32,12 +32,12 @@ export function HeroSection({
 
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full pt-32 pb-20">
-        <div className="max-w-3xl">
+        <div className="max-w-[46rem]">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-block text-burgundy-light text-xs uppercase tracking-[0.3em] font-semibold mb-6"
+            className="inline-block text-burgundy-light text-[13px] uppercase tracking-[0.22em] font-semibold mb-6"
           >
             Curated Luxury Real Estate
           </motion.span>
@@ -46,17 +46,17 @@ export function HeroSection({
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="font-serif text-5xl sm:text-6xl lg:text-7xl text-white leading-[1.1] mb-6"
+            className="font-serif text-5xl sm:text-6xl lg:text-7xl text-white leading-[1.06] mb-6 max-w-[12ch]"
           >
-            Exceptional Homes for
-            <span className="block text-white/90">Discerning Lives</span>
+            Exceptional Homes
+            <span className="block text-white/90">for Discerning Lives</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-lg sm:text-xl text-white/70 leading-relaxed mb-10 max-w-xl"
+            className="text-lg sm:text-xl text-white/82 leading-relaxed mb-10 max-w-xl"
           >
             From penthouses to private estates, each property is hand-selected for those who expect
             nothing less than extraordinary.
@@ -70,7 +70,7 @@ export function HeroSection({
           >
             <button
               onClick={() => firstFeatured && onViewProperty(firstFeatured)}
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-burgundy text-white rounded-full font-semibold text-base hover:bg-burgundy-dark transition-all duration-300 group cursor-pointer"
+              className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-burgundy text-white rounded-full font-semibold text-base hover:bg-burgundy-dark transition-all duration-300 group cursor-pointer"
             >
               Explore Properties
               <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -79,7 +79,7 @@ export function HeroSection({
               onClick={() =>
                 document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
               }
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-full font-semibold text-base border border-white/20 hover:bg-white/20 transition-all duration-300 cursor-pointer"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/16 backdrop-blur-sm text-white rounded-full font-semibold text-base border border-white/35 hover:bg-white/24 transition-all duration-300 cursor-pointer"
             >
               Schedule a Private Viewing
             </button>
@@ -95,37 +95,49 @@ export function HeroSection({
         >
           <div className="bg-white/95 backdrop-blur-md rounded-2xl p-6 lg:p-8 shadow-2xl max-w-4xl">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="space-y-2 cursor-pointer" onClick={onSearchClick}>
-                <label className="text-xs uppercase tracking-wider text-warm-gray font-semibold cursor-pointer">
+              <button
+                type="button"
+                className="space-y-2 text-left cursor-pointer"
+                onClick={onSearchClick}
+                aria-label="Open location search"
+              >
+                <span className="block text-xs uppercase tracking-wider text-warm-gray font-semibold cursor-pointer">
                   Location
-                </label>
-                <input
-                  type="text"
-                  placeholder="City, neighborhood..."
-                  readOnly
-                  className="w-full px-4 py-3 bg-cream rounded-xl text-charcoal placeholder:text-warm-gray/60 focus:outline-none focus:ring-2 focus:ring-burgundy/30 text-sm cursor-pointer"
-                />
-              </div>
+                </span>
+                <span className="block w-full px-4 py-3 bg-cream rounded-xl text-charcoal/70 text-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-burgundy/30">
+                  City, neighborhood...
+                </span>
+              </button>
 
-              <div className="space-y-2 cursor-pointer" onClick={onFilterClick}>
-                <label className="text-xs uppercase tracking-wider text-warm-gray font-semibold cursor-pointer">
+              <button
+                type="button"
+                className="space-y-2 text-left cursor-pointer"
+                onClick={onFilterClick}
+                aria-label="Open property type filters"
+              >
+                <span className="block text-xs uppercase tracking-wider text-warm-gray font-semibold cursor-pointer">
                   Property Type
-                </label>
-                <div className="w-full px-4 py-3 bg-cream rounded-xl text-warm-gray/60 text-left text-sm cursor-pointer flex justify-between items-center h-[44px]">
+                </span>
+                <span className="w-full px-4 py-3 bg-cream rounded-xl text-charcoal/70 text-left text-sm cursor-pointer flex justify-between items-center h-[44px]">
                   <span>All Types</span>
-                  <span className="text-[10px] text-warm-gray">▼</span>
-                </div>
-              </div>
+                  <span className="text-xs text-charcoal/60">▼</span>
+                </span>
+              </button>
 
-              <div className="space-y-2 cursor-pointer" onClick={onFilterClick}>
-                <label className="text-xs uppercase tracking-wider text-warm-gray font-semibold cursor-pointer">
+              <button
+                type="button"
+                className="space-y-2 text-left cursor-pointer"
+                onClick={onFilterClick}
+                aria-label="Open budget filters"
+              >
+                <span className="block text-xs uppercase tracking-wider text-warm-gray font-semibold cursor-pointer">
                   Budget
-                </label>
-                <div className="w-full px-4 py-3 bg-cream rounded-xl text-warm-gray/60 text-left text-sm cursor-pointer flex justify-between items-center h-[44px]">
+                </span>
+                <span className="w-full px-4 py-3 bg-cream rounded-xl text-charcoal/70 text-left text-sm cursor-pointer flex justify-between items-center h-[44px]">
                   <span>Any Budget</span>
-                  <span className="text-[10px] text-warm-gray">▼</span>
-                </div>
-              </div>
+                  <span className="text-xs text-charcoal/60">▼</span>
+                </span>
+              </button>
 
               <div className="flex items-end">
                 <button
@@ -137,6 +149,14 @@ export function HeroSection({
                 </button>
               </div>
             </div>
+            <button
+              type="button"
+              onClick={onFilterClick}
+              className="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-charcoal hover:text-burgundy transition-colors cursor-pointer"
+            >
+              Advanced filters: beds, amenities, price range, currency comparisons
+              <ChevronRight className="w-4 h-4" />
+            </button>
           </div>
         </motion.div>
       </div>
@@ -147,6 +167,7 @@ export function HeroSection({
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 1 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+        aria-hidden="true"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}

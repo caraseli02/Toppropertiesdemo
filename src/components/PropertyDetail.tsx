@@ -152,7 +152,7 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
               onClick={onClose}
               className="flex items-center justify-center gap-2 hover:bg-gray-100 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
               style={{ height: "44px", paddingLeft: "12px", paddingRight: "12px" }}
-              aria-label="Close property details"
+              aria-label="Back to results"
             >
               <X className="w-5 h-5 md:w-6 md:h-6" />
               <span className="text-xs md:text-sm font-medium text-gray-700">Close</span>

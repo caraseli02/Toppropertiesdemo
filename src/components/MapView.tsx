@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, Marker, Tooltip, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Tooltip, ZoomControl, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useState, useEffect } from "react";
@@ -18,6 +18,7 @@ interface PropertyMarker {
   lng: number;
   price: string;
   title: string;
+  location: string;
 }
 
 interface MapViewProps {
@@ -92,8 +93,9 @@ export const MapView = React.memo<MapViewProps>(function MapView({
   properties,
   onMarkerClick,
 }: MapViewProps) {
-  const [_activeId, setActiveId] = useState<string | null>(null);
+  const [activeId, setActiveId] = useState<string | null>(properties[0]?.id ?? null);
   const defaultCenter: [number, number] = [34.0522, -118.2437]; // Default to LA
+  const activeProperty = properties.find((property) => property.id === activeId) ?? properties[0];
 
   // Calculate center based on properties if available
   const center: [number, number] =
@@ -112,6 +114,7 @@ export const MapView = React.memo<MapViewProps>(function MapView({
         scrollWheelZoom={true}
         zoomControl={false}
       >
+        <ZoomControl position="topright" />
         <MapSizeInvalidator viewKey={mapViewKey} />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
@@ -133,7 +136,6 @@ export const MapView = React.memo<MapViewProps>(function MapView({
                 onMarkerClick?.(property.id);
               },
               mouseover: () => setActiveId(property.id),
-              mouseout: () => setActiveId(null),
             }}
           >
             <Tooltip direction="top" offset={[0, -20]} opacity={1}>
@@ -143,7 +145,22 @@ export const MapView = React.memo<MapViewProps>(function MapView({
         ))}
       </MapContainer>
 
-      {/* Zoom Control Placeholder if needed, but we disabled default */}
+      {activeProperty && (
+        <button
+          type="button"
+          onClick={() => onMarkerClick?.(activeProperty.id)}
+          className="absolute bottom-4 left-4 right-4 z-[500] rounded-2xl bg-white/95 p-4 text-left shadow-2xl backdrop-blur-sm transition hover:bg-white sm:left-5 sm:right-auto sm:w-[320px]"
+        >
+          <span className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.18em] text-warm-gray">
+            Map selection
+          </span>
+          <span className="block font-serif text-xl text-charcoal">{activeProperty.title}</span>
+          <span className="mt-1 block text-sm text-warm-gray">{activeProperty.location}</span>
+          <span className="mt-3 inline-flex rounded-full bg-burgundy px-3 py-1 text-sm font-semibold text-white">
+            {formatMarkerPrice(activeProperty.price)}
+          </span>
+        </button>
+      )}
     </div>
   );
 });

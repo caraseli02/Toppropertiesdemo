@@ -57,9 +57,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
               />
             </svg>
           </div>
-          <h2 className="text-lg font-semibold text-gray-900 mb-1">
-            Something went wrong
-          </h2>
+          <h2 className="text-lg font-semibold text-gray-900 mb-1">Something went wrong</h2>
           <p className="text-sm text-gray-500 mb-4">
             {this.props.label
               ? `We couldn't load the ${this.props.label.toLowerCase()} section.`

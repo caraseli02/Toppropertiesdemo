@@ -100,16 +100,20 @@ export function Testimonials() {
             >
               <ChevronLeft className="w-5 h-5 text-charcoal group-hover:text-burgundy transition-colors" />
             </button>
-            <div className="flex gap-2">
+            <div className="flex gap-1">
               {testimonials.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setCurrent(i)}
                   aria-label={`Go to testimonial ${i + 1}`}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    i === current ? "bg-burgundy w-6" : "bg-border-light hover:bg-warm-gray w-2"
-                  }`}
-                />
+                  className="flex h-11 w-11 items-center justify-center rounded-full transition-colors hover:bg-burgundy/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burgundy/30"
+                >
+                  <span
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                      i === current ? "bg-burgundy w-6" : "bg-border-light hover:bg-warm-gray w-2"
+                    }`}
+                  />
+                </button>
               ))}
             </div>
             <button
