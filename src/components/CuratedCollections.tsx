@@ -21,7 +21,7 @@ const collections = [
     subtitle: "Alpine chalets & ski-in properties",
     count: 6,
     image:
-      "https://images.unsplash.com/photo-1518098268026-4e43a1a009de?auto=format&fit=crop&w=800&h=500&q=80",
+      "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&h=500&q=80",
   },
   {
     title: "Historic Estates",

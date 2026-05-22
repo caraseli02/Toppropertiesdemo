@@ -98,7 +98,7 @@ export function ClientPortalModal({ isOpen, onClose, onLoginSuccess }: ClientPor
         {/* Content */}
         <div className="p-8 flex-1">
           {error && (
-            <div className="mb-6 p-4 bg-red-50 border-l-2 border-burgundy text-burgundy text-xs font-medium rounded-r-lg">
+            <div className="mb-6 rounded-lg border border-burgundy/20 bg-burgundy/5 p-4 text-xs font-medium text-burgundy">
               {error}
             </div>
           )}
