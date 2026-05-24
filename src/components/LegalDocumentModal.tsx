@@ -1,5 +1,9 @@
-import { X, ShieldCheck, FileText } from "lucide-react";
-import { motion } from "framer-motion";
+import { ShieldCheck, FileText } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface LegalDocumentModalProps {
   isOpen: boolean;
@@ -8,8 +12,6 @@ interface LegalDocumentModalProps {
 }
 
 export function LegalDocumentModal({ isOpen, onClose, title }: LegalDocumentModalProps) {
-  if (!isOpen) return null;
-
   const contentMap: Record<string, { sections: { subtitle: string; paragraphs: string[] }[] }> = {
     "Privacy Policy": {
       sections: [
@@ -93,34 +95,9 @@ export function LegalDocumentModal({ isOpen, onClose, title }: LegalDocumentModa
   };
 
   return (
-    <div className="fixed inset-0 z-[1300] flex items-center justify-center p-4">
-      {/* Backdrop */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        onClick={onClose}
-        className="absolute inset-0 bg-charcoal/40 backdrop-blur-sm"
-      />
-
-      {/* Modal Card */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95, y: 15 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95, y: 15 }}
-        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        className="relative w-full max-w-2xl bg-white overflow-hidden shadow-2xl border border-charcoal/5 flex flex-col max-h-[80vh]"
-        style={{ borderRadius: "12px" }}
-      >
-        {/* Header Close */}
-        <button
-          type="button"
-          onClick={onClose}
-          className="absolute top-5 right-5 z-20 w-10 h-10 rounded-full bg-ivory hover:bg-gray-100 flex items-center justify-center text-charcoal-light transition-colors"
-          aria-label="Close modal"
-        >
-          <X className="w-5 h-5" />
-        </button>
+    <Dialog open={isOpen} onOpenChange={(open) => { if (!open) onClose(); }}>
+      <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto p-0 gap-0">
+        <DialogTitle className="sr-only">{title}</DialogTitle>
 
         {/* Brand Banner */}
         <div className="bg-charcoal py-8 px-8 text-white flex items-center gap-4 border-b border-white/5 shrink-0">
@@ -159,7 +136,7 @@ export function LegalDocumentModal({ isOpen, onClose, title }: LegalDocumentModa
             </div>
           </div>
         </div>
-      </motion.div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }

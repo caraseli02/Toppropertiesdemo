@@ -1,5 +1,9 @@
-import { X, Award, MapPin, Mail, Phone } from "lucide-react";
-import { motion } from "framer-motion";
+import { Award, MapPin, Mail, Phone } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface AgencySpotlightModalProps {
   isOpen: boolean;
@@ -7,8 +11,6 @@ interface AgencySpotlightModalProps {
 }
 
 export function AgencySpotlightModal({ isOpen, onClose }: AgencySpotlightModalProps) {
-  if (!isOpen) return null;
-
   const agents = [
     {
       name: "James Mitchell",
@@ -31,34 +33,9 @@ export function AgencySpotlightModal({ isOpen, onClose }: AgencySpotlightModalPr
   ];
 
   return (
-    <div className="fixed inset-0 z-[1300] flex items-center justify-center p-4">
-      {/* Backdrop */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        onClick={onClose}
-        className="absolute inset-0 bg-charcoal/40 backdrop-blur-sm"
-      />
-
-      {/* Modal Card */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95, y: 15 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95, y: 15 }}
-        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        className="relative w-full max-w-4xl bg-white overflow-hidden shadow-2xl border border-charcoal/5 flex flex-col max-h-[90vh]"
-        style={{ borderRadius: "12px" }}
-      >
-        {/* Header Close */}
-        <button
-          type="button"
-          onClick={onClose}
-          className="absolute top-5 right-5 z-20 w-10 h-10 rounded-full bg-white/80 hover:bg-gray-100 flex items-center justify-center text-charcoal shadow-sm transition-colors border border-charcoal/5"
-          aria-label="Close modal"
-        >
-          <X className="w-5 h-5" />
-        </button>
+    <Dialog open={isOpen} onOpenChange={(open) => { if (!open) onClose(); }}>
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden flex flex-col p-0 gap-0 bg-white shadow-2xl border border-charcoal/5">
+        <DialogTitle className="sr-only">Top Properties Curation — Agency Spotlight</DialogTitle>
 
         {/* Scrollable Container */}
         <div className="overflow-y-auto flex-1">
@@ -192,7 +169,7 @@ export function AgencySpotlightModal({ isOpen, onClose }: AgencySpotlightModalPr
             </div>
           </div>
         </div>
-      </motion.div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }
