@@ -1,19 +1,27 @@
+import { Card } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
+
 export function LoadingCard() {
   return (
-    <div className="bg-white rounded-[8px] overflow-hidden border border-[var(--border-default)] animate-pulse">
-      <div className="h-[200px] bg-gray-200" />
+    <Card
+      className={cn(
+        "bg-white rounded-[8px] overflow-hidden border border-[var(--border-default)]"
+      )}
+    >
+      <Skeleton className="h-[200px] rounded-none" />
       <div className="p-4 space-y-3">
-        <div className="h-5 bg-gray-200 rounded w-3/4" />
-        <div className="h-4 bg-gray-200 rounded w-1/2" />
+        <Skeleton className="h-5 w-3/4" />
+        <Skeleton className="h-4 w-1/2" />
         <div className="flex gap-3 py-2">
-          <div className="h-4 bg-gray-200 rounded w-12" />
-          <div className="h-4 bg-gray-200 rounded w-12" />
-          <div className="h-4 bg-gray-200 rounded w-16" />
+          <Skeleton className="h-4 w-12" />
+          <Skeleton className="h-4 w-12" />
+          <Skeleton className="h-4 w-16" />
         </div>
         <div className="flex items-center justify-between">
-          <div className="h-6 bg-gray-200 rounded w-24" />
+          <Skeleton className="h-6 w-24" />
         </div>
       </div>
-    </div>
+    </Card>
   );
 }

@@ -2,6 +2,9 @@ import { Heart, MapPin, Bed, Bath } from "lucide-react";
 import { useState } from "react";
 import React from "react";
 import { formatUsdComparison } from "@/services/priceService";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface PropertyCardProps {
   id: string;
@@ -32,9 +35,10 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
   const usdComparison = formatUsdComparison(price);
 
   return (
-    <article
-      className="bg-white overflow-hidden border border-[var(--border-default)] hover:shadow-lg transition-shadow duration-300 group h-full flex flex-col"
-      style={{ borderRadius: "8px" }}
+    <Card
+      className={cn(
+        "bg-white border border-[var(--border-default)] hover:shadow-lg transition-shadow duration-300 group h-full p-0 gap-0 rounded-[8px] ring-0"
+      )}
     >
       <div
         className="relative overflow-hidden bg-[linear-gradient(135deg,#f7f2ec_0%,#ece3d8_48%,#d8c9ba_100%)] flex-shrink-0"
@@ -49,9 +53,10 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
         <img
           src={image}
           alt={title}
-          className={`w-full h-full object-cover transition-all duration-500 ${
+          className={cn(
+            "w-full h-full object-cover transition-all duration-500",
             imageLoaded ? "opacity-100 scale-100 group-hover:scale-110" : "opacity-0 scale-95"
-          }`}
+          )}
           onLoad={() => setImageLoaded(true)}
           onError={(e) => {
             const target = e.target as HTMLImageElement;
@@ -68,19 +73,23 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
           <div className="absolute inset-0 animate-pulse bg-[linear-gradient(135deg,#f7f2ec_0%,#ece3d8_48%,#d8c9ba_100%)]" />
         )}
         <div className="absolute top-3 left-3 right-3 flex items-start justify-between z-20 pointer-events-none">
-          <button
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={(e) => {
               e.stopPropagation();
               setIsFavorite(!isFavorite);
             }}
-            className="bg-white/95 backdrop-blur-sm flex items-center justify-center rounded-full hover:bg-white transition-all hover:scale-105 shadow-md shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30 pointer-events-auto"
-            style={{ width: "44px", height: "44px" }}
+            className="bg-white/95 backdrop-blur-sm rounded-full hover:bg-white hover:scale-105 shadow-md shrink-0 w-[44px] h-[44px] pointer-events-auto focus-visible:ring-[var(--brand)]/30"
             aria-label={isFavorite ? `Remove ${title} from favorites` : `Add ${title} to favorites`}
           >
             <Heart
-              className={`w-5 h-5 transition-colors ${isFavorite ? "fill-[var(--brand)] text-[var(--brand)]" : "text-gray-600"}`}
+              className={cn(
+                "w-5 h-5 transition-colors",
+                isFavorite ? "fill-[var(--brand)] text-[var(--brand)]" : "text-gray-600"
+              )}
             />
-          </button>
+          </Button>
           {featured && (
             <div className="bg-[var(--brand)] text-white px-3 py-1.5 rounded-full text-xs font-medium shadow-md">
               Featured
@@ -89,7 +98,7 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
         </div>
       </div>
 
-      <div className="p-4 flex flex-col flex-1">
+      <CardContent className="p-4 flex flex-col flex-1">
         <div className="mb-2">
           <h3 className="font-display text-[18px] text-ink mb-1 line-clamp-1" title={title}>
             {title}
@@ -124,7 +133,7 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
             )}
           </div>
         </div>
-      </div>
-    </article>
+      </CardContent>
+    </Card>
   );
 });
