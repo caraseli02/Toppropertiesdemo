@@ -1,8 +1,12 @@
-import { X, Plus, Minus, Check } from "lucide-react";
+import { Plus, Minus, Check } from "lucide-react";
 import { useState, useEffect } from "react";
 import { FilterState, Amenity, PropertyType } from "@/types";
-import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import { getDefaultFilters, PRICE_MAX } from "@/constants/filters";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 const AMENITIES: Amenity[] = [
   "Swimming Pool",
@@ -49,13 +53,9 @@ const formatPrice = (value: number): string => {
   return value.toString();
 };
 
-import { useFocusTrap } from "@/hooks/useFocusTrap";
-
 export function FilterModal({ isOpen, onClose, onApply, initialFilters }: FilterModalProps) {
   const [filters, setFilters] = useState<FilterState>(() => initialFilters || getDefaultFilters());
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
-  const focusTrapRef = useFocusTrap(isOpen);
-  useBodyScrollLock(isOpen);
 
   // Keep modal state as a draft synced from applied filters when opened.
   useEffect(() => {
@@ -63,20 +63,6 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
       setFilters(initialFilters || getDefaultFilters());
     }
   }, [isOpen, initialFilters]);
-
-  // Close on Escape key
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isOpen) {
-        onClose();
-      }
-    };
-
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
-  }, [isOpen, onClose]);
-
-  if (!isOpen) return null;
 
   const handleApply = () => {
     onApply(filters);
@@ -113,33 +99,11 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
   };
 
   return (
-    <div
-      ref={focusTrapRef}
-      className="fixed inset-0 bg-overlay-soft backdrop-blur-sm flex items-stretch justify-center p-0 sm:items-center sm:p-4"
-      style={{ zIndex: 1200 }}
-      onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          onClose();
-        }
-      }}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="filter-modal-title"
-    >
-      <div className="bg-[var(--surface-muted)] w-full h-full flex flex-col shadow-2xl rounded-none sm:rounded-2xl sm:h-auto sm:max-h-[90vh] sm:max-w-3xl">
+    <Dialog open={isOpen} onOpenChange={(open) => { if (!open) onClose(); }}>
+      <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto p-0 gap-0">
         {/* Header */}
         <div className="sticky top-0 bg-white px-6 py-4 flex items-center justify-between border-b border-[var(--border-default)] z-10">
-          <h2 id="filter-modal-title" className="text-xl font-bold">
-            Filters
-          </h2>
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-            style={{ width: "44px", height: "44px" }}
-            aria-label="Close filters"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          <DialogTitle className="text-xl font-bold">Filter Properties</DialogTitle>
         </div>
 
         {/* Content */}
@@ -438,7 +402,7 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
             Results
           </button>
         </div>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }

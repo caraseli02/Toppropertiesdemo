@@ -1,6 +1,10 @@
 import { useState } from "react";
-import { X, Lock, Mail, Sparkles, Shield, ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { Lock, Mail, Sparkles, Shield, ArrowRight } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface ClientPortalModalProps {
   isOpen: boolean;
@@ -13,8 +17,6 @@ export function ClientPortalModal({ isOpen, onClose, onLoginSuccess }: ClientPor
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-
-  if (!isOpen) return null;
 
   const handleDemoLogin = () => {
     setIsLoading(true);
@@ -53,34 +55,12 @@ export function ClientPortalModal({ isOpen, onClose, onLoginSuccess }: ClientPor
   };
 
   return (
-    <div className="fixed inset-0 z-[1300] flex items-center justify-center p-4">
-      {/* Backdrop */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        onClick={onClose}
-        className="absolute inset-0 bg-charcoal/40 backdrop-blur-sm"
-      />
-
-      {/* Modal Card */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95, y: 15 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95, y: 15 }}
-        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        className="relative w-full max-w-lg bg-white overflow-hidden shadow-2xl border border-charcoal/5 flex flex-col"
-        style={{ borderRadius: "12px" }}
+    <Dialog open={isOpen} onOpenChange={(open) => { if (!open) onClose(); }}>
+      <DialogContent
+        showCloseButton
+        className="w-full max-w-lg bg-white p-0 overflow-hidden shadow-2xl border border-charcoal/5 rounded-xl gap-0"
       >
-        {/* Header Close */}
-        <button
-          type="button"
-          onClick={onClose}
-          className="absolute top-5 right-5 z-10 w-10 h-10 rounded-full bg-ivory hover:bg-gray-100 flex items-center justify-center text-charcoal-light transition-colors"
-          aria-label="Close modal"
-        >
-          <X className="w-5 h-5" />
-        </button>
+        <DialogTitle className="sr-only">Client Portal Login</DialogTitle>
 
         {/* Brand Banner */}
         <div className="bg-burgundy py-8 px-8 text-white relative overflow-hidden">
@@ -190,7 +170,7 @@ export function ClientPortalModal({ isOpen, onClose, onLoginSuccess }: ClientPor
             <span>Fully encrypted, secure sandbox session. No real personal data required.</span>
           </div>
         </div>
-      </motion.div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }
