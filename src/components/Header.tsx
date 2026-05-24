@@ -1,13 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Menu, Building2 } from "lucide-react";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetClose,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
 
 interface HeaderProps {
   onNavigateToMap?: () => void;
@@ -215,7 +209,7 @@ export function Header({
             {/* Mobile Menu Button */}
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
               <button
-                onClick={() => setMobileOpen(true)}
+                onClick={() => setMobileOpen((v) => !v)}
                 className={`lg:hidden p-2 rounded-lg transition-colors ${
                   scrolled ? "text-charcoal" : "text-white"
                 }`}
@@ -276,7 +270,9 @@ export function Header({
                           <p className="text-[10px] uppercase tracking-wider text-warm-gray">
                             Client Session
                           </p>
-                          <p className="text-sm font-semibold text-charcoal truncate">{user.name}</p>
+                          <p className="text-sm font-semibold text-charcoal truncate">
+                            {user.name}
+                          </p>
                           <p className="text-[10px] text-warm-gray truncate">{user.email}</p>
                         </div>
                         <SheetClose

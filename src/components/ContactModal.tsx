@@ -1,9 +1,5 @@
 import { useState, useEffect, useMemo, useRef } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 type ContactMode = "contact" | "viewing" | "info";
 
@@ -164,11 +160,14 @@ export function ContactModal({
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => { if (!open) onClose(); }}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) onClose();
+      }}
+    >
       <DialogContent className="max-w-lg">
-        <DialogTitle className="text-xl font-bold font-display">
-          {config.title}
-        </DialogTitle>
+        <DialogTitle className="text-xl font-bold font-display">{config.title}</DialogTitle>
 
         {isSubmitted ? (
           <div className="flex flex-col items-center justify-center py-8 text-center">

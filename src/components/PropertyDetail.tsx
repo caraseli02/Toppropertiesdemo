@@ -128,7 +128,12 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
   ];
 
   return (
-    <Dialog open={true} onOpenChange={(open) => { if (!open) onClose(); }}>
+    <Dialog
+      open={true}
+      onOpenChange={(open) => {
+        if (!open) onClose();
+      }}
+    >
       <DialogContent
         showCloseButton={false}
         className="fixed inset-0 z-50 block h-full w-full max-w-none max-h-none translate-x-0 translate-y-0 gap-0 rounded-none bg-white p-0 ring-0 overflow-hidden sm:max-w-none"
@@ -250,7 +255,9 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
                     key={index}
                     onClick={() => openImageModal(index)}
                     className={`relative flex-shrink-0 w-24 h-16 rounded-lg overflow-hidden transition-all ${
-                      index === currentImageIndex ? "ring-2 ring-white" : "opacity-60 hover:opacity-100"
+                      index === currentImageIndex
+                        ? "ring-2 ring-white"
+                        : "opacity-60 hover:opacity-100"
                     }`}
                     aria-label={`View image ${index + 1} of ${gallery.length}`}
                   >
@@ -498,7 +505,9 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
                     <div className="space-y-3 text-sm">
                       <div className="flex justify-between">
                         <span className="text-gray-600">Property Type</span>
-                        <span className="font-medium">{property.propertyType || "Luxury Villa"}</span>
+                        <span className="font-medium">
+                          {property.propertyType || "Luxury Villa"}
+                        </span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-600">Year Built</span>
@@ -531,7 +540,9 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
                     </div>
                     <button
                       type="button"
-                      onClick={() => setToastMessage("Agent profiles are coming soon in this demo.")}
+                      onClick={() =>
+                        setToastMessage("Agent profiles are coming soon in this demo.")
+                      }
                       className="w-full border border-gray-300 hover:bg-gray-50 py-2 rounded-lg text-sm font-medium transition-colors"
                       style={{ minHeight: "44px" }}
                     >

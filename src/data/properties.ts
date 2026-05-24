@@ -15,8 +15,14 @@ export const properties: readonly Property[] = [
     lng: 3.1833,
     yearBuilt: 2022,
     propertyType: "Modern Villa",
-    description: "Discover stylish island living in this modern beach villa, perfectly situated in Son Serra with walking access to the sea. Featuring a private plot and expansive roof terrace, this beautifully designed property offers the ideal blend of Mediterranean luxury and contemporary comfort.",
-    gallery: ["/images/properties/modern-beach-villa-in-son-serr/hero.jpg", "/images/properties/modern-beach-villa-in-son-serr/photo-1.jpg", "/images/properties/modern-beach-villa-in-son-serr/photo-2.jpg", "/images/properties/modern-beach-villa-in-son-serr/photo-3.jpg"],
+    description:
+      "Discover stylish island living in this modern beach villa, perfectly situated in Son Serra with walking access to the sea. Featuring a private plot and expansive roof terrace, this beautifully designed property offers the ideal blend of Mediterranean luxury and contemporary comfort.",
+    gallery: [
+      "/images/properties/modern-beach-villa-in-son-serr/hero.jpg",
+      "/images/properties/modern-beach-villa-in-son-serr/photo-1.jpg",
+      "/images/properties/modern-beach-villa-in-son-serr/photo-2.jpg",
+      "/images/properties/modern-beach-villa-in-son-serr/photo-3.jpg",
+    ],
     amenities: ["Beach Access", "Terrace"] as const,
   },
   {
@@ -33,8 +39,14 @@ export const properties: readonly Property[] = [
     lng: 2.65,
     yearBuilt: 2018,
     propertyType: "Apartment",
-    description: "Experience opulent Mediterranean living in this prestigious luxury apartment, perfectly situated in the heart of Palma's historic Casco Antiguo. This exquisite home features multiple private terraces, top-quality finishes, and the ultimate convenience of private garage and lift access.",
-    gallery: ["/images/properties/luxury-apartment-in-palma-old-/hero.jpg", "/images/properties/luxury-apartment-in-palma-old-/photo-1.jpg", "/images/properties/luxury-apartment-in-palma-old-/photo-2.jpg", "/images/properties/luxury-apartment-in-palma-old-/photo-3.jpg"],
+    description:
+      "Experience opulent Mediterranean living in this prestigious luxury apartment, perfectly situated in the heart of Palma's historic Casco Antiguo. This exquisite home features multiple private terraces, top-quality finishes, and the ultimate convenience of private garage and lift access.",
+    gallery: [
+      "/images/properties/luxury-apartment-in-palma-old-/hero.jpg",
+      "/images/properties/luxury-apartment-in-palma-old-/photo-1.jpg",
+      "/images/properties/luxury-apartment-in-palma-old-/photo-2.jpg",
+      "/images/properties/luxury-apartment-in-palma-old-/photo-3.jpg",
+    ],
     amenities: ["Garage", "Historic", "Lift", "Terrace"] as const,
   },
   {
@@ -51,8 +63,14 @@ export const properties: readonly Property[] = [
     lng: 3.0833,
     yearBuilt: 2018,
     propertyType: "Apartment",
-    description: "Discover Mediterranean luxury in this magnificent beachfront apartment in the heart of Port de Pollença, offering breathtaking sea views and direct access to the sand. This prime property not only promises an idyllic lifestyle but also boasts significant rental potential, making it an ideal investment in Mallorca.",
-    gallery: ["/images/properties/beachfront-property-in-port-de/hero.jpg", "/images/properties/beachfront-property-in-port-de/photo-1.jpg", "/images/properties/beachfront-property-in-port-de/photo-2.jpg", "/images/properties/beachfront-property-in-port-de/photo-3.jpg"],
+    description:
+      "Discover Mediterranean luxury in this magnificent beachfront apartment in the heart of Port de Pollença, offering breathtaking sea views and direct access to the sand. This prime property not only promises an idyllic lifestyle but also boasts significant rental potential, making it an ideal investment in Mallorca.",
+    gallery: [
+      "/images/properties/beachfront-property-in-port-de/hero.jpg",
+      "/images/properties/beachfront-property-in-port-de/photo-1.jpg",
+      "/images/properties/beachfront-property-in-port-de/photo-2.jpg",
+      "/images/properties/beachfront-property-in-port-de/photo-3.jpg",
+    ],
     amenities: ["Beach Access", "Ocean View"] as const,
   },
   {
@@ -69,8 +87,14 @@ export const properties: readonly Property[] = [
     lng: 3.1833,
     yearBuilt: 2022,
     propertyType: "Modern Villa",
-    description: "Discover ultimate island living in this spectacular beachfront villa, offering breathtaking sea views and the luxury of a private plot in Son Serra de Marina. Maximizing your return is easy with the included holiday rental license, making this turnkey property an exceptional investment opportunity.",
-    gallery: ["/images/properties/beachfront-villa-with-rental-l/hero.jpg", "/images/properties/beachfront-villa-with-rental-l/photo-1.jpg", "/images/properties/beachfront-villa-with-rental-l/photo-2.jpg", "/images/properties/beachfront-villa-with-rental-l/photo-3.jpg"],
+    description:
+      "Discover ultimate island living in this spectacular beachfront villa, offering breathtaking sea views and the luxury of a private plot in Son Serra de Marina. Maximizing your return is easy with the included holiday rental license, making this turnkey property an exceptional investment opportunity.",
+    gallery: [
+      "/images/properties/beachfront-villa-with-rental-l/hero.jpg",
+      "/images/properties/beachfront-villa-with-rental-l/photo-1.jpg",
+      "/images/properties/beachfront-villa-with-rental-l/photo-2.jpg",
+      "/images/properties/beachfront-villa-with-rental-l/photo-3.jpg",
+    ],
     amenities: ["Beach Access", "Ocean View"] as const,
   },
   {
@@ -87,8 +111,14 @@ export const properties: readonly Property[] = [
     lng: 3.1283,
     yearBuilt: 2018,
     propertyType: "Estate",
-    description: "Discover unparalleled luxury on this sprawling 13,950m² coastal estate, offering breathtaking, panoramic views over Pollensa Bay in Mal Pas. Perfectly situated in an exclusive pocket of Mallorca, this private sanctuary promises ultimate Mediterranean living and seclusion.",
-    gallery: ["/images/properties/coastal-estate-overlooking-pol/hero.jpg", "/images/properties/coastal-estate-overlooking-pol/photo-1.jpg", "/images/properties/coastal-estate-overlooking-pol/photo-2.jpg", "/images/properties/coastal-estate-overlooking-pol/photo-3.jpg"],
+    description:
+      "Discover unparalleled luxury on this sprawling 13,950m² coastal estate, offering breathtaking, panoramic views over Pollensa Bay in Mal Pas. Perfectly situated in an exclusive pocket of Mallorca, this private sanctuary promises ultimate Mediterranean living and seclusion.",
+    gallery: [
+      "/images/properties/coastal-estate-overlooking-pol/hero.jpg",
+      "/images/properties/coastal-estate-overlooking-pol/photo-1.jpg",
+      "/images/properties/coastal-estate-overlooking-pol/photo-2.jpg",
+      "/images/properties/coastal-estate-overlooking-pol/photo-3.jpg",
+    ],
     amenities: ["Ocean View"] as const,
   },
   {
@@ -105,8 +135,14 @@ export const properties: readonly Property[] = [
     lng: 2.6233,
     yearBuilt: 2022,
     propertyType: "Modern Villa",
-    description: "Discover unparalleled luxury in this spectacular seafront mega-villa in Valldemossa, boasting 1,000m² of specialized living space situated on an expansive 2,700m² plot. Featuring breathtaking sea views, a private pool, and special architectural details, this estate offers the ultimate Mediterranean lifestyle at €9,000,000.",
-    gallery: ["/images/properties/seafront-mega-villa-in-valldem/hero.jpg", "/images/properties/seafront-mega-villa-in-valldem/photo-1.jpg", "/images/properties/seafront-mega-villa-in-valldem/photo-2.jpg", "/images/properties/seafront-mega-villa-in-valldem/photo-3.jpg"],
+    description:
+      "Discover unparalleled luxury in this spectacular seafront mega-villa in Valldemossa, boasting 1,000m² of specialized living space situated on an expansive 2,700m² plot. Featuring breathtaking sea views, a private pool, and special architectural details, this estate offers the ultimate Mediterranean lifestyle at €9,000,000.",
+    gallery: [
+      "/images/properties/seafront-mega-villa-in-valldem/hero.jpg",
+      "/images/properties/seafront-mega-villa-in-valldem/photo-1.jpg",
+      "/images/properties/seafront-mega-villa-in-valldem/photo-2.jpg",
+      "/images/properties/seafront-mega-villa-in-valldem/photo-3.jpg",
+    ],
     amenities: ["Spa", "Swimming Pool"] as const,
   },
   {
@@ -123,8 +159,14 @@ export const properties: readonly Property[] = [
     lng: 3.0167,
     yearBuilt: 2022,
     propertyType: "Penthouse",
-    description: "Discover unparalleled island living in this charming penthouse in Pollensa, North Mallorca. Featuring a private terrace and breathtaking rooftop views, this authentic gem awaits your consideration.",
-    gallery: ["/images/properties/charming-penthouse-in-pollensa/hero.jpg", "/images/properties/charming-penthouse-in-pollensa/photo-1.jpg", "/images/properties/charming-penthouse-in-pollensa/photo-2.jpg", "/images/properties/charming-penthouse-in-pollensa/photo-3.jpg"],
+    description:
+      "Discover unparalleled island living in this charming penthouse in Pollensa, North Mallorca. Featuring a private terrace and breathtaking rooftop views, this authentic gem awaits your consideration.",
+    gallery: [
+      "/images/properties/charming-penthouse-in-pollensa/hero.jpg",
+      "/images/properties/charming-penthouse-in-pollensa/photo-1.jpg",
+      "/images/properties/charming-penthouse-in-pollensa/photo-2.jpg",
+      "/images/properties/charming-penthouse-in-pollensa/photo-3.jpg",
+    ],
     amenities: ["Ocean View", "Rooftop", "Terrace"] as const,
   },
   {
@@ -141,8 +183,14 @@ export const properties: readonly Property[] = [
     lng: 3.0167,
     yearBuilt: 2018,
     propertyType: "Apartment",
-    description: "Discover this charming historic townhouse in the heart of Pollensa Pueblo, offering a blend of traditional architecture and renovation potential. Featuring a private garden and a prime location within the historic centre, this property provides the perfect canvas for realizing your dream Mediterranean lifestyle.",
-    gallery: ["/images/properties/historic-townhouse-in-pollensa/hero.jpg", "/images/properties/historic-townhouse-in-pollensa/photo-1.jpg", "/images/properties/historic-townhouse-in-pollensa/photo-2.jpg", "/images/properties/historic-townhouse-in-pollensa/photo-3.jpg"],
+    description:
+      "Discover this charming historic townhouse in the heart of Pollensa Pueblo, offering a blend of traditional architecture and renovation potential. Featuring a private garden and a prime location within the historic centre, this property provides the perfect canvas for realizing your dream Mediterranean lifestyle.",
+    gallery: [
+      "/images/properties/historic-townhouse-in-pollensa/hero.jpg",
+      "/images/properties/historic-townhouse-in-pollensa/photo-1.jpg",
+      "/images/properties/historic-townhouse-in-pollensa/photo-2.jpg",
+      "/images/properties/historic-townhouse-in-pollensa/photo-3.jpg",
+    ],
     amenities: ["Garden", "Historic", "Traditional Architecture"] as const,
   },
   {
@@ -159,8 +207,14 @@ export const properties: readonly Property[] = [
     lng: 3.3333,
     yearBuilt: 2022,
     propertyType: "Modern Villa",
-    description: "Experience sophisticated island living in this modern golf villa located in desirable Son Servera. Offering stunning sea views, architectural elegance, and immediate proximity to world-class golf, this spacious property is finished with premium details.",
-    gallery: ["/images/properties/modern-golf-villa-in-son-serve/hero.jpg", "/images/properties/modern-golf-villa-in-son-serve/photo-1.jpg", "/images/properties/modern-golf-villa-in-son-serve/photo-2.jpg", "/images/properties/modern-golf-villa-in-son-serve/photo-3.jpg"],
+    description:
+      "Experience sophisticated island living in this modern golf villa located in desirable Son Servera. Offering stunning sea views, architectural elegance, and immediate proximity to world-class golf, this spacious property is finished with premium details.",
+    gallery: [
+      "/images/properties/modern-golf-villa-in-son-serve/hero.jpg",
+      "/images/properties/modern-golf-villa-in-son-serve/photo-1.jpg",
+      "/images/properties/modern-golf-villa-in-son-serve/photo-2.jpg",
+      "/images/properties/modern-golf-villa-in-son-serve/photo-3.jpg",
+    ],
     amenities: ["Ocean View", "Spa", "Terrace"] as const,
   },
   {
@@ -177,8 +231,14 @@ export const properties: readonly Property[] = [
     lng: 2.6167,
     yearBuilt: 2022,
     propertyType: "Modern Villa",
-    description: "Experience unparalleled luxury in this brand-new villa project, perfectly situated in the prestigious Son Vida area with direct, frontline golf views. Set on a generous 1,200m² plot, this exceptional opportunity allows you to build your custom Mediterranean dream home in Mallorca.",
-    gallery: ["/images/properties/golf-front-villa-project-in-so/hero.jpg", "/images/properties/golf-front-villa-project-in-so/photo-1.jpg", "/images/properties/golf-front-villa-project-in-so/photo-2.jpg", "/images/properties/golf-front-villa-project-in-so/photo-3.jpg"],
+    description:
+      "Experience unparalleled luxury in this brand-new villa project, perfectly situated in the prestigious Son Vida area with direct, frontline golf views. Set on a generous 1,200m² plot, this exceptional opportunity allows you to build your custom Mediterranean dream home in Mallorca.",
+    gallery: [
+      "/images/properties/golf-front-villa-project-in-so/hero.jpg",
+      "/images/properties/golf-front-villa-project-in-so/photo-1.jpg",
+      "/images/properties/golf-front-villa-project-in-so/photo-2.jpg",
+      "/images/properties/golf-front-villa-project-in-so/photo-3.jpg",
+    ],
     amenities: ["Terrace"] as const,
   },
   {
@@ -195,8 +255,14 @@ export const properties: readonly Property[] = [
     lng: 2.65,
     yearBuilt: 2018,
     propertyType: "Apartment",
-    description: "Experience unmatched city living in this charming top-floor apartment, perfectly situated in the historic heart of Palma Old Town. Enjoy stunning city views and the ultimate convenience of a short walk to the harbour and local amenities.",
-    gallery: ["/images/properties/top-floor-apartment-in-palma-o/hero.jpg", "/images/properties/top-floor-apartment-in-palma-o/photo-1.jpg", "/images/properties/top-floor-apartment-in-palma-o/photo-2.jpg", "/images/properties/top-floor-apartment-in-palma-o/photo-3.jpg"],
+    description:
+      "Experience unmatched city living in this charming top-floor apartment, perfectly situated in the historic heart of Palma Old Town. Enjoy stunning city views and the ultimate convenience of a short walk to the harbour and local amenities.",
+    gallery: [
+      "/images/properties/top-floor-apartment-in-palma-o/hero.jpg",
+      "/images/properties/top-floor-apartment-in-palma-o/photo-1.jpg",
+      "/images/properties/top-floor-apartment-in-palma-o/photo-2.jpg",
+      "/images/properties/top-floor-apartment-in-palma-o/photo-3.jpg",
+    ],
     amenities: ["Ocean View"] as const,
   },
   {
@@ -213,8 +279,14 @@ export const properties: readonly Property[] = [
     lng: 2.8667,
     yearBuilt: 2018,
     propertyType: "Estate",
-    description: "Discover unparalleled Mediterranean luxury within this magnificent, 5,000m² historic Mallorcan estate, featuring a traditional finca-style mansion complemented by private guest houses. Nestled in Central Mallorca, this exquisite property offers a perfect blend of history, privacy, and sophisticated island living at €3,900,000.",
-    gallery: ["/images/properties/historic-mallorcan-mansion-wit/hero.jpg", "/images/properties/historic-mallorcan-mansion-wit/photo-1.jpg", "/images/properties/historic-mallorcan-mansion-wit/photo-2.jpg", "/images/properties/historic-mallorcan-mansion-wit/photo-3.jpg"],
+    description:
+      "Discover unparalleled Mediterranean luxury within this magnificent, 5,000m² historic Mallorcan estate, featuring a traditional finca-style mansion complemented by private guest houses. Nestled in Central Mallorca, this exquisite property offers a perfect blend of history, privacy, and sophisticated island living at €3,900,000.",
+    gallery: [
+      "/images/properties/historic-mallorcan-mansion-wit/hero.jpg",
+      "/images/properties/historic-mallorcan-mansion-wit/photo-1.jpg",
+      "/images/properties/historic-mallorcan-mansion-wit/photo-2.jpg",
+      "/images/properties/historic-mallorcan-mansion-wit/photo-3.jpg",
+    ],
     amenities: ["Guest House", "Historic", "Traditional Architecture"] as const,
   },
   {
@@ -231,8 +303,14 @@ export const properties: readonly Property[] = [
     lng: 3.0167,
     yearBuilt: 2022,
     propertyType: "Modern Villa",
-    description: "Discover this magnificent natural stone villa in Pollença, Mallorca, where traditional Mediterranean charm seamlessly merges with sophisticated modern luxury, set upon an exclusive corner plot. This beautifully appointed home features a mature, verdant garden and offers the quintessential island lifestyle of enduring elegance.",
-    gallery: ["/images/properties/natural-stone-villa-in-pollenç/hero.jpg", "/images/properties/natural-stone-villa-in-pollenç/photo-1.jpg", "/images/properties/natural-stone-villa-in-pollenç/photo-2.jpg", "/images/properties/natural-stone-villa-in-pollenç/photo-3.jpg"],
+    description:
+      "Discover this magnificent natural stone villa in Pollença, Mallorca, where traditional Mediterranean charm seamlessly merges with sophisticated modern luxury, set upon an exclusive corner plot. This beautifully appointed home features a mature, verdant garden and offers the quintessential island lifestyle of enduring elegance.",
+    gallery: [
+      "/images/properties/natural-stone-villa-in-pollenç/hero.jpg",
+      "/images/properties/natural-stone-villa-in-pollenç/photo-1.jpg",
+      "/images/properties/natural-stone-villa-in-pollenç/photo-2.jpg",
+      "/images/properties/natural-stone-villa-in-pollenç/photo-3.jpg",
+    ],
     amenities: ["Garden", "Traditional Architecture"] as const,
   },
   {
@@ -249,8 +327,14 @@ export const properties: readonly Property[] = [
     lng: 3.03,
     yearBuilt: 2022,
     propertyType: "Modern Villa",
-    description: "Discover unparalleled luxury on 3,000m² of exquisite grounds in La Font, offering sweeping mountain vistas and a private oasis in Pollença, Mallorca. This magnificent estate is outfitted with world-class amenities, including a refreshing pool and private tennis court, ensuring a lifestyle of ultimate sophistication and leisure.",
-    gallery: ["/images/properties/luxury-villa-with-tennis-court/hero.jpg", "/images/properties/luxury-villa-with-tennis-court/photo-1.jpg", "/images/properties/luxury-villa-with-tennis-court/photo-2.jpg", "/images/properties/luxury-villa-with-tennis-court/photo-3.jpg"],
+    description:
+      "Discover unparalleled luxury on 3,000m² of exquisite grounds in La Font, offering sweeping mountain vistas and a private oasis in Pollença, Mallorca. This magnificent estate is outfitted with world-class amenities, including a refreshing pool and private tennis court, ensuring a lifestyle of ultimate sophistication and leisure.",
+    gallery: [
+      "/images/properties/luxury-villa-with-tennis-court/hero.jpg",
+      "/images/properties/luxury-villa-with-tennis-court/photo-1.jpg",
+      "/images/properties/luxury-villa-with-tennis-court/photo-2.jpg",
+      "/images/properties/luxury-villa-with-tennis-court/photo-3.jpg",
+    ],
     amenities: ["Mountain View", "Ocean View", "Swimming Pool", "Tennis Court"] as const,
   },
   {
@@ -267,8 +351,14 @@ export const properties: readonly Property[] = [
     lng: 2.62,
     yearBuilt: 2022,
     propertyType: "Modern Villa",
-    description: "Nestled within the tranquil embrace of the Valldemossa Mountains, this exquisite villa offers unparalleled seclusion and breathtaking panoramic views from its expansive 2,000m² plot. Experience the ultimate luxury mountain retreat, where natural serenity meets sophisticated Mediterranean elegance, awaiting its discerning owner.",
-    gallery: ["/images/properties/secluded-mountain-retreat-in-v/hero.jpg", "/images/properties/secluded-mountain-retreat-in-v/photo-1.jpg", "/images/properties/secluded-mountain-retreat-in-v/photo-2.jpg", "/images/properties/secluded-mountain-retreat-in-v/photo-3.jpg"],
+    description:
+      "Nestled within the tranquil embrace of the Valldemossa Mountains, this exquisite villa offers unparalleled seclusion and breathtaking panoramic views from its expansive 2,000m² plot. Experience the ultimate luxury mountain retreat, where natural serenity meets sophisticated Mediterranean elegance, awaiting its discerning owner.",
+    gallery: [
+      "/images/properties/secluded-mountain-retreat-in-v/hero.jpg",
+      "/images/properties/secluded-mountain-retreat-in-v/photo-1.jpg",
+      "/images/properties/secluded-mountain-retreat-in-v/photo-2.jpg",
+      "/images/properties/secluded-mountain-retreat-in-v/photo-3.jpg",
+    ],
     amenities: ["Mountain View", "Ocean View"] as const,
   },
   {
@@ -285,8 +375,14 @@ export const properties: readonly Property[] = [
     lng: 3.0167,
     yearBuilt: 2022,
     propertyType: "Modern Villa",
-    description: "Secure your Mediterranean masterpiece on this expansive 700m² plot in Pollença, Mallorca, offering stunning sea views and the highly valuable benefit of a granted building license. This new construction opportunity represents the ultimate turnkey investment in luxury living, situating you near the pristine beach and ready for your bespoke design.",
-    gallery: ["/images/properties/sea-view-villa-project-with-li/hero.jpg", "/images/properties/sea-view-villa-project-with-li/photo-1.jpg", "/images/properties/sea-view-villa-project-with-li/photo-2.jpg", "/images/properties/sea-view-villa-project-with-li/photo-3.jpg"],
+    description:
+      "Secure your Mediterranean masterpiece on this expansive 700m² plot in Pollença, Mallorca, offering stunning sea views and the highly valuable benefit of a granted building license. This new construction opportunity represents the ultimate turnkey investment in luxury living, situating you near the pristine beach and ready for your bespoke design.",
+    gallery: [
+      "/images/properties/sea-view-villa-project-with-li/hero.jpg",
+      "/images/properties/sea-view-villa-project-with-li/photo-1.jpg",
+      "/images/properties/sea-view-villa-project-with-li/photo-2.jpg",
+      "/images/properties/sea-view-villa-project-with-li/photo-3.jpg",
+    ],
     amenities: ["Beach Access", "Ocean View"] as const,
   },
 ];

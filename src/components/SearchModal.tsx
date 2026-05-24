@@ -1,9 +1,5 @@
 import { useState, useMemo } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import type { Property } from "@/types";
 
 interface SearchModalProps {
@@ -70,7 +66,12 @@ export function SearchModal({
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => { if (!open) onClose(); }}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) onClose();
+      }}
+    >
       <DialogContent className="max-w-2xl">
         <DialogTitle className="text-sm font-semibold tracking-wide text-gray-500 uppercase">
           Search Properties
@@ -82,7 +83,11 @@ export function SearchModal({
             className="flex-1 flex items-center px-4 rounded-lg border border-gray-300 bg-white"
             style={{ height: "50px" }}
           >
+            <label htmlFor="search-modal-input" className="sr-only">
+              Search properties
+            </label>
             <input
+              id="search-modal-input"
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value.slice(0, MAX_QUERY_LENGTH))}
@@ -91,7 +96,6 @@ export function SearchModal({
               className="flex-1 font-light text-[16px] text-ink placeholder:text-gray-400 outline-none bg-transparent"
               style={{ minHeight: "44px" }}
               autoFocus
-              aria-label="Search properties"
               maxLength={MAX_QUERY_LENGTH}
             />
             {query && (

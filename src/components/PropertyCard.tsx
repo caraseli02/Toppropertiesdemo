@@ -37,7 +37,7 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
   return (
     <Card
       className={cn(
-        "bg-white border border-[var(--border-default)] hover:shadow-lg transition-shadow duration-300 group h-full p-0 gap-0 rounded-[8px] ring-0"
+        "bg-white border border-[var(--border-default)] hover:shadow-lg transition-shadow duration-300 group h-full p-0 gap-0 rounded-[8px] ring-0",
       )}
     >
       <div
@@ -55,7 +55,7 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
           alt={title}
           className={cn(
             "w-full h-full object-cover transition-all duration-500",
-            imageLoaded ? "opacity-100 scale-100 group-hover:scale-110" : "opacity-0 scale-95"
+            imageLoaded ? "opacity-100 scale-100 group-hover:scale-110" : "opacity-0 scale-95",
           )}
           onLoad={() => setImageLoaded(true)}
           onError={(e) => {
@@ -86,7 +86,7 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
             <Heart
               className={cn(
                 "w-5 h-5 transition-colors",
-                isFavorite ? "fill-[var(--brand)] text-[var(--brand)]" : "text-gray-600"
+                isFavorite ? "fill-[var(--brand)] text-[var(--brand)]" : "text-gray-600",
               )}
             />
           </Button>

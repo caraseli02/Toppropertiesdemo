@@ -1,10 +1,6 @@
 import { useState } from "react";
 import { Lock, Mail, Sparkles, Shield, ArrowRight } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 interface ClientPortalModalProps {
   isOpen: boolean;
@@ -55,7 +51,12 @@ export function ClientPortalModal({ isOpen, onClose, onLoginSuccess }: ClientPor
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => { if (!open) onClose(); }}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) onClose();
+      }}
+    >
       <DialogContent
         showCloseButton
         className="w-full max-w-lg bg-white p-0 overflow-hidden shadow-2xl border border-charcoal/5 rounded-xl gap-0"

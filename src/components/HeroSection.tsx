@@ -44,7 +44,7 @@ export function HeroSection({
             <Badge
               variant="outline"
               className={cn(
-                "text-[13px] uppercase tracking-[0.22em] font-semibold mb-6 bg-burgundy-light/10 text-burgundy-light border-burgundy-light/30 px-3 py-1"
+                "text-[13px] uppercase tracking-[0.22em] font-semibold mb-6 bg-burgundy-light/10 text-burgundy-light border-burgundy-light/30 px-3 py-1",
               )}
             >
               Curated Luxury Real Estate
@@ -78,21 +78,23 @@ export function HeroSection({
             className="flex flex-col sm:flex-row gap-4"
           >
             <Button
+              size="lg"
               onClick={() => firstFeatured && onViewProperty(firstFeatured)}
               className={cn(
-                "inline-flex items-center justify-center gap-3 px-8 py-4 bg-burgundy text-white rounded-full font-semibold text-base hover:bg-burgundy-dark transition-all duration-300 group cursor-pointer"
+                "inline-flex items-center justify-center gap-3 px-8 py-4 bg-burgundy text-white rounded-full font-semibold text-base hover:bg-burgundy-dark transition-all duration-300 group cursor-pointer",
               )}
             >
               Explore Properties
               <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button
+              size="lg"
               variant="outline"
               onClick={() =>
                 document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
               }
               className={cn(
-                "inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/16 backdrop-blur-sm text-white rounded-full font-semibold text-base border border-white/35 hover:bg-white/24 transition-all duration-300 cursor-pointer"
+                "inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/16 backdrop-blur-sm text-white rounded-full font-semibold text-base border border-white/35 hover:bg-white/24 transition-all duration-300 cursor-pointer",
               )}
             >
               Schedule a Private Viewing
@@ -157,7 +159,7 @@ export function HeroSection({
                 <Button
                   onClick={onSearchClick}
                   className={cn(
-                    "w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-burgundy text-white rounded-xl font-semibold text-sm hover:bg-burgundy-dark transition-all duration-300 cursor-pointer h-[44px]"
+                    "w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-burgundy text-white rounded-xl font-semibold text-sm hover:bg-burgundy-dark transition-all duration-300 cursor-pointer h-[44px]",
                   )}
                 >
                   <Search className="w-4 h-4" />

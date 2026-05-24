@@ -2,11 +2,7 @@ import { Plus, Minus, Check } from "lucide-react";
 import { useState, useEffect } from "react";
 import { FilterState, Amenity, PropertyType } from "@/types";
 import { getDefaultFilters, PRICE_MAX } from "@/constants/filters";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 const AMENITIES: Amenity[] = [
   "Swimming Pool",
@@ -99,7 +95,12 @@ export function FilterModal({ isOpen, onClose, onApply, initialFilters }: Filter
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => { if (!open) onClose(); }}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) onClose();
+      }}
+    >
       <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto p-0 gap-0">
         {/* Header */}
         <div className="sticky top-0 bg-white px-6 py-4 flex items-center justify-between border-b border-[var(--border-default)] z-10">

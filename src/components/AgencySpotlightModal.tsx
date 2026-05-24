@@ -1,9 +1,5 @@
 import { Award, MapPin, Mail, Phone } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 interface AgencySpotlightModalProps {
   isOpen: boolean;
@@ -33,9 +29,14 @@ export function AgencySpotlightModal({ isOpen, onClose }: AgencySpotlightModalPr
   ];
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => { if (!open) onClose(); }}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) onClose();
+      }}
+    >
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden flex flex-col p-0 gap-0 bg-white shadow-2xl border border-charcoal/5">
-        <DialogTitle className="sr-only">Top Properties Curation — Agency Spotlight</DialogTitle>
+        <DialogTitle className="sr-only">Top Properties Curation: Agency Spotlight</DialogTitle>
 
         {/* Scrollable Container */}
         <div className="overflow-y-auto flex-1">
@@ -44,7 +45,7 @@ export function AgencySpotlightModal({ isOpen, onClose }: AgencySpotlightModalPr
             <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-burgundy via-transparent to-transparent pointer-events-none" />
             <div className="max-w-2xl">
               <span className="text-[10px] uppercase tracking-[0.25em] text-burgundy-light block mb-2 font-semibold">
-                Est. 2008 — Barcelona
+                Est. 2008, Barcelona
               </span>
               <h2 className="font-serif text-3xl md:text-4xl tracking-tight mb-4">
                 Top Properties Curation

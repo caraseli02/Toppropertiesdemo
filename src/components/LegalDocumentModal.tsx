@@ -1,9 +1,5 @@
 import { ShieldCheck, FileText } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 interface LegalDocumentModalProps {
   isOpen: boolean;
@@ -95,7 +91,12 @@ export function LegalDocumentModal({ isOpen, onClose, title }: LegalDocumentModa
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => { if (!open) onClose(); }}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) onClose();
+      }}
+    >
       <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto p-0 gap-0">
         <DialogTitle className="sr-only">{title}</DialogTitle>
 

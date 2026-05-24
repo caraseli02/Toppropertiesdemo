@@ -5,9 +5,7 @@ import { cn } from "@/lib/utils";
 export function LoadingCard() {
   return (
     <Card
-      className={cn(
-        "bg-white rounded-[8px] overflow-hidden border border-[var(--border-default)]"
-      )}
+      className={cn("bg-white rounded-[8px] overflow-hidden border border-[var(--border-default)]")}
     >
       <Skeleton className="h-[200px] rounded-none" />
       <div className="p-4 space-y-3">

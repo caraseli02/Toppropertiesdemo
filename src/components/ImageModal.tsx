@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 interface ImageModalProps {
   images: readonly string[];
@@ -40,7 +36,12 @@ export function ImageModal({ images, initialIndex, isOpen, onClose }: ImageModal
   }, [isOpen, images.length]);
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => { if (!open) onClose(); }}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) onClose();
+      }}
+    >
       <DialogContent
         className="max-w-6xl sm:max-w-none bg-ink rounded-xl overflow-hidden p-0 gap-0 ring-0 text-white"
         style={{ maxHeight: "90vh" }}

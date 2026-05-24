@@ -38,7 +38,7 @@ export function SearchBar({ onSearch, onFilterClick, onSearchClick, value }: Sea
             variant="outline"
             onClick={onFilterClick}
             className={cn(
-              "shrink-0 bg-white flex items-center hover-bg-brand-subtle transition-colors"
+              "shrink-0 bg-white flex items-center hover-bg-brand-subtle transition-colors",
             )}
             style={{ height: "44px", gap: "10px", padding: "0 14px", borderRadius: "50px" }}
             aria-label="Filters"
@@ -61,12 +61,16 @@ export function SearchBar({ onSearch, onFilterClick, onSearchClick, value }: Sea
           {/* Search Input */}
           <div
             className={cn(
-              "flex-1 flex items-center border border-[var(--border-default)] border-solid cursor-pointer"
+              "flex-1 flex items-center border border-[var(--border-default)] border-solid cursor-pointer",
             )}
             style={{ height: "44px", padding: "7px 9px", borderRadius: "8px" }}
             onClick={onSearchClick}
           >
+            <label htmlFor="search-bar-input" className="sr-only">
+              Search by city, property type, or feature
+            </label>
             <Input
+              id="search-bar-input"
               type="text"
               value={localQuery}
               onChange={(e) => {
@@ -74,7 +78,6 @@ export function SearchBar({ onSearch, onFilterClick, onSearchClick, value }: Sea
                 if (!onSearchClick) onSearch?.(e.target.value);
               }}
               placeholder="Try Barcelona, penthouse, or sea view"
-              aria-label="Search by city, property type, or feature"
               className="flex-1 font-light text-[16px] text-ink placeholder:text-[var(--text-secondary)] bg-transparent cursor-pointer border-0 ring-0 focus-visible:ring-0 focus-visible:border-0 h-auto px-0 py-0"
               style={{ minHeight: "44px" }}
               readOnly={!!onSearchClick}
