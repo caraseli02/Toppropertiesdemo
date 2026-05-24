@@ -32,3 +32,17 @@
 - [x] 7. `DialogTitle` present ("Filter Properties")
 - [x] 8. Custom styling on `DialogContent` (`max-w-2xl`, `max-h-[85vh]`, `overflow-y-auto`)
 - [x] 9. Build passes (`vp build` exits 0)
+
+## PropertyDetail
+- [x] 1. Function name (`PropertyDetail`) + props interface (`PropertyDetailProps`) UNCHANGED
+- [x] 2. `useFocusTrap` import + usage GONE
+- [x] 3. `useBodyScrollLock` import + usage GONE
+- [x] 4. `createPortal` import + usage GONE
+- [x] 5. Manual `role="dialog"`, `aria-modal="true"`, `aria-labelledby` GONE
+- [x] 6. Manual `z-index: 2000` GONE
+- [x] 7. ALL gallery, map, amenities, sidebar, virtual tour, neighborhood logic PRESERVED
+- [x] 8. `DialogTitle` present (sr-only)
+- [x] 9. `DialogContent` styled as full-viewport panel (`fixed inset-0`, `bg-white`, `rounded-none`, etc.)
+- [x] 10. shadcn `Button` used for header close/share/favorite buttons
+- [x] 11. `ContactModal`/`ImageModal`/`ComingSoonToast` sub-components preserved
+- [x] 12. Build passes (`vp build` exits 0)
