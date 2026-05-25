@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { ChevronRight, Calendar } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export function FinalCTA() {
   return (
@@ -34,26 +36,33 @@ export function FinalCTA() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12">
-            <button
+            <Button
+              size="lg"
               onClick={() =>
                 document
                   .getElementById("properties-section")
                   ?.scrollIntoView({ behavior: "smooth" })
               }
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-burgundy text-white rounded-full font-semibold text-base hover:bg-burgundy-dark transition-all duration-300 group cursor-pointer"
+              className={cn(
+                "inline-flex items-center justify-center gap-2 px-8 py-4 bg-burgundy text-white rounded-full font-semibold text-base hover:bg-burgundy-dark transition-all duration-300 group cursor-pointer",
+              )}
             >
               Explore Properties
               <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
               onClick={() =>
                 document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
               }
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/5 backdrop-blur-sm text-white rounded-full font-semibold text-base border border-white/15 hover:bg-white/10 transition-all duration-300 cursor-pointer"
+              className={cn(
+                "inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/5 backdrop-blur-sm text-white rounded-full font-semibold text-base border border-white/15 hover:bg-white/10 transition-all duration-300 cursor-pointer",
+              )}
             >
               <Calendar className="w-4 h-4" />
               Schedule a Private Viewing
-            </button>
+            </Button>
           </div>
         </motion.div>
       </div>

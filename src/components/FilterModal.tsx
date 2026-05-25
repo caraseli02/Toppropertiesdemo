@@ -1,8 +1,18 @@
-import { X, Plus, Minus, Check } from "lucide-react";
+import { Plus, Minus, ChevronDown, Check, SlidersHorizontal } from "lucide-react";
 import { useState, useEffect } from "react";
 import { FilterState, Amenity, PropertyType } from "@/types";
-import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import { getDefaultFilters, PRICE_MAX } from "@/constants/filters";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogFooter,
+  DialogClose,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Slider } from "@/components/ui/slider";
+import { Switch } from "@/components/ui/switch";
+import { Separator } from "@/components/ui/separator";
 
 const AMENITIES: Amenity[] = [
   "Swimming Pool",
@@ -20,14 +30,7 @@ const AMENITIES: Amenity[] = [
   "Concierge",
 ];
 
-interface FilterModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onApply: (filters: FilterState) => void;
-  initialFilters?: FilterState;
-}
-
-const propertyTypesList: PropertyType[] = [
+const PROPERTY_TYPES: PropertyType[] = [
   "Luxury Villa",
   "Penthouse",
   "Apartment",
@@ -37,408 +40,335 @@ const propertyTypesList: PropertyType[] = [
   "Modern Villa",
   "Beach House",
 ];
-const tagsList = ["Luxury Houses", "Top Properties", "Castle", "Sea View"];
+
+const TAGS = ["Luxury Houses", "Top Properties", "Castle", "Sea View"] as const;
+
+const RENT_TYPES = [
+  { key: "short" as const, label: "Short Rent" },
+  { key: "long" as const, label: "Long Rent" },
+  { key: "sale" as const, label: "Sale" },
+];
+
+interface FilterModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onApply: (filters: FilterState) => void;
+  initialFilters?: FilterState;
+}
 
 const formatPrice = (value: number): string => {
-  if (value >= 1000000) {
-    return `${(value / 1000000).toFixed(value % 1000000 === 0 ? 0 : 1)}M`;
+  if (value >= 1_000_000) {
+    return `${(value / 1_000_000).toFixed(value % 1_000_000 === 0 ? 0 : 1)}M`;
   }
-  if (value >= 1000) {
-    return `${(value / 1000).toFixed(0)}K`;
-  }
+  if (value >= 1_000) return `${(value / 1_000).toFixed(0)}K`;
   return value.toString();
 };
 
-import { useFocusTrap } from "@/hooks/useFocusTrap";
-
 export function FilterModal({ isOpen, onClose, onApply, initialFilters }: FilterModalProps) {
   const [filters, setFilters] = useState<FilterState>(() => initialFilters || getDefaultFilters());
-  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
-  const focusTrapRef = useFocusTrap(isOpen);
-  useBodyScrollLock(isOpen);
+  const [showAdvanced, setShowAdvanced] = useState(false);
 
-  // Keep modal state as a draft synced from applied filters when opened.
   useEffect(() => {
-    if (isOpen) {
-      setFilters(initialFilters || getDefaultFilters());
-    }
+    if (isOpen) setFilters(initialFilters || getDefaultFilters());
   }, [isOpen, initialFilters]);
 
-  // Close on Escape key
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isOpen) {
-        onClose();
-      }
-    };
+  const update = (patch: Partial<FilterState>) => setFilters((prev) => ({ ...prev, ...patch }));
 
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
-  }, [isOpen, onClose]);
+  const togglePropertyType = (type: PropertyType) =>
+    update({
+      propertyTypes: filters.propertyTypes.includes(type)
+        ? filters.propertyTypes.filter((t) => t !== type)
+        : [...filters.propertyTypes, type],
+    });
 
-  if (!isOpen) return null;
+  const toggleAmenity = (amenity: Amenity) =>
+    update({
+      amenities: filters.amenities?.includes(amenity)
+        ? filters.amenities.filter((a) => a !== amenity)
+        : [...(filters.amenities || []), amenity],
+    });
+
+  const toggleTag = (tag: string) =>
+    update({
+      tags: filters.tags.includes(tag)
+        ? filters.tags.filter((t) => t !== tag)
+        : [...filters.tags, tag],
+    });
 
   const handleApply = () => {
     onApply(filters);
     onClose();
   };
 
-  const handleReset = () => {
-    setFilters(getDefaultFilters());
-  };
-
-  const togglePropertyType = (type: PropertyType) => {
-    setFilters((prev) => ({
-      ...prev,
-      propertyTypes: prev.propertyTypes.includes(type)
-        ? prev.propertyTypes.filter((t) => t !== type)
-        : [...prev.propertyTypes, type],
-    }));
-  };
-
-  const toggleAmenity = (amenity: Amenity) => {
-    setFilters((prev) => ({
-      ...prev,
-      amenities: prev.amenities?.includes(amenity)
-        ? prev.amenities.filter((a) => a !== amenity)
-        : [...(prev.amenities || []), amenity],
-    }));
-  };
-
-  const toggleTag = (tag: string) => {
-    setFilters((prev) => ({
-      ...prev,
-      tags: prev.tags.includes(tag) ? prev.tags.filter((t) => t !== tag) : [...prev.tags, tag],
-    }));
-  };
+  const handleReset = () => setFilters(getDefaultFilters());
 
   return (
-    <div
-      ref={focusTrapRef}
-      className="fixed inset-0 bg-overlay-soft backdrop-blur-sm flex items-stretch justify-center p-0 sm:items-center sm:p-4"
-      style={{ zIndex: 1200 }}
-      onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          onClose();
-        }
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) onClose();
       }}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="filter-modal-title"
     >
-      <div className="bg-[var(--surface-muted)] w-full h-full flex flex-col shadow-2xl rounded-none sm:rounded-2xl sm:h-auto sm:max-h-[90vh] sm:max-w-3xl">
-        {/* Header */}
-        <div className="sticky top-0 bg-white px-6 py-4 flex items-center justify-between border-b border-[var(--border-default)] z-10">
-          <h2 id="filter-modal-title" className="text-xl font-bold">
-            Filters
-          </h2>
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-            style={{ width: "44px", height: "44px" }}
-            aria-label="Close filters"
-          >
-            <X className="w-5 h-5" />
-          </button>
+      <DialogContent
+        showCloseButton={false}
+        className="max-w-xl max-h-[85vh] flex flex-col gap-0 p-0 overflow-hidden"
+      >
+        {/* ── Header ── */}
+        <div className="flex items-center justify-between px-6 py-4 border-b shrink-0">
+          <div className="flex items-center gap-2">
+            <SlidersHorizontal className="size-5 text-primary" />
+            <DialogTitle className="text-lg font-semibold">Filter Properties</DialogTitle>
+          </div>
+          <DialogClose
+            render={
+              <Button variant="ghost" size="icon-sm" aria-label="Close">
+                ✕
+              </Button>
+            }
+          />
         </div>
 
-        {/* Content */}
-        <div className="p-6 space-y-6 overflow-y-auto flex-1">
-          {/* Rent Type Tabs */}
-          <div className="grid grid-cols-3 gap-2 sm:flex sm:gap-3">
-            <button
-              onClick={() => setFilters((prev) => ({ ...prev, rentType: "short" }))}
-              className={`px-3 py-2 sm:flex-1 sm:px-6 sm:py-3 rounded-full border-2 transition-all font-medium text-sm sm:text-base ${
-                filters.rentType === "short"
-                  ? "bg-[var(--brand)] text-white border-[var(--brand)]"
-                  : "bg-white text-ink border-[var(--border-default)]"
-              }`}
-              type="button"
-              aria-pressed={filters.rentType === "short"}
-            >
-              Short Rent
-            </button>
-            <button
-              onClick={() => setFilters((prev) => ({ ...prev, rentType: "long" }))}
-              className={`px-3 py-2 sm:flex-1 sm:px-6 sm:py-3 rounded-full border-2 transition-all font-medium text-sm sm:text-base ${
-                filters.rentType === "long"
-                  ? "bg-[var(--brand)] text-white border-[var(--brand)]"
-                  : "bg-white text-ink border-[var(--border-default)]"
-              }`}
-              type="button"
-              aria-pressed={filters.rentType === "long"}
-            >
-              Long Rent
-            </button>
-            <button
-              onClick={() => setFilters((prev) => ({ ...prev, rentType: "sale" }))}
-              className={`px-3 py-2 sm:flex-1 sm:px-6 sm:py-3 rounded-full border-2 transition-all font-medium text-sm sm:text-base ${
-                filters.rentType === "sale"
-                  ? "bg-[var(--brand)] text-white border-[var(--brand)]"
-                  : "bg-white text-ink border-[var(--border-default)]"
-              }`}
-              type="button"
-              aria-pressed={filters.rentType === "sale"}
-            >
-              Sale
-            </button>
-          </div>
-
-          {/* Price Range */}
-          <div>
-            <h3 className="font-semibold text-lg mb-4">Price range</h3>
-            <div className="space-y-4">
-              <input
-                type="range"
-                min="0"
-                max={PRICE_MAX}
-                step={PRICE_MAX / 200}
-                value={filters.priceRange[1]}
-                aria-label="Maximum price"
-                onChange={(e) =>
-                  setFilters((prev) => ({
-                    ...prev,
-                    priceRange: [prev.priceRange[0], parseInt(e.target.value)],
-                  }))
-                }
-                className="w-full h-3 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-[var(--brand)]"
-                style={{
-                  minHeight: "44px",
-                  background: `linear-gradient(to right, var(--brand) 0%, var(--brand) ${(filters.priceRange[1] / PRICE_MAX) * 100}%, var(--slider-track) ${(filters.priceRange[1] / PRICE_MAX) * 100}%, var(--slider-track) 100%)`,
-                }}
-              />
-              <div className="flex items-center gap-3">
-                <div className="flex-1 bg-white rounded-lg border border-gray-300 p-3">
-                  <div className="text-xs text-gray-500 mb-1">Min price</div>
-                  <div className="font-semibold">{formatPrice(filters.priceRange[0])}</div>
-                </div>
-                <span className="text-gray-400">to</span>
-                <div className="flex-1 bg-white rounded-lg border border-gray-300 p-3">
-                  <div className="text-xs text-gray-500 mb-1">Max price</div>
-                  <div className="font-semibold">{formatPrice(filters.priceRange[1])}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Show Trattativa */}
-          <div className="flex items-center justify-between bg-white rounded-lg p-4">
-            <span id="show-private-negotiation-label" className="font-medium">
-              Show Private Negotiation
-            </span>
-            <button
-              onClick={() =>
-                setFilters((prev) => ({ ...prev, showTrattativa: !prev.showTrattativa }))
-              }
-              className={`relative w-14 rounded-full transition-colors border-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30 ${
-                filters.showTrattativa
-                  ? "bg-[var(--brand)] border-[var(--brand)]"
-                  : "bg-gray-200 border-gray-300"
-              }`}
-              style={{ height: "44px" }}
-              type="button"
-              role="switch"
-              aria-checked={filters.showTrattativa}
-              aria-labelledby="show-private-negotiation-label"
-            >
-              <div
-                className={`absolute left-0.5 top-0.5 w-6 h-6 bg-white rounded-full shadow-md transition-transform border border-gray-200 ${
-                  filters.showTrattativa ? "translate-x-6" : "translate-x-0"
-                }`}
-              />
-            </button>
-          </div>
-
-          {/* Property Type */}
-          <div>
-            <h3 className="font-semibold text-lg mb-4">Property type</h3>
-            <div className="flex flex-wrap gap-3">
-              {propertyTypesList.map((type) => (
-                <button
-                  key={type}
-                  onClick={() => togglePropertyType(type)}
-                  className={`px-6 py-2 rounded-full transition-all ${
-                    filters.propertyTypes.includes(type)
-                      ? "bg-[var(--brand)] text-white"
-                      : "bg-white text-ink border border-gray-300"
-                  }`}
-                  type="button"
-                  style={{ minHeight: "44px" }}
-                  aria-pressed={filters.propertyTypes.includes(type)}
+        {/* ── Scrollable body ── */}
+        <div className="flex-1 overflow-y-auto px-6 py-5 space-y-6">
+          {/* Rent Type */}
+          <section>
+            <div className="flex gap-2">
+              {RENT_TYPES.map(({ key, label }) => (
+                <Button
+                  key={key}
+                  variant={filters.rentType === key ? "default" : "outline"}
+                  className="flex-1 rounded-full"
+                  onClick={() => update({ rentType: key })}
+                  aria-pressed={filters.rentType === key}
                 >
-                  {type}
-                </button>
+                  {label}
+                </Button>
               ))}
             </div>
-          </div>
+          </section>
 
-          {/* Rooms and Beds */}
-          <div>
-            <h3 className="font-semibold text-lg mb-4">Rooms and Beds</h3>
-            <div className="space-y-4 bg-white rounded-lg p-4">
-              {/* Rooms */}
-              <div className="flex items-center justify-between">
-                <span className="font-medium">Rooms</span>
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={() =>
-                      setFilters((prev) => ({ ...prev, rooms: Math.max(0, prev.rooms - 1) }))
-                    }
-                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
-                    style={{ width: "44px", height: "44px" }}
-                    aria-label="Decrease rooms"
-                  >
-                    <Minus className="w-4 h-4" />
-                  </button>
-                  <span className="text-2xl font-bold w-8 text-center">{filters.rooms}</span>
-                  <button
-                    onClick={() => setFilters((prev) => ({ ...prev, rooms: prev.rooms + 1 }))}
-                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
-                    style={{ width: "44px", height: "44px" }}
-                    aria-label="Increase rooms"
-                  >
-                    <Plus className="w-4 h-4" />
-                  </button>
-                </div>
+          <Separator />
+
+          {/* Price Range */}
+          <section className="space-y-3">
+            <h3 className="font-semibold">Price range</h3>
+            <Slider
+              value={[filters.priceRange[1]]}
+              min={0}
+              max={PRICE_MAX}
+              step={PRICE_MAX / 200}
+              onValueChange={(v) => update({ priceRange: [filters.priceRange[0], Number(v)] })}
+            />
+            <div className="flex items-center gap-3">
+              <div className="flex-1 rounded-lg border p-3">
+                <div className="text-xs text-muted-foreground">Min price</div>
+                <div className="font-semibold">{formatPrice(filters.priceRange[0])}</div>
               </div>
-
-              {/* mq (Square meters) */}
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="font-medium">sqm</span>
-                </div>
-                <input
-                  type="range"
-                  min="0"
-                  max="500"
-                  step="10"
-                  value={filters.sqm[1]}
-                  aria-label="Maximum square meters"
-                  onChange={(e) =>
-                    setFilters((prev) => ({
-                      ...prev,
-                      sqm: [prev.sqm[0], parseInt(e.target.value)],
-                    }))
-                  }
-                  className="w-full h-3 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-[var(--brand)]"
-                  style={{
-                    minHeight: "44px",
-                    background: `linear-gradient(to right, var(--brand) 0%, var(--brand) ${(filters.sqm[1] / 500) * 100}%, var(--slider-track) ${(filters.sqm[1] / 500) * 100}%, var(--slider-track) 100%)`,
-                  }}
-                />
-              </div>
-
-              {/* Beds */}
-              <div className="flex items-center justify-between">
-                <span className="font-medium">Beds</span>
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={() =>
-                      setFilters((prev) => ({ ...prev, beds: Math.max(0, prev.beds - 1) }))
-                    }
-                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
-                    style={{ width: "44px", height: "44px" }}
-                    aria-label="Decrease beds"
-                  >
-                    <Minus className="w-4 h-4" />
-                  </button>
-                  <span className="text-2xl font-bold w-8 text-center">{filters.beds}</span>
-                  <button
-                    onClick={() => setFilters((prev) => ({ ...prev, beds: prev.beds + 1 }))}
-                    className="rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
-                    style={{ width: "44px", height: "44px" }}
-                    aria-label="Increase beds"
-                  >
-                    <Plus className="w-4 h-4" />
-                  </button>
-                </div>
+              <span className="text-muted-foreground text-sm">to</span>
+              <div className="flex-1 rounded-lg border p-3">
+                <div className="text-xs text-muted-foreground">Max price</div>
+                <div className="font-semibold">{formatPrice(filters.priceRange[1])}</div>
               </div>
             </div>
-          </div>
+          </section>
 
+          {/* Private Negotiation toggle */}
+          <label className="flex items-center justify-between rounded-lg border p-4 cursor-pointer">
+            <span className="font-medium text-sm">Show Private Negotiation</span>
+            <Switch
+              checked={filters.showTrattativa}
+              onCheckedChange={(v) => update({ showTrattativa: v })}
+            />
+          </label>
+
+          <Separator />
+
+          {/* Property Type pills */}
+          <section className="space-y-3">
+            <h3 className="font-semibold">Property type</h3>
+            <div className="flex flex-wrap gap-2">
+              {PROPERTY_TYPES.map((type) => {
+                const active = filters.propertyTypes.includes(type);
+                return (
+                  <Button
+                    key={type}
+                    variant={active ? "default" : "outline"}
+                    size="sm"
+                    className="rounded-full"
+                    onClick={() => togglePropertyType(type)}
+                    aria-pressed={active}
+                  >
+                    {active && <Check className="size-3.5" />}
+                    {type}
+                  </Button>
+                );
+              })}
+            </div>
+          </section>
+
+          <Separator />
+
+          {/* Rooms / sqm / Beds */}
+          <section className="space-y-4">
+            <h3 className="font-semibold">Rooms and Beds</h3>
+
+            {/* Rooms counter */}
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium">Rooms</span>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="icon-sm"
+                  aria-label="Decrease rooms"
+                  onClick={() => update({ rooms: Math.max(0, filters.rooms - 1) })}
+                >
+                  <Minus className="size-3.5" />
+                </Button>
+                <span className="w-6 text-center font-bold tabular-nums">{filters.rooms}</span>
+                <Button
+                  variant="outline"
+                  size="icon-sm"
+                  aria-label="Increase rooms"
+                  onClick={() => update({ rooms: filters.rooms + 1 })}
+                >
+                  <Plus className="size-3.5" />
+                </Button>
+              </div>
+            </div>
+
+            {/* sqm slider */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium">sqm</span>
+                <span className="text-sm text-muted-foreground tabular-nums">
+                  {filters.sqm[1]} m²
+                </span>
+              </div>
+              <Slider
+                value={[filters.sqm[1]]}
+                min={0}
+                max={500}
+                step={10}
+                onValueChange={(v) => update({ sqm: [filters.sqm[0], Number(v)] })}
+              />
+            </div>
+
+            {/* Beds counter */}
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium">Beds</span>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="icon-sm"
+                  aria-label="Decrease beds"
+                  onClick={() => update({ beds: Math.max(0, filters.beds - 1) })}
+                >
+                  <Minus className="size-3.5" />
+                </Button>
+                <span className="w-6 text-center font-bold tabular-nums">{filters.beds}</span>
+                <Button
+                  variant="outline"
+                  size="icon-sm"
+                  aria-label="Increase beds"
+                  onClick={() => update({ beds: filters.beds + 1 })}
+                >
+                  <Plus className="size-3.5" />
+                </Button>
+              </div>
+            </div>
+          </section>
+
+          <Separator />
+
+          {/* Advanced filters toggle */}
           <button
             type="button"
-            onClick={() => setShowAdvancedFilters((value) => !value)}
-            className="w-full rounded-xl border border-[var(--border-default)] bg-white px-4 py-3 text-left font-semibold text-ink transition-colors hover-bg-brand-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30"
-            aria-expanded={showAdvancedFilters}
+            onClick={() => setShowAdvanced((v) => !v)}
+            className="flex w-full items-center justify-between rounded-lg border px-4 py-3 text-sm font-medium transition-colors hover:bg-muted"
+            aria-expanded={showAdvanced}
           >
-            {showAdvancedFilters ? "Hide advanced filters" : "Show advanced filters"}
-            <span className="block text-sm font-normal text-[var(--text-secondary)]">
-              Amenities and lifestyle tags
+            <span>
+              {showAdvanced ? "Hide" : "Show"} advanced filters
+              <span className="block text-xs font-normal text-muted-foreground">
+                Amenities and lifestyle tags
+              </span>
             </span>
+            <ChevronDown
+              className={`size-4 text-muted-foreground transition-transform ${showAdvanced ? "rotate-180" : ""}`}
+            />
           </button>
 
-          {showAdvancedFilters && (
+          {showAdvanced && (
             <>
               {/* Tags */}
-              <div>
-                <h3 className="font-semibold text-lg mb-4">Tags</h3>
-                <div className="space-y-3 bg-white rounded-lg p-4">
-                  {tagsList.map((tag) => (
-                    <label
-                      key={tag}
-                      className="flex items-center justify-between cursor-pointer group"
-                    >
-                      <span className="font-medium text-gray-700">{tag}</span>
-                      <button
-                        onClick={() => toggleTag(tag)}
-                        className={`relative rounded-full transition-colors flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30 ${filters.tags.includes(tag) ? "bg-[var(--brand)] text-white" : "bg-gray-300"}`}
-                        style={{ width: "44px", height: "44px" }}
-                        type="button"
-                        aria-pressed={filters.tags.includes(tag)}
-                        aria-label={`Toggle tag ${tag}`}
+              <section className="space-y-3">
+                <h3 className="font-semibold">Tags</h3>
+                <div className="space-y-1">
+                  {TAGS.map((tag) => {
+                    const active = filters.tags.includes(tag);
+                    return (
+                      <label
+                        key={tag}
+                        className="flex items-center justify-between rounded-lg px-3 py-2 cursor-pointer hover:bg-muted transition-colors"
                       >
-                        {filters.tags.includes(tag) && <Check className="w-4 h-4" />}
-                      </button>
-                    </label>
-                  ))}
+                        <span className="text-sm">{tag}</span>
+                        <button
+                          type="button"
+                          onClick={() => toggleTag(tag)}
+                          className={`flex size-8 items-center justify-center rounded-full transition-colors ${
+                            active ? "bg-primary text-primary-foreground" : "bg-muted"
+                          }`}
+                          aria-pressed={active}
+                          aria-label={`Toggle tag ${tag}`}
+                        >
+                          {active && <Check className="size-3.5" />}
+                        </button>
+                      </label>
+                    );
+                  })}
                 </div>
-              </div>
+              </section>
 
-              {/* Amenity Filters */}
-              <div>
-                <h3 className="font-semibold text-lg mb-4">Amenities</h3>
-                <div className="space-y-3 bg-white rounded-lg p-4">
-                  {AMENITIES.map((amenity) => (
-                    <label
-                      key={amenity}
-                      className="flex items-center justify-between cursor-pointer"
-                    >
-                      <span className="font-medium text-gray-700">{amenity}</span>
-                      <button
-                        onClick={() => toggleAmenity(amenity)}
-                        className={`relative rounded-full transition-colors flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30 ${filters.amenities?.includes(amenity) ? "bg-[var(--brand)] text-white" : "bg-gray-300"}`}
-                        style={{ width: "44px", height: "44px" }}
-                        type="button"
-                        aria-pressed={filters.amenities?.includes(amenity) ? true : false}
-                        aria-label={`Toggle amenity ${amenity}`}
+              {/* Amenities */}
+              <section className="space-y-3">
+                <h3 className="font-semibold">Amenities</h3>
+                <div className="space-y-1">
+                  {AMENITIES.map((amenity) => {
+                    const active = filters.amenities?.includes(amenity);
+                    return (
+                      <label
+                        key={amenity}
+                        className="flex items-center justify-between rounded-lg px-3 py-2 cursor-pointer hover:bg-muted transition-colors"
                       >
-                        {filters.amenities?.includes(amenity) && <Check className="w-4 h-4" />}
-                      </button>
-                    </label>
-                  ))}
+                        <span className="text-sm">{amenity}</span>
+                        <button
+                          type="button"
+                          onClick={() => toggleAmenity(amenity)}
+                          className={`flex size-8 items-center justify-center rounded-full transition-colors ${
+                            active ? "bg-primary text-primary-foreground" : "bg-muted"
+                          }`}
+                          aria-pressed={active ? true : false}
+                          aria-label={`Toggle amenity ${amenity}`}
+                        >
+                          {active && <Check className="size-3.5" />}
+                        </button>
+                      </label>
+                    );
+                  })}
                 </div>
-              </div>
+              </section>
             </>
           )}
         </div>
 
-        {/* Footer */}
-        <div className="sticky bottom-0 bg-white px-6 py-4 flex items-center justify-between gap-4 border-t border-[var(--border-default)] rounded-b-2xl flex-shrink-0">
-          <button
-            onClick={handleReset}
-            className="px-6 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors font-medium"
-          >
+        {/* ── Footer ── */}
+        <DialogFooter className="flex-row justify-between border-t px-6 py-4 shrink-0">
+          <Button variant="ghost" onClick={handleReset}>
             Reset Filters
-          </button>
-          <button
-            onClick={handleApply}
-            className="px-8 py-3 bg-[var(--brand)] text-white rounded-lg hover:bg-[var(--brand-dark)] transition-colors font-medium"
-          >
-            Results
-          </button>
-        </div>
-      </div>
-    </div>
+          </Button>
+          <Button onClick={handleApply}>Results</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }

@@ -1,8 +1,7 @@
-import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Building2 } from "lucide-react";
-import { useFocusTrap } from "@/hooks/useFocusTrap";
-import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Menu, Building2 } from "lucide-react";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
 
 interface HeaderProps {
   onNavigateToMap?: () => void;
@@ -23,34 +22,6 @@ export function Header({
 }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const mobileMenuRef = useFocusTrap(mobileOpen);
-  const menuButtonRef = useRef<HTMLButtonElement | null>(null);
-  useBodyScrollLock(mobileOpen);
-
-  // Close mobile menu on Escape key
-  useEffect(() => {
-    if (!mobileOpen) return;
-
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setMobileOpen(false);
-      }
-    };
-
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
-  }, [mobileOpen]);
-
-  // Restore focus to menu button when drawer closes
-  useEffect(() => {
-    if (!mobileOpen) {
-      // Use rAF so the AnimatePresence exit animation has started
-      const rafId = requestAnimationFrame(() => {
-        menuButtonRef.current?.focus();
-      });
-      return () => cancelAnimationFrame(rafId);
-    }
-  }, [mobileOpen]);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -236,117 +207,103 @@ export function Header({
             </div>
 
             {/* Mobile Menu Button */}
-            <button
-              ref={menuButtonRef}
-              onClick={() => setMobileOpen(!mobileOpen)}
-              className={`lg:hidden p-2 rounded-lg transition-colors ${
-                scrolled ? "text-charcoal" : "text-white"
-              }`}
-              aria-label="Toggle menu"
-              aria-expanded={mobileOpen}
-            >
-              {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+            <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+              <button
+                onClick={() => setMobileOpen((v) => !v)}
+                className={`lg:hidden p-2 rounded-lg transition-colors ${
+                  scrolled ? "text-charcoal" : "text-white"
+                }`}
+                aria-label="Toggle menu"
+                aria-expanded={mobileOpen}
+              >
+                <Menu className="w-6 h-6" />
+              </button>
+
+              <SheetContent
+                side="right"
+                className="bg-white w-full sm:max-w-md pt-24 px-6 overflow-y-auto"
+              >
+                <SheetHeader>
+                  <SheetTitle className="sr-only">Navigation menu</SheetTitle>
+                </SheetHeader>
+                <div className="mx-auto flex w-full max-w-md flex-col gap-6">
+                  {navLinks.map((link, i) => (
+                    <motion.button
+                      key={link.label}
+                      onClick={link.action}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.05 }}
+                      className="text-2xl font-serif text-charcoal hover:text-burgundy transition-colors text-left cursor-pointer"
+                    >
+                      {link.label}
+                    </motion.button>
+                  ))}
+                  <div className="mt-6 flex flex-col gap-3">
+                    <button
+                      onClick={() => {
+                        onNavigateToProperties?.();
+                        setMobileOpen(false);
+                      }}
+                      className="w-full py-4 bg-burgundy text-white text-center rounded-xl font-semibold text-lg cursor-pointer"
+                    >
+                      Explore Properties
+                    </button>
+                    <button
+                      onClick={() => {
+                        document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                        setMobileOpen(false);
+                      }}
+                      className="w-full py-4 border border-charcoal/10 text-charcoal text-center rounded-xl font-medium text-lg cursor-pointer"
+                    >
+                      Schedule a Private Viewing
+                    </button>
+
+                    {user ? (
+                      <div className="flex items-center gap-3 p-4 border border-charcoal/5 rounded-xl bg-ivory/50 mt-4">
+                        <img
+                          src={user.avatar}
+                          alt={user.name}
+                          className="w-12 h-12 rounded-full border border-burgundy object-cover"
+                        />
+                        <div className="flex-1 min-w-0">
+                          <p className="text-[10px] uppercase tracking-wider text-warm-gray">
+                            Client Session
+                          </p>
+                          <p className="text-sm font-semibold text-charcoal truncate">
+                            {user.name}
+                          </p>
+                          <p className="text-[10px] text-warm-gray truncate">{user.email}</p>
+                        </div>
+                        <SheetClose
+                          render={
+                            <button className="px-3 py-1.5 bg-burgundy/10 hover:bg-burgundy/20 text-burgundy text-xs font-semibold rounded-full transition-all shrink-0 cursor-pointer" />
+                          }
+                          onClick={() => {
+                            onLogout();
+                          }}
+                        >
+                          Sign Out
+                        </SheetClose>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => {
+                          onOpenLogin();
+                          setMobileOpen(false);
+                        }}
+                        className="w-full py-4 border border-charcoal/10 text-charcoal text-center rounded-xl font-medium text-lg cursor-pointer mt-4"
+                      >
+                        Client Portal Sign In
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </motion.nav>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            ref={mobileMenuRef}
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-white pt-24 px-6 overflow-y-auto"
-            style={{ zIndex: 1100 }}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Navigation menu"
-          >
-            <button
-              type="button"
-              onClick={() => setMobileOpen(false)}
-              className="absolute top-5 right-5 flex h-11 w-11 items-center justify-center rounded-full border border-charcoal/10 bg-white text-charcoal shadow-sm lg:flex"
-              aria-label="Close navigation menu"
-            >
-              <X className="h-5 w-5" />
-            </button>
-            <div className="mx-auto flex w-full max-w-md flex-col gap-6">
-              {navLinks.map((link, i) => (
-                <motion.button
-                  key={link.label}
-                  onClick={link.action}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                  className="text-2xl font-serif text-charcoal hover:text-burgundy transition-colors text-left cursor-pointer"
-                >
-                  {link.label}
-                </motion.button>
-              ))}
-              <div className="mt-6 flex flex-col gap-3">
-                <button
-                  onClick={() => {
-                    onNavigateToProperties?.();
-                    setMobileOpen(false);
-                  }}
-                  className="w-full py-4 bg-burgundy text-white text-center rounded-xl font-semibold text-lg cursor-pointer"
-                >
-                  Explore Properties
-                </button>
-                <button
-                  onClick={() => {
-                    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-                    setMobileOpen(false);
-                  }}
-                  className="w-full py-4 border border-charcoal/10 text-charcoal text-center rounded-xl font-medium text-lg cursor-pointer"
-                >
-                  Schedule a Private Viewing
-                </button>
-
-                {user ? (
-                  <div className="flex items-center gap-3 p-4 border border-charcoal/5 rounded-xl bg-ivory/50 mt-4">
-                    <img
-                      src={user.avatar}
-                      alt={user.name}
-                      className="w-12 h-12 rounded-full border border-burgundy object-cover"
-                    />
-                    <div className="flex-1 min-w-0">
-                      <p className="text-[10px] uppercase tracking-wider text-warm-gray">
-                        Client Session
-                      </p>
-                      <p className="text-sm font-semibold text-charcoal truncate">{user.name}</p>
-                      <p className="text-[10px] text-warm-gray truncate">{user.email}</p>
-                    </div>
-                    <button
-                      onClick={() => {
-                        onLogout();
-                        setMobileOpen(false);
-                      }}
-                      className="px-3 py-1.5 bg-burgundy/10 hover:bg-burgundy/20 text-burgundy text-xs font-semibold rounded-full transition-all shrink-0 cursor-pointer"
-                    >
-                      Sign Out
-                    </button>
-                  </div>
-                ) : (
-                  <button
-                    onClick={() => {
-                      onOpenLogin();
-                      setMobileOpen(false);
-                    }}
-                    className="w-full py-4 border border-charcoal/10 text-charcoal text-center rounded-xl font-medium text-lg cursor-pointer mt-4"
-                  >
-                    Client Portal Sign In
-                  </button>
-                )}
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </>
   );
 }

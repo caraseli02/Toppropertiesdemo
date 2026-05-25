@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
 import { Search, ChevronRight } from "lucide-react";
 import type { Property } from "@/types";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 interface HeroSectionProps {
   properties: readonly Property[];
@@ -33,14 +36,20 @@ export function HeroSection({
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full pt-32 pb-20">
         <div className="max-w-[46rem]">
-          <motion.span
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-block text-burgundy-light text-[13px] uppercase tracking-[0.22em] font-semibold mb-6"
           >
-            Curated Luxury Real Estate
-          </motion.span>
+            <Badge
+              variant="outline"
+              className={cn(
+                "text-[13px] uppercase tracking-[0.22em] font-semibold mb-6 bg-burgundy-light/10 text-burgundy-light border-burgundy-light/30 px-3 py-1",
+              )}
+            >
+              Curated Luxury Real Estate
+            </Badge>
+          </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -68,21 +77,28 @@ export function HeroSection({
             transition={{ duration: 0.8, delay: 0.7 }}
             className="flex flex-col sm:flex-row gap-4"
           >
-            <button
+            <Button
+              size="lg"
               onClick={() => firstFeatured && onViewProperty(firstFeatured)}
-              className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-burgundy text-white rounded-full font-semibold text-base hover:bg-burgundy-dark transition-all duration-300 group cursor-pointer"
+              className={cn(
+                "inline-flex items-center justify-center gap-3 px-8 py-4 bg-burgundy text-white rounded-full font-semibold text-base hover:bg-burgundy-dark transition-all duration-300 group cursor-pointer",
+              )}
             >
               Explore Properties
               <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
               onClick={() =>
                 document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
               }
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/16 backdrop-blur-sm text-white rounded-full font-semibold text-base border border-white/35 hover:bg-white/24 transition-all duration-300 cursor-pointer"
+              className={cn(
+                "inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/16 backdrop-blur-sm text-white rounded-full font-semibold text-base border border-white/35 hover:bg-white/24 transition-all duration-300 cursor-pointer",
+              )}
             >
               Schedule a Private Viewing
-            </button>
+            </Button>
           </motion.div>
         </div>
 
@@ -140,13 +156,15 @@ export function HeroSection({
               </button>
 
               <div className="flex items-end">
-                <button
+                <Button
                   onClick={onSearchClick}
-                  className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-burgundy text-white rounded-xl font-semibold text-sm hover:bg-burgundy-dark transition-all duration-300 cursor-pointer h-[44px]"
+                  className={cn(
+                    "w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-burgundy text-white rounded-xl font-semibold text-sm hover:bg-burgundy-dark transition-all duration-300 cursor-pointer h-[44px]",
+                  )}
                 >
                   <Search className="w-4 h-4" />
                   Search
-                </button>
+                </Button>
               </div>
             </div>
             <button

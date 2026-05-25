@@ -1,5 +1,5 @@
-import { X } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 interface ImageModalProps {
   images: readonly string[];
@@ -29,36 +29,24 @@ export function ImageModal({ images, initialIndex, isOpen, onClose }: ImageModal
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") handleNext();
       if (e.key === "ArrowLeft") handlePrevious();
-      if (e.key === "Escape") onClose();
     };
 
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, [isOpen, onClose, images.length]);
-
-  if (!isOpen) return null;
+  }, [isOpen, images.length]);
 
   return (
-    <div
-      className="fixed inset-0 bg-overlay-strong flex items-center justify-center p-4"
-      style={{ zIndex: 1300 }}
-      onClick={onClose}
-      role="dialog"
-      aria-modal="true"
-      aria-label="Property image gallery"
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) onClose();
+      }}
     >
-      <div
-        className="relative max-w-6xl bg-ink rounded-xl overflow-hidden"
+      <DialogContent
+        className="max-w-6xl sm:max-w-none bg-ink rounded-xl overflow-hidden p-0 gap-0 ring-0 text-white"
         style={{ maxHeight: "90vh" }}
-        onClick={(e) => e.stopPropagation()}
       >
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 z-10 text-white/80 hover:text-white bg-overlay-soft hover:bg-ink rounded-full p-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
-          aria-label="Close gallery"
-        >
-          <X className="w-6 h-6" />
-        </button>
+        <DialogTitle className="sr-only">Property image gallery</DialogTitle>
 
         <img
           src={images[currentIndex]}
@@ -106,7 +94,7 @@ export function ImageModal({ images, initialIndex, isOpen, onClose }: ImageModal
             </button>
           </div>
         </div>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }

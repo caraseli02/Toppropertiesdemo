@@ -1,5 +1,8 @@
 import { useState } from "react";
 import svgPaths from "../imports/svg-lbcekml827";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
 interface SearchBarProps {
   onSearch?: (query: string) => void;
@@ -30,10 +33,13 @@ export function SearchBar({ onSearch, onFilterClick, onSearchClick, value }: Sea
       <div className="max-w-3xl mx-auto" style={{ padding: "8px 10px" }}>
         <form onSubmit={handleSubmit} className="flex items-center" style={{ gap: "10px" }}>
           {/* Filters Button */}
-          <button
+          <Button
             type="button"
+            variant="outline"
             onClick={onFilterClick}
-            className="shrink-0 bg-white flex items-center border border-[var(--border-default)] border-solid hover-bg-brand-subtle transition-colors"
+            className={cn(
+              "shrink-0 bg-white flex items-center hover-bg-brand-subtle transition-colors",
+            )}
             style={{ height: "44px", gap: "10px", padding: "0 14px", borderRadius: "50px" }}
             aria-label="Filters"
             title="Filters"
@@ -50,15 +56,21 @@ export function SearchBar({ onSearch, onFilterClick, onSearchClick, value }: Sea
             <span className="font-normal text-[16px] text-ink whitespace-nowrap hidden sm:inline">
               Filters
             </span>
-          </button>
+          </Button>
 
           {/* Search Input */}
           <div
-            className="flex-1 flex items-center border border-[var(--border-default)] border-solid cursor-pointer"
+            className={cn(
+              "flex-1 flex items-center border border-[var(--border-default)] border-solid cursor-pointer",
+            )}
             style={{ height: "44px", padding: "7px 9px", borderRadius: "8px" }}
             onClick={onSearchClick}
           >
-            <input
+            <label htmlFor="search-bar-input" className="sr-only">
+              Search by city, property type, or feature
+            </label>
+            <Input
+              id="search-bar-input"
               type="text"
               value={localQuery}
               onChange={(e) => {
@@ -66,8 +78,7 @@ export function SearchBar({ onSearch, onFilterClick, onSearchClick, value }: Sea
                 if (!onSearchClick) onSearch?.(e.target.value);
               }}
               placeholder="Try Barcelona, penthouse, or sea view"
-              aria-label="Search by city, property type, or feature"
-              className="flex-1 font-light text-[16px] text-ink placeholder:text-[var(--text-secondary)] outline-none bg-transparent cursor-pointer"
+              className="flex-1 font-light text-[16px] text-ink placeholder:text-[var(--text-secondary)] bg-transparent cursor-pointer border-0 ring-0 focus-visible:ring-0 focus-visible:border-0 h-auto px-0 py-0"
               style={{ minHeight: "44px" }}
               readOnly={!!onSearchClick}
             />
