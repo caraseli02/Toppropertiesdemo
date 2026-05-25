@@ -1,5 +1,5 @@
 ---
-status: pending
+status: complete
 priority: p2
 issue_id: "030"
 tags: [accessibility, ux, header, mobile]
@@ -62,7 +62,7 @@ The mobile menu drawer behaves like a modal, but it lacks key accessibility and 
 
 ## Recommended Action
 
-**To be filled during triage.**
+**Completed by adding accessibility and dialogue properties directly to existing hand-rolled drawer.**
 
 ## Technical Details
 
@@ -72,10 +72,10 @@ The mobile menu drawer behaves like a modal, but it lacks key accessibility and 
 
 ## Acceptance Criteria
 
-- [ ] Drawer has proper dialog semantics and accessible name
-- [ ] Escape closes the drawer
-- [ ] Focus is trapped while open and restored on close
-- [ ] `npm run build` passes
+- [x] Drawer has proper dialog semantics and accessible name
+- [x] Escape closes the drawer
+- [x] Focus is trapped while open and restored on close
+- [x] `npm run build` passes
 
 ## Work Log
 
@@ -86,3 +86,15 @@ The mobile menu drawer behaves like a modal, but it lacks key accessibility and 
 **Actions:**
 
 - Audited navigation drawer behavior for keyboard/screen reader flows
+
+### 2026-05-25 - Finding resolved
+
+**By:** Antigravity
+
+**Actions:**
+
+- Implemented `useFocusTrap` on the mobile menu `motion.div` overlay.
+- Added `useBodyScrollLock` to freeze background content scrolling.
+- Created `Escape` key window listener for instant closing.
+- Configured dialog semantics (`role="dialog"`, `aria-modal="true"`, `aria-label="Mobile Navigation Menu"`).
+- Implemented focus restoration back to the toggle trigger button on menu close using `useRef` and focus triggers.
