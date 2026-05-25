@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Building2 } from "lucide-react";
+import { useFocusTrap } from "../hooks/useFocusTrap";
+import { useBodyScrollLock } from "../hooks/useBodyScrollLock";
 
 interface HeaderProps {
   onNavigateToMap?: () => void;
@@ -21,6 +23,18 @@ export function Header({
 }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const containerRef = useFocusTrap(mobileOpen);
+  useBodyScrollLock(mobileOpen);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [mobileOpen]);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -212,6 +226,7 @@ export function Header({
                 scrolled ? "text-charcoal" : "text-white"
               }`}
               aria-label="Toggle menu"
+              aria-expanded={mobileOpen}
             >
               {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -223,6 +238,7 @@ export function Header({
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
+            ref={containerRef}
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}

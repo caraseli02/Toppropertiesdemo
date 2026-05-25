@@ -1,5 +1,8 @@
+import { useEffect } from "react";
 import { X, Award, MapPin, Mail, Phone } from "lucide-react";
 import { motion } from "framer-motion";
+import { useFocusTrap } from "../hooks/useFocusTrap";
+import { useBodyScrollLock } from "../hooks/useBodyScrollLock";
 
 interface AgencySpotlightModalProps {
   isOpen: boolean;
@@ -7,6 +10,17 @@ interface AgencySpotlightModalProps {
 }
 
 export function AgencySpotlightModal({ isOpen, onClose }: AgencySpotlightModalProps) {
+  const containerRef = useFocusTrap(isOpen);
+  useBodyScrollLock(isOpen);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
+
   if (!isOpen) return null;
 
   const agents = [
@@ -43,6 +57,7 @@ export function AgencySpotlightModal({ isOpen, onClose }: AgencySpotlightModalPr
 
       {/* Modal Card */}
       <motion.div
+        ref={containerRef}
         initial={{ opacity: 0, scale: 0.95, y: 15 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 15 }}

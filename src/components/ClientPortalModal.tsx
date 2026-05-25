@@ -1,6 +1,8 @@
-import { useState } from "react";
-import { X, Lock, Mail, Sparkles, Shield, ArrowRight } from "lucide-react";
+import { useState, useEffect } from "react";
+import { X, Lock, Mail, Sparkles, Shield, ArrowRight, AlertCircle } from "lucide-react";
 import { motion } from "framer-motion";
+import { useFocusTrap } from "../hooks/useFocusTrap";
+import { useBodyScrollLock } from "../hooks/useBodyScrollLock";
 
 interface ClientPortalModalProps {
   isOpen: boolean;
@@ -13,6 +15,17 @@ export function ClientPortalModal({ isOpen, onClose, onLoginSuccess }: ClientPor
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const containerRef = useFocusTrap(isOpen);
+  useBodyScrollLock(isOpen);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
 
   if (!isOpen) return null;
 
@@ -65,6 +78,7 @@ export function ClientPortalModal({ isOpen, onClose, onLoginSuccess }: ClientPor
 
       {/* Modal Card */}
       <motion.div
+        ref={containerRef}
         initial={{ opacity: 0, scale: 0.95, y: 15 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 15 }}
@@ -98,8 +112,9 @@ export function ClientPortalModal({ isOpen, onClose, onLoginSuccess }: ClientPor
         {/* Content */}
         <div className="p-8 flex-1">
           {error && (
-            <div className="mb-6 p-4 bg-red-50 border-l-2 border-burgundy text-burgundy text-xs font-medium rounded-r-lg">
-              {error}
+            <div className="mb-6 p-4 bg-burgundy/5 border border-burgundy/10 text-burgundy text-xs font-medium rounded-lg flex items-start gap-3">
+              <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+              <span>{error}</span>
             </div>
           )}
 

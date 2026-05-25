@@ -1,5 +1,8 @@
+import { useEffect } from "react";
 import { X, ShieldCheck, FileText } from "lucide-react";
 import { motion } from "framer-motion";
+import { useFocusTrap } from "../hooks/useFocusTrap";
+import { useBodyScrollLock } from "../hooks/useBodyScrollLock";
 
 interface LegalDocumentModalProps {
   isOpen: boolean;
@@ -8,6 +11,17 @@ interface LegalDocumentModalProps {
 }
 
 export function LegalDocumentModal({ isOpen, onClose, title }: LegalDocumentModalProps) {
+  const containerRef = useFocusTrap(isOpen);
+  useBodyScrollLock(isOpen);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
+
   if (!isOpen) return null;
 
   const contentMap: Record<string, { sections: { subtitle: string; paragraphs: string[] }[] }> = {
@@ -105,6 +119,7 @@ export function LegalDocumentModal({ isOpen, onClose, title }: LegalDocumentModa
 
       {/* Modal Card */}
       <motion.div
+        ref={containerRef}
         initial={{ opacity: 0, scale: 0.95, y: 15 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 15 }}
