@@ -28,6 +28,8 @@ interface PropertyDetailProps {
   property: Property;
   onClose: () => void;
   initialOverlay?: "contact" | "image" | null;
+  isFavorite: boolean;
+  onToggleFavorite: () => void;
 }
 
 // Helper to fix map rendering issues in modals
@@ -43,11 +45,16 @@ function MapInvalidator() {
   return null;
 }
 
-export function PropertyDetail({ property, onClose, initialOverlay = null }: PropertyDetailProps) {
+export function PropertyDetail({
+  property,
+  onClose,
+  initialOverlay = null,
+  isFavorite,
+  onToggleFavorite,
+}: PropertyDetailProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
   const [showVirtualTour, setShowVirtualTour] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [contactMode, setContactMode] = useState<ContactMode>("contact");
@@ -58,7 +65,6 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
     containerRef.current?.scrollTo({ top: 0, behavior: "auto" });
     setCurrentImageIndex(0);
     setBrokenImages(new Set());
-    setIsFavorite(false);
     setShowVirtualTour(false);
     setIsImageModalOpen(false);
     setIsContactModalOpen(false);
@@ -166,7 +172,7 @@ export function PropertyDetail({ property, onClose, initialOverlay = null }: Pro
                   <Button
                     variant="ghost"
                     size="icon-lg"
-                    onClick={() => setIsFavorite(!isFavorite)}
+                    onClick={() => onToggleFavorite()}
                     aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
                     className="rounded-full"
                   >

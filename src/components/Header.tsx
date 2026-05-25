@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Menu, Building2 } from "lucide-react";
+import { Menu, Building2, Heart } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
 
 interface HeaderProps {
   onNavigateToMap?: () => void;
   onNavigateToProperties?: () => void;
   forceMenuOpen?: boolean;
+  favoritesCount: number;
+  onOpenFavorites: () => void;
   user: { name: string; email: string; avatar: string } | null;
   onOpenLogin: () => void;
   onLogout: () => void;
@@ -16,6 +18,8 @@ export function Header({
   onNavigateToMap,
   onNavigateToProperties,
   forceMenuOpen = false,
+  favoritesCount,
+  onOpenFavorites,
   user,
   onOpenLogin,
   onLogout,
@@ -133,6 +137,27 @@ export function Header({
 
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center gap-4">
+              <button
+                type="button"
+                onClick={onOpenFavorites}
+                className={`min-h-11 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burgundy/30 focus-visible:ring-offset-2 ${
+                  scrolled
+                    ? "border-border-light bg-white text-charcoal hover:border-burgundy/20 hover:bg-burgundy/5"
+                    : "border-white/15 bg-white/10 text-white hover:bg-white/15"
+                }`}
+                aria-label={`Open saved portfolio with ${favoritesCount} properties`}
+              >
+                <Heart className={`h-4 w-4 ${favoritesCount > 0 ? "fill-current" : ""}`} />
+                <span>Saved</span>
+                <span
+                  className={`inline-flex min-w-6 items-center justify-center rounded-full px-2 py-0.5 text-[11px] font-semibold ${
+                    scrolled ? "bg-burgundy/10 text-burgundy" : "bg-white/15 text-white"
+                  }`}
+                >
+                  {favoritesCount}
+                </span>
+              </button>
+
               {user ? (
                 <div className="relative group">
                   <button
@@ -161,10 +186,10 @@ export function Header({
                       <p className="text-xs font-semibold text-charcoal truncate">{user.email}</p>
                     </div>
                     <button
-                      onClick={() => onNavigateToProperties?.()}
+                      onClick={onOpenFavorites}
                       className="w-full text-left px-4 py-2 text-xs text-charcoal hover:bg-ivory hover:text-burgundy transition-colors cursor-pointer"
                     >
-                      Saved Portfolio (3)
+                      Saved Portfolio ({favoritesCount})
                     </button>
                     <button
                       onClick={() => {
@@ -206,101 +231,130 @@ export function Header({
               </button>
             </div>
 
-            {/* Mobile Menu Button */}
-            <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+            <div className="flex items-center gap-2 lg:hidden">
               <button
-                onClick={() => setMobileOpen((v) => !v)}
-                className={`lg:hidden p-2 rounded-lg transition-colors ${
-                  scrolled ? "text-charcoal" : "text-white"
+                type="button"
+                onClick={() => {
+                  setMobileOpen(false);
+                  onOpenFavorites();
+                }}
+                className={`flex min-h-11 items-center justify-center gap-2 rounded-full border px-3 py-2 text-sm font-medium transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burgundy/30 focus-visible:ring-offset-2 ${
+                  scrolled
+                    ? "border-border-light bg-white text-charcoal"
+                    : "border-white/15 bg-white/10 text-white"
                 }`}
-                aria-label="Toggle menu"
-                aria-expanded={mobileOpen}
+                aria-label={`Open saved portfolio with ${favoritesCount} properties`}
               >
-                <Menu className="w-6 h-6" />
+                <Heart className={`h-4 w-4 ${favoritesCount > 0 ? "fill-current" : ""}`} />
+                <span className="text-[11px] font-semibold leading-none">{favoritesCount}</span>
               </button>
 
-              <SheetContent
-                side="right"
-                className="bg-white w-full sm:max-w-md pt-24 px-6 overflow-y-auto"
-              >
-                <SheetHeader>
-                  <SheetTitle className="sr-only">Navigation menu</SheetTitle>
-                </SheetHeader>
-                <div className="mx-auto flex w-full max-w-md flex-col gap-6">
-                  {navLinks.map((link, i) => (
-                    <motion.button
-                      key={link.label}
-                      onClick={link.action}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.05 }}
-                      className="text-2xl font-serif text-charcoal hover:text-burgundy transition-colors text-left cursor-pointer"
-                    >
-                      {link.label}
-                    </motion.button>
-                  ))}
-                  <div className="mt-6 flex flex-col gap-3">
-                    <button
-                      onClick={() => {
-                        onNavigateToProperties?.();
-                        setMobileOpen(false);
-                      }}
-                      className="w-full py-4 bg-burgundy text-white text-center rounded-xl font-semibold text-lg cursor-pointer"
-                    >
-                      Explore Properties
-                    </button>
-                    <button
-                      onClick={() => {
-                        document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-                        setMobileOpen(false);
-                      }}
-                      className="w-full py-4 border border-charcoal/10 text-charcoal text-center rounded-xl font-medium text-lg cursor-pointer"
-                    >
-                      Schedule a Private Viewing
-                    </button>
+              <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+                <button
+                  onClick={() => setMobileOpen((v) => !v)}
+                  className={`p-2 rounded-lg transition-colors ${
+                    scrolled ? "text-charcoal" : "text-white"
+                  }`}
+                  aria-label="Toggle menu"
+                  aria-expanded={mobileOpen}
+                >
+                  <Menu className="w-6 h-6" />
+                </button>
 
-                    {user ? (
-                      <div className="flex items-center gap-3 p-4 border border-charcoal/5 rounded-xl bg-ivory/50 mt-4">
-                        <img
-                          src={user.avatar}
-                          alt={user.name}
-                          className="w-12 h-12 rounded-full border border-burgundy object-cover"
-                        />
-                        <div className="flex-1 min-w-0">
-                          <p className="text-[10px] uppercase tracking-wider text-warm-gray">
-                            Client Session
-                          </p>
-                          <p className="text-sm font-semibold text-charcoal truncate">
-                            {user.name}
-                          </p>
-                          <p className="text-[10px] text-warm-gray truncate">{user.email}</p>
-                        </div>
-                        <SheetClose
-                          render={
-                            <button className="px-3 py-1.5 bg-burgundy/10 hover:bg-burgundy/20 text-burgundy text-xs font-semibold rounded-full transition-all shrink-0 cursor-pointer" />
-                          }
-                          onClick={() => {
-                            onLogout();
-                          }}
-                        >
-                          Sign Out
-                        </SheetClose>
-                      </div>
-                    ) : (
+                <SheetContent
+                  side="right"
+                  className="bg-white w-full sm:max-w-md pt-24 px-6 overflow-y-auto"
+                >
+                  <SheetHeader>
+                    <SheetTitle className="sr-only">Navigation menu</SheetTitle>
+                  </SheetHeader>
+                  <div className="mx-auto flex w-full max-w-md flex-col gap-6">
+                    {navLinks.map((link, i) => (
+                      <motion.button
+                        key={link.label}
+                        onClick={link.action}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: i * 0.05 }}
+                        className="text-2xl font-serif text-charcoal hover:text-burgundy transition-colors text-left cursor-pointer"
+                      >
+                        {link.label}
+                      </motion.button>
+                    ))}
+                    <div className="mt-6 flex flex-col gap-3">
                       <button
                         onClick={() => {
-                          onOpenLogin();
+                          onNavigateToProperties?.();
                           setMobileOpen(false);
                         }}
-                        className="w-full py-4 border border-charcoal/10 text-charcoal text-center rounded-xl font-medium text-lg cursor-pointer mt-4"
+                        className="w-full py-4 bg-burgundy text-white text-center rounded-xl font-semibold text-lg cursor-pointer"
                       >
-                        Client Portal Sign In
+                        Explore Properties
                       </button>
-                    )}
+                      <button
+                        onClick={() => {
+                          onOpenFavorites();
+                          setMobileOpen(false);
+                        }}
+                        className="w-full py-4 border border-charcoal/10 text-charcoal text-center rounded-xl font-medium text-lg cursor-pointer"
+                      >
+                        Saved Portfolio ({favoritesCount})
+                      </button>
+                      <button
+                        onClick={() => {
+                          document
+                            .getElementById("contact")
+                            ?.scrollIntoView({ behavior: "smooth" });
+                          setMobileOpen(false);
+                        }}
+                        className="w-full py-4 border border-charcoal/10 text-charcoal text-center rounded-xl font-medium text-lg cursor-pointer"
+                      >
+                        Schedule a Private Viewing
+                      </button>
+
+                      {user ? (
+                        <div className="flex items-center gap-3 p-4 border border-charcoal/5 rounded-xl bg-ivory/50 mt-4">
+                          <img
+                            src={user.avatar}
+                            alt={user.name}
+                            className="w-12 h-12 rounded-full border border-burgundy object-cover"
+                          />
+                          <div className="flex-1 min-w-0">
+                            <p className="text-[10px] uppercase tracking-wider text-warm-gray">
+                              Client Session
+                            </p>
+                            <p className="text-sm font-semibold text-charcoal truncate">
+                              {user.name}
+                            </p>
+                            <p className="text-[10px] text-warm-gray truncate">{user.email}</p>
+                          </div>
+                          <SheetClose
+                            render={
+                              <button className="px-3 py-1.5 bg-burgundy/10 hover:bg-burgundy/20 text-burgundy text-xs font-semibold rounded-full transition-all shrink-0 cursor-pointer" />
+                            }
+                            onClick={() => {
+                              onLogout();
+                            }}
+                          >
+                            Sign Out
+                          </SheetClose>
+                        </div>
+                      ) : (
+                        <button
+                          onClick={() => {
+                            onOpenLogin();
+                            setMobileOpen(false);
+                          }}
+                          className="w-full py-4 border border-charcoal/10 text-charcoal text-center rounded-xl font-medium text-lg cursor-pointer mt-4"
+                        >
+                          Client Portal Sign In
+                        </button>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </SheetContent>
-            </Sheet>
+                </SheetContent>
+              </Sheet>
+            </div>
           </div>
         </div>
       </motion.nav>

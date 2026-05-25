@@ -23,6 +23,8 @@ import { ClientPortalModal } from "./components/ClientPortalModal";
 import { AgencySpotlightModal } from "./components/AgencySpotlightModal";
 import { LegalDocumentModal } from "./components/LegalDocumentModal";
 import { ComingSoonToast } from "./components/ComingSoonToast";
+import { FavoritesDrawer } from "./components/FavoritesDrawer";
+import { loadFavoritePropertyIds, saveFavoritePropertyIds } from "@/services/favoritesService";
 
 const isDefaultFilterState = (filters: FilterState): boolean => {
   const defaults = getDefaultFilters();
@@ -55,6 +57,8 @@ export default function App() {
   const [isLegalModalOpen, setIsLegalModalOpen] = useState(false);
   const [legalDocTitle, setLegalDocTitle] = useState("Privacy Policy");
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [favoriteIds, setFavoriteIds] = useState<string[]>(() => loadFavoritePropertyIds());
+  const [isFavoritesDrawerOpen, setIsFavoritesDrawerOpen] = useState(false);
 
   const handleSelectFooterLink = useCallback(
     (category: string, label: string) => {
@@ -145,6 +149,34 @@ export default function App() {
     setIsLoginModalOpen(true);
   }, []);
 
+  const toggleFavorite = useCallback((propertyId: string) => {
+    setFavoriteIds((currentIds) => {
+      const exists = currentIds.includes(propertyId);
+      return exists ? currentIds.filter((id) => id !== propertyId) : [...currentIds, propertyId];
+    });
+  }, []);
+
+  const openFavoritesDrawer = useCallback(() => {
+    setSelectedProperty(null);
+    setDetailOverlay(null);
+    setIsFilterModalOpen(false);
+    setIsSearchModalOpen(false);
+    setIsAboutModalOpen(false);
+    setIsLegalModalOpen(false);
+    setIsLoginModalOpen(false);
+    setIsFavoritesDrawerOpen(true);
+  }, []);
+
+  const favoriteIdSet = useMemo(() => new Set(favoriteIds), [favoriteIds]);
+  const favoriteProperties = useMemo(
+    () => properties.filter((property) => favoriteIdSet.has(property.id)),
+    [favoriteIdSet],
+  );
+
+  useEffect(() => {
+    saveFavoritePropertyIds(favoriteIds);
+  }, [favoriteIds]);
+
   useEffect(() => {
     if (!pendingScrollTarget) return;
     const targetId = pendingScrollTarget === "map" ? "map-section" : "properties-section";
@@ -210,6 +242,8 @@ export default function App() {
         onNavigateToMap={openMapFromMenu}
         onNavigateToProperties={openGridFromMenu}
         forceMenuOpen={forceMenuOpen}
+        favoritesCount={favoriteProperties.length}
+        onOpenFavorites={openFavoritesDrawer}
         user={user}
         onOpenLogin={openClientPortal}
         onLogout={() => {
@@ -372,6 +406,8 @@ export default function App() {
                           <PropertyCard
                             key={property.id}
                             {...property}
+                            isFavorite={favoriteIdSet.has(property.id)}
+                            onToggleFavorite={() => toggleFavorite(property.id)}
                             onClick={() => setSelectedProperty(property)}
                           />
                         ))}
@@ -419,6 +455,20 @@ export default function App() {
       {/* ── Footer ──────────────────────────────────────────── */}
       <Footer onSelectFooterLink={handleSelectFooterLink} />
 
+      <FavoritesDrawer
+        open={isFavoritesDrawerOpen}
+        onOpenChange={setIsFavoritesDrawerOpen}
+        properties={favoriteProperties}
+        onSelectProperty={(property) => {
+          setSelectedProperty(property);
+          setDetailOverlay(null);
+        }}
+        onRemoveProperty={(propertyId) => toggleFavorite(propertyId)}
+        onRequestViewing={() => {
+          document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+        }}
+      />
+
       {/* ── Modals ──────────────────────────────────────────── */}
       <FilterModal
         isOpen={isFilterModalOpen}
@@ -447,6 +497,8 @@ export default function App() {
               setDetailOverlay(null);
             }}
             initialOverlay={detailOverlay}
+            isFavorite={favoriteIdSet.has(selectedProperty.id)}
+            onToggleFavorite={() => toggleFavorite(selectedProperty.id)}
           />
         </ErrorBoundary>
       )}

@@ -16,6 +16,8 @@ interface PropertyCardProps {
   baths: number;
   sqft: string;
   featured?: boolean;
+  isFavorite?: boolean;
+  onToggleFavorite?: () => void;
   onClick?: () => void;
 }
 
@@ -28,9 +30,10 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
   baths,
   sqft,
   featured,
+  isFavorite = false,
+  onToggleFavorite,
   onClick,
 }: PropertyCardProps) {
-  const [isFavorite, setIsFavorite] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const usdComparison = formatUsdComparison(price);
 
@@ -78,7 +81,7 @@ export const PropertyCard = React.memo<PropertyCardProps>(function PropertyCard(
             size="icon"
             onClick={(e) => {
               e.stopPropagation();
-              setIsFavorite(!isFavorite);
+              onToggleFavorite?.();
             }}
             className="bg-white/95 backdrop-blur-sm rounded-full hover:bg-white hover:scale-105 shadow-md shrink-0 w-[44px] h-[44px] pointer-events-auto focus-visible:ring-[var(--brand)]/30"
             aria-label={isFavorite ? `Remove ${title} from favorites` : `Add ${title} to favorites`}
