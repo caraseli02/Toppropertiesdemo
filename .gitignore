@@ -5,3 +5,6 @@ build/
 ui-review-screenshots*/
 .gstack/
 node-compile-cache/
+
+# Ignore root-level screenshots
+/*.png
