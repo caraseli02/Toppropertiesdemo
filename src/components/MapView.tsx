@@ -4,6 +4,9 @@ import "leaflet/dist/leaflet.css";
 import { useState, useEffect } from "react";
 import React from "react";
 
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+
 // Fix for default marker icon issues in Leaflet with Webpack/Vite
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -146,20 +149,31 @@ export const MapView = React.memo<MapViewProps>(function MapView({
       </MapContainer>
 
       {activeProperty && (
-        <button
-          type="button"
-          onClick={() => onMarkerClick?.(activeProperty.id)}
-          className="absolute bottom-4 left-4 right-4 z-[500] rounded-2xl bg-white/95 p-4 text-left shadow-2xl backdrop-blur-sm transition hover:bg-white sm:left-5 sm:right-auto sm:w-[320px]"
+        <Card
+          className="absolute bottom-4 left-4 right-4 z-[500] border-border/70 bg-background/95 p-0 shadow-2xl backdrop-blur-sm sm:left-5 sm:right-auto sm:w-[320px]"
         >
-          <span className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.18em] text-warm-gray">
-            Map selection
-          </span>
-          <span className="block font-serif text-xl text-charcoal">{activeProperty.title}</span>
-          <span className="mt-1 block text-sm text-warm-gray">{activeProperty.location}</span>
-          <span className="mt-3 inline-flex rounded-full bg-burgundy px-3 py-1 text-sm font-semibold text-white">
-            {formatMarkerPrice(activeProperty.price)}
-          </span>
-        </button>
+          <CardContent className="p-4">
+            <span className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              Map selection
+            </span>
+            <h3 className="font-serif text-xl text-foreground">{activeProperty.title}</h3>
+            <p className="mt-1 text-sm text-muted-foreground">{activeProperty.location}</p>
+            <div className="mt-3 flex items-center justify-between gap-3">
+              <span className="inline-flex rounded-full bg-burgundy px-3 py-1 text-sm font-semibold text-white">
+                {formatMarkerPrice(activeProperty.price)}
+              </span>
+              <Button
+                type="button"
+                variant="secondary"
+                size="sm"
+                onClick={() => onMarkerClick?.(activeProperty.id)}
+                className="shrink-0"
+              >
+                View listing
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       )}
     </div>
   );
