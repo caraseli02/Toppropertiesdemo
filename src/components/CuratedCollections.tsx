@@ -3,6 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 
 const collections = [
   {
+    id: "coastal",
     title: "Coastal Living",
     subtitle: "Waterfront villas & beachfront estates",
     count: 12,
@@ -10,6 +11,7 @@ const collections = [
       "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&h=500&q=80",
   },
   {
+    id: "urban",
     title: "Urban Penthouses",
     subtitle: "Sky-high living in global capitals",
     count: 8,
@@ -17,6 +19,7 @@ const collections = [
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&h=500&q=80",
   },
   {
+    id: "mountain",
     title: "Mountain Retreats",
     subtitle: "Alpine chalets & ski-in properties",
     count: 6,
@@ -24,6 +27,7 @@ const collections = [
       "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&h=500&q=80",
   },
   {
+    id: "historic",
     title: "Historic Estates",
     subtitle: "Timeless architecture & heritage homes",
     count: 5,
@@ -32,7 +36,11 @@ const collections = [
   },
 ];
 
-export function CuratedCollections() {
+interface CuratedCollectionsProps {
+  onSelectCollection?: (collectionId: string) => void;
+}
+
+export function CuratedCollections({ onSelectCollection }: CuratedCollectionsProps) {
   return (
     <section id="collections" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -55,13 +63,16 @@ export function CuratedCollections() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {collections.map((collection, index) => (
-            <motion.div
+            <motion.button
               key={collection.title}
+              type="button"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group relative rounded-2xl overflow-hidden aspect-[16/10] cursor-pointer"
+              onClick={() => onSelectCollection?.(collection.id)}
+              className="group relative rounded-2xl overflow-hidden aspect-[16/10] cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burgundy/35 focus-visible:ring-offset-2"
+              aria-label={`Browse ${collection.title} collection`}
             >
               <img
                 src={collection.image}
@@ -86,7 +97,7 @@ export function CuratedCollections() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </motion.button>
           ))}
         </div>
       </div>

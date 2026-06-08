@@ -3,7 +3,11 @@ import { ChevronRight, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-export function FinalCTA() {
+interface FinalCTAProps {
+  onScheduleViewing?: () => void;
+}
+
+export function FinalCTA({ onScheduleViewing }: FinalCTAProps) {
   return (
     <section id="contact" className="py-24 bg-charcoal relative overflow-hidden">
       {/* Background image */}
@@ -53,9 +57,7 @@ export function FinalCTA() {
             <Button
               size="lg"
               variant="outline"
-              onClick={() =>
-                document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
-              }
+              onClick={onScheduleViewing}
               className={cn(
                 "inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/5 backdrop-blur-sm text-white rounded-full font-semibold text-base border border-white/15 hover:bg-white/10 transition-all duration-300 cursor-pointer",
               )}

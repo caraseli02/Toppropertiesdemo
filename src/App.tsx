@@ -15,7 +15,7 @@ import { SearchBar } from "./components/SearchBar";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { LayoutGrid, Map } from "lucide-react";
 import { properties } from "@/data/properties";
-import { Property, FilterState } from "@/types";
+import { Property, FilterState, Amenity, PropertyType } from "@/types";
 import { filterProperties } from "@/services/filterService";
 import { getDefaultFilters } from "@/constants/filters";
 import { AnimatePresence } from "framer-motion";
@@ -23,6 +23,7 @@ import { ClientPortalModal } from "./components/ClientPortalModal";
 import { AgencySpotlightModal } from "./components/AgencySpotlightModal";
 import { LegalDocumentModal } from "./components/LegalDocumentModal";
 import { ComingSoonToast } from "./components/ComingSoonToast";
+import { ContactModal } from "./components/ContactModal";
 import { FavoritesDrawer } from "./components/FavoritesDrawer";
 import { loadFavoritePropertyIds, saveFavoritePropertyIds } from "@/services/favoritesService";
 
@@ -40,6 +41,41 @@ const isDefaultFilterState = (filters: FilterState): boolean => {
   );
 };
 
+// Map collection IDs to filter configurations and display labels
+const collectionConfig: Record<
+  string,
+  { label: string; filters: (defaults: FilterState) => FilterState }
+> = {
+  coastal: {
+    label: "Coastal Living",
+    filters: (defaults) => ({
+      ...defaults,
+      amenities: ["Beach Access" as Amenity],
+    }),
+  },
+  urban: {
+    label: "Urban Penthouses",
+    filters: (defaults) => ({
+      ...defaults,
+      propertyTypes: ["Penthouse" as PropertyType, "Apartment" as PropertyType],
+    }),
+  },
+  mountain: {
+    label: "Mountain Retreats",
+    filters: (defaults) => ({
+      ...defaults,
+      amenities: ["Mountain View" as Amenity],
+    }),
+  },
+  historic: {
+    label: "Historic Estates",
+    filters: (defaults) => ({
+      ...defaults,
+      amenities: ["Historic" as Amenity],
+    }),
+  },
+};
+
 export default function App() {
   const [viewMode, setViewMode] = useState<"grid" | "map">("grid");
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
@@ -50,6 +86,7 @@ export default function App() {
   const [activeFilters, setActiveFilters] = useState<FilterState>(() => getDefaultFilters());
   const [pendingScrollTarget, setPendingScrollTarget] = useState<"grid" | "map" | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [activeCollection, setActiveCollection] = useState<string | null>(null);
 
   const [user, setUser] = useState<{ name: string; email: string; avatar: string } | null>(null);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -59,6 +96,7 @@ export default function App() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [favoriteIds, setFavoriteIds] = useState<string[]>(() => loadFavoritePropertyIds());
   const [isFavoritesDrawerOpen, setIsFavoritesDrawerOpen] = useState(false);
+  const [isGeneralContactOpen, setIsGeneralContactOpen] = useState(false);
 
   const handleSelectFooterLink = useCallback(
     (category: string, label: string) => {
@@ -127,10 +165,12 @@ export default function App() {
 
   const handleSearch = useCallback((query: string) => {
     setSearchQuery(query);
+    setActiveCollection(null);
   }, []);
 
   const applyFilters = useCallback((filters: FilterState) => {
     setActiveFilters(filters);
+    setActiveCollection(null);
   }, []);
 
   const scrollToSection = useCallback((id: string) => {
@@ -172,6 +212,26 @@ export default function App() {
     () => properties.filter((property) => favoriteIdSet.has(property.id)),
     [favoriteIdSet],
   );
+
+  // Handle collection card clicks — apply themed filters and scroll to grid
+  const handleSelectCollection = useCallback((collectionId: string) => {
+    const config = collectionConfig[collectionId];
+    if (!config) return;
+
+    const defaults = getDefaultFilters();
+    setActiveFilters(config.filters(defaults));
+    setSearchQuery("");
+    setActiveCollection(collectionId);
+    setViewMode("grid");
+    setPendingScrollTarget("grid");
+  }, []);
+
+  // Clear the active collection and reset filters to defaults
+  const clearCollection = useCallback(() => {
+    setActiveFilters(getDefaultFilters());
+    setSearchQuery("");
+    setActiveCollection(null);
+  }, []);
 
   useEffect(() => {
     saveFavoritePropertyIds(favoriteIds);
@@ -227,6 +287,9 @@ export default function App() {
     }
   }, []);
 
+  // Derive the collection display label
+  const collectionLabel = activeCollection ? collectionConfig[activeCollection]?.label ?? null : null;
+
   return (
     <div className="min-h-screen bg-ivory">
       {/* Skip link */}
@@ -253,7 +316,7 @@ export default function App() {
       />
 
       {/* Hero — only shown when not actively searching/filtering */}
-      {hasVisibleResults && !hasActiveSearchOrFilter ? (
+      {hasVisibleResults && !hasActiveSearchOrFilter && !activeCollection ? (
         <HeroSection
           properties={properties}
           onViewProperty={(p) => setSelectedProperty(p)}
@@ -333,6 +396,7 @@ export default function App() {
                 } else {
                   setActiveFilters(getDefaultFilters());
                 }
+                setActiveCollection(null);
                 setViewMode("grid");
               }}
               className="bg-burgundy text-white px-8 py-3 rounded-lg hover:bg-burgundy-dark transition-colors font-medium"
@@ -346,13 +410,24 @@ export default function App() {
             <div className="flex items-center justify-between gap-4 mb-4 md:mb-6">
               <div>
                 <h2 className="text-xl md:text-2xl font-serif text-charcoal mb-1">
-                  Luxury Properties
+                  {collectionLabel ?? "Luxury Properties"}
                 </h2>
                 <p className="text-warm-gray text-[13px] md:text-[14px]">
-                  {hasActiveSearchOrFilter
-                    ? `${filteredProperties.length} properties available`
-                    : `A 3-property private edit from ${filteredProperties.length} homes`}
+                  {collectionLabel
+                    ? `${filteredProperties.length} properties in this collection`
+                    : hasActiveSearchOrFilter
+                      ? `${filteredProperties.length} properties available`
+                      : `A 3-property private edit from ${filteredProperties.length} homes`}
                 </p>
+                {collectionLabel && (
+                  <button
+                    type="button"
+                    onClick={clearCollection}
+                    className="mt-2 inline-flex items-center gap-1 text-sm text-burgundy hover:text-burgundy-dark transition-colors font-medium cursor-pointer"
+                  >
+                    <span aria-hidden="true">←</span> View all properties
+                  </button>
+                )}
               </div>
 
               <div className="flex gap-2 bg-white rounded-lg p-1 shadow-sm border border-border-light">
@@ -390,7 +465,7 @@ export default function App() {
             {/* Content */}
             {viewMode === "grid" ? (
               <>
-                {!hasActiveSearchOrFilter ? (
+                {!hasActiveSearchOrFilter && !activeCollection ? (
                   <LuxuryPropertiesShowcase
                     properties={filteredProperties}
                     onSelect={(property) => setSelectedProperty(property)}
@@ -399,7 +474,9 @@ export default function App() {
                   filteredProperties.length > 0 && (
                     <section>
                       <h2 className="text-xs font-semibold tracking-[0.15em] uppercase text-warm-gray mb-6">
-                        Matching Properties
+                        {collectionLabel
+                          ? `${collectionLabel} — Curated Selection`
+                          : "Matching Properties"}
                       </h2>
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         {filteredProperties.map((property) => (
@@ -448,9 +525,9 @@ export default function App() {
       </div>
 
       {/* ── Redesign sections ──────────────────────────────── */}
-      <CuratedCollections />
+      <CuratedCollections onSelectCollection={handleSelectCollection} />
       <Testimonials />
-      <FinalCTA />
+      <FinalCTA onScheduleViewing={() => setIsGeneralContactOpen(true)} />
 
       {/* ── Footer ──────────────────────────────────────────── */}
       <Footer onSelectFooterLink={handleSelectFooterLink} />
@@ -502,6 +579,15 @@ export default function App() {
           />
         </ErrorBoundary>
       )}
+
+      {/* General contact modal for CTA section */}
+      <ContactModal
+        isOpen={isGeneralContactOpen}
+        onClose={() => setIsGeneralContactOpen(false)}
+        propertyTitle="your curated selection"
+        mode="viewing"
+        initialMessage="I would like to schedule a private viewing of your luxury property collection."
+      />
 
       {/* ── Luxury Portfolio Preview Modals ─────────────────── */}
       <AnimatePresence>

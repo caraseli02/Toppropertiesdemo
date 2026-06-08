@@ -8,6 +8,8 @@ interface ContactModalProps {
   onClose: () => void;
   propertyTitle: string;
   mode?: ContactMode;
+  /** Override the default auto-generated message */
+  initialMessage?: string;
 }
 
 interface FormErrors {
@@ -40,15 +42,17 @@ export function ContactModal({
   onClose,
   propertyTitle,
   mode = "contact",
+  initialMessage,
 }: ContactModalProps) {
   const config = useMemo(() => getModalConfig(mode), [mode]);
   const submitTimeoutRef = useRef<number | null>(null);
   const nameInputRef = useRef<HTMLInputElement | null>(null);
+  const defaultMessage = initialMessage ?? `${config.defaultMessage} ${propertyTitle}`;
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
-    message: `${config.defaultMessage} ${propertyTitle}`,
+    message: defaultMessage,
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [touched, setTouched] = useState<{ name: boolean; email: boolean }>({
@@ -85,11 +89,11 @@ export function ContactModal({
       name: "",
       email: "",
       phone: "",
-      message: `${config.defaultMessage} ${propertyTitle}`,
+      message: defaultMessage,
     });
     setErrors({});
     setTouched({ name: false, email: false });
-  }, [config.defaultMessage, isOpen, propertyTitle]);
+  }, [defaultMessage, isOpen]);
 
   useEffect(() => {
     if (!isOpen || isSubmitted) return;
@@ -131,7 +135,7 @@ export function ContactModal({
       name: "",
       email: "",
       phone: "",
-      message: `${config.defaultMessage} ${propertyTitle}`,
+      message: defaultMessage,
     });
     setErrors({});
     setTouched({ name: false, email: false });
