@@ -5,25 +5,27 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$ROOT_DIR"
 
-# Replace these commands with the correct commands for your repository.
-INSTALL_CMD=(npm install)
-VERIFY_CMD=(npm test)
-START_CMD=(npm run dev)
+echo "==> TopProperties reset baseline"
+echo "==> Current directory: $PWD"
 
-echo "==> Working directory: $PWD"
-echo "==> Syncing dependencies"
-"${INSTALL_CMD[@]}"
+required_files=(
+  "AGENTS.md"
+  "CLAUDE.md"
+  "CONTEXT.md"
+  "feature_list.json"
+)
 
-echo "==> Running baseline verification"
-"${VERIFY_CMD[@]}"
+for file in "${required_files[@]}"; do
+  if [ ! -f "$file" ]; then
+    echo "Missing required reset-baseline file: $file" >&2
+    exit 1
+  fi
+done
 
-echo "==> Startup command"
-printf '    %q' "${START_CMD[@]}"
-printf '\n'
-
-if [ "${RUN_START_COMMAND:-0}" = "1" ]; then
-  echo "==> Starting the app"
-  exec "${START_CMD[@]}"
+if command -v python3 >/dev/null 2>&1; then
+  python3 -m json.tool feature_list.json >/dev/null
 fi
 
-echo "Set RUN_START_COMMAND=1 if you want init.sh to launch the app directly."
+echo "==> Baseline files are present."
+echo "==> No app/tooling commands are configured yet."
+echo "==> Wait for the design and AI-composed UI spike outputs before adding implementation tooling."
