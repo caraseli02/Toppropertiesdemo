@@ -149,9 +149,7 @@ export const MapView = React.memo<MapViewProps>(function MapView({
       </MapContainer>
 
       {activeProperty && (
-        <Card
-          className="absolute bottom-4 left-4 right-4 z-[500] border-border/70 bg-background/95 p-0 shadow-2xl backdrop-blur-sm sm:left-5 sm:right-auto sm:w-[320px]"
-        >
+        <Card className="absolute bottom-4 left-4 right-4 z-[500] border-border/70 bg-background/95 p-0 shadow-2xl backdrop-blur-sm sm:left-5 sm:right-auto sm:w-[320px]">
           <CardContent className="p-4">
             <span className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
               Map selection
