@@ -1,0 +1,42 @@
+{
+  "project": "TopProperties",
+  "last_updated": "2026-06-08",
+  "status": "reset_baseline_pending_preimplementation_spikes",
+  "goal_card": "t_9d328a7a",
+  "approved_direction": {
+    "summary": "Agentic-native 2026 property webapp demo for Mallorca luxury homes.",
+    "primary_user": "Luxury buyer/investor planning a move or second home in Mallorca.",
+    "hero_prompt": "find best options for home in Mallorca",
+    "core_experience": [
+      "dynamic/generated UI from safe primitives",
+      "curated Mallorca luxury property options",
+      "comparison/story panels",
+      "map/neighborhood intelligence"
+    ]
+  },
+  "scope_guardrails": {
+    "v1_location_scope": "Mallorca luxury homes only",
+    "stack": "open; choose whichever stack best supports generative UI",
+    "preserve_current_prs_as": "reference only",
+    "excluded_from_v1": [
+      "booking/contact workflows",
+      "mortgage/financing calculators",
+      "user accounts/saved searches",
+      "real CRM",
+      "real listing ingestion",
+      "broad agent platform/backend"
+    ]
+  },
+  "preimplementation_cards": [
+    {
+      "id": "t_c45c9064",
+      "title": "spike: AI-composed UI from safe primitives",
+      "required_before": "implementation microtasks"
+    },
+    {
+      "id": "t_47af33ed",
+      "title": "design: pencil pass for agentic Mallorca luxury UI",
+      "required_before": "implementation microtasks"
+    }
+  ]
+}
