@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
+import { Card, CardContent } from "@/components/ui/card";
+
 const collections = [
   {
     title: "Coastal Living",
@@ -61,31 +63,32 @@ export function CuratedCollections() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group relative rounded-2xl overflow-hidden aspect-[16/10] cursor-pointer"
             >
-              <img
-                src={collection.image}
-                alt={collection.title}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/30 to-transparent" />
+              <Card className="group relative aspect-[16/10] cursor-pointer rounded-2xl ring-0 bg-transparent py-0 gap-0">
+                <img
+                  src={collection.image}
+                  alt={collection.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/30 to-transparent" />
 
-              <div className="absolute inset-0 p-8 flex flex-col justify-end">
-                <div className="flex items-end justify-between">
-                  <div>
-                    <span className="text-white/60 text-xs uppercase tracking-wider font-medium mb-2 block">
-                      {collection.count} Properties
-                    </span>
-                    <h3 className="font-serif text-2xl sm:text-3xl text-white mb-1">
-                      {collection.title}
-                    </h3>
-                    <p className="text-white/70 text-sm">{collection.subtitle}</p>
+                <CardContent className="absolute inset-0 p-8 flex flex-col justify-end">
+                  <div className="flex items-end justify-between">
+                    <div>
+                      <span className="text-white/60 text-xs uppercase tracking-wider font-medium mb-2 block">
+                        {collection.count} Properties
+                      </span>
+                      <h3 className="font-serif text-2xl sm:text-3xl text-white mb-1">
+                        {collection.title}
+                      </h3>
+                      <p className="text-white/70 text-sm">{collection.subtitle}</p>
+                    </div>
+                    <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center group-hover:bg-burgundy transition-all duration-300 flex-shrink-0 ml-4">
+                      <ArrowUpRight className="w-5 h-5 text-white group-hover:rotate-45 transition-transform duration-300" />
+                    </div>
                   </div>
-                  <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center group-hover:bg-burgundy transition-all duration-300 flex-shrink-0 ml-4">
-                    <ArrowUpRight className="w-5 h-5 text-white group-hover:rotate-45 transition-transform duration-300" />
-                  </div>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             </motion.div>
           ))}
         </div>
