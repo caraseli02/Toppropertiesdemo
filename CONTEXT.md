@@ -31,3 +31,26 @@ Target implementation stack is not fixed. Use whichever stack best supports the 
 Existing React/shadcn PR work should be preserved as reference only, not as the implementation baseline. Review it for visual ideas, component anatomy, accessibility fixes, and interaction patterns worth carrying into the new component grammar.
 
 Open decision: whether the first shipped demo requires true runtime AI composition, a scripted flow that behaves like runtime generation, or a hybrid with optional live AI mode. This is a deep design/architecture question to clarify later before implementation microtasks. It has a dedicated spike card: `t_c45c9064`.
+
+## Tech stack (resolved)
+
+| Layer | Choice | Notes |
+|---|---|---|
+| Framework | **Nuxt 3** (compatibility version 4) | Vue 3 + TypeScript + file-based routing |
+| Styling | **Tailwind CSS v4** via `@tailwindcss/vite` | CSS-first config with `@theme {}`, no PostCSS/autoprefixer needed |
+| Typography | **DM Serif Display** (headings) + **DM Sans** (body) | Google Fonts, loaded via `<link>` preconnect |
+| Runtime | Node.js ≥ 20, pnpm 10 | |
+| Build | `pnpm build` (Vite under the hood) | `pnpm dev` for local development |
+
+### Design tokens
+
+Defined in `assets/css/main.css` via Tailwind v4 `@theme {}`:
+
+- **Colors**: stone palette (neutral), gold (accent), sea (secondary), sand (surface warmth). Semantic aliases: `surface`, `text-primary`, `accent`, etc.
+- **Typography**: `font-display` for headings, `font-body` for text. Scale from `xs` to `6xl`.
+- **Spacing**: section-level tokens (`spacing-section`, `spacing-section-lg`).
+- **Shadows**: `shadow-soft`, `shadow-medium`, `shadow-elevated`.
+
+### Visual direction
+
+Quiet luxury + concierge intelligence. Dark hero section (stone-950) with gold accent, light content areas. Editorial feel — not a technical dashboard.
