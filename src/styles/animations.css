@@ -69,17 +69,6 @@
   }
 }
 
-/* Focus visible styles */
-:focus-visible {
-  outline: 2px solid var(--brand);
-  outline-offset: 2px;
-}
-
-/* Remove default focus ring for mouse users */
-:focus:not(:focus-visible) {
-  outline: none;
-}
-
 /* Image hover zoom */
 .img-zoom-container {
   overflow: hidden;
