@@ -231,7 +231,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[#f6f1e8] text-stone-950">
-      <header className="sticky top-0 z-30 border-b border-black/5 bg-[#f6f1e8]/90 backdrop-blur-xl">
+      <header className="sticky top-0 z-30 border-b border-black/5 bg-[#f6f1e8]/90 backdrop-blur-xl" style={{ paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}>
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
             <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-stone-950 text-white shadow-[0_18px_40px_-26px_rgba(28,25,23,0.7)]">
@@ -254,7 +254,7 @@ function App() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-7xl px-4 pb-16 pt-8 sm:px-6 lg:px-8">
+      <main className="mx-auto max-w-7xl px-4 pb-16 pt-8 sm:px-6 lg:px-8" style={{ paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))', paddingBottom: 'max(4rem, env(safe-area-inset-bottom))' }}>
         <section className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
           <div className="lg:pt-10">
             <div className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/65 px-3 py-1.5 text-[11px] uppercase tracking-[0.22em] text-stone-500">
@@ -321,13 +321,13 @@ function App() {
               })}
             </div>
 
-            <div className="mt-8 rounded-[1.75rem] border border-black/8 bg-white/65 p-5 backdrop-blur">
+            <div className="mt-8 rounded-[1.75rem] border border-black/8 bg-white/65 p-4 sm:p-5 backdrop-blur">
               <p className="text-xs uppercase tracking-[0.22em] text-stone-500">
                 Recommended for you
               </p>
-              <p className="mt-3 text-lg font-medium text-stone-950">{activeIntentCopy.summary}</p>
+              <p className="mt-3 text-base font-medium text-stone-950 sm:text-lg">{activeIntentCopy.summary}</p>
 
-              <div className="mt-5 grid gap-3 sm:grid-cols-3">
+              <div className="mt-5 grid gap-4 sm:grid-cols-3">
                 {activeIntentCopy.notes.map((note) => (
                   <div
                     key={note.title}
@@ -423,15 +423,15 @@ function FeaturedListingCard({
             </span>
           </div>
 
-          <div className="absolute inset-x-0 bottom-0 p-5 pt-16">
-            <div className="rounded-[1.25rem] border border-white/10 bg-black/20 px-5 pb-5 pt-4 text-white backdrop-blur-md">
-              <p className="text-[11px] uppercase tracking-[0.24em] text-white/60">
+          <div className="absolute inset-x-0 bottom-0 p-3 pt-14 sm:p-5 sm:pt-16">
+            <div className="rounded-[1.1rem] border border-white/10 bg-black/20 px-4 pb-4 pt-3 text-white backdrop-blur-md sm:rounded-[1.25rem] sm:px-5 sm:pb-5 sm:pt-4">
+              <p className="text-[10px] uppercase tracking-[0.24em] text-white/60 sm:text-[11px]">
                 {listing.area}
               </p>
-              <h3 className="mt-2 font-serif text-[1.65rem] leading-[1.15] tracking-[-0.025em] sm:text-3xl">
+              <h3 className="mt-1.5 font-serif text-[1.4rem] leading-[1.15] tracking-[-0.025em] sm:mt-2 sm:text-[1.65rem] sm:text-3xl">
                 {listing.title}
               </h3>
-              <p className="mt-2.5 text-[13px] leading-[1.65] text-white/75">{listing.excerpt}</p>
+              <p className="mt-2 text-[12px] leading-[1.6] text-white/75 sm:mt-2.5 sm:text-[13px] sm:leading-[1.65]">{listing.excerpt}</p>
             </div>
           </div>
         </div>
