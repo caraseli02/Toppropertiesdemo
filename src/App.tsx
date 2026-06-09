@@ -1,488 +1,535 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
-import { Header } from "./components/Header";
-import { PropertyCard } from "./components/PropertyCard";
-import { LuxuryPropertiesShowcase } from "./components/LuxuryPropertiesShowcase";
-import { MapView } from "./components/MapView";
-import { FilterModal } from "./components/FilterModal";
-import { SearchModal } from "./components/SearchModal";
-import { PropertyDetail } from "./components/PropertyDetail";
-import { Footer } from "./components/Footer";
-import { HeroSection } from "./components/HeroSection";
-import { CuratedCollections } from "./components/CuratedCollections";
-import { Testimonials } from "./components/Testimonials";
-import { FinalCTA } from "./components/FinalCTA";
-import { SearchBar } from "./components/SearchBar";
-import { ErrorBoundary } from "./components/ErrorBoundary";
-import { LayoutGrid, Map } from "lucide-react";
-import { properties } from "@/data/properties";
-import { Property, FilterState } from "@/types";
-import { filterProperties } from "@/services/filterService";
-import { getDefaultFilters } from "@/constants/filters";
-import { AnimatePresence } from "framer-motion";
-import { ClientPortalModal } from "./components/ClientPortalModal";
-import { AgencySpotlightModal } from "./components/AgencySpotlightModal";
-import { LegalDocumentModal } from "./components/LegalDocumentModal";
-import { ComingSoonToast } from "./components/ComingSoonToast";
+import { useMemo, useState } from "react";
+import {
+  ArrowRight,
+  Bath,
+  BedDouble,
+  Heart,
+  MapPin,
+  Search,
+  ShieldCheck,
+  Sparkles,
+  Star,
+} from "lucide-react";
 
-const isDefaultFilterState = (filters: FilterState): boolean => {
-  const defaults = getDefaultFilters();
-  return (
-    filters.rentType === defaults.rentType &&
-    filters.priceRange[1] === defaults.priceRange[1] &&
-    filters.showTrattativa === defaults.showTrattativa &&
-    filters.propertyTypes.length === 0 &&
-    filters.rooms === 0 &&
-    filters.beds === 0 &&
-    filters.tags.length === 0 &&
-    (!filters.amenities || filters.amenities.length === 0)
-  );
+type IntentKey = "sea-view" | "palma" | "investment" | "quiet";
+
+type Listing = {
+  id: string;
+  intent: IntentKey;
+  area: string;
+  title: string;
+  image: string;
+  price: string;
+  beds: number;
+  baths: number;
+  sqft: string;
+  excerpt: string;
+  rationale: string;
+  bullets: string[];
 };
 
-export default function App() {
-  const [viewMode, setViewMode] = useState<"grid" | "map">("grid");
-  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
-  const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
-  const [detailOverlay, setDetailOverlay] = useState<"contact" | "image" | null>(null);
-  const [forceMenuOpen, setForceMenuOpen] = useState(false);
-  const [activeFilters, setActiveFilters] = useState<FilterState>(() => getDefaultFilters());
-  const [pendingScrollTarget, setPendingScrollTarget] = useState<"grid" | "map" | null>(null);
-  const [searchQuery, setSearchQuery] = useState("");
+const intentMeta: Record<
+  IntentKey,
+  {
+    label: string;
+    prompt: string;
+    summary: string;
+    notes: { title: string; body: string }[];
+    defaultListingId: string;
+  }
+> = {
+  "sea-view": {
+    label: "Sea view",
+    prompt: "Sea-view villa near Palma with pool",
+    summary:
+      "Best sea-view value in the current edit, with a clear horizon line and private outdoor space.",
+    notes: [
+      {
+        title: "Best sea-view value",
+        body: "A strong view corridor without drifting into resort-like density.",
+      },
+      {
+        title: "Private terraces",
+        body: "Outdoor living stays large enough to feel like a primary residence.",
+      },
+      {
+        title: "Resale quality",
+        body: "The property reads calm, expensive, and easy to keep in a premium shortlist.",
+      },
+    ],
+    defaultListingId: "6",
+  },
+  palma: {
+    label: "Close to Palma",
+    prompt: "Walkable Palma home with terrace and lift",
+    summary: "Best for city convenience, lock-up-and-leave ownership, and walkable daily life.",
+    notes: [
+      {
+        title: "Walkable address",
+        body: "Best when you want urban convenience without giving up privacy.",
+      },
+      {
+        title: "Historic character",
+        body: "A softer, editorial feel that suits a refined city base.",
+      },
+      { title: "Low-friction ownership", body: "Simple, polished, and easy to revisit often." },
+    ],
+    defaultListingId: "2",
+  },
+  investment: {
+    label: "Investment",
+    prompt: "Rental-ready Mallorca property with strong upside",
+    summary: "Balanced for capital preservation, rental appeal, and a premium buyer profile.",
+    notes: [
+      {
+        title: "Capital preservation",
+        body: "The edit favours properties that read durable rather than speculative.",
+      },
+      {
+        title: "Rental profile",
+        body: "Prime addresses and clear lifestyle hooks make the story easy to underwrite.",
+      },
+      { title: "Buyer confidence", body: "A shortlist that feels measured, not promotional." },
+    ],
+    defaultListingId: "3",
+  },
+  quiet: {
+    label: "Quiet area",
+    prompt: "Quiet family base with beach access",
+    summary: "Best for a calmer daily rhythm, with beach access and a low-density feel.",
+    notes: [
+      {
+        title: "Low-density calm",
+        body: "A quieter pocket that still feels premium and connected.",
+      },
+      { title: "Family base", body: "Useful if the second home needs to live like a real home." },
+      {
+        title: "Easy beach rhythm",
+        body: "Relaxed access to the coast without overdoing the noise.",
+      },
+    ],
+    defaultListingId: "4",
+  },
+};
 
-  const [user, setUser] = useState<{ name: string; email: string; avatar: string } | null>(null);
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [isAboutModalOpen, setIsAboutModalOpen] = useState(false);
-  const [isLegalModalOpen, setIsLegalModalOpen] = useState(false);
-  const [legalDocTitle, setLegalDocTitle] = useState("Privacy Policy");
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
+const listings: readonly Listing[] = [
+  {
+    id: "6",
+    intent: "sea-view",
+    area: "Valldemossa",
+    title: "Seafront Mega-Villa in Valldemossa",
+    image: "/images/properties/seafront-mega-villa-in-valldem/hero.jpg",
+    price: "€9,000,000",
+    beds: 6,
+    baths: 6,
+    sqft: "10,764 sq ft",
+    excerpt: "Wide Mediterranean horizon, private pool, and a quiet hillside approach.",
+    rationale: "Best sea-view value with the strongest view corridor in the first edit.",
+    bullets: [
+      "Wide sea-facing terraces",
+      "Private pool and spa feel",
+      "Low-noise hillside approach",
+    ],
+  },
+  {
+    id: "2",
+    intent: "palma",
+    area: "Palma Old Town",
+    title: "Luxury Apartment in Palma Old Town",
+    image: "/images/properties/luxury-apartment-in-palma-old-/hero.jpg",
+    price: "€5,950,000",
+    beds: 5,
+    baths: 5,
+    sqft: "7,018 sq ft",
+    excerpt: "Historic centre convenience with terraces, lift access, and polished finishes.",
+    rationale: "Best for a city base that still feels private and premium.",
+    bullets: [
+      "Walkable daily life",
+      "Historic address with polish",
+      "Ideal lock-up-and-leave base",
+    ],
+  },
+  {
+    id: "3",
+    intent: "investment",
+    area: "Port de Pollença",
+    title: "Beachfront Property in Port de Pollença",
+    image: "/images/properties/beachfront-property-in-port-de/hero.jpg",
+    price: "€985,000",
+    beds: 3,
+    baths: 2,
+    sqft: "1,302 sq ft",
+    excerpt: "Straightforward beach access with a clean, investment-friendly profile.",
+    rationale: "Best sea-view value for buyers who care about rental appeal.",
+    bullets: ["Beachfront position", "Rental-ready profile", "Easy to understand shortlist fit"],
+  },
+  {
+    id: "4",
+    intent: "quiet",
+    area: "Son Serra de Marina",
+    title: "Beachfront Villa with Rental License",
+    image: "/images/properties/beachfront-villa-with-rental-l/hero.jpg",
+    price: "€925,000",
+    beds: 3,
+    baths: 2,
+    sqft: "1,572 sq ft",
+    excerpt: "A calmer coastal base with a practical license and open outdoor space.",
+    rationale: "Best for a quieter second home with easy rental optionality.",
+    bullets: ["Quiet coastal setting", "Holiday rental license", "Simple ownership profile"],
+  },
+];
 
-  const handleSelectFooterLink = useCallback(
-    (category: string, label: string) => {
-      if (category === "properties") {
-        if (label === "New Listings") {
-          setActiveFilters((prev) => ({ ...prev, rentType: "sale" }));
-          setViewMode("grid");
-          setPendingScrollTarget("grid");
-        } else if (label === "Price Reduced") {
-          setActiveFilters((prev) => ({ ...prev, priceRange: [1000, 8000] }));
-          setViewMode("grid");
-          setPendingScrollTarget("grid");
-        } else if (label === "Off-Market") {
-          if (!user) {
-            setToastMessage(
-              "Access to off-market listings requires an active client portal session.",
-            );
-            setIsLoginModalOpen(true);
-          } else {
-            setToastMessage("Off-market catalog is now unlocked in your client portal dashboard!");
-          }
-        }
-      } else if (category === "company") {
-        if (label === "About Us" || label === "Our Team") {
-          setIsAboutModalOpen(true);
-        } else {
-          setToastMessage(
-            `${label} coordinates can be retrieved via private contact inquiry below.`,
-          );
-          setTimeout(() => {
-            document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-          }, 100);
-        }
-      } else if (category === "resources") {
-        setToastMessage(
-          `${label} insights are compiled dynamically for registered clients. Please sign in.`,
-        );
-        setIsLoginModalOpen(true);
-      } else if (category === "legal") {
-        setLegalDocTitle(label);
-        setIsLegalModalOpen(true);
-      } else if (category === "social") {
-        setToastMessage(
-          `${label} official corporate channel updates are coming soon in this demo.`,
-        );
-      }
-    },
-    [user],
-  );
+const intentOrder: IntentKey[] = ["sea-view", "palma", "investment", "quiet"];
 
-  const filteredProperties = useMemo(() => {
-    return filterProperties(properties, searchQuery, activeFilters);
-  }, [searchQuery, activeFilters]);
+function deriveIntent(prompt: string): IntentKey {
+  const value = prompt.toLowerCase();
 
-  const hasVisibleResults = filteredProperties.length > 0;
-  const hasActiveSearch = searchQuery.trim() !== "";
-  const hasActiveFilters = !isDefaultFilterState(activeFilters);
-  const hasActiveSearchOrFilter = hasActiveSearch || hasActiveFilters;
+  if (/(palma|old town|city|lift|walk|urban)/.test(value)) return "palma";
+  if (/(invest|rental|yield|return|capital|resale)/.test(value)) return "investment";
+  if (/(quiet|family|calm|retreat|private|low-density)/.test(value)) return "quiet";
+  return "sea-view";
+}
 
-  const emptyStateCtaLabel =
-    hasActiveSearch && hasActiveFilters
-      ? "Reset search & filters"
-      : hasActiveSearch
-        ? "Clear search"
-        : "Reset filters";
+function App() {
+  const [activeIntent, setActiveIntent] = useState<IntentKey>("sea-view");
+  const [prompt, setPrompt] = useState(intentMeta["sea-view"].prompt);
+  const [selectedListingId, setSelectedListingId] = useState<string | null>(null);
+  const [savedIds, setSavedIds] = useState<string[]>([]);
 
-  const handleSearch = useCallback((query: string) => {
-    setSearchQuery(query);
-  }, []);
-
-  const applyFilters = useCallback((filters: FilterState) => {
-    setActiveFilters(filters);
-  }, []);
-
-  const scrollToSection = useCallback((id: string) => {
-    requestAnimationFrame(() => {
-      document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-  }, []);
-
-  const openClientPortal = useCallback(() => {
-    setSelectedProperty(null);
-    setDetailOverlay(null);
-    setIsFilterModalOpen(false);
-    setIsSearchModalOpen(false);
-    setIsAboutModalOpen(false);
-    setIsLegalModalOpen(false);
-    setIsLoginModalOpen(true);
-  }, []);
-
-  useEffect(() => {
-    if (!pendingScrollTarget) return;
-    const targetId = pendingScrollTarget === "map" ? "map-section" : "properties-section";
-    scrollToSection(targetId);
-    setPendingScrollTarget(null);
-  }, [pendingScrollTarget, scrollToSection, viewMode]);
-
-  const openGridFromMenu = useCallback(() => {
-    setViewMode("grid");
-    setPendingScrollTarget("grid");
-  }, []);
-
-  const openMapFromMenu = useCallback(() => {
-    setViewMode("map");
-    setPendingScrollTarget("map");
-  }, []);
-
-  useEffect(() => {
-    const uiState = new URLSearchParams(window.location.search).get("ui");
-    if (!uiState) return;
-    const previewProperty = properties[0];
-    switch (uiState) {
-      case "map":
-        setViewMode("map");
-        break;
-      case "filter":
-        setIsFilterModalOpen(true);
-        break;
-      case "search":
-        setIsSearchModalOpen(true);
-        break;
-      case "property":
-        setSelectedProperty(previewProperty);
-        break;
-      case "contact":
-        setSelectedProperty(previewProperty);
-        setDetailOverlay("contact");
-        break;
-      case "image":
-        setSelectedProperty(previewProperty);
-        setDetailOverlay("image");
-        break;
-      case "menu":
-        setForceMenuOpen(true);
-        break;
-      default:
-        break;
+  const featuredListing = useMemo(() => {
+    if (selectedListingId) {
+      const selected = listings.find((listing) => listing.id === selectedListingId);
+      if (selected) return selected;
     }
-  }, []);
+
+    return (
+      listings.find((listing) => listing.id === intentMeta[activeIntent].defaultListingId) ??
+      listings[0]
+    );
+  }, [activeIntent, selectedListingId]);
+
+  const supportingListings = listings.filter((listing) => listing.id !== featuredListing.id);
+  const activeIntentCopy = intentMeta[activeIntent];
+  const isSaved = savedIds.includes(featuredListing.id);
+
+  const onSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setActiveIntent(deriveIntent(prompt));
+    setSelectedListingId(null);
+  };
+
+  const toggleSaved = (id: string) => {
+    setSavedIds((current) =>
+      current.includes(id) ? current.filter((savedId) => savedId !== id) : [...current, id],
+    );
+  };
+
+  const selectIntent = (intent: IntentKey) => {
+    setActiveIntent(intent);
+    setPrompt(intentMeta[intent].prompt);
+    setSelectedListingId(null);
+  };
 
   return (
-    <div className="min-h-screen bg-ivory">
-      {/* Skip link */}
-      <a
-        href="#properties-section"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[9999] focus:bg-white focus:text-charcoal focus:px-4 focus:py-2 focus:rounded focus:shadow-lg focus:border focus:border-border-light"
-      >
-        Skip to content
-      </a>
-
-      {/* Transparent navbar — sits over the hero */}
-      <Header
-        onNavigateToMap={openMapFromMenu}
-        onNavigateToProperties={openGridFromMenu}
-        forceMenuOpen={forceMenuOpen}
-        user={user}
-        onOpenLogin={openClientPortal}
-        onLogout={() => {
-          setUser(null);
-          setToastMessage("You have signed out of your client portal session.");
-        }}
-      />
-
-      {/* Hero — only shown when not actively searching/filtering */}
-      {hasVisibleResults && !hasActiveSearchOrFilter ? (
-        <HeroSection
-          properties={properties}
-          onViewProperty={(p) => setSelectedProperty(p)}
-          onSearchClick={() => setIsSearchModalOpen(true)}
-          onFilterClick={() => setIsFilterModalOpen(true)}
-        />
-      ) : (
-        /* When searching/filtering, show compact search bar instead */
-        <div className="pt-20">
-          <SearchBar
-            onSearch={handleSearch}
-            onFilterClick={() => setIsFilterModalOpen(true)}
-            onSearchClick={() => setIsSearchModalOpen(true)}
-            value={searchQuery}
-          />
-        </div>
-      )}
-
-      {/* ── Properties Section ─────────────────────────────── */}
-      <div id="properties-section" className="py-8 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {filteredProperties.length === 0 ? (
-          /* Empty State */
-          <div className="text-center py-20">
-            <div className="mb-6">
-              <svg className="mx-auto w-32 h-32 text-gray-200" fill="none" viewBox="0 0 200 200">
-                <path
-                  d="M100 35 L160 85 L160 155 L40 155 L40 85 Z"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  fill="none"
-                />
-                <rect
-                  x="75"
-                  y="105"
-                  width="50"
-                  height="50"
-                  rx="3"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  fill="none"
-                />
-                <line x1="100" y1="105" x2="100" y2="155" stroke="currentColor" strokeWidth="1.5" />
-                <line x1="75" y1="130" x2="125" y2="130" stroke="currentColor" strokeWidth="1.5" />
-                <circle
-                  cx="145"
-                  cy="50"
-                  r="20"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  fill="none"
-                />
-                <line
-                  x1="159"
-                  y1="64"
-                  x2="172"
-                  y2="77"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                />
-              </svg>
+    <div className="min-h-screen bg-[#f6f1e8] text-stone-950">
+      <header className="sticky top-0 z-30 border-b border-black/5 bg-[#f6f1e8]/90 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-stone-950 text-white shadow-[0_18px_40px_-26px_rgba(28,25,23,0.7)]">
+              <Star className="h-5 w-5 fill-current" />
             </div>
-            <h3 className="text-2xl font-serif text-charcoal mb-2">
-              No luxury properties match your criteria
-            </h3>
-            <p className="font-light text-[16px] text-warm-gray mb-8 max-w-md mx-auto">
-              We couldn't find properties matching your current filters. Try broadening your search
-              or resetting filters.
-            </p>
-            <button
-              onClick={() => {
-                if (hasActiveSearch && hasActiveFilters) {
-                  setActiveFilters(getDefaultFilters());
-                  setSearchQuery("");
-                } else if (hasActiveSearch) {
-                  setSearchQuery("");
-                } else {
-                  setActiveFilters(getDefaultFilters());
-                }
-                setViewMode("grid");
-              }}
-              className="bg-burgundy text-white px-8 py-3 rounded-lg hover:bg-burgundy-dark transition-colors font-medium"
-            >
-              {emptyStateCtaLabel}
-            </button>
+            <div>
+              <p className="font-serif text-xl leading-none tracking-[-0.03em] text-stone-950">
+                TopProperties
+              </p>
+              <p className="mt-1 text-[10px] uppercase tracking-[0.24em] text-stone-500">
+                Mallorca luxury homes
+              </p>
+            </div>
           </div>
-        ) : (
-          <>
-            {/* View Toggle */}
-            <div className="flex items-center justify-between gap-4 mb-4 md:mb-6">
-              <div>
-                <h2 className="text-xl md:text-2xl font-serif text-charcoal mb-1">
-                  Luxury Properties
-                </h2>
-                <p className="text-warm-gray text-[13px] md:text-[14px]">
-                  {hasActiveSearchOrFilter
-                    ? `${filteredProperties.length} properties available`
-                    : `A 3-property private edit from ${filteredProperties.length} homes`}
-                </p>
-              </div>
 
-              <div className="flex gap-2 bg-white rounded-lg p-1 shadow-sm border border-border-light">
-                <button
-                  onClick={() => setViewMode("grid")}
-                  className={`flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 rounded-md transition-colors text-xs sm:text-sm ${
-                    viewMode === "grid"
-                      ? "bg-burgundy text-white"
-                      : "text-gray-600 hover:bg-gray-100"
-                  }`}
-                  aria-pressed={viewMode === "grid"}
-                  aria-label="Grid view"
-                  style={{ minHeight: "44px" }}
-                >
-                  <LayoutGrid className="w-4 h-4" />
-                  <span>Grid</span>
-                </button>
-                <button
-                  onClick={() => setViewMode("map")}
-                  className={`flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 rounded-md transition-colors text-xs sm:text-sm ${
-                    viewMode === "map"
-                      ? "bg-burgundy text-white"
-                      : "text-gray-600 hover:bg-gray-100"
-                  }`}
-                  aria-pressed={viewMode === "map"}
-                  aria-label="Map view"
-                  style={{ minHeight: "44px" }}
-                >
-                  <Map className="w-4 h-4" />
-                  <span>Map</span>
-                </button>
-              </div>
+          <div className="hidden items-center gap-2 rounded-full border border-black/10 bg-white/70 px-4 py-2 text-[11px] uppercase tracking-[0.22em] text-stone-500 sm:inline-flex">
+            <ShieldCheck className="h-4 w-4 text-[#b08d4f]" />
+            private edit · v1 slice
+          </div>
+        </div>
+      </header>
+
+      <main className="mx-auto max-w-7xl px-4 pb-16 pt-8 sm:px-6 lg:px-8">
+        <section className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+          <div className="lg:pt-10">
+            <div className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/65 px-3 py-1.5 text-[11px] uppercase tracking-[0.22em] text-stone-500">
+              <Sparkles className="h-3.5 w-3.5 text-[#b08d4f]" />
+              curated Mallorca only
             </div>
 
-            {/* Content */}
-            {viewMode === "grid" ? (
-              <>
-                {!hasActiveSearchOrFilter ? (
-                  <LuxuryPropertiesShowcase
-                    properties={filteredProperties}
-                    onSelect={(property) => setSelectedProperty(property)}
+            <h1 className="mt-6 max-w-[12ch] font-serif text-5xl leading-[0.95] tracking-[-0.05em] text-stone-950 sm:text-6xl lg:text-[5.4rem]">
+              Find the best homes in Mallorca.
+            </h1>
+
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-stone-600 sm:text-xl">
+              Sea views, prime neighborhoods, and investment-grade homes — curated in one place for
+              a private editorial shortlist.
+            </p>
+
+            <form onSubmit={onSearchSubmit} className="mt-8 max-w-3xl">
+              <label className="text-sm font-medium text-stone-600" htmlFor="search-prompt">
+                Describe the home, area, or view you want
+              </label>
+              <div className="mt-3 flex flex-col gap-3 rounded-[1.75rem] border border-black/8 bg-white/80 p-3 shadow-[0_24px_80px_-48px_rgba(50,38,24,0.45)] backdrop-blur sm:flex-row sm:items-center">
+                <div className="flex min-h-12 items-center gap-3 rounded-[1.3rem] bg-stone-50 px-4 text-stone-500 sm:flex-1">
+                  <Search className="h-4 w-4 shrink-0 text-[#b08d4f]" />
+                  <input
+                    id="search-prompt"
+                    value={prompt}
+                    onChange={(event) => setPrompt(event.target.value)}
+                    className="w-full bg-transparent text-[15px] text-stone-950 placeholder:text-stone-400 focus:outline-none"
+                    placeholder="Describe the home, area, or view you want"
                   />
-                ) : (
-                  filteredProperties.length > 0 && (
-                    <section>
-                      <h2 className="text-xs font-semibold tracking-[0.15em] uppercase text-warm-gray mb-6">
-                        Matching Properties
-                      </h2>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {filteredProperties.map((property) => (
-                          <PropertyCard
-                            key={property.id}
-                            {...property}
-                            onClick={() => setSelectedProperty(property)}
-                          />
-                        ))}
-                      </div>
-                    </section>
-                  )
-                )}
-              </>
-            ) : (
-              <div id="map-section" style={{ height: "clamp(520px, 68vh, 760px)" }}>
-                <ErrorBoundary
-                  label="Map"
-                  fallback={
-                    <div className="flex items-center justify-center h-full text-gray-500 text-sm">
-                      Map could not be loaded
-                    </div>
-                  }
+                </div>
+
+                <button
+                  type="submit"
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-[1.15rem] bg-stone-950 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-stone-800"
                 >
-                  <MapView
-                    properties={filteredProperties.map((p) => ({
-                      id: p.id,
-                      lat: p.lat,
-                      lng: p.lng,
-                      price: p.price,
-                      title: p.title,
-                      location: p.location,
-                    }))}
-                    onMarkerClick={(id) => {
-                      const property = properties.find((p) => p.id === id);
-                      if (property) setSelectedProperty(property);
-                    }}
-                  />
-                </ErrorBoundary>
+                  Find best options
+                  <ArrowRight className="h-4 w-4" />
+                </button>
               </div>
-            )}
-          </>
-        )}
-      </div>
+              <p className="mt-3 text-sm text-stone-500">
+                Try: sea-view villa near Palma with pool
+              </p>
+            </form>
 
-      {/* ── Redesign sections ──────────────────────────────── */}
-      <CuratedCollections />
-      <Testimonials />
-      <FinalCTA />
+            <div className="mt-6 flex gap-2 overflow-x-auto pb-2">
+              {intentOrder.map((intent) => {
+                const isActive = activeIntent === intent;
+                return (
+                  <button
+                    key={intent}
+                    type="button"
+                    aria-pressed={isActive}
+                    onClick={() => selectIntent(intent)}
+                    className={`inline-flex min-h-11 shrink-0 items-center rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
+                      isActive
+                        ? "border-stone-950 bg-stone-950 text-white shadow-[0_18px_36px_-26px_rgba(28,25,23,0.75)]"
+                        : "border-black/10 bg-white/70 text-stone-600 hover:border-black/20 hover:bg-white"
+                    }`}
+                  >
+                    {intentMeta[intent].label}
+                  </button>
+                );
+              })}
+            </div>
 
-      {/* ── Footer ──────────────────────────────────────────── */}
-      <Footer onSelectFooterLink={handleSelectFooterLink} />
+            <div className="mt-8 rounded-[1.75rem] border border-black/8 bg-white/65 p-5 backdrop-blur">
+              <p className="text-xs uppercase tracking-[0.22em] text-stone-500">
+                Recommended for you
+              </p>
+              <p className="mt-3 text-lg font-medium text-stone-950">{activeIntentCopy.summary}</p>
 
-      {/* ── Modals ──────────────────────────────────────────── */}
-      <FilterModal
-        isOpen={isFilterModalOpen}
-        onClose={() => setIsFilterModalOpen(false)}
-        onApply={applyFilters}
-        initialFilters={activeFilters}
-      />
+              <div className="mt-5 grid gap-3 sm:grid-cols-3">
+                {activeIntentCopy.notes.map((note) => (
+                  <div
+                    key={note.title}
+                    className="rounded-[1.35rem] border border-black/8 bg-white/80 p-4"
+                  >
+                    <p className="text-xs uppercase tracking-[0.2em] text-stone-500">
+                      {note.title}
+                    </p>
+                    <p className="mt-2 text-sm leading-6 text-stone-700">{note.body}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
 
-      <SearchModal
-        isOpen={isSearchModalOpen}
-        onClose={() => setIsSearchModalOpen(false)}
-        onSearch={handleSearch}
-        properties={properties}
-        onSelectProperty={(property) => {
-          setSelectedProperty(property);
-          setIsSearchModalOpen(false);
-        }}
-      />
+          <div className="lg:sticky lg:top-28">
+            <FeaturedListingCard
+              listing={featuredListing}
+              label={activeIntentCopy.label}
+              saved={isSaved}
+              onSelect={() => setSelectedListingId(featuredListing.id)}
+              onToggleSaved={() => toggleSaved(featuredListing.id)}
+            />
+          </div>
+        </section>
 
-      {selectedProperty && (
-        <ErrorBoundary label="Property Details">
-          <PropertyDetail
-            property={selectedProperty}
-            onClose={() => {
-              setSelectedProperty(null);
-              setDetailOverlay(null);
-            }}
-            initialOverlay={detailOverlay}
-          />
-        </ErrorBoundary>
-      )}
+        <section className="mt-12">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-xs uppercase tracking-[0.22em] text-stone-500">
+                Supporting matches
+              </p>
+              <h2 className="mt-2 font-serif text-2xl text-stone-950 sm:text-3xl">
+                Comparable properties
+              </h2>
+            </div>
+            <p className="max-w-2xl text-sm leading-6 text-stone-500 sm:text-right">
+              Tap any card to move it into the hero slot and update the recommendation rail.
+            </p>
+          </div>
 
-      {/* ── Luxury Portfolio Preview Modals ─────────────────── */}
-      <AnimatePresence>
-        {isLoginModalOpen && (
-          <ClientPortalModal
-            isOpen={isLoginModalOpen}
-            onClose={() => setIsLoginModalOpen(false)}
-            onLoginSuccess={(loggedInUser) => {
-              setUser(loggedInUser);
-              setToastMessage(`Welcome back, ${loggedInUser.name}. Elite profile active.`);
-            }}
-          />
-        )}
-
-        {isAboutModalOpen && (
-          <AgencySpotlightModal
-            isOpen={isAboutModalOpen}
-            onClose={() => setIsAboutModalOpen(false)}
-          />
-        )}
-
-        {isLegalModalOpen && (
-          <LegalDocumentModal
-            isOpen={isLegalModalOpen}
-            onClose={() => setIsLegalModalOpen(false)}
-            title={legalDocTitle}
-          />
-        )}
-      </AnimatePresence>
-
-      {toastMessage && (
-        <ComingSoonToast message={toastMessage} onDismiss={() => setToastMessage(null)} />
-      )}
+          <div className="mt-5 grid gap-4 md:grid-cols-3">
+            {supportingListings.map((listing) => (
+              <SupportCard
+                key={listing.id}
+                listing={listing}
+                onSelect={() => {
+                  setSelectedListingId(listing.id);
+                  setPrompt(listing.title);
+                }}
+              />
+            ))}
+          </div>
+        </section>
+      </main>
     </div>
   );
 }
+
+function FeaturedListingCard({
+  listing,
+  label,
+  saved,
+  onSelect,
+  onToggleSaved,
+}: {
+  listing: Listing;
+  label: string;
+  saved: boolean;
+  onSelect: () => void;
+  onToggleSaved: () => void;
+}) {
+  return (
+    <article className="overflow-hidden rounded-[2rem] border border-black/8 bg-white shadow-[0_28px_90px_-48px_rgba(37,26,14,0.48)]">
+      <button type="button" onClick={onSelect} className="group block w-full text-left">
+        <div className="relative aspect-[4/3] overflow-hidden bg-stone-200">
+          <img
+            src={listing.image}
+            alt={listing.title}
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+            loading="eager"
+          />
+
+          <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/12 to-transparent" />
+
+          <div className="absolute left-4 top-4 flex flex-wrap gap-2">
+            <span className="inline-flex items-center rounded-full bg-stone-950/80 px-3 py-1 text-[11px] uppercase tracking-[0.22em] text-white backdrop-blur-sm">
+              Featured match
+            </span>
+            <span className="inline-flex items-center rounded-full bg-white/85 px-3 py-1 text-[11px] uppercase tracking-[0.22em] text-stone-600 backdrop-blur-sm">
+              {label}
+            </span>
+          </div>
+
+          <div className="absolute bottom-4 left-4 right-4 rounded-[1.5rem] border border-white/14 bg-white/12 p-4 text-white backdrop-blur-sm">
+            <p className="text-xs uppercase tracking-[0.22em] text-white/70">{listing.area}</p>
+            <h3 className="mt-2 font-serif text-3xl leading-tight tracking-[-0.03em] sm:text-[2.15rem]">
+              {listing.title}
+            </h3>
+            <p className="mt-2 max-w-xl text-sm leading-6 text-white/80">{listing.excerpt}</p>
+          </div>
+        </div>
+      </button>
+
+      <div className="p-6 sm:p-7">
+        <div className="flex flex-wrap items-center gap-3 text-sm text-stone-600">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-stone-50 px-3 py-1.5">
+            <MapPin className="h-4 w-4 text-[#b08d4f]" />
+            {listing.area}
+          </span>
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-stone-50 px-3 py-1.5">
+            <BedDouble className="h-4 w-4 text-[#b08d4f]" />
+            {listing.beds} bed
+          </span>
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-stone-50 px-3 py-1.5">
+            <Bath className="h-4 w-4 text-[#b08d4f]" />
+            {listing.baths} bath
+          </span>
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-stone-50 px-3 py-1.5">
+            {listing.sqft}
+          </span>
+        </div>
+
+        <div className="mt-5">
+          <p className="text-3xl font-semibold tracking-[-0.03em] text-stone-950">
+            {listing.price}
+          </p>
+          <p className="mt-2 max-w-xl text-base leading-7 text-stone-600">{listing.rationale}</p>
+        </div>
+
+        <div className="mt-5 rounded-[1.5rem] bg-stone-50 p-4">
+          <p className="text-xs uppercase tracking-[0.22em] text-stone-500">Why it stands out</p>
+          <ul className="mt-3 space-y-2 text-sm leading-6 text-stone-700">
+            {listing.bullets.map((bullet) => (
+              <li key={bullet} className="flex gap-2">
+                <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#b08d4f]" />
+                <span>{bullet}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+          <button
+            type="button"
+            onClick={onSelect}
+            className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-[1.15rem] bg-stone-950 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-stone-800"
+          >
+            View details
+            <ArrowRight className="h-4 w-4" />
+          </button>
+          <button
+            type="button"
+            onClick={onToggleSaved}
+            className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-[1.15rem] border border-black/10 bg-white px-5 py-3 text-sm font-semibold text-stone-700 transition-colors hover:border-black/20 hover:bg-stone-50"
+          >
+            <Heart className={`h-4 w-4 ${saved ? "fill-[#b08d4f] text-[#b08d4f]" : ""}`} />
+            {saved ? "Saved" : "Save shortlist"}
+          </button>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function SupportCard({ listing, onSelect }: { listing: Listing; onSelect: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      className="group overflow-hidden rounded-[1.65rem] border border-black/8 bg-white text-left shadow-[0_22px_70px_-54px_rgba(37,26,14,0.42)] transition-transform hover:-translate-y-1"
+    >
+      <div className="relative aspect-[4/3] overflow-hidden bg-stone-200">
+        <img
+          src={listing.image}
+          alt={listing.title}
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+          loading="lazy"
+        />
+        <div className="absolute left-3 top-3 rounded-full bg-white/86 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-stone-500 backdrop-blur-sm">
+          {listing.area}
+        </div>
+      </div>
+
+      <div className="p-4">
+        <h3 className="font-serif text-xl tracking-[-0.03em] text-stone-950">{listing.title}</h3>
+        <p className="mt-2 text-sm leading-6 text-stone-600">{listing.rationale}</p>
+
+        <div className="mt-4 flex flex-wrap gap-2 text-xs text-stone-500">
+          <span className="rounded-full bg-stone-50 px-3 py-1.5">{listing.price}</span>
+          <span className="rounded-full bg-stone-50 px-3 py-1.5">{listing.beds} bed</span>
+          <span className="rounded-full bg-stone-50 px-3 py-1.5">{listing.sqft}</span>
+        </div>
+
+        <div className="mt-5 flex items-center justify-between border-t border-black/6 pt-4">
+          <span className="text-sm font-medium text-stone-900">Move to hero</span>
+          <ArrowRight className="h-4 w-4 text-[#b08d4f] transition-transform group-hover:translate-x-1" />
+        </div>
+      </div>
+    </button>
+  );
+}
+
+export default App;

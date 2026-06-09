@@ -1,203 +1,187 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Bed, Bath, Maximize, Heart, ChevronRight } from "lucide-react";
+import { ArrowRight, Bed, ChevronRight, Maximize, MapPin, Sparkles, Star } from "lucide-react";
 
-const properties = [
+const discoveryShortcuts = [
+  "Best fit for a family base",
+  "Best sea-view value",
+  "Best for capital preservation",
+];
+
+const supportingCards = [
   {
-    id: 1,
-    name: "Villa Azure",
-    location: "Côte d'Azur, France",
-    image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80",
-    beds: 5,
-    baths: 4,
-    sqft: "4,200",
-    price: "€4,500,000",
-    featured: true,
-    tag: "Featured",
+    name: "Portals Nous",
+    location: "West coast",
+    price: "€3.9M",
+    detail: "Quiet coastal villa with direct terrace light.",
   },
   {
-    id: 2,
-    name: "Manhattan Penthouse",
-    location: "New York, USA",
-    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
-    beds: 4,
-    baths: 3.5,
-    sqft: "3,800",
-    price: "$8,900,000",
-    featured: true,
-    tag: "New Listing",
+    name: "Santa Ponsa",
+    location: "Southwest Mallorca",
+    price: "€5.2M",
+    detail: "Modern new-build with strong rental profile.",
   },
   {
-    id: 3,
-    name: "Alpine Chalet",
-    location: "Verbier, Switzerland",
-    image: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=800&q=80",
-    beds: 5,
-    baths: 4.5,
-    sqft: "4,600",
-    price: "CHF 9,200,000",
-    featured: false,
-    tag: null,
-  },
-  {
-    id: 4,
-    name: "Modern Sunset Villa",
-    location: "Los Angeles, California",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
-    beds: 4,
-    baths: 4.5,
-    sqft: "3,500",
-    price: "$6,500,000",
-    featured: false,
-    tag: "Price Reduced",
-  },
-  {
-    id: 5,
-    name: "Glass House",
-    location: "Aspen, Colorado",
-    image: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80",
-    beds: 5,
-    baths: 6,
-    sqft: "6,200",
-    price: "$11,000,000",
-    featured: false,
-    tag: null,
-  },
-  {
-    id: 6,
-    name: "Seaside Retreat",
-    location: "Sydney, Australia",
-    image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80",
-    beds: 4,
-    baths: 3,
-    sqft: "3,200",
-    price: "AUD 9,500,000",
-    featured: false,
-    tag: null,
+    name: "Deià",
+    location: "Northwest coast",
+    price: "€6.1M",
+    detail: "Stone home with privacy and mountain views.",
   },
 ];
 
-function PropertyCard({ property, index }: { property: (typeof properties)[0]; index: number }) {
-  const [liked, setLiked] = useState(false);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="group bg-white rounded-2xl overflow-hidden border border-border-light hover:shadow-xl transition-all duration-500"
-    >
-      {/* Image */}
-      <div className="relative img-zoom-container aspect-[4/3]">
-        <img src={property.image} alt={property.name} className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-        {/* Tag */}
-        {property.tag && (
-          <span
-            className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold ${
-              property.tag === "Featured"
-                ? "bg-burgundy text-white"
-                : property.tag === "New Listing"
-                  ? "bg-charcoal text-white"
-                  : "bg-white text-charcoal"
-            }`}
-          >
-            {property.tag}
-          </span>
-        )}
-
-        {/* Like Button */}
-        <button
-          onClick={() => setLiked(!liked)}
-          className="absolute top-4 left-4 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white transition-all duration-300 shadow-sm"
-        >
-          <Heart
-            className={`w-5 h-5 transition-colors ${liked ? "fill-burgundy text-burgundy" : "text-charcoal/60"}`}
-          />
-        </button>
-
-        {/* Price overlay on hover */}
-        <div className="absolute bottom-4 left-4 right-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-          <span className="text-white font-serif text-2xl">{property.price}</span>
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="p-5 lg:p-6">
-        <h3 className="font-serif text-xl text-charcoal mb-2 group-hover:text-burgundy transition-colors duration-300">
-          {property.name}
-        </h3>
-        <div className="flex items-center gap-1.5 text-warm-gray text-sm mb-4">
-          <MapPin className="w-3.5 h-3.5" />
-          {property.location}
-        </div>
-
-        <div className="flex items-center gap-4 text-sm text-charcoal-light border-t border-border-light pt-4">
-          <div className="flex items-center gap-1.5">
-            <Bed className="w-4 h-4 text-warm-gray" />
-            <span>{property.beds}</span>
-          </div>
-          <div className="w-px h-4 bg-border-light" />
-          <div className="flex items-center gap-1.5">
-            <Bath className="w-4 h-4 text-warm-gray" />
-            <span>{property.baths}</span>
-          </div>
-          <div className="w-px h-4 bg-border-light" />
-          <div className="flex items-center gap-1.5">
-            <Maximize className="w-4 h-4 text-warm-gray" />
-            <span>{property.sqft} sq ft</span>
-          </div>
-        </div>
-
-        <div className="mt-4 pt-4 border-t border-border-light flex items-center justify-between">
-          <span className="font-serif text-xl text-burgundy">{property.price}</span>
-          <button className="text-sm font-medium text-charcoal-light hover:text-burgundy transition-colors flex items-center gap-1">
-            Details
-            <ChevronRight className="w-4 h-4" />
-          </button>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
 export default function FeaturedProperties() {
   return (
-    <section id="properties" className="py-24 bg-ivory">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section id="properties" className="bg-ivory py-18 sm:py-24">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-14"
+          viewport={{ once: true, margin: "-120px" }}
+          transition={{ duration: 0.55 }}
+          className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
         >
           <div>
-            <span className="text-xs uppercase tracking-[0.25em] text-burgundy font-semibold">
-              Featured
+            <span className="text-xs font-semibold uppercase tracking-[0.28em] text-burgundy">
+              Featured match
             </span>
-            <h2 className="font-serif text-4xl sm:text-5xl text-charcoal mt-3">
-              Luxury Properties
-            </h2>
-            <p className="text-warm-gray mt-3 max-w-md">
-              24 hand-selected properties available across the world's most desirable locations.
+            <h2 className="mt-3 font-serif text-4xl text-charcoal sm:text-5xl">Discovery rail</h2>
+            <p className="mt-3 max-w-xl text-warm-gray">
+              A single premium result, plus a short, curator-style shortlist to keep the page
+              readable.
             </p>
           </div>
           <a
-            href="#"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-burgundy hover:text-burgundy-dark transition-colors group"
+            href="#shortlist"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-burgundy transition-colors hover:text-burgundy-dark"
           >
-            View All Properties
-            <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            Jump to shortlist
+            <ArrowRight className="h-4 w-4" />
           </a>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {properties.map((property, index) => (
-            <PropertyCard key={property.id} property={property} index={index} />
-          ))}
+        <div id="shortlist" className="mt-10 grid gap-8 lg:grid-cols-[1.25fr_0.75fr]">
+          <motion.article
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="group overflow-hidden rounded-[2rem] border border-border-light bg-white shadow-[0_22px_70px_rgba(26,26,26,0.08)]"
+          >
+            <div className="relative aspect-[16/10] overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80"
+                alt="Featured Mallorca villa"
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/55 via-transparent to-transparent" />
+              <div className="absolute left-5 top-5 flex items-center gap-2 rounded-full bg-white/92 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-charcoal shadow-sm backdrop-blur">
+                <Sparkles className="h-3.5 w-3.5 text-burgundy" />
+                Featured recommendation
+              </div>
+            </div>
+
+            <div className="p-6 sm:p-7">
+              <div className="flex flex-col gap-4 border-b border-border-light pb-5 sm:flex-row sm:items-start sm:justify-between">
+                <div>
+                  <p className="text-sm uppercase tracking-[0.22em] text-warm-gray">
+                    Son Vida / Palma
+                  </p>
+                  <h3 className="mt-2 font-serif text-3xl text-charcoal">
+                    Contemporary villa with sea views
+                  </h3>
+                </div>
+                <div className="rounded-full border border-border-light bg-cream px-4 py-2 text-sm font-semibold text-charcoal">
+                  €4.8M
+                </div>
+              </div>
+
+              <div className="mt-5 flex flex-wrap items-center gap-4 text-sm text-charcoal-light">
+                <span className="inline-flex items-center gap-1.5">
+                  <Bed className="h-4 w-4 text-warm-gray" />5 bed
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <MapPin className="h-4 w-4 text-warm-gray" />
+                  Palma, Mallorca
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Maximize className="h-4 w-4 text-warm-gray" />
+                  4,200 sq ft
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Star className="h-4 w-4 text-warm-gray" />
+                  Sea view + pool
+                </span>
+              </div>
+
+              <div className="mt-5 rounded-2xl bg-cream p-4 text-sm leading-relaxed text-charcoal-light">
+                <span className="font-semibold text-charcoal">Why it stands out:</span> strong view
+                corridor, private outdoor living, and a low-density setting that reads well for
+                primary residence or hold.
+              </div>
+
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                <button className="inline-flex items-center justify-center gap-2 rounded-full bg-burgundy px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-burgundy-dark">
+                  View details
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+                <button className="inline-flex items-center justify-center rounded-full border border-border-light bg-white px-5 py-3 text-sm font-medium text-charcoal transition-colors hover:border-burgundy/30 hover:text-burgundy">
+                  Save shortlist
+                </button>
+              </div>
+            </div>
+          </motion.article>
+
+          <div className="space-y-4">
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.55 }}
+              className="rounded-[1.75rem] border border-border-light bg-white p-5 shadow-[0_18px_50px_rgba(26,26,26,0.06)]"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-burgundy">
+                Recommended for you
+              </p>
+              <div className="mt-4 space-y-3">
+                {discoveryShortcuts.map((item) => (
+                  <div
+                    key={item}
+                    className="flex items-center justify-between rounded-2xl bg-cream px-4 py-3 text-sm text-charcoal-light"
+                  >
+                    <span>{item}</span>
+                    <ChevronRight className="h-4 w-4 text-warm-gray" />
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            <div className="grid gap-4">
+              {supportingCards.map((card, index) => (
+                <motion.article
+                  key={card.name}
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.45, delay: index * 0.06 }}
+                  className="rounded-[1.5rem] border border-border-light bg-white p-4 shadow-[0_14px_42px_rgba(26,26,26,0.05)] transition-shadow hover:shadow-[0_18px_50px_rgba(26,26,26,0.08)]"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.2em] text-warm-gray">
+                        {card.location}
+                      </p>
+                      <h3 className="mt-2 font-serif text-xl text-charcoal">{card.name}</h3>
+                      <p className="mt-2 text-sm leading-relaxed text-charcoal-light/80">
+                        {card.detail}
+                      </p>
+                    </div>
+                    <span className="shrink-0 rounded-full bg-cream px-3 py-1.5 text-sm font-semibold text-charcoal">
+                      {card.price}
+                    </span>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

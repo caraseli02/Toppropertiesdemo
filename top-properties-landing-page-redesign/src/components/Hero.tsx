@@ -1,144 +1,175 @@
 import { motion } from "framer-motion";
-import { Search, ChevronRight } from "lucide-react";
+import { ArrowRight, Search } from "lucide-react";
+
+const quickChips = ["Price", "Bedrooms", "Sea view", "Waterfront", "New build", "Investment"];
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
-      <div className="absolute inset-0">
-        <img
-          src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80"
-          alt="Luxury estate"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-charcoal/80 via-charcoal/50 to-charcoal/30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-charcoal/20" />
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full pt-32 pb-20">
-        <div className="max-w-3xl">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
+    <section
+      id="hero"
+      className="relative overflow-hidden border-b border-border-light/60 bg-[radial-gradient(circle_at_top_left,_rgba(177,8,50,0.08),_transparent_32%),linear-gradient(180deg,_#fbf8f3_0%,_#f6f1ea_100%)]"
+    >
+      <div className="mx-auto grid grid-cols-1 min-h-[100svh] max-w-7xl items-center gap-12 px-6 pb-16 pt-28 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:pb-20 lg:pt-32">
+        <div className="relative z-10 w-full min-w-0 max-w-3xl">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-block text-burgundy-light text-xs uppercase tracking-[0.3em] font-semibold mb-6"
+            transition={{ duration: 0.55 }}
+            className="mb-6 inline-flex items-center gap-2 rounded-full border border-border-light bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-warm-gray shadow-[0_12px_40px_rgba(26,26,26,0.04)] backdrop-blur"
           >
-            Curated Luxury Real Estate
-          </motion.span>
+            Mallorca shortlist
+            <span className="h-1.5 w-1.5 rounded-full bg-burgundy" />
+            Curated homes only
+          </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="font-serif text-5xl sm:text-6xl lg:text-7xl text-white leading-[1.1] mb-6"
+            transition={{ duration: 0.7, delay: 0.05 }}
+            className="font-serif text-5xl leading-[1.02] tracking-tight text-charcoal sm:text-6xl lg:text-[4.9rem]"
           >
-            Exceptional Homes for
-            <span className="block text-white/90">Discerning Lives</span>
+            Find the best homes in
+            <span className="block text-burgundy">Mallorca.</span>
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-lg sm:text-xl text-white/70 leading-relaxed mb-10 max-w-xl"
+            transition={{ duration: 0.7, delay: 0.15 }}
+            className="mt-6 max-w-2xl text-lg leading-relaxed text-charcoal-light/80 sm:text-xl"
           >
-            From penthouses to private estates — each property is hand-selected for those who expect
-            nothing less than extraordinary.
+            Sea views, prime neighborhoods, and investment-grade homes — curated in one place, like
+            a private desk for your brief.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-            className="flex flex-col sm:flex-row gap-4"
+            transition={{ duration: 0.7, delay: 0.25 }}
+            className="mt-10 w-full rounded-[1.5rem] border border-border-light bg-white/90 p-4 shadow-[0_24px_80px_rgba(26,26,26,0.08)] backdrop-blur"
           >
-            <a
-              href="#properties"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-burgundy text-white rounded-full font-semibold text-base hover:bg-burgundy-dark transition-all duration-300 group"
-            >
-              Explore Properties
-              <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </a>
-            <a
-              href="#contact"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-full font-semibold text-base border border-white/20 hover:bg-white/20 transition-all duration-300"
-            >
-              Schedule a Private Viewing
-            </a>
+            <div className="flex w-full min-w-0 flex-col gap-3 lg:flex-row lg:items-center">
+              <label className="w-full min-w-0 flex-1">
+                <span className="sr-only">Describe the home, area, or view you want</span>
+                <div className="flex min-w-0 items-center gap-3 rounded-2xl border border-border-light bg-cream px-4 py-4 transition-colors focus-within:border-burgundy/40 focus-within:ring-2 focus-within:ring-burgundy/10">
+                  <Search className="h-5 w-5 shrink-0 text-warm-gray" />
+                  <input
+                    type="text"
+                    placeholder="Describe the home, area, or view you want"
+                    className="min-w-0 w-full bg-transparent text-sm text-charcoal placeholder:text-warm-gray/70 focus:outline-none sm:text-base"
+                  />
+                </div>
+              </label>
+              <button className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-burgundy px-6 py-4 text-sm font-semibold text-white transition-colors hover:bg-burgundy-dark lg:w-auto">
+                Find best options
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            </div>
+            <p className="mt-3 text-sm text-warm-gray">Try: sea-view villa near Palma with pool</p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.35 }}
+            className="mt-5 flex w-full max-w-full min-w-0 gap-3 overflow-x-auto pb-2 lg:flex-wrap lg:overflow-visible"
+          >
+            {quickChips.map((chip) => (
+              <button
+                key={chip}
+                className="shrink-0 rounded-full border border-border-light bg-white px-4 py-2 text-sm font-medium text-charcoal-light shadow-sm transition-colors hover:border-burgundy/30 hover:text-burgundy"
+              >
+                {chip}
+              </button>
+            ))}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.45 }}
+            className="mt-8 flex flex-wrap items-center gap-4 text-sm text-warm-gray"
+          >
+            <span>Best fit for a family base</span>
+            <span className="h-1.5 w-1.5 rounded-full bg-border-light" />
+            <span>Best sea-view value</span>
+            <span className="h-1.5 w-1.5 rounded-full bg-border-light" />
+            <span>Best for capital preservation</span>
           </motion.div>
         </div>
 
-        {/* Search Card */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.9 }}
-          className="mt-16 lg:mt-20"
+          initial={{ opacity: 0, x: 32 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="relative lg:pl-8"
         >
-          <div className="bg-white/95 backdrop-blur-md rounded-2xl p-6 lg:p-8 shadow-2xl max-w-4xl">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="space-y-2">
-                <label className="text-xs uppercase tracking-wider text-warm-gray font-semibold">
-                  Location
-                </label>
-                <input
-                  type="text"
-                  placeholder="City, neighborhood..."
-                  className="w-full px-4 py-3 bg-cream rounded-xl text-charcoal placeholder:text-warm-gray/60 focus:outline-none focus:ring-2 focus:ring-burgundy/30 text-sm"
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-xs uppercase tracking-wider text-warm-gray font-semibold">
-                  Property Type
-                </label>
-                <select className="w-full px-4 py-3 bg-cream rounded-xl text-charcoal focus:outline-none focus:ring-2 focus:ring-burgundy/30 text-sm appearance-none cursor-pointer">
-                  <option>All Types</option>
-                  <option>Villa</option>
-                  <option>Penthouse</option>
-                  <option>Estate</option>
-                  <option>Apartment</option>
-                  <option>Chalet</option>
-                </select>
-              </div>
-              <div className="space-y-2">
-                <label className="text-xs uppercase tracking-wider text-warm-gray font-semibold">
-                  Budget
-                </label>
-                <select className="w-full px-4 py-3 bg-cream rounded-xl text-charcoal focus:outline-none focus:ring-2 focus:ring-burgundy/30 text-sm appearance-none cursor-pointer">
-                  <option>Any Budget</option>
-                  <option>$1M - $5M</option>
-                  <option>$5M - $10M</option>
-                  <option>$10M - $25M</option>
-                  <option>$25M+</option>
-                </select>
-              </div>
-              <div className="flex items-end">
-                <button className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-burgundy text-white rounded-xl font-semibold text-sm hover:bg-burgundy-dark transition-all duration-300">
-                  <Search className="w-4 h-4" />
-                  Search
-                </button>
+          <div className="absolute -left-10 top-8 hidden h-40 w-40 rounded-full bg-burgundy/10 blur-3xl lg:block" />
+          <div className="overflow-hidden rounded-[2rem] border border-white/80 bg-white shadow-[0_28px_90px_rgba(26,26,26,0.12)]">
+            <div className="relative aspect-[4/5] min-h-[540px] lg:min-h-[680px]">
+              <img
+                src="https://images.unsplash.com/photo-1600585152915-d208bec867a1?w=1200&q=80"
+                alt="Mallorca villa overlooking the sea"
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/78 via-charcoal/18 to-transparent" />
+
+              <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
+                <div className="rounded-[1.5rem] border border-white/12 bg-charcoal/66 p-5 text-white shadow-[0_18px_60px_rgba(0,0,0,0.28)] backdrop-blur-md">
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.28em] text-white/65">
+                        Featured recommendation
+                      </p>
+                      <h2 className="mt-2 font-serif text-2xl sm:text-3xl">Son Vida, Palma</h2>
+                    </div>
+                    <span className="rounded-full border border-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-white/80">
+                      €4.8M
+                    </span>
+                  </div>
+
+                  <p className="mt-4 max-w-md text-sm leading-relaxed text-white/78 sm:text-base">
+                    Contemporary villa with sea views, private outdoor living, and a calm,
+                    low-density setting.
+                  </p>
+
+                  <div className="mt-5 flex flex-wrap gap-2 text-sm text-white/86">
+                    {["5 bed", "Pool", "Garage", "Terrace", "Sea view"].map((item) => (
+                      <span
+                        key={item}
+                        className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="mt-5 grid gap-3 sm:grid-cols-[1fr_auto]">
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.22em] text-white/55">
+                        Why it stands out
+                      </p>
+                      <ul className="mt-2 space-y-1 text-sm text-white/82">
+                        <li>• strong view corridor</li>
+                        <li>• private outdoor living</li>
+                        <li>• high resale quality</li>
+                      </ul>
+                    </div>
+                    <div className="flex flex-col gap-3 sm:min-w-[10rem]">
+                      <button className="rounded-full bg-white px-4 py-3 text-sm font-semibold text-charcoal transition-colors hover:bg-white/90">
+                        View details
+                      </button>
+                      <button className="rounded-full border border-white/20 bg-white/5 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-white/10">
+                        Save
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </motion.div>
       </div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-          className="w-6 h-10 border-2 border-white/40 rounded-full flex items-start justify-center p-2"
-        >
-          <div className="w-1 h-2 bg-white/60 rounded-full" />
-        </motion.div>
-      </motion.div>
     </section>
   );
 }

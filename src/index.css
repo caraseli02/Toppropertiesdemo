@@ -9,10 +9,22 @@
  */
 @theme {
   /* Fonts */
-  --font-sans: "Outfit", sans-serif;
+  --font-sans: "Figtree", sans-serif;
   --font-serif: "Young Serif", serif;
-  --font-display: "Outfit", sans-serif;
+  --font-display: "Young Serif", serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  /* ── Luxury palette ── */
+  --color-gold: #c9a96e;
+  --color-gold-light: #d8bc8b;
+  --color-gold-dark: #b08d4f;
+  --color-stone-950: #1c1917;
+  --color-stone-900: #292524;
+  --color-stone-800: #44403c;
+  --color-sand: #f5f0eb;
+  --color-sand-dark: #e8e0d8;
+  --color-sea: #3b7a9e;
+  --color-sea-light: #5b9abe;
 
   /* ── Redesign palette ── */
   --color-burgundy: #b10832;
@@ -50,7 +62,7 @@ html {
 }
 
 body {
-  font-family: "Outfit", sans-serif;
+  font-family: "Figtree", sans-serif;
   background-color: var(--background, #ffffff);
   color: var(--foreground, #1a1a1a);
   -webkit-font-smoothing: antialiased;
