@@ -3,6 +3,8 @@
 @theme {
   --font-serif: "Young Serif", serif;
   --font-sans: "Figtree", sans-serif;
+
+  /* Existing palette kept for compatibility */
   --color-burgundy: #b10832;
   --color-burgundy-dark: #8a0627;
   --color-burgundy-light: #d11a4a;
@@ -13,18 +15,39 @@
   --color-soft-gray: #e8e5e0;
   --color-warm-gray: #9a958e;
   --color-border-light: #e5e2dd;
+
+  /* Shell tokens for the new review-first visual system */
+  --color-surface: #fbf7f1;
+  --color-surface-2: #f3ede3;
+  --color-panel: #fffdf9;
+  --color-ink: #171612;
+  --color-muted: #6f675d;
+  --color-line: #ded6c8;
+  --color-accent: #a98a5a;
 }
 
 html {
   scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
   font-family: "Figtree", sans-serif;
-  background-color: #faf8f5;
-  color: #1a1a1a;
+  background:
+    radial-gradient(circle at top, rgba(169, 138, 90, 0.08), transparent 34%),
+    linear-gradient(180deg, #fbf7f1 0%, #f7f1e8 100%);
+  color: #171612;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: rgba(169, 138, 90, 0.18);
+  color: #171612;
 }
 
 .font-serif {
@@ -35,22 +58,50 @@ body {
   font-family: "Figtree", sans-serif;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+.page-shell {
+  position: relative;
+  isolation: isolate;
 }
 
-::-webkit-scrollbar-track {
-  background: #faf8f5;
+.page-shell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.3) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px);
+  background-size: 120px 120px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.12), transparent 68%);
+  opacity: 0.35;
+  z-index: -1;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #d1cfca;
-  border-radius: 4px;
+.section-shell {
+  width: min(100%, 1440px);
+  margin-inline: auto;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #9a958e;
+.editorial-surface {
+  background: color-mix(in srgb, var(--color-panel) 94%, white 6%);
+  border: 1px solid color-mix(in srgb, var(--color-line) 70%, white 30%);
+  box-shadow: 0 24px 70px rgba(23, 22, 18, 0.06);
+}
+
+.premium-chip {
+  border: 1px solid color-mix(in srgb, var(--color-line) 85%, white 15%);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+}
+
+.premium-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--color-line) 78%, white 22%),
+    transparent
+  );
 }
 
 /* Animation utilities */
