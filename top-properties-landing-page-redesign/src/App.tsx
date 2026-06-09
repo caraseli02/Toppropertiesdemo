@@ -1,16 +1,29 @@
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import SearchFilters from "./components/SearchFilters";
 import FeaturedProperties from "./components/FeaturedProperties";
+import CuratedCollections from "./components/CuratedCollections";
+import MarketStats from "./components/MarketStats";
+import Benefits from "./components/Benefits";
+import HowItWorks from "./components/HowItWorks";
+import Testimonials from "./components/Testimonials";
+import FinalCTA from "./components/FinalCTA";
+import Footer from "./components/Footer";
 
 export default function App() {
   return (
-    <main className="page-shell min-h-screen bg-ivory text-charcoal">
-      <div className="absolute inset-x-0 top-0 -z-10 h-[42rem] bg-[radial-gradient(circle_at_top,rgba(169,138,90,0.12),transparent_60%)]" />
-      <div className="section-shell">
-        <Navbar />
-        <Hero />
-        <FeaturedProperties />
-      </div>
-    </main>
+    <div className="min-h-screen bg-ivory">
+      <Navbar />
+      <Hero />
+      <SearchFilters />
+      <FeaturedProperties />
+      <CuratedCollections />
+      <MarketStats />
+      <Benefits />
+      <HowItWorks />
+      <Testimonials />
+      <FinalCTA />
+      <Footer />
+    </div>
   );
 }
