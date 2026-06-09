@@ -4,7 +4,6 @@ import {
   Bath,
   BedDouble,
   Heart,
-  MapPin,
   Search,
   ShieldCheck,
   Sparkles,
@@ -263,7 +262,7 @@ function App() {
               curated Mallorca only
             </div>
 
-            <h1 className="mt-6 max-w-[12ch] font-serif text-5xl leading-[0.95] tracking-[-0.05em] text-stone-950 sm:text-6xl lg:text-[5.4rem]">
+            <h1 className="mt-6 max-w-[14ch] font-serif text-[2.75rem] leading-[1.02] tracking-[-0.04em] text-stone-950 sm:max-w-[12ch] sm:text-6xl sm:leading-[0.95] sm:tracking-[-0.05em] lg:text-[5.4rem]">
               Find the best homes in Mallorca.
             </h1>
 
@@ -301,7 +300,7 @@ function App() {
               </p>
             </form>
 
-            <div className="mt-6 flex gap-2 overflow-x-auto pb-2">
+            <div className="mt-6 flex gap-2 overflow-x-auto pb-3 [-webkit-overflow-scrolling:touch] [mask-image:linear-gradient(to_right,black_85%,transparent)] sm:[mask-image:none]">
               {intentOrder.map((intent) => {
                 const isActive = activeIntent === intent;
                 return (
@@ -355,18 +354,18 @@ function App() {
           </div>
         </section>
 
-        <section className="mt-12">
+        <section className="mt-14">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-xs uppercase tracking-[0.22em] text-stone-500">
+              <p className="text-[11px] uppercase tracking-[0.22em] text-stone-400">
                 Supporting matches
               </p>
-              <h2 className="mt-2 font-serif text-2xl text-stone-950 sm:text-3xl">
+              <h2 className="mt-2 font-serif text-2xl tracking-[-0.025em] text-stone-950 sm:text-3xl">
                 Comparable properties
               </h2>
             </div>
-            <p className="max-w-2xl text-sm leading-6 text-stone-500 sm:text-right">
-              Tap any card to move it into the hero slot and update the recommendation rail.
+            <p className="max-w-2xl text-sm leading-6 text-stone-400 sm:text-right">
+              Tap any card to promote it into the featured slot.
             </p>
           </div>
 
@@ -402,69 +401,75 @@ function FeaturedListingCard({
   onToggleSaved: () => void;
 }) {
   return (
-    <article className="overflow-hidden rounded-[2rem] border border-black/8 bg-white shadow-[0_28px_90px_-48px_rgba(37,26,14,0.48)]">
+    <article className="group/card overflow-hidden rounded-[2rem] border border-black/8 bg-white shadow-[0_28px_90px_-48px_rgba(37,26,14,0.48)] transition-shadow duration-500 hover:shadow-[0_32px_100px_-44px_rgba(37,26,14,0.55)]">
       <button type="button" onClick={onSelect} className="group block w-full text-left">
-        <div className="relative aspect-[4/3] overflow-hidden bg-stone-200">
+        <div className="relative aspect-[16/10] overflow-hidden bg-stone-200">
           <img
             src={listing.image}
             alt={listing.title}
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
             loading="eager"
           />
 
-          <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/12 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-transparent" />
 
-          <div className="absolute left-4 top-4 flex flex-wrap gap-2">
-            <span className="inline-flex items-center rounded-full bg-stone-950/80 px-3 py-1 text-[11px] uppercase tracking-[0.22em] text-white backdrop-blur-sm">
-              Featured match
+          <div className="absolute left-5 top-5 flex flex-wrap gap-2">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/90 px-3.5 py-1.5 text-[11px] font-medium uppercase tracking-[0.2em] text-stone-700 backdrop-blur-sm">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#b08d4f]" />
+              Featured
             </span>
-            <span className="inline-flex items-center rounded-full bg-white/85 px-3 py-1 text-[11px] uppercase tracking-[0.22em] text-stone-600 backdrop-blur-sm">
+            <span className="inline-flex items-center rounded-full bg-stone-950/70 px-3 py-1.5 text-[11px] uppercase tracking-[0.2em] text-white/90 backdrop-blur-sm">
               {label}
             </span>
           </div>
 
-          <div className="absolute bottom-4 left-4 right-4 rounded-[1.5rem] border border-white/14 bg-white/12 p-4 text-white backdrop-blur-sm">
-            <p className="text-xs uppercase tracking-[0.22em] text-white/70">{listing.area}</p>
-            <h3 className="mt-2 font-serif text-3xl leading-tight tracking-[-0.03em] sm:text-[2.15rem]">
-              {listing.title}
-            </h3>
-            <p className="mt-2 max-w-xl text-sm leading-6 text-white/80">{listing.excerpt}</p>
+          <div className="absolute inset-x-0 bottom-0 p-5 pt-16">
+            <div className="rounded-[1.25rem] border border-white/10 bg-black/20 px-5 pb-5 pt-4 text-white backdrop-blur-md">
+              <p className="text-[11px] uppercase tracking-[0.24em] text-white/60">
+                {listing.area}
+              </p>
+              <h3 className="mt-2 font-serif text-[1.65rem] leading-[1.15] tracking-[-0.025em] sm:text-3xl">
+                {listing.title}
+              </h3>
+              <p className="mt-2.5 text-[13px] leading-[1.65] text-white/75">{listing.excerpt}</p>
+            </div>
           </div>
         </div>
       </button>
 
       <div className="p-6 sm:p-7">
-        <div className="flex flex-wrap items-center gap-3 text-sm text-stone-600">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-stone-50 px-3 py-1.5">
-            <MapPin className="h-4 w-4 text-[#b08d4f]" />
-            {listing.area}
-          </span>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-stone-50 px-3 py-1.5">
-            <BedDouble className="h-4 w-4 text-[#b08d4f]" />
-            {listing.beds} bed
-          </span>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-stone-50 px-3 py-1.5">
-            <Bath className="h-4 w-4 text-[#b08d4f]" />
-            {listing.baths} bath
-          </span>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-stone-50 px-3 py-1.5">
-            {listing.sqft}
-          </span>
-        </div>
-
-        <div className="mt-5">
-          <p className="text-3xl font-semibold tracking-[-0.03em] text-stone-950">
+        <div className="flex items-end justify-between gap-4">
+          <p className="text-[1.7rem] font-semibold tracking-[-0.03em] text-stone-950 sm:text-3xl">
             {listing.price}
           </p>
-          <p className="mt-2 max-w-xl text-base leading-7 text-stone-600">{listing.rationale}</p>
+          <div className="flex flex-wrap gap-2 text-[13px] text-stone-500">
+            <span className="inline-flex items-center gap-1.5">
+              <BedDouble className="h-4 w-4 text-[#b08d4f]" />
+              {listing.beds} bed
+            </span>
+            <span className="text-stone-300">·</span>
+            <span className="inline-flex items-center gap-1.5">
+              <Bath className="h-4 w-4 text-[#b08d4f]" />
+              {listing.baths} bath
+            </span>
+            <span className="text-stone-300">·</span>
+            <span>{listing.sqft}</span>
+          </div>
         </div>
 
-        <div className="mt-5 rounded-[1.5rem] bg-stone-50 p-4">
-          <p className="text-xs uppercase tracking-[0.22em] text-stone-500">Why it stands out</p>
-          <ul className="mt-3 space-y-2 text-sm leading-6 text-stone-700">
+        <p className="mt-4 max-w-xl text-[15px] leading-7 text-stone-600">{listing.rationale}</p>
+
+        <div className="mt-5 rounded-[1.25rem] border border-black/5 bg-stone-50/80 p-5">
+          <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-stone-400">
+            Why it stands out
+          </p>
+          <ul className="mt-3 space-y-2.5">
             {listing.bullets.map((bullet) => (
-              <li key={bullet} className="flex gap-2">
-                <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#b08d4f]" />
+              <li
+                key={bullet}
+                className="flex items-start gap-2.5 text-sm leading-6 text-stone-700"
+              >
+                <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#b08d4f]" />
                 <span>{bullet}</span>
               </li>
             ))}
@@ -475,18 +480,20 @@ function FeaturedListingCard({
           <button
             type="button"
             onClick={onSelect}
-            className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-[1.15rem] bg-stone-950 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-stone-800"
+            className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-[1.15rem] bg-stone-950 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-stone-800 active:bg-stone-700"
           >
             View details
-            <ArrowRight className="h-4 w-4" />
+            <ArrowRight className="h-4 w-4 transition-transform group-hover/card:translate-x-0.5" />
           </button>
           <button
             type="button"
             onClick={onToggleSaved}
-            className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-[1.15rem] border border-black/10 bg-white px-5 py-3 text-sm font-semibold text-stone-700 transition-colors hover:border-black/20 hover:bg-stone-50"
+            className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-[1.15rem] border border-black/10 bg-white px-5 py-3 text-sm font-semibold text-stone-700 transition-colors hover:border-[#b08d4f]/30 hover:bg-[#b08d4f]/[0.04] active:bg-[#b08d4f]/[0.08]"
           >
-            <Heart className={`h-4 w-4 ${saved ? "fill-[#b08d4f] text-[#b08d4f]" : ""}`} />
-            {saved ? "Saved" : "Save shortlist"}
+            <Heart
+              className={`h-4 w-4 transition-colors ${saved ? "fill-[#b08d4f] text-[#b08d4f]" : "text-stone-400"}`}
+            />
+            {saved ? "Saved" : "Save"}
           </button>
         </div>
       </div>
@@ -499,33 +506,50 @@ function SupportCard({ listing, onSelect }: { listing: Listing; onSelect: () => 
     <button
       type="button"
       onClick={onSelect}
-      className="group overflow-hidden rounded-[1.65rem] border border-black/8 bg-white text-left shadow-[0_22px_70px_-54px_rgba(37,26,14,0.42)] transition-transform hover:-translate-y-1"
+      className="group overflow-hidden rounded-[1.5rem] border border-black/8 bg-white text-left shadow-[0_18px_60px_-48px_rgba(37,26,14,0.38)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_72px_-42px_rgba(37,26,14,0.48)]"
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-stone-200">
         <img
           src={listing.image}
           alt={listing.title}
-          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
           loading="lazy"
         />
-        <div className="absolute left-3 top-3 rounded-full bg-white/86 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-stone-500 backdrop-blur-sm">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+        <div className="absolute left-3 top-3 rounded-full bg-white/88 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.22em] text-stone-600 backdrop-blur-sm">
           {listing.area}
+        </div>
+        <div className="absolute bottom-3 right-3 rounded-full bg-black/40 px-3 py-1 text-[12px] font-semibold text-white/90 backdrop-blur-sm">
+          {listing.price}
         </div>
       </div>
 
-      <div className="p-4">
-        <h3 className="font-serif text-xl tracking-[-0.03em] text-stone-950">{listing.title}</h3>
-        <p className="mt-2 text-sm leading-6 text-stone-600">{listing.rationale}</p>
+      <div className="p-5">
+        <h3 className="font-serif text-xl tracking-[-0.025em] text-stone-950 line-clamp-2">
+          {listing.title}
+        </h3>
 
-        <div className="mt-4 flex flex-wrap gap-2 text-xs text-stone-500">
-          <span className="rounded-full bg-stone-50 px-3 py-1.5">{listing.price}</span>
-          <span className="rounded-full bg-stone-50 px-3 py-1.5">{listing.beds} bed</span>
-          <span className="rounded-full bg-stone-50 px-3 py-1.5">{listing.sqft}</span>
+        <div className="mt-3 flex flex-wrap gap-2 text-[13px] text-stone-500">
+          <span className="inline-flex items-center gap-1">
+            <BedDouble className="h-3.5 w-3.5 text-[#b08d4f]" />
+            {listing.beds} bed
+          </span>
+          <span className="text-stone-300">·</span>
+          <span className="inline-flex items-center gap-1">
+            <Bath className="h-3.5 w-3.5 text-[#b08d4f]" />
+            {listing.baths} bath
+          </span>
+          <span className="text-stone-300">·</span>
+          <span>{listing.sqft}</span>
         </div>
 
-        <div className="mt-5 flex items-center justify-between border-t border-black/6 pt-4">
-          <span className="text-sm font-medium text-stone-900">Move to hero</span>
-          <ArrowRight className="h-4 w-4 text-[#b08d4f] transition-transform group-hover:translate-x-1" />
+        <p className="mt-3 text-[14px] leading-6 text-stone-600 line-clamp-2">
+          {listing.rationale}
+        </p>
+
+        <div className="mt-4 flex items-center justify-between border-t border-black/6 pt-4">
+          <span className="text-sm font-medium text-stone-800">View details</span>
+          <ArrowRight className="h-4 w-4 text-[#b08d4f] transition-transform duration-300 group-hover:translate-x-1" />
         </div>
       </div>
     </button>
