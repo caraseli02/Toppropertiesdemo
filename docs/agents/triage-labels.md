@@ -2,13 +2,13 @@
 
 Use the default Matt Pocock triage label vocabulary.
 
-| Role | Label | Meaning |
-|---|---|---|
-| Needs triage | `needs-triage` | Maintainer needs to evaluate the issue. |
-| Needs info | `needs-info` | Waiting on reporter/user input. |
+| Role            | Label             | Meaning                                    |
+| --------------- | ----------------- | ------------------------------------------ |
+| Needs triage    | `needs-triage`    | Maintainer needs to evaluate the issue.    |
+| Needs info      | `needs-info`      | Waiting on reporter/user input.            |
 | Ready for agent | `ready-for-agent` | Fully specified and safe for an AFK agent. |
-| Ready for human | `ready-for-human` | Needs human implementation or judgement. |
-| Won't fix | `wontfix` | Will not be actioned. |
+| Ready for human | `ready-for-human` | Needs human implementation or judgement.   |
+| Won't fix       | `wontfix`         | Will not be actioned.                      |
 
 ## Rules for agents
 

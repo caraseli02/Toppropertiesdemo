@@ -1,6 +1,7 @@
 # Dialog Refactor Checklist
 
 ## SearchModal
+
 - [x] 1. Function name (`SearchModal`) + props interface (`SearchModalProps`) UNCHANGED
 - [x] 2. `if (!isOpen) return null` GONE
 - [x] 3. `useFocusTrap` import + usage GONE
@@ -12,6 +13,7 @@
 - [x] 9. Build passes (`vp build` exits 0)
 
 ## ContactModal
+
 - [x] 1. Function name (`ContactModal`) + props interface (`ContactModalProps`) UNCHANGED
 - [x] 2. `if (!isOpen) return null` GONE
 - [x] 3. `useFocusTrap` import + usage GONE
@@ -23,6 +25,7 @@
 - [x] 9. Build passes (`vp build` exits 0)
 
 ## FilterModal
+
 - [x] 1. Function name (`FilterModal`) + props interface (`FilterModalProps`) UNCHANGED
 - [x] 2. `if (!isOpen) return null` GONE
 - [x] 3. `useFocusTrap` import + usage GONE
@@ -34,6 +37,7 @@
 - [x] 9. Build passes (`vp build` exits 0)
 
 ## PropertyDetail
+
 - [x] 1. Function name (`PropertyDetail`) + props interface (`PropertyDetailProps`) UNCHANGED
 - [x] 2. `useFocusTrap` import + usage GONE
 - [x] 3. `useBodyScrollLock` import + usage GONE
