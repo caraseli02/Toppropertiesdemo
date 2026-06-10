@@ -1,29 +1,60 @@
-<!--VITE PLUS START-->
+# Top Properties — Agent Harness
 
-# Using Vite+, the Unified Toolchain for the Web
+> **What:** Luxury real estate demo SPA. Editorial, magazine-quality UI showcasing curated villas, penthouses, and estates worldwide. Single-page React app with hero, property grid, map view, filters, detail overlay, and contact modal.
 
-This project is using Vite+, a unified toolchain built on top of Vite, Rolldown, Vitest, tsdown, Oxlint, Oxfmt, and Vite Task. Vite+ wraps runtime management, package management, and frontend tooling in a single global CLI called `vp`. Vite+ is distinct from Vite, and it invokes Vite through `vp dev` and `vp build`. Run `vp help` to print a list of commands and `vp <command> --help` for information about a specific command.
+> **Stack:** React 18 + TypeScript 6 + Vite 6 (via Vite+ / `vp` CLI) + Tailwind v4 + shadcn/ui + Leaflet. Build output to `build/`.
 
-Docs are local at `node_modules/vite-plus/docs` or online at https://viteplus.dev/guide/.
+## Quick Start
 
-## Review Checklist
+```bash
+vp install          # install deps (pnpm under the hood)
+vp dev              # dev server on :3000
+vp build            # production build → build/
+```
 
-- [ ] Run `vp install` after pulling remote changes and before getting started.
-- [ ] Run `vp check` and `vp test` to format, lint, type check and test changes.
-- [ ] Check if there are `vite.config.ts` tasks or `package.json` scripts necessary for validation, run via `vp run <script>`.
+## Verification Commands
 
-<!--VITE PLUS END-->
+Run these after every change. All MUST pass before committing.
 
-## Agent skills
+| Command    | What it does                                      | Expected outcome                         |
+| ---------- | ------------------------------------------------- | ---------------------------------------- |
+| `vp check` | Format (oxfmt) + lint (oxlint) + type-check (tsc) | Zero errors, zero warnings               |
+| `vp build` | Production build                                  | Completes, no errors, output in `build/` |
+| `vp test`  | Vitest unit tests                                 | All pass (or note if no tests exist yet) |
 
-### Issue tracker
+## Hard Constraints
 
-Issues and PRDs live in GitHub Issues for `caraseli02/Toppropertiesdemo`. See `docs/agents/issue-tracker.md`.
+1. **MUST** use `vp` CLI for all toolchain operations (build, check, test, dev). Never call `vite`, `tsc`, or `pnpm` directly.
+2. **MUST** run `vp check && vp build` after changes and verify zero errors before committing.
+3. **MUST NOT** use Inter or system-ui as primary font. Primary font is **Outfit**.
+4. **MUST NOT** use centered text on marketing surfaces (hero is left-aligned).
+5. **MUST NOT** add "coming soon" placeholders, disabled actions, or bare-text empty states.
+6. **MUST NOT** import from `../` chains deeper than 3 levels — use `@/` path alias.
+7. **MUST** keep filter/service logic in `src/services/` as pure, stateless functions.
+8. **MUST** use TypeScript union types (not enums) for domain types (`PropertyType`, `Amenity`).
+9. **MUST** sanitize user-facing HTML via `src/services/xssService.ts`.
+10. **MUST** mark property data arrays as `readonly` for immutability.
+11. **MUST NOT** merge PRs — push branch and open PR, wait for human review.
+12. **MUST** check mobile viewport (375px) for any visual change.
+13. **MUST** update `PROGRESS.md` before ending a session.
+14. **MUST NOT** modify files outside `src/`, `docs/`, `public/`, or harness files unless explicitly told.
+15. **MUST** keep this file under 200 lines — move details to topic docs.
 
-### Triage labels
+## Topic Docs
 
-Use the default Matt Pocock triage labels: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+| Doc                            | When to read                                                                                             |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------- |
+| `DESIGN.md`                    | Visual system: colors, typography, spacing, motion, component specs. Read before any UI change.          |
+| `PRODUCT.md`                   | Product definition: audience, brand voice, visual references, what design must achieve.                  |
+| `CONTEXT.md`                   | Domain glossary: property types, locations, UI primitives, GenUI terms. Read before product/domain work. |
+| `docs/architecture.md`         | Stack details, directory structure, key architectural decisions. Read before structural changes.         |
+| `docs/agents/issue-tracker.md` | GitHub Issues workflow and PR rules. Read before creating issues or PRs.                                 |
+| `docs/agents/triage-labels.md` | Label vocabulary for triage. Read before labeling issues.                                                |
+| `docs/agents/domain.md`        | How to use CONTEXT.md and ADRs. Read before writing domain docs.                                         |
 
-### Domain docs
+## Agent Workflow
 
-Single-context repo: domain language lives in root `CONTEXT.md`; ADRs live in `docs/adr/`. See `docs/agents/domain.md`.
+- Issue tracker: GitHub Issues on `caraseli02/Toppropertiesdemo`. Use `gh` CLI.
+- Triage labels: Matt Pocock set (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`).
+- ADRs: `docs/adr/` — create sparingly, only for hard-to-reverse decisions.
+- Todos: `todos/` directory contains bite-sized task files. Read before picking up work.
