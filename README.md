@@ -47,15 +47,15 @@ src/
 ├── services/         # Pure business logic
 │   ├── priceService.ts    # Multi-currency parsing & formatting
 │   ├── filterService.ts   # Property filtering (pure functions)
-│   └── xssService.ts      # HTML sanitization
 ├── data/             # Property dataset (30+ listings)
 ├── types/            # TypeScript domain types
 └── hooks/            # Custom React hooks
 ```
 
+This reflects the current codebase. Any future sanitization or architecture additions should be documented here only after they exist in `src/`.
+
 ## Key Design Decisions
 
 - **Union types over enums** — `PropertyType` and `Amenity` use string literal unions for compile-time safety without runtime overhead
 - **Pure filter functions** — `filterService.ts` exports stateless pure functions, separated from React for testability
-- **DOM-based XSS escaping** — `xssService.ts` uses `textContent`/`innerHTML` roundtrip for safe rendering
 - **`readonly` data** — property data uses `readonly` arrays to enforce immutability at the type level

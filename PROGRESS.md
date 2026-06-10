@@ -9,6 +9,7 @@ ACID-compliant state tracking. Update before ending each session.
 - Product definition documented (PRODUCT.md) — audience, brand voice, references, design goals.
 - Smoke test added at `src/lib/utils.test.ts` so `vp test` has a passing baseline.
 - Verification passed: `vp check`, `vp test`, `vp build`.
+- `docs/architecture.md` and `README.md` updated to distinguish current repo layout from intended additions.
 - 32 todo items triaged in `todos/` directory.
 - Multiple UI review rounds completed (docs/ui-review-_, docs/impeccable-audit_).
 

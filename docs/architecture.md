@@ -1,85 +1,98 @@
 # Architecture
 
+This document is a living map of the **current repo shape** plus a short list of **intended additions** that are part of the harness direction.
+
 ## Stack
 
-| Layer       | Tech                    | Notes                                    |
-| ----------- | ----------------------- | ---------------------------------------- |
-| UI          | React 18                | Functional components, hooks             |
-| Types       | TypeScript 6            | Strict mode, `noEmit: true`              |
-| Build       | Vite 6 + SWC            | Via Vite+ (`vp` CLI). Output to `build/` |
-| Styling     | Tailwind v4             | `@tailwindcss/vite` plugin, NOT PostCSS  |
-| Components  | shadcn/ui               | Primitives in `src/components/ui/`       |
-| Maps        | Leaflet + react-leaflet | Clustered markers, custom popups         |
-| Animation   | framer-motion           | Page transitions, overlay animations     |
-| Icons       | lucide-react            | Consistent icon set                      |
-| Fonts       | Outfit (Google Fonts)   | Weights 300-700, primary only            |
-| Package mgr | pnpm 11                 | Via `vp install`                         |
+| Layer           | Tech                    | Notes                                    |
+| --------------- | ----------------------- | ---------------------------------------- |
+| UI              | React 18                | Functional components, hooks             |
+| Types           | TypeScript 6            | Strict mode, `noEmit: true`              |
+| Build           | Vite 6 + SWC            | Via Vite+ (`vp` CLI). Output to `build/` |
+| Styling         | Tailwind v4             | `@tailwindcss/vite` plugin               |
+| Components      | shadcn/ui               | Primitives in `src/components/ui/`       |
+| Maps            | Leaflet + react-leaflet | Map + marker overlays                    |
+| Animation       | framer-motion           | Page/overlay motion                      |
+| Icons           | lucide-react            | Consistent icon set                      |
+| Fonts           | Outfit (Google Fonts)   | Primary font                             |
+| Package manager | pnpm 11                 | Invoked via `vp install`                 |
 
-## Directory Structure
+## Current directory structure
 
 ```
 src/
+├── App.tsx
+├── main.tsx
 ├── components/
-│   ├── ui/            # shadcn/ui primitives (button, card, dialog, sheet, etc.)
-│   ├── Header.tsx     # Logo + navigation
-│   ├── HeroSection.tsx # Crossfading hero banner
-│   ├── SearchBar.tsx   # Inline text search
-│   ├── SearchModal.tsx # Full search overlay
-│   ├── FilterModal.tsx # Filter controls
-│   ├── PropertyCard.tsx # Atomic listing card
-│   ├── PropertyDetail.tsx # Full property overlay
-│   ├── ImageModal.tsx  # Lightbox gallery
-│   ├── ContactModal.tsx # Inquiry form
-│   ├── MapView.tsx     # Leaflet map with clusters
-│   ├── CuratedCollections.tsx # Themed property groups
-│   ├── LuxuryPropertiesShowcase.tsx # Featured grid
-│   ├── FinalCTA.tsx    # Bottom call-to-action
-│   ├── Footer.tsx      # Dark footer
-│   └── ...             # Other UI components
+│   ├── ui/                 # shadcn/ui primitives
+│   ├── Header.tsx
+│   ├── HeroSection.tsx
+│   ├── SearchBar.tsx
+│   ├── SearchModal.tsx
+│   ├── FilterModal.tsx
+│   ├── PropertyCard.tsx
+│   ├── PropertyDetail.tsx
+│   ├── ImageModal.tsx
+│   ├── ContactModal.tsx
+│   ├── MapView.tsx
+│   ├── CuratedCollections.tsx
+│   ├── LuxuryPropertiesShowcase.tsx
+│   ├── FinalCTA.tsx
+│   ├── Footer.tsx
+│   └── ...                 # other feature modals/cards/supporting UI
 ├── services/
-│   ├── priceService.ts # Multi-currency parsing & formatting (pure functions)
-│   └── filterService.ts # Property filtering logic (pure functions)
+│   ├── priceService.ts     # multi-currency parsing + formatting (pure)
+│   └── filterService.ts    # property filtering logic (pure)
 ├── data/
-│   └── properties.ts  # Readonly property dataset (30+ listings)
+│   └── properties.ts       # readonly property dataset
 ├── types/
-│   └── index.ts       # TypeScript domain types (union literals, not enums)
+│   └── index.ts            # union-based domain types
 ├── hooks/
 │   ├── useBodyScrollLock.ts
 │   └── useFocusTrap.ts
 ├── constants/
-│   └── filters.ts     # Filter configuration
+│   └── filters.ts          # filter config
 ├── styles/
-│   ├── globals.css    # Tailwind imports + custom properties
-│   └── animations.css # Keyframes + reduced-motion guards
+│   ├── globals.css         # Tailwind imports + custom properties
+│   └── animations.css      # motion helpers + reduced-motion guards
 ├── lib/
-│   └── utils.ts       # cn() helper (clsx + tailwind-merge)
-├── App.tsx            # Root component
-└── main.tsx           # Entry point
+│   └── utils.ts            # `cn()` helper
+├── index.css
+├── vite-env.d.ts
+└── imports/
+    └── svg-lbcekml827.ts    # generated SVG import shim used by the app
 
 docs/
-├── architecture.md    # This file
-├── agents/            # Workflow docs (issue tracker, triage, domain)
-├── adr/               # Architecture Decision Records
-├── plans/             # Implementation plans
-└── ...                # UI reviews, audits, design reviews
+├── architecture.md
+├── agents/                 # workflow docs (issue tracker, triage, domain)
+├── adr/                    # architecture decision records
+└── plans/                  # implementation plans
 
-todos/                 # Bite-sized task files (triaged)
+todos/                      # bite-sized task files
 ```
 
-## Key Decisions
+## Intended additions / target shape
 
-- **Union types over enums** — `PropertyType` and `Amenity` are string literal unions. Compile-time safety, no runtime overhead.
-- **Pure service functions** — `priceService.ts` and `filterService.ts` export stateless functions. No React coupling, easily testable.
-- **DOM-based XSS escaping** — `textContent`/`innerHTML` roundtrip in `xssService.ts`. No external sanitizer dependency.
-- **Readonly data** — Property arrays use `as const` / `readonly` to enforce immutability at the type level.
-- **Path alias `@/`** — `@/*` maps to `./src/*` in both TypeScript and Vite config. Prevents deep relative imports.
-- **Build output to `build/`** — Not the Vite default `dist/`. Configured in `vite.config.ts`.
-- **Vite+ toolchain** — All toolchain operations go through `vp` CLI (build, check, test, dev, install). Not raw `vite`/`tsc`/`pnpm`.
-- **Single-page app** — No router. Navigation via overlays (property detail, contact) and state toggles (map/grid).
+These are the pieces the harness docs already assume and the repo is moving toward:
+
+- **`src/services/xssService.ts`** — HTML sanitization for user-facing content.
+- **More service-level pure helpers** where logic needs to be shared or unit tested.
+- **Readonly data arrays** for property content and other static datasets.
+- **Keep `@/` imports** as the default path style to avoid deep relative chains.
+
+## Key decisions
+
+- **Union types over enums** — `PropertyType` and `Amenity` are string literal unions.
+- **Pure service functions** — keep business logic in `src/services/` and out of React components.
+- **Readonly data** — property arrays use `readonly` / `as const` for immutability.
+- **Path alias `@/`** — maps to `./src/*` in TypeScript and Vite.
+- **Build output to `build/`** — not Vite’s default `dist/`.
+- **Vite+ toolchain** — all build/check/test/dev operations go through `vp`.
+- **Single-page app** — navigation happens through overlays and state, not a router.
 
 ## Patterns
 
-- **Component structure:** One component per file, named exports. UI primitives in `ui/` subdirectory.
-- **Styling:** Tailwind utility classes inline. Custom properties in `globals.css`. No CSS modules.
-- **State:** React hooks (`useState`, `useEffect`). No global state library.
-- **Data flow:** Static dataset in `properties.ts` → services filter/transform → components render.
+- **Component structure:** one component per file, named exports.
+- **Styling:** Tailwind utility classes inline; custom properties in `globals.css`.
+- **State:** React hooks (`useState`, `useEffect`); no global state library.
+- **Data flow:** static dataset in `properties.ts` → services filter/transform → components render.
