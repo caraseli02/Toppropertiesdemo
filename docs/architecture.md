@@ -18,6 +18,7 @@ package.json              # Vite+/Lit project manifest
 pnpm-lock.yaml            # Locked dependency graph
 src/                      # Lightweight app scaffold
 tasks.md                  # Ordered next implementation tasks
+vercel.json               # Vercel build/output configuration
 vite.config.js            # Vite+ config for build/test/check
 ```
 

@@ -10,7 +10,7 @@
   - Shared discovery logic in `src/lib/discovery.js`.
   - Mallorca sample data in `src/data/properties.js`.
   - Global CSS baseline in `src/styles.css`.
-- Added Vite+ project files: `package.json`, `pnpm-lock.yaml`, and `vite.config.js`.
+- Added Vite+ project files: `package.json`, `pnpm-lock.yaml`, `vite.config.js`, and `vercel.json`.
 - Added one meaningful smoke/unit test: `src/lib/discovery.test.js`.
 - Added `DECISIONS.md` and `tasks.md` for state persistence and next-step handoff.
 
