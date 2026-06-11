@@ -28,8 +28,9 @@ The existing reference artifacts are part of the current reset baseline. Do not 
 
 The agreed direction is intentionally lightweight:
 
-- **HTML/CSS/JavaScript** as the base app surface.
-- **Lit elements** for reusable UI primitives where a component model helps.
+- **HTML/JavaScript** as the base app surface.
+- **Tailwind CSS v4** via the official `@tailwindcss/vite` plugin for utility-first styling.
+- **Lit elements** for reusable UI primitives where a component model helps. Current Lit components render into light DOM so Tailwind's global generated stylesheet can apply utility classes.
 - **Vite+ (`vp`)** as the preferred toolchain.
 - **Vitest through `vp test`** for smoke/unit tests.
 
@@ -47,7 +48,7 @@ src/
 │   ├── discovery.js           # Pure discovery-brief logic
 │   └── discovery.test.js      # Vitest smoke/unit test
 ├── main.js                    # App bootstrap
-└── styles.css                 # Global reset/background styles
+└── styles.css                 # Tailwind v4 entrypoint, theme tokens, minimal global reset
 ```
 
 This is a startup baseline, not the final product architecture. It proves the repo can start, test, and build while keeping future product/design decisions open.

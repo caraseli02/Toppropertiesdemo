@@ -34,8 +34,9 @@ Expected experience:
 
 Use the agreed lightweight baseline unless a later approved decision changes it:
 
-- HTML/CSS/JavaScript app surface.
-- Lit custom elements for reusable UI primitives.
+- HTML/JavaScript app surface.
+- Tailwind CSS v4 for styling via the official Vite plugin.
+- Lit custom elements for reusable UI primitives, rendered into light DOM so Tailwind utilities apply.
 - Vite+ (`vp`) for install, dev, test, check, and build.
 
 Required commands:

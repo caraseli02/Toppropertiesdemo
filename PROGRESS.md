@@ -6,10 +6,10 @@
 - Added the startup-readiness scaffold for the agreed lightweight stack:
   - HTML entrypoint in `index.html`.
   - JavaScript app surface in `src/main.js`.
-  - Lit custom element in `src/components/topproperties-app.js`.
+  - Lit custom element in `src/components/topproperties-app.js`, rendered into light DOM for Tailwind utilities.
   - Shared discovery logic in `src/lib/discovery.js`.
   - Mallorca sample data in `src/data/properties.js`.
-  - Global CSS baseline in `src/styles.css`.
+  - Tailwind CSS v4 theme/global entrypoint in `src/styles.css`.
 - Added Vite+ project files: `package.json`, `pnpm-lock.yaml`, `vite.config.js`, and `vercel.json`.
 - Added one meaningful smoke/unit test: `src/lib/discovery.test.js`.
 - Added `DECISIONS.md` and `tasks.md` for state persistence and next-step handoff.

@@ -2,11 +2,11 @@
 
 Durable architecture and workflow decisions for the TopProperties reset. Add entries when a choice affects future agents or implementation direction.
 
-## 2026-06-11 — Startup baseline uses lightweight HTML/CSS/JS + Lit + Vite+
+## 2026-06-11 — Startup baseline uses lightweight HTML/JS + Tailwind v4 + Lit + Vite+
 
-**Decision:** Use simple HTML/CSS/JavaScript for the app surface, Lit custom elements for reusable UI primitives, and Vite+ (`vp`) as the project toolchain.
+**Decision:** Use simple HTML/JavaScript for the app surface, Tailwind CSS v4 for styling, Lit custom elements for reusable UI primitives, and Vite+ (`vp`) as the project toolchain.
 
-**Reason:** This matches the agreed near-term direction while keeping the repo small, reviewable, and friendly to safe generative UI composition experiments.
+**Reason:** This matches the agreed near-term direction while keeping the repo small, reviewable, and friendly to safe generative UI composition experiments. Tailwind v4 is installed through the official Vite plugin (`@tailwindcss/vite`), not PostCSS/autoprefixer. Lit components render into light DOM so Tailwind's global generated stylesheet can apply utility classes.
 
 **Rejected alternatives:**
 

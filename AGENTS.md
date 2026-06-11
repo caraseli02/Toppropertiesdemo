@@ -14,8 +14,9 @@ The app should respond with dynamic/generated UI from safe primitives: curated p
 
 ## Current stack baseline
 
-- Lightweight **HTML/CSS/JavaScript** app surface.
-- **Lit** custom elements for reusable UI primitives where helpful.
+- Lightweight **HTML/JavaScript** app surface.
+- **Tailwind CSS v4** for styling via the official Vite plugin.
+- **Lit** custom elements for reusable UI primitives where helpful; current Lit components render into light DOM so Tailwind utilities apply.
 - **Vite+ (`vp`)** as the only project toolchain entrypoint.
 - Vitest via `vp test` for smoke/unit tests.
 
