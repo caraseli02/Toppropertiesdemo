@@ -9,8 +9,18 @@
 ```bash
 vp install          # install deps (pnpm under the hood)
 vp dev              # dev server on :3000
+vp test             # run Vitest smoke tests
+vp check            # format + lint + type-check
 vp build            # production build → build/
 ```
+
+Expected outcomes:
+
+- `vp install` finishes without dependency errors.
+- `vp dev` boots a local app at `http://localhost:3000`.
+- `vp test` passes with the repo’s smoke test(s).
+- `vp check` returns zero formatting/lint/type errors.
+- `vp build` completes and writes production assets to `build/`.
 
 ## Verification Commands
 
@@ -21,6 +31,20 @@ Run these after every change. All MUST pass before committing.
 | `vp check` | Format (oxfmt) + lint (oxlint) + type-check (tsc) | Zero errors, zero warnings               |
 | `vp build` | Production build                                  | Completes, no errors, output in `build/` |
 | `vp test`  | Vitest unit tests                                 | All pass (or note if no tests exist yet) |
+
+## Clock-in / Clock-out Protocol
+
+Before starting work:
+
+1. Read `PROGRESS.md`.
+2. Read `DECISIONS.md`.
+3. Check `tasks.md` or the `Next Steps` section in `PROGRESS.md`.
+
+Before ending work:
+
+1. Update `PROGRESS.md` with what changed.
+2. Record any durable design choices in `DECISIONS.md`.
+3. Keep the repo in a handoff-ready state with a clean commit or an explicit review note.
 
 ## Hard Constraints
 

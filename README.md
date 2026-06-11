@@ -28,9 +28,20 @@ Luxury real estate browser with interactive maps, multi-currency pricing, and ad
 ## Getting Started
 
 ```bash
-npm install
-npm run dev
+vp install
+vp dev
+vp test
+vp check
+vp build
 ```
+
+Expected outcomes:
+
+- `vp install` installs dependencies cleanly.
+- `vp dev` starts the local app.
+- `vp test` runs the smoke tests.
+- `vp check` returns no format/lint/type errors.
+- `vp build` produces the production bundle in `build/`.
 
 ## Project Structure
 
