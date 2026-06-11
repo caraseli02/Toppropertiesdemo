@@ -15,7 +15,7 @@ The app should respond with dynamic/generated UI from safe primitives: curated p
 ## Scope guardrails
 
 - Keep v1 mostly visual/product-led, not deep infrastructure.
-- Choose the stack based on what best supports generative UI; Nuxt/Vue is an option, not a fixed requirement.
+- Use the agreed lightweight stack for now: simple HTML/CSS/JS, Lit elements for reusable UI primitives where helpful, and Vite+ (`vp`) as the toolchain once project files are scaffolded.
 - Preserve existing React/shadcn work as **reference only**, not as the implementation baseline.
 - V1 is **Mallorca luxury homes only**.
 - Primary MCP-style integration: map/neighborhood intelligence.
@@ -45,9 +45,9 @@ Goal card:
 
 ## Project-file expectations during reset
 
-This branch intentionally contains a minimal starting point. If package/tooling files are absent, do not invent stack-specific commands. First resolve the stack and component grammar through the approved pre-implementation cards.
+This branch intentionally contains a minimal starting point. The agreed implementation direction is lightweight HTML/CSS/JS with Lit elements and Vite+ tooling, but the scaffold has not been added yet.
 
-When implementation begins, add project-specific commands and verification steps back into this file alongside the chosen stack.
+If package/tooling files are absent, do not invent commands against files that are not in the repo. When implementation begins, add the actual Vite+/Lit project-specific commands and verification steps back into this file.
 
 ## Agent workflow
 
