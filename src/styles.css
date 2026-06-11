@@ -6,15 +6,3 @@
   --color-gold: #d4aa63;
   --font-serif: Georgia, "Times New Roman", serif;
 }
-
-html {
-  background: #17120d;
-}
-
-body {
-  margin: 0;
-}
-
-* {
-  box-sizing: border-box;
-}
