@@ -10,7 +10,7 @@ ACID-compliant state tracking. Update before ending each session.
 - Smoke test added at `src/lib/utils.test.ts` so `vp test` has a passing baseline.
 - Verification passed: `vp check`, `vp test`, `vp build`.
 - `docs/architecture.md` and `README.md` updated to distinguish current repo layout from intended additions.
-- Startup readiness docs added: `DECISIONS.md`, `tasks.md`, and AGENTS/README quick-start + handoff protocol updates.
+- Startup readiness init complete; PR #54 opened with the handoff docs and task queue.
 - 32 todo items triaged in `todos/` directory.
 - Multiple UI review rounds completed (docs/ui-review-_, docs/impeccable-audit_).
 
