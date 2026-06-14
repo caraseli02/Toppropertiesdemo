@@ -6,3 +6,9 @@
   --color-gold: #d4aa63;
   --font-serif: Georgia, "Times New Roman", serif;
 }
+
+/* Global keyboard focus ring — overrides outline-none on interactive elements */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
