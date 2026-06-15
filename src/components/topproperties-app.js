@@ -25,7 +25,7 @@ export class TopPropertiesApp extends LitElement {
 
     return html`
       <main
-        class="min-h-screen overflow-x-hidden bg-[radial-gradient(circle_at_78%_12%,rgb(198_157_86_/_28%),transparent_30rem),linear-gradient(135deg,#17120d_0%,#2a1d12_52%,#efe3d1_52%,#c7a267_100%)] px-[18px] py-6 text-cream md:px-[clamp(24px,4vw,64px)] md:py-[clamp(24px,4vw,64px)]"
+        class="min-h-screen overflow-x-hidden bg-[radial-gradient(circle_at_78%_12%,rgb(198_157_86_/_28%),transparent_30rem),linear-gradient(135deg,#17120d_0%,#2a1d12_52%,#efe3d1_52%,#c7a267_100%)] px-[18px] py-6 text-surface-warm md:px-[clamp(24px,4vw,64px)] md:py-[clamp(24px,4vw,64px)]"
       >
         <section
           aria-labelledby="page-title"
@@ -33,7 +33,7 @@ export class TopPropertiesApp extends LitElement {
         >
           <div>
             <p
-              class="mb-[18px] text-[0.68rem] font-bold leading-normal tracking-[0.18em] text-gold uppercase md:text-[0.78rem]"
+              class="mb-[18px] text-[0.68rem] font-bold leading-normal tracking-[0.18em] text-brand uppercase md:text-[0.78rem]"
             >
               TopProperties / Mallorca intelligence
             </p>
@@ -44,7 +44,7 @@ export class TopPropertiesApp extends LitElement {
               Luxury homes, agent composed.
             </h1>
             <p
-              class="my-7 max-w-[650px] text-[clamp(1.05rem,2vw,1.35rem)] leading-[1.55] text-cream-muted"
+              class="my-7 max-w-[650px] text-[clamp(1.05rem,2vw,1.35rem)] leading-[1.55] text-stone-300"
             >
               A lightweight startup baseline for the agentic Mallorca demo: prompt-led discovery,
               curated safe primitives, and a clear Vite+ handoff path for the next implementation
@@ -55,14 +55,14 @@ export class TopPropertiesApp extends LitElement {
               @submit=${this.#handleSubmit}
             >
               <input
-                class="min-w-0 flex-[1_1_100%] border-0 bg-transparent px-5 py-3.5 font-[inherit] text-[#fff7ec] outline-none md:flex-[1_1_260px]"
+                class="min-w-0 flex-[1_1_100%] border-0 bg-transparent px-5 py-3.5 font-[inherit] text-amber-50 outline-none md:flex-[1_1_260px]"
                 name="prompt"
                 aria-label="Buyer prompt"
                 .value=${this.prompt}
                 @input=${this.#handleInput}
               />
               <button
-                class="w-full cursor-pointer rounded-full border-0 bg-[#f1c56f] px-5 py-3.5 font-extrabold text-[#22160d] md:w-auto"
+                class="w-full cursor-pointer rounded-full border-0 bg-amber-300 px-5 py-3.5 font-extrabold text-stone-950 md:w-auto"
                 type="submit"
               >
                 Compose brief
@@ -71,22 +71,22 @@ export class TopPropertiesApp extends LitElement {
           </div>
 
           <aside
-            class="w-full max-w-[339px] min-w-0 rounded-[36px] border border-[#2d1c0e]/15 bg-[#fff9f0]/90 p-[clamp(22px,3vw,34px)] text-[#21170f] shadow-[0_28px_90px_rgb(48_29_13_/_30%)] md:max-w-none"
+            class="w-full max-w-[339px] min-w-0 rounded-[36px] border border-stone-950/15 bg-amber-50/90 p-[clamp(22px,3vw,34px)] text-stone-950 shadow-[0_28px_90px_rgb(48_29_13_/_30%)] md:max-w-none"
             aria-label="Generated property brief"
           >
             <div class="mb-[22px] flex flex-wrap gap-2.5">
               <span
-                class="rounded-full bg-[#ead8bd] px-3 py-2 text-[0.82rem] font-bold text-[#5a3a1f]"
+                class="rounded-full bg-stone-200 px-3 py-2 text-[0.82rem] font-bold text-stone-700"
               >
                 ${brief.intent}
               </span>
               <span
-                class="rounded-full bg-[#ead8bd] px-3 py-2 text-[0.82rem] font-bold text-[#5a3a1f]"
+                class="rounded-full bg-stone-200 px-3 py-2 text-[0.82rem] font-bold text-stone-700"
               >
                 ${brief.location}
               </span>
               <span
-                class="rounded-full bg-[#ead8bd] px-3 py-2 text-[0.82rem] font-bold text-[#5a3a1f]"
+                class="rounded-full bg-stone-200 px-3 py-2 text-[0.82rem] font-bold text-stone-700"
               >
                 safe Lit primitive
               </span>
@@ -99,16 +99,16 @@ export class TopPropertiesApp extends LitElement {
             <div class="grid gap-3.5">
               ${curated.items.map(
                 (property) => html`
-                  <article class="rounded-[22px] border border-[#ead7ba] bg-[#fffaf2] p-[18px]">
+                  <article class="rounded-[22px] border border-stone-200 bg-amber-50 p-[18px]">
                     <h3 class="mb-2 text-[1.05rem] font-bold">${property.title}</h3>
-                    <p class="mb-3 break-words text-[#65482c]">
+                    <p class="mb-3 break-words text-stone-700">
                       ${property.location} · ${property.priceLabel} · ${property.fit}
                     </p>
                     <ul class="m-0 flex list-none flex-wrap gap-2 p-0">
                       ${property.highlights.map(
                         (highlight) => html`
                           <li
-                            class="rounded-full bg-[#24170e] px-[9px] py-1.5 text-xs text-[#f8e5c7]"
+                            class="rounded-full bg-stone-950 px-[9px] py-1.5 text-xs text-amber-100"
                           >
                             ${highlight}
                           </li>

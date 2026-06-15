@@ -2,6 +2,10 @@
 
 ## Done
 
+- Reviewed PR #56 and replaced its broad one-off color-token expansion with a smaller theme-token approach:
+  - `src/styles.css` now keeps brand-level `brand`, `surface-warm`, and `font-serif` tokens.
+  - `src/components/topproperties-app.js` uses Tailwind built-in `stone`/`amber` utilities for ordinary UI colors.
+  - Current `main`'s global `:focus-visible` ring is preserved on the updated PR branch.
 - PR #51 merged the reset-aware agent harness into `main`.
 - Added the startup-readiness scaffold for the agreed lightweight stack:
   - HTML entrypoint in `index.html`.
@@ -16,7 +20,7 @@
 
 ## In Progress
 
-- Startup-readiness PR is under review.
+- PR #56 is being updated from a broad token-normalization patch into a smaller durable token-policy patch.
 
 ## Blocked
 
@@ -32,13 +36,12 @@
 
 ## Verification status
 
-Latest local verification for this startup baseline:
+Latest local verification for PR #56 token update:
 
-- `vp install` ✅
+- `vp install` ✅ — required a direct local pnpm fallback because the pnpm 11.5.3 shim is absent on this machine.
+- `vp check` ✅ — exits 0 with two existing Lit unbound-method warnings.
 - `vp test` ✅ — 1 test passing
 - `vp build` ✅
-- `vp check` ✅
-- `vp dev` ✅ — booted locally and returned HTTP 200
 
 Startup timing targets:
 

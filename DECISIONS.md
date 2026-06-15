@@ -27,3 +27,9 @@ Durable architecture and workflow decisions for the TopProperties reset. Add ent
 **Decision:** New sessions read `PROGRESS.md` and `DECISIONS.md` at clock-in, then update `PROGRESS.md` before clock-out. Ordered implementation work lives in `tasks.md` until it becomes GitHub/Kanban work.
 
 **Reason:** Keeps handoffs explicit and reduces tribal knowledge across agent sessions.
+
+## 2026-06-15 — Theme tokens stay brand-level unless reused
+
+**Decision:** Keep Tailwind v4 custom theme tokens for durable brand primitives only. The startup app uses `brand`, `surface-warm`, and `font-serif`; ordinary component shades should use Tailwind's built-in palettes such as `stone` and `amber`.
+
+**Reason:** One-off color tokens make the design system harder to read than nearby Tailwind utilities. Brand-level tokens preserve the Mallorca demo identity while leaving routine UI color choices visible and replaceable.

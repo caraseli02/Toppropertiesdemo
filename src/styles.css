@@ -1,14 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-  --color-cream: #f5efe4;
-  --color-cream-muted: #e5d3bd;
-  --color-gold: #d4aa63;
+  --color-brand: #d4aa63;
+  --color-surface-warm: #f5efe4;
   --font-serif: Georgia, "Times New Roman", serif;
 }
 
 /* Global keyboard focus ring — overrides outline-none on interactive elements */
 :focus-visible {
-  outline: 2px solid var(--color-gold);
+  outline: 2px solid var(--color-brand);
   outline-offset: 2px;
 }
