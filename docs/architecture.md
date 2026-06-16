@@ -9,20 +9,23 @@ AGENTS.md                 # Agent router, quick start, and workflow rules
 CLAUDE.md                 # Claude-oriented project instructions
 CONTEXT.md                # Product/domain context for the reset
 DECISIONS.md              # Durable decisions and rejected alternatives
+docs/QUALITY.md           # Module quality tracker
 docs/                     # Agent/domain workflow docs
-feature_list.json         # Existing planning/reference artifact
-init.sh                   # Existing bootstrap/reference artifact
-claude-progress.md        # Existing progress/reference artifact
+docs/harness/             # Sprint contracts, rubrics, handoff, and clean-state templates
+feature_list.json         # Machine-readable feature state, verification, and evidence
+init.sh                   # Idempotent startup/readiness check
+claude-progress.md        # Compatibility pointer to active harness state
 index.html                # Vite app entrypoint
 package.json              # Vite+/Lit project manifest
 pnpm-lock.yaml            # Locked dependency graph
+pnpm-workspace.yaml       # Project-local workspace root for dependency installation
 src/                      # Lightweight app scaffold
 tasks.md                  # Ordered next implementation tasks
 vercel.json               # Vercel build/output configuration
 vite.config.js            # Vite+ config for build/test/check
 ```
 
-The existing reference artifacts are part of the current reset baseline. Do not remove or relabel them without a specific cleanup task.
+The harness artifacts are part of the current reset baseline. Do not remove or relabel them without a specific cleanup task.
 
 ## Current stack baseline
 
@@ -67,6 +70,14 @@ The basic stack is clarified, but these implementation decisions still need outp
 2. **Primitive grammar:** define the safe Lit/custom-element primitives the agent/UI layer can compose.
 3. **Map/neighborhood intelligence:** decide whether location intelligence is static mock data, a real API/MCP-style integration, or a thin hybrid.
 4. **Reference migration:** decide which visual/accessibility patterns from the old React/shadcn app are worth carrying forward.
+
+## Harness observability
+
+The repo now carries both runtime and process observability hooks:
+
+- Runtime verification commands: `./init.sh`, `vp test`, `vp check`, `vp build`, and `vp dev` for browser checks.
+- Process artifacts: `feature_list.json`, `PROGRESS.md`, `DECISIONS.md`, `docs/QUALITY.md`, and `docs/harness/`.
+- Acceptance tools: sprint contracts, evaluator rubric, session handoff, and clean-state checklist.
 
 ## What not to assume
 

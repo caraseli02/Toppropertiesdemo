@@ -1,6 +1,8 @@
 # Implementation Tasks
 
-These tasks are intentionally small and reviewable. Refine them after the AI-composed UI spike and pencil/design pass land.
+These tasks are intentionally small and reviewable. `feature_list.json` is the machine-readable state for these tasks; update both files only when task scope changes.
+
+Before coding any task, create a sprint contract from `docs/harness/sprint-contract.md`. Before calling a task complete, run the clean-state checklist and record evidence in `feature_list.json`.
 
 ## 1. Define the safe primitive grammar
 

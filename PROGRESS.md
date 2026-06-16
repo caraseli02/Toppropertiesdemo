@@ -2,49 +2,46 @@
 
 ## Done
 
-- Reviewed PR #56 and replaced its broad one-off color-token expansion with a smaller theme-token approach:
-  - `src/styles.css` now keeps brand-level `brand`, `surface-warm`, and `font-serif` tokens.
-  - `src/components/topproperties-app.js` uses Tailwind built-in `stone`/`amber` utilities for ordinary UI colors.
-  - Current `main`'s global `:focus-visible` ring is preserved on the updated PR branch.
 - PR #51 merged the reset-aware agent harness into `main`.
-- Added the startup-readiness scaffold for the agreed lightweight stack:
+- PR #53 added the startup-readiness scaffold for the agreed lightweight stack:
   - HTML entrypoint in `index.html`.
   - JavaScript app surface in `src/main.js`.
   - Lit custom element in `src/components/topproperties-app.js`, rendered into light DOM for Tailwind utilities.
   - Shared discovery logic in `src/lib/discovery.js`.
   - Mallorca sample data in `src/data/properties.js`.
   - Tailwind CSS v4 theme/global entrypoint in `src/styles.css`.
-- Added Vite+ project files: `package.json`, `pnpm-lock.yaml`, `vite.config.js`, and `vercel.json`.
-- Added one meaningful smoke/unit test: `src/lib/discovery.test.js`.
+  - Vite+ project files: `package.json`, `pnpm-lock.yaml`, `vite.config.js`, and `vercel.json`.
+  - One smoke/unit test in `src/lib/discovery.test.js`.
+- PR #55 added the global keyboard `:focus-visible` ring.
+- PR #56 simplified theme tokens to durable brand-level tokens:
+  - `brand`
+  - `surface-warm`
+  - `font-serif`
+  - Ordinary component colors use Tailwind built-in palettes such as `stone` and `amber`.
 - Added `DECISIONS.md` and `tasks.md` for state persistence and next-step handoff.
 
 ## In Progress
 
-- PR #56 is being updated from a broad token-normalization patch into a smaller durable token-policy patch.
+- No active product feature. Next implementation should start with a sprint contract for `tp-001`.
 
 ## Blocked
 
-- No current blockers for the baseline scaffold.
-- Larger app implementation still waits on the AI-composed UI spike and pencil/design pass outputs.
+- No current blocker for the baseline scaffold.
+- Larger product work still needs an explicit sprint contract before coding begins.
 
 ## Next Steps
 
-1. Review and merge the startup-readiness PR.
-2. Run the AI-composed UI spike (`t_c45c9064`).
-3. Run the pencil/design pass (`t_47af33ed`).
-4. Use those outputs to refine the first implementation slices in `tasks.md`.
+1. Use `docs/harness/sprint-contract.md` to define the contract for `tp-001`.
+2. Build `tp-001`: prompt-to-brief thin slice.
+3. Verify with `./init.sh`, `vp test`, `vp check`, `vp build`, and browser/mobile checks.
+4. Update `feature_list.json`, `PROGRESS.md`, and `docs/QUALITY.md` with evidence before declaring the slice done.
 
-## Verification status
+## Verification Status
 
-Latest local verification for PR #56 token update:
+Latest verification for this harness-alignment pass:
 
-- `vp install` ✅ — required a direct local pnpm fallback because the pnpm 11.5.3 shim is absent on this machine.
-- `vp check` ✅ — exits 0 with two existing Lit unbound-method warnings.
-- `vp test` ✅ — 1 test passing
-- `vp build` ✅
-
-Startup timing targets:
-
-- Time from install to first passing test: under 5 minutes on this machine.
-- Fresh-session rebuild path: `vp install && vp test && vp build` completed in 0.962s on this machine after dependency cache warmup.
-- 375px mobile screenshot captured at `/tmp/topproperties-mobile-final3.png` with no obvious horizontal clipping.
+- `vp install` passed after adding project-local `pnpm-workspace.yaml`.
+- `./init.sh` passed; feature list JSON is valid and startup path is available.
+- `vp test` passed with 1 test file and 1 test.
+- `vp check` passed; all 26 files formatted and no warnings or lint errors in 6 files.
+- `vp build` passed and emitted production assets in `build/`.

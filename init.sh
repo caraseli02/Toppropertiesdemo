@@ -12,7 +12,13 @@ required_files=(
   "AGENTS.md"
   "CLAUDE.md"
   "CONTEXT.md"
+  "DECISIONS.md"
+  "PROGRESS.md"
   "feature_list.json"
+  "package.json"
+  "pnpm-workspace.yaml"
+  "tasks.md"
+  "vite.config.js"
 )
 
 for file in "${required_files[@]}"; do
@@ -27,5 +33,15 @@ if command -v python3 >/dev/null 2>&1; then
 fi
 
 echo "==> Baseline files are present."
-echo "==> No app/tooling commands are configured yet."
-echo "==> Wait for the design and AI-composed UI spike outputs before adding implementation tooling."
+echo "==> feature_list.json is valid JSON."
+
+if command -v vp >/dev/null 2>&1; then
+  echo "==> Vite+ detected: $(vp --version 2>/dev/null || echo available)"
+  echo "==> Standard commands: vp install, vp dev, vp test, vp check, vp build"
+else
+  echo "==> Vite+ CLI 'vp' was not found on PATH." >&2
+  echo "==> Install project dependencies before feature work, then rerun this script." >&2
+  exit 1
+fi
+
+echo "==> Startup path is available."
