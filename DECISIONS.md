@@ -33,3 +33,20 @@ Durable architecture and workflow decisions for the TopProperties reset. Add ent
 **Decision:** Keep Tailwind v4 custom theme tokens for durable brand primitives only. The startup app uses `brand`, `surface-warm`, and `font-serif`; ordinary component shades should use Tailwind's built-in palettes such as `stone` and `amber`.
 
 **Reason:** One-off color tokens make the design system harder to read than nearby Tailwind utilities. Brand-level tokens preserve the Mallorca demo identity while leaving routine UI color choices visible and replaceable.
+
+## 2026-06-15 — Feature work requires sprint contracts and clean-state evidence
+
+**Decision:** Before implementation work begins, agents must choose one feature from `feature_list.json` and define scope, exclusions, and verification in a sprint contract. Work is not complete until feature evidence, progress, quality state, and clean-state checks are updated.
+
+**Reason:** The repo is entering product-slice work, where visually plausible output can mask missing behavior. Sprint contracts, evaluator rubrics, and clean-state checks make acceptance evidence-based and reduce handoff ambiguity between sessions.
+
+**Rejected alternatives:**
+
+- Relying on chat history for handoff — rejected because new sessions must be able to continue from repository artifacts.
+- Treating `vp build` alone as completion — rejected because UI work also needs runtime/browser evidence and updated feature state.
+
+## 2026-06-15 — Repo owns its package-manager workspace root
+
+**Decision:** Keep a project-local `pnpm-workspace.yaml` with the root package included.
+
+**Reason:** This machine has a parent-level pnpm workspace in the user's home directory. Without a local workspace file, `vp install` can resolve from the wrong workspace root and leave this project without local dependencies such as `@tailwindcss/vite`.

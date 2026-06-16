@@ -61,27 +61,38 @@ Before starting:
 
 1. Read `PROGRESS.md`.
 2. Read `DECISIONS.md`.
-3. Confirm the branch/worktree and current Kanban/GitHub task.
+3. Read `feature_list.json` and choose exactly one active feature.
+4. Confirm the branch/worktree and current Kanban/GitHub task.
+5. Create or update the sprint contract using `docs/harness/sprint-contract.md`.
 
 Before ending:
 
 1. Update `PROGRESS.md` with Done / In Progress / Blocked / Next Steps.
-2. Add any durable architecture choice to `DECISIONS.md`.
-3. Run the verification commands above.
-4. Commit atomically and open a PR; do not merge it yourself.
+2. Update `feature_list.json` with actual passing, blocked, or unverified state and evidence.
+3. Add any durable architecture choice to `DECISIONS.md`.
+4. Update `docs/QUALITY.md` if module quality changed.
+5. Complete `docs/harness/clean-state-checklist.md`.
+6. Run the verification commands above.
+7. Commit atomically and open a PR; do not merge it yourself.
 
 ## Topic docs
 
-| Doc                            | When to read                                                                                          |
-| ------------------------------ | ----------------------------------------------------------------------------------------------------- |
-| `CONTEXT.md`                   | Product glossary, v1 scope, persona, generative UI model. Read before any product/domain work.        |
-| `docs/architecture.md`         | Current structure, stack baseline, and implementation boundaries. Read before structural changes.     |
-| `DECISIONS.md`                 | Durable design/tooling choices and rejected alternatives. Read before changing stack or architecture. |
-| `tasks.md`                     | Ordered implementation task breakdown and acceptance criteria.                                        |
-| `docs/agents/domain.md`        | Domain-doc workflow: how to update `CONTEXT.md` and ADRs.                                             |
-| `docs/agents/issue-tracker.md` | GitHub Issues / PR workflow expectations.                                                             |
-| `docs/agents/triage-labels.md` | Triage labels for issue routing.                                                                      |
-| `PROGRESS.md`                  | Current reset status and recent documentation changes.                                                |
+| Doc                                     | When to read                                                                                          |
+| --------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `CONTEXT.md`                            | Product glossary, v1 scope, persona, generative UI model. Read before any product/domain work.        |
+| `docs/architecture.md`                  | Current structure, stack baseline, and implementation boundaries. Read before structural changes.     |
+| `DECISIONS.md`                          | Durable design/tooling choices and rejected alternatives. Read before changing stack or architecture. |
+| `feature_list.json`                     | Machine-readable feature state, verification requirements, and evidence.                              |
+| `tasks.md`                              | Ordered implementation task breakdown and acceptance criteria.                                        |
+| `docs/QUALITY.md`                       | Module quality scores and known weak spots.                                                           |
+| `docs/harness/sprint-contract.md`       | Scope, exclusions, and verification contract for the current feature.                                 |
+| `docs/harness/evaluator-rubric.md`      | Evidence-based acceptance rubric for product, visual, accessibility, and handoff quality.             |
+| `docs/harness/clean-state-checklist.md` | Required session-exit checklist.                                                                      |
+| `docs/harness/session-handoff.md`       | Optional handoff notes for incomplete or meaningful sessions.                                         |
+| `docs/agents/domain.md`                 | Domain-doc workflow: how to update `CONTEXT.md` and ADRs.                                             |
+| `docs/agents/issue-tracker.md`          | GitHub Issues / PR workflow expectations.                                                             |
+| `docs/agents/triage-labels.md`          | Triage labels for issue routing.                                                                      |
+| `PROGRESS.md`                           | Current reset status and recent documentation changes.                                                |
 
 ## Agent workflow
 

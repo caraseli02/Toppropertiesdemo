@@ -42,6 +42,7 @@ Use the agreed lightweight baseline unless a later approved decision changes it:
 Required commands:
 
 ```bash
+./init.sh
 vp install
 vp dev
 vp test
@@ -68,3 +69,20 @@ Larger implementation work should wait for:
 - `t_47af33ed` — pencil/design pass for agentic Mallorca luxury UI.
 
 Use those outputs to define/refine the first implementation cards.
+
+## Harness workflow
+
+Before implementation:
+
+1. Read `PROGRESS.md`, `DECISIONS.md`, `feature_list.json`, and `docs/QUALITY.md`.
+2. Select exactly one feature from `feature_list.json`.
+3. Write a sprint contract from `docs/harness/sprint-contract.md`.
+4. Keep scope exclusions explicit before editing code.
+
+Before completion:
+
+1. Run `./init.sh`, `vp test`, `vp check`, and `vp build`.
+2. For UI work, also run `vp dev` and verify the primary flow in a browser, including 375px mobile width.
+3. Score the work with `docs/harness/evaluator-rubric.md`.
+4. Update `feature_list.json`, `PROGRESS.md`, and `docs/QUALITY.md`.
+5. Satisfy `docs/harness/clean-state-checklist.md`.
