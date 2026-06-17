@@ -81,7 +81,7 @@ Before implementation:
 
 Before completion:
 
-1. Run `./init.sh`, `vp test`, `vp check`, and `vp build`.
+1. Run `./init.sh`, `vp test`, `vp check`, and `vp build`. `./init.sh` includes the lecture-readiness check in `scripts/check-harness-readiness.mjs`.
 2. For UI work, also run `vp dev` and verify the primary flow in a browser, including 375px mobile width.
 3. Score the work with `docs/harness/evaluator-rubric.md`.
 4. Update `feature_list.json`, `PROGRESS.md`, and `docs/QUALITY.md`.

@@ -1,6 +1,6 @@
 {
   "project": "TopProperties",
-  "last_updated": "2026-06-15",
+  "last_updated": "2026-06-17",
   "status": "startup_baseline_ready",
   "goal_card": "t_9d328a7a",
   "rules": {
@@ -51,6 +51,7 @@
       "verification": [
         "Update stale progress/init/compatibility artifacts.",
         "Add sprint contract, clean-state checklist, evaluator rubric, session handoff, and quality tracker.",
+        "Add lecture-readiness check for Learn Harness Engineering Lectures 01-12.",
         "Run ./init.sh.",
         "Run vp test.",
         "Run vp check.",
@@ -60,9 +61,14 @@
         "2026-06-15: ./init.sh passed; feature_list.json valid; Vite+ detected; startup path available.",
         "2026-06-15: vp test passed; 1 test file and 1 test passed.",
         "2026-06-15: vp check passed; all 26 files formatted; no warnings or lint errors in 6 files.",
-        "2026-06-15: vp build passed; production build emitted build/index.html, CSS, and JS assets."
+        "2026-06-15: vp build passed; production build emitted build/index.html, CSS, and JS assets.",
+        "2026-06-17: ./init.sh passed and ran scripts/check-harness-readiness.mjs successfully.",
+        "2026-06-17: vp test passed; 1 test file and 1 test passed.",
+        "2026-06-17: vp check passed; all 28 files formatted; no warnings or lint errors in 7 files.",
+        "2026-06-17: vp build passed; production build emitted build/index.html, CSS, and JS assets.",
+        "2026-06-17: PR opened for review: https://github.com/caraseli02/Toppropertiesdemo/pull/58"
       ],
-      "notes": "This is a harness task, not a product feature. It should be passing before tp-001 begins."
+      "notes": "This is a harness task, not a product feature. It now includes the lecture-readiness matrix and automated startup check, and should remain passing before tp-001 begins."
     },
     {
       "id": "tp-001",

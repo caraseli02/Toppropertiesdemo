@@ -14,9 +14,17 @@ required_files=(
   "CONTEXT.md"
   "DECISIONS.md"
   "PROGRESS.md"
+  "docs/QUALITY.md"
+  "docs/architecture.md"
+  "docs/harness/clean-state-checklist.md"
+  "docs/harness/evaluator-rubric.md"
+  "docs/harness/lecture-readiness-check.md"
+  "docs/harness/session-handoff.md"
+  "docs/harness/sprint-contract.md"
   "feature_list.json"
   "package.json"
   "pnpm-workspace.yaml"
+  "scripts/check-harness-readiness.mjs"
   "tasks.md"
   "vite.config.js"
 )
@@ -30,6 +38,13 @@ done
 
 if command -v python3 >/dev/null 2>&1; then
   python3 -m json.tool feature_list.json >/dev/null
+fi
+
+if command -v node >/dev/null 2>&1; then
+  node scripts/check-harness-readiness.mjs
+else
+  echo "Node.js was not found on PATH; required for harness readiness checks." >&2
+  exit 1
 fi
 
 echo "==> Baseline files are present."
