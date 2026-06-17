@@ -12,6 +12,7 @@ DECISIONS.md              # Durable decisions and rejected alternatives
 docs/QUALITY.md           # Module quality tracker
 docs/                     # Agent/domain workflow docs
 docs/harness/             # Sprint contracts, rubrics, handoff, and clean-state templates
+scripts/                  # Harness readiness checks and maintenance scripts
 feature_list.json         # Machine-readable feature state, verification, and evidence
 init.sh                   # Idempotent startup/readiness check
 claude-progress.md        # Compatibility pointer to active harness state
@@ -78,6 +79,7 @@ The repo now carries both runtime and process observability hooks:
 - Runtime verification commands: `./init.sh`, `vp test`, `vp check`, `vp build`, and `vp dev` for browser checks.
 - Process artifacts: `feature_list.json`, `PROGRESS.md`, `DECISIONS.md`, `docs/QUALITY.md`, and `docs/harness/`.
 - Acceptance tools: sprint contracts, evaluator rubric, session handoff, and clean-state checklist.
+- Lecture readiness check: `./init.sh` runs `scripts/check-harness-readiness.mjs`, which validates the repo against `docs/harness/lecture-readiness-check.md`.
 
 ## What not to assume
 

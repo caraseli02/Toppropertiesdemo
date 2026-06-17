@@ -77,22 +77,23 @@ Before ending:
 
 ## Topic docs
 
-| Doc                                     | When to read                                                                                          |
-| --------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `CONTEXT.md`                            | Product glossary, v1 scope, persona, generative UI model. Read before any product/domain work.        |
-| `docs/architecture.md`                  | Current structure, stack baseline, and implementation boundaries. Read before structural changes.     |
-| `DECISIONS.md`                          | Durable design/tooling choices and rejected alternatives. Read before changing stack or architecture. |
-| `feature_list.json`                     | Machine-readable feature state, verification requirements, and evidence.                              |
-| `tasks.md`                              | Ordered implementation task breakdown and acceptance criteria.                                        |
-| `docs/QUALITY.md`                       | Module quality scores and known weak spots.                                                           |
-| `docs/harness/sprint-contract.md`       | Scope, exclusions, and verification contract for the current feature.                                 |
-| `docs/harness/evaluator-rubric.md`      | Evidence-based acceptance rubric for product, visual, accessibility, and handoff quality.             |
-| `docs/harness/clean-state-checklist.md` | Required session-exit checklist.                                                                      |
-| `docs/harness/session-handoff.md`       | Optional handoff notes for incomplete or meaningful sessions.                                         |
-| `docs/agents/domain.md`                 | Domain-doc workflow: how to update `CONTEXT.md` and ADRs.                                             |
-| `docs/agents/issue-tracker.md`          | GitHub Issues / PR workflow expectations.                                                             |
-| `docs/agents/triage-labels.md`          | Triage labels for issue routing.                                                                      |
-| `PROGRESS.md`                           | Current reset status and recent documentation changes.                                                |
+| Doc                                       | When to read                                                                                          |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `CONTEXT.md`                              | Product glossary, v1 scope, persona, generative UI model. Read before any product/domain work.        |
+| `docs/architecture.md`                    | Current structure, stack baseline, and implementation boundaries. Read before structural changes.     |
+| `DECISIONS.md`                            | Durable design/tooling choices and rejected alternatives. Read before changing stack or architecture. |
+| `feature_list.json`                       | Machine-readable feature state, verification requirements, and evidence.                              |
+| `tasks.md`                                | Ordered implementation task breakdown and acceptance criteria.                                        |
+| `docs/QUALITY.md`                         | Module quality scores and known weak spots.                                                           |
+| `docs/harness/sprint-contract.md`         | Scope, exclusions, and verification contract for the current feature.                                 |
+| `docs/harness/evaluator-rubric.md`        | Evidence-based acceptance rubric for product, visual, accessibility, and handoff quality.             |
+| `docs/harness/lecture-readiness-check.md` | Lecture-by-lecture harness recommendation matrix and automated readiness check coverage.              |
+| `docs/harness/clean-state-checklist.md`   | Required session-exit checklist.                                                                      |
+| `docs/harness/session-handoff.md`         | Optional handoff notes for incomplete or meaningful sessions.                                         |
+| `docs/agents/domain.md`                   | Domain-doc workflow: how to update `CONTEXT.md` and ADRs.                                             |
+| `docs/agents/issue-tracker.md`            | GitHub Issues / PR workflow expectations.                                                             |
+| `docs/agents/triage-labels.md`            | Triage labels for issue routing.                                                                      |
+| `PROGRESS.md`                             | Current reset status and recent documentation changes.                                                |
 
 ## Agent workflow
 

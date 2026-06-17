@@ -50,3 +50,14 @@ Durable architecture and workflow decisions for the TopProperties reset. Add ent
 **Decision:** Keep a project-local `pnpm-workspace.yaml` with the root package included.
 
 **Reason:** This machine has a parent-level pnpm workspace in the user's home directory. Without a local workspace file, `vp install` can resolve from the wrong workspace root and leave this project without local dependencies such as `@tailwindcss/vite`.
+
+## 2026-06-17 — Startup check enforces harness lecture readiness
+
+**Decision:** `./init.sh` runs `scripts/check-harness-readiness.mjs`, and `docs/harness/lecture-readiness-check.md` is the durable matrix mapping Learn Harness Engineering Lectures 01-12 to local TopProperties artifacts.
+
+**Reason:** The harness recommendations were previously spread across `AGENTS.md`, state docs, and checklists. Making them explicit and executable keeps future sessions from silently drifting away from WIP=1, feature evidence, startup readiness, process observability, and clean-state requirements.
+
+**Rejected alternatives:**
+
+- Keeping lecture alignment as a chat-only audit — rejected because the repo must remain the system of record.
+- Adding a separate command outside startup — rejected because startup readiness is the path every fresh session already runs.

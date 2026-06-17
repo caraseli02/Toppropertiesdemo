@@ -13,10 +13,10 @@ Scoring:
 
 Quality: A
 
-- Verification passing: Yes. `./init.sh`, `vp test`, `vp check`, and `vp build` passed on 2026-06-15.
+- Verification passing: Yes. `./init.sh`, `vp test`, `vp check`, and `vp build` passed on 2026-06-17.
 - Agent understandable: Good. `AGENTS.md`, `PROGRESS.md`, `DECISIONS.md`, `tasks.md`, and `feature_list.json` define current state.
-- Known gaps: New sprint contract, clean-state checklist, rubric, handoff, and quality docs need first real product-feature use on `tp-001`.
-- Next improvement: Use these docs during the prompt-to-brief slice and update scores from evidence.
+- Known gaps: Runtime browser/mobile checks have not been rerun because this session changed harness docs and startup checks, not UI behavior.
+- Next improvement: Use these docs during the prompt-to-brief slice and update scores from product/browser evidence.
 
 ## App Shell
 
