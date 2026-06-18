@@ -6,12 +6,12 @@ Before coding any task, create a sprint contract from `docs/harness/sprint-contr
 
 ## 1. Define the safe primitive grammar
 
-**Goal:** Convert the approved design/spike output into a small set of Lit primitives the agentic UI can compose.
+**Goal:** Convert the approved design/spike output into a small set of React primitives the agentic UI can compose.
 
 **Acceptance criteria:**
 
 - List the initial primitive set and data contract.
-- Add or update Lit elements for each primitive.
+- Add or update React components for each primitive.
 - Include at least one test for pure composition/data mapping logic.
 - Update `docs/architecture.md` with the actual primitive structure.
 

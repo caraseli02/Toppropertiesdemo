@@ -14,6 +14,9 @@ describe("Generated Property Brief data", () => {
       "Palma convenience",
       "Investment confidence",
     ]);
+    expect(brief.tradeoffs.every((tradeoff) => tradeoff.verdict && !("score" in tradeoff))).toBe(
+      true,
+    );
     expect(brief.nextQuestion).toContain("priority");
   });
 

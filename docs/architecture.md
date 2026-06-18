@@ -20,7 +20,7 @@ index.html                # Vite app entrypoint
 package.json              # Vite+/React project manifest
 pnpm-lock.yaml            # Locked dependency graph
 pnpm-workspace.yaml       # Project-local workspace root for dependency installation
-src/                      # Lightweight app scaffold
+src/                      # React/TypeScript app surface
 tasks.md                  # Ordered next implementation tasks
 vercel.json               # Vercel build/output configuration
 vite.config.ts            # Vite+ config for build/test/check
@@ -30,11 +30,13 @@ The harness artifacts are part of the current reset baseline. Do not remove or r
 
 ## Current stack baseline
 
-The agreed direction is intentionally lightweight:
+The current agreed direction is intentionally lightweight:
 
 - **React + TypeScript** as the base app surface.
 - **Tailwind CSS v4** via the official `@tailwindcss/vite` plugin for utility-first styling.
-- **React components** for the generated brief and persistent composer.
+- **Framer Motion** for targeted interface motion in the generated brief.
+- **lucide-react** for icons.
+- **React components** for the generated brief, curated property cards, comparison panels, and persistent composer.
 - **Vite+ (`vp`)** as the preferred toolchain.
 - **Vitest through `vp test`** for smoke/unit tests.
 
@@ -45,15 +47,16 @@ Vite+ is a unified frontend toolchain around Vite/Vitest/Oxlint/Oxfmt and relate
 ```text
 src/
 ├── App.tsx                    # React shell for the Generated Property Brief
-├── app-data.ts                # Static prompt, brief, and follow-up data helpers
-├── app-data.test.ts           # Vitest smoke/unit test
+├── app-data.tsx               # Static prompt, brief, and follow-up data helpers
+├── app-data.test.ts           # Vitest smoke/unit tests
 ├── index.css                  # Tailwind v4 entrypoint and global styles
-├── main.tsx                   # App bootstrap
+├── main.tsx                   # React bootstrap
+├── vite-env.d.ts              # Vite TypeScript ambient declarations
 └── utils/
     └── cn.ts                  # Classname merge helper
 ```
 
-This is a startup baseline, not the final product architecture. It proves the repo can start, test, and build while keeping future product/design decisions open.
+This is a product thin-slice baseline, not the final product architecture. It proves the repo can start, test, build, and render the first prompt-to-brief flow while keeping deeper agentic composition decisions open.
 
 ## Approved product direction
 
@@ -66,7 +69,7 @@ See `CONTEXT.md` for the complete product glossary and guardrails.
 The basic stack is clarified, but these implementation decisions still need outputs from the spike/design work:
 
 1. **Generative UI mode:** decide whether v1 uses true runtime AI composition, a scripted flow that feels generated, or a hybrid.
-2. **Primitive grammar:** define the safe Lit/custom-element primitives the agent/UI layer can compose.
+2. **Primitive grammar:** define the safe React component and data-contract primitives the agent/UI layer can compose.
 3. **Map/neighborhood intelligence:** decide whether location intelligence is static mock data, a real API/MCP-style integration, or a thin hybrid.
 4. **Reference migration:** decide which visual/accessibility patterns from the old React/shadcn app are worth carrying forward.
 
@@ -83,7 +86,7 @@ The repo now carries both runtime and process observability hooks:
 
 Agents must not assume:
 
-- React, Vue, Nuxt, Next, Tailwind, shadcn/ui, or Leaflet as implementation dependencies.
+- Next, Nuxt, Vue, shadcn/ui, Leaflet, map SDKs, backend frameworks, or live AI SDKs as implementation dependencies.
 - Production marketplace features such as accounts, saved searches, booking/contact workflows, mortgage calculators, CRM, or real listing ingestion.
 - That the current sample data is final product content.
 

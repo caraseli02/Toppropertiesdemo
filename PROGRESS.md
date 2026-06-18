@@ -2,6 +2,13 @@
 
 ## Done
 
+- Aligned current documentation with the 2026-06-18 merged React/TypeScript baseline from PR #59:
+  - `AGENTS.md`, `CLAUDE.md`, `CONTEXT.md`, and `docs/architecture.md` now describe React 19, TypeScript, Tailwind CSS v4, Framer Motion, lucide-react, Vite, Vitest, and Vite+ as the current stack.
+  - `DECISIONS.md` now marks the Lit/HTML startup decision as superseded and records the React baseline decision.
+  - `feature_list.json`, `tasks.md`, and `docs/harness/sprint-contract.md` now describe safe primitives as React components, not Lit elements.
+- Closed the known `tp-001` product-polish gaps from the removed planning prompt:
+  - mobile composer layout now uses tighter mobile sizing and larger bottom padding around the fixed composer.
+  - Buyer Tradeoff Panel data and UI now use qualitative verdict language instead of numeric scores.
 - Replaced the previous Lit startup shell with the Candidate B React implementation for `tp-001`.
 - Restored local package management and startup for the React app:
   - added project-local `pnpm-workspace.yaml`
@@ -35,21 +42,32 @@
 
 ## In Progress
 
-- `tp-001` prompt-to-brief thin slice is now in progress using the Candidate B React implementation.
-- Current harness sweep is complete and PR #58 has merged into `main`.
+- PR #60 is being updated with the final React stack alignment and `tp-001` polish scope.
 
 ## Blocked
 
 - No current startup blocker. The app installs, checks, builds, and runs locally.
-- `tp-001` is not yet passing because mobile composer overlap and numeric tradeoff scores still need product-polish fixes.
+- No current blocker for `tp-001`; verification passed after the polish updates.
 
 ## Next Steps
 
-1. Resolve the remaining `tp-001` product-polish gaps: mobile composer overlap and qualitative Buyer Tradeoff Panel language.
-2. Re-run `./init.sh`, `vp test`, `vp check`, `vp build`, and browser/mobile checks.
-3. Update `feature_list.json`, `PROGRESS.md`, and `docs/QUALITY.md` with evidence before marking `tp-001` passing.
+1. Push the final branch update to PR #60.
+2. Review PR #60.
+3. Start `tp-002` only after PR #60 is merged or explicitly approved as the baseline.
 
 ## Verification Status
+
+Latest verification for the 2026-06-18 React stack alignment and `tp-001` polish:
+
+- `./init.sh` passed; it ran `scripts/check-harness-readiness.mjs`, which passed, and confirmed Vite+ availability.
+- `vp test` passed with 1 test file and 2 tests.
+- `vp check` passed; all 32 files formatted and no warnings, lint errors, or type errors in 8 files.
+- `vp build` passed and emitted `build/index.html`.
+- `vp dev` started at `http://localhost:5173/`.
+- Browser verification confirmed prompt submit renders the Generated Property Brief, curated recommendations, Editorial Tradeoff Panel, and qualitative tradeoff verdicts with no `/10` numeric scores visible.
+- 375px mobile verification confirmed no horizontal overflow, no visible content overlapped by the fixed composer at the settled bottom scroll position, and no console errors.
+- Screenshot evidence captured at `/tmp/topproperties-desktop-brief.png`, `/tmp/topproperties-mobile-brief.png`, and `/tmp/topproperties-mobile-bottom.png`.
+- Note: Vite+/React plugin deprecation warnings remain for esbuild/optimizeDeps options; they do not fail verification.
 
 Latest verification for the 2026-06-17 harness lecture-readiness pass:
 
