@@ -2,6 +2,14 @@
 
 ## Done
 
+- Replaced the previous Lit startup shell with the Candidate B React implementation for `tp-001`.
+- Restored local package management and startup for the React app:
+  - added project-local `pnpm-workspace.yaml`
+  - pinned `packageManager` to available local pnpm `10.33.0`
+  - added `.npmrc` for noninteractive module purge handling
+  - added `vp` scripts for dev/test/check/build
+  - updated Vite output to `build/`
+  - added static brief smoke tests in `src/app-data.test.ts`
 - Added a lecture-by-lecture harness readiness check for the Learn Harness Engineering recommendations:
   - `docs/harness/lecture-readiness-check.md` maps Lectures 01-12 to local artifacts and guards.
   - `scripts/check-harness-readiness.mjs` validates required harness files, feature-list rules, state docs, feedback docs, startup/toolchain setup, and source debug markers.
@@ -27,21 +35,19 @@
 
 ## In Progress
 
-- No active product feature. Next implementation should start with a sprint contract for `tp-001`.
+- `tp-001` prompt-to-brief thin slice is now in progress using the Candidate B React implementation.
 - Current harness sweep is complete on branch `codex/harness-alignment`; PR #58 is open for review.
 
 ## Blocked
 
-- No current blocker for the baseline scaffold.
-- Larger product work still needs an explicit sprint contract before coding begins.
+- No current startup blocker. The app installs, checks, builds, and runs locally.
+- `tp-001` is not yet passing because mobile composer overlap and numeric tradeoff scores still need product-polish fixes.
 
 ## Next Steps
 
-1. Review PR #58 for the harness lecture-readiness check.
-2. After merge, use `docs/harness/sprint-contract.md` to define the contract for `tp-001`.
-3. Build `tp-001`: prompt-to-brief thin slice.
-4. Verify with `./init.sh`, `vp test`, `vp check`, `vp build`, and browser/mobile checks.
-5. Update `feature_list.json`, `PROGRESS.md`, and `docs/QUALITY.md` with evidence before declaring the slice done.
+1. Resolve the remaining `tp-001` product-polish gaps: mobile composer overlap and qualitative Buyer Tradeoff Panel language.
+2. Re-run `./init.sh`, `vp test`, `vp check`, `vp build`, and browser/mobile checks.
+3. Update `feature_list.json`, `PROGRESS.md`, and `docs/QUALITY.md` with evidence before marking `tp-001` passing.
 
 ## Verification Status
 
@@ -51,6 +57,18 @@ Latest verification for the 2026-06-17 harness lecture-readiness pass:
 - `vp test` passed with 1 test file and 1 test.
 - `vp check` passed; all 28 files formatted and no warnings or lint errors in 7 files.
 - `vp build` passed and emitted production assets in `build/`.
+
+Latest verification for the 2026-06-18 React replacement/startup pass:
+
+- `pnpm install` passed using pnpm v10.33.0.
+- `vp install` passed using pnpm v10.33.0.
+- `./init.sh` passed; it ran `scripts/check-harness-readiness.mjs`, which passed, and confirmed Vite+ availability.
+- `vp test` passed with 1 test file and 2 tests.
+- `vp check` passed; all 31 files formatted and no warnings or lint errors in 7 files.
+- `vp build` passed and emitted `build/index.html`.
+- `vp dev` started at `http://127.0.0.1:3000/`.
+- Browser verification confirmed the prompt submits and renders the Generated Property Brief.
+- 375px browser verification confirmed no horizontal overflow and no console errors.
 
 Previous verification for the startup baseline:
 
