@@ -36,7 +36,7 @@
 ## In Progress
 
 - `tp-001` prompt-to-brief thin slice is now in progress using the Candidate B React implementation.
-- Current harness sweep is complete on branch `codex/harness-alignment`; PR #58 is open for review.
+- Current harness sweep is complete and PR #58 has merged into `main`.
 
 ## Blocked
 
