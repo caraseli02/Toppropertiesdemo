@@ -2,13 +2,13 @@
 
 Use a small Matt Pocock-style triage vocabulary for routing work.
 
-| Label | Meaning |
-| --- | --- |
-| `needs-triage` | New issue; not yet clarified or scoped. |
-| `needs-info` | Blocked until the requester provides more context. |
-| `ready-for-agent` | Clear, scoped, and ready for agent execution. |
+| Label             | Meaning                                               |
+| ----------------- | ----------------------------------------------------- |
+| `needs-triage`    | New issue; not yet clarified or scoped.               |
+| `needs-info`      | Blocked until the requester provides more context.    |
+| `ready-for-agent` | Clear, scoped, and ready for agent execution.         |
 | `ready-for-human` | Agent work is complete or blocked on review/decision. |
-| `wontfix` | Explicitly declined or outside current scope. |
+| `wontfix`         | Explicitly declined or outside current scope.         |
 
 ## Reset-specific routing
 

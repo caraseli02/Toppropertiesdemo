@@ -26,7 +26,7 @@ required_files=(
   "pnpm-workspace.yaml"
   "scripts/check-harness-readiness.mjs"
   "tasks.md"
-  "vite.config.js"
+  "vite.config.ts"
 )
 
 for file in "${required_files[@]}"; do

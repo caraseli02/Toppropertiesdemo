@@ -1,2 +1,5 @@
-claude-progress.md
-docs/agents/triage-labels.md
+.agents/
+skills-lock.json
+node_modules/
+build/
+.vp/

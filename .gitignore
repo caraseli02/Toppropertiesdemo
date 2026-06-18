@@ -2,3 +2,5 @@ node_modules/
 build/
 .vp/
 .DS_Store
+.agents/
+skills-lock.json

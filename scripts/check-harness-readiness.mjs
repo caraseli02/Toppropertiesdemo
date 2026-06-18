@@ -88,7 +88,7 @@ function checkRequiredFiles() {
     "pnpm-workspace.yaml",
     "scripts/check-harness-readiness.mjs",
     "tasks.md",
-    "vite.config.js",
+    "vite.config.ts",
   ]) {
     requireFile(file);
   }
@@ -252,7 +252,7 @@ function checkToolchain() {
     failures.push("package.json must pin the package manager with pnpm@...");
   }
 
-  const tests = walkFiles("src").filter((file) => file.endsWith(".test.js"));
+  const tests = walkFiles("src").filter((file) => /\.(test|spec)\.(js|jsx|ts|tsx)$/.test(file));
   if (tests.length === 0) {
     failures.push("At least one Vitest smoke/unit test must exist under src/");
   }
