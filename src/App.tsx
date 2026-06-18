@@ -137,7 +137,7 @@ export default function App() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
-              className="flex min-h-screen flex-col items-center justify-center px-6 pb-48 pt-32 text-center"
+              className="flex min-h-screen flex-col items-center justify-center px-6 pb-80 pt-32 text-center sm:pb-56"
             >
               <div className="mx-auto max-w-3xl">
                 <motion.div
@@ -195,7 +195,7 @@ export default function App() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
-              className="mx-auto max-w-6xl px-6 pb-72 pt-36"
+              className="mx-auto max-w-6xl px-6 pb-96 pt-36 sm:pb-72"
             >
               {/* Brief header */}
               <motion.div
@@ -378,7 +378,7 @@ export default function App() {
       {/* Persistent Brief Composer */}
       <motion.div
         layout
-        className="fixed bottom-6 left-1/2 z-50 w-[calc(100%-2rem)] max-w-3xl -translate-x-1/2 md:bottom-8"
+        className="fixed bottom-3 left-1/2 z-50 w-[calc(100%-1rem)] max-w-3xl -translate-x-1/2 pb-[env(safe-area-inset-bottom)] sm:bottom-6 sm:w-[calc(100%-2rem)] md:bottom-8"
       >
         <div className="rounded-2xl border border-white/10 bg-slate-900/85 shadow-2xl shadow-black/50 backdrop-blur-2xl">
           <div className="flex items-end gap-2 p-3">
@@ -400,7 +400,7 @@ export default function App() {
               onMouseLeave={() => setIsHoveringSubmit(false)}
               disabled={!prompt.trim()}
               className={cn(
-                "flex h-11 shrink-0 items-center justify-center rounded-xl px-4 text-sm font-medium transition",
+                "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-sm font-medium transition sm:w-auto sm:px-4",
                 prompt.trim()
                   ? "bg-white text-slate-950 hover:bg-indigo-50"
                   : "cursor-not-allowed bg-white/10 text-slate-500",
@@ -408,7 +408,9 @@ export default function App() {
             >
               {isHoveringSubmit || !submitted ? (
                 <span className="flex items-center gap-2">
-                  {submitted ? "Send" : "Generate brief"}
+                  <span className="sr-only sm:not-sr-only">
+                    {submitted ? "Send" : "Generate brief"}
+                  </span>
                   {submitted ? <Send className="h-4 w-4" /> : <ArrowRight className="h-4 w-4" />}
                 </span>
               ) : (
@@ -416,11 +418,11 @@ export default function App() {
               )}
             </button>
           </div>
-          <div className="flex items-center justify-between border-t border-white/5 px-4 py-2.5">
+          <div className="flex items-center justify-between gap-3 border-t border-white/5 px-4 py-2.5">
             <span className="text-[11px] font-medium uppercase tracking-[0.15em] text-slate-500">
               Persistent Brief Composer
             </span>
-            <span className="text-[11px] text-slate-600">
+            <span className="text-right text-[11px] text-slate-600">
               {submitted ? "Edit or ask a follow-up" : "Press ⌘ + Enter to submit"}
             </span>
           </div>
@@ -454,11 +456,10 @@ function TradeoffCard({
           {tradeoff.label}
         </span>
       </div>
-      <div className="mt-5 flex items-end justify-between">
+      <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <span className="font-serif text-xl text-white">{tradeoff.winner}</span>
-        <span className="font-serif text-3xl font-light text-indigo-300">
-          {tradeoff.score}
-          <span className="ml-0.5 text-sm text-slate-500">/10</span>
+        <span className="rounded-full border border-indigo-300/15 bg-indigo-400/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.12em] text-indigo-200">
+          {tradeoff.verdict}
         </span>
       </div>
       <p className="mt-3 text-sm leading-relaxed text-slate-300">{tradeoff.note}</p>

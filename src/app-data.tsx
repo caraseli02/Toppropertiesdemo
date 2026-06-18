@@ -15,7 +15,7 @@ export type Tradeoff = {
   label: string;
   icon: "building" | "compass" | "trending-up" | "waves";
   winner: string;
-  score: number;
+  verdict: string;
   note: string;
 };
 
@@ -87,28 +87,28 @@ export function buildBrief(): Brief {
         label: "Privacy",
         icon: "compass",
         winner: "Can Rebassa, Sóller",
-        score: 10,
+        verdict: "Strongest sanctuary fit",
         note: "The finca sits on terraced hillside land with no immediate neighbours. You trade the hum of Palma for total quiet — ideal if seclusion is non-negotiable.",
       },
       {
         label: "Sea access",
         icon: "waves",
         winner: "Vista del Puerto, Andratx",
-        score: 10,
+        verdict: "Clear Mediterranean lead",
         note: "Direct sightlines to the marina and a short drive to hidden coves. This is the only option where the Mediterranean is the dominant feature, not a weekend excursion.",
       },
       {
         label: "Palma convenience",
         icon: "building",
         winner: "Casa del Mercader",
-        score: 9,
+        verdict: "Best lock-up-and-leave",
         note: "Walking distance to Santa Catalina, the cathedral, and the airport link. You sacrifice scale and land, but gain the city as an extension of your living room.",
       },
       {
         label: "Investment confidence",
         icon: "trending-up",
         winner: "Vista del Puerto, Andratx",
-        score: 9,
+        verdict: "Most liquid trophy asset",
         note: "Southwest seafront stock has consistently outperformed. High demand from international buyers and limited coastal supply protect resale value and rental yield.",
       },
     ],

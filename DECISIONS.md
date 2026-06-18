@@ -2,9 +2,9 @@
 
 Durable architecture and workflow decisions for the TopProperties reset. Add entries when a choice affects future agents or implementation direction.
 
-## 2026-06-11 — Startup baseline uses lightweight HTML/JS + Tailwind v4 + Lit + Vite+
+## 2026-06-11 — Startup baseline uses lightweight HTML/JS + Tailwind v4 + Lit + Vite+ (superseded)
 
-**Decision:** Use simple HTML/JavaScript for the app surface, Tailwind CSS v4 for styling, Lit custom elements for reusable UI primitives, and Vite+ (`vp`) as the project toolchain.
+**Decision:** Use simple HTML/JavaScript for the app surface, Tailwind CSS v4 for styling, Lit custom elements for reusable UI primitives, and Vite+ (`vp`) as the project toolchain. This decision was superseded on 2026-06-18 by the merged React/TypeScript prompt-brief baseline.
 
 **Reason:** This matches the agreed near-term direction while keeping the repo small, reviewable, and friendly to safe generative UI composition experiments. Tailwind v4 is installed through the official Vite plugin (`@tailwindcss/vite`), not PostCSS/autoprefixer. Lit components render into light DOM so Tailwind's global generated stylesheet can apply utility classes.
 
@@ -13,6 +13,18 @@ Durable architecture and workflow decisions for the TopProperties reset. Add ent
 - Restoring the old React/shadcn SPA as the baseline — rejected because the reset is intended to avoid resurrecting the previous app shape.
 - Choosing Nuxt/Vue/Next now — rejected for this baseline because the spike/design gates should inform any larger framework choice.
 - Building backend/marketplace infrastructure now — rejected because v1 is a visual/product-led demo.
+
+## 2026-06-18 — Current app baseline is React 19 + TypeScript
+
+**Decision:** Treat the merged Candidate B prompt-to-brief implementation as the current app baseline: React 19, TypeScript, Tailwind CSS v4 through `@tailwindcss/vite`, Framer Motion, lucide-react, Vitest, Vite, and Vite+ (`vp`).
+
+**Reason:** PR #59 restored the visible prompt-to-brief experience and PR #58 verified the harness/startup path. The repo now has working React source files, static Mallorca brief data, image assets, TypeScript config, and browser-verified prompt submission. Future documentation and implementation should describe that actual state instead of the earlier Lit startup scaffold.
+
+**Rejected alternatives:**
+
+- Returning to the Lit/HTML startup scaffold as the active baseline — rejected because it no longer matches `main`.
+- Requiring shadcn/ui as a dependency — rejected for now because the current app uses custom React components and only borrows the idea of safe component primitives.
+- Adding backend or live AI infrastructure during `tp-001` — rejected because the first slice can remain scripted/static while proving the product experience.
 
 ## 2026-06-11 — Toolchain commands go through `vp`
 

@@ -6,9 +6,9 @@ Project-level instructions for Claude Code working on **TopProperties**.
 
 The repository is being reset to a clean starting point for a full-app refactor. The approved product direction is captured in `CONTEXT.md`.
 
-The repo now includes a minimal startup-readiness scaffold so agents can install, boot, test, and build before feature work begins.
+The repo now includes the merged React prompt-to-brief baseline so agents can install, boot, test, and build before continuing product work.
 
-Do **not** assume the old React/Vite/shadcn implementation is the new baseline. It is reference material only.
+Use the current React/TypeScript files in `src/` as the implementation baseline. The old Lit/HTML scaffold and old shadcn work are reference material only.
 
 ## Approved refactor direction
 
@@ -34,9 +34,10 @@ Expected experience:
 
 Use the agreed lightweight baseline unless a later approved decision changes it:
 
-- HTML/JavaScript app surface.
+- React 19 + TypeScript app surface.
 - Tailwind CSS v4 for styling via the official Vite plugin.
-- Lit custom elements for reusable UI primitives, rendered into light DOM so Tailwind utilities apply.
+- Framer Motion for focused interface motion.
+- lucide-react for icons.
 - Vite+ (`vp`) for install, dev, test, check, and build.
 
 Required commands:

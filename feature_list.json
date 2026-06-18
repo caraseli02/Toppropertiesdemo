@@ -28,7 +28,7 @@
   },
   "scope_guardrails": {
     "v1_location_scope": "Mallorca luxury homes only",
-    "stack": "React, TypeScript, Tailwind CSS v4, Vite+ unless a later decision changes it",
+    "stack": "React 19, TypeScript, Tailwind CSS v4, Framer Motion, lucide-react, Vite, Vitest, Vite+ unless a later decision changes it",
     "preserve_old_app_work_as": "reference only",
     "excluded_from_v1": [
       "booking/contact workflows",
@@ -76,7 +76,7 @@
       "area": "agentic-discovery",
       "title": "Build the prompt-to-brief thin slice",
       "user_visible_behavior": "A user can submit the Mallorca home-search prompt and receive a polished brief with curated properties plus at least one comparison or story panel.",
-      "status": "in_progress",
+      "status": "passing",
       "dependencies": [],
       "verification": [
         "Run vp test.",
@@ -95,21 +95,27 @@
         "2026-06-18: vp check passed; all 31 files formatted; no warnings or lint errors in 7 files.",
         "2026-06-18: vp build passed; production build emitted build/index.html.",
         "2026-06-18: vp dev started at http://127.0.0.1:3000/ and browser verification confirmed prompt submit generates the brief with recommendations, tradeoff panel, next question, and persistent composer.",
-        "2026-06-18: 375px browser verification confirmed no horizontal overflow and no console errors."
+        "2026-06-18: 375px browser verification confirmed no horizontal overflow and no console errors.",
+        "2026-06-18: Documentation aligned to the merged React/TypeScript baseline.",
+        "2026-06-18: Buyer Tradeoff Panel changed from numeric scores to qualitative verdict language.",
+        "2026-06-18: Mobile composer layout tightened with icon-only mobile submit button, safe-area padding, and larger bottom page padding.",
+        "2026-06-18: Final verification passed: ./init.sh, vp test, vp check, vp build.",
+        "2026-06-18: vp dev started at http://localhost:5173/; browser verification confirmed prompt submit renders generated brief, curated recommendations, Editorial Tradeoff Panel, qualitative verdicts, and zero visible /10 numeric score labels.",
+        "2026-06-18: 375px browser verification confirmed no horizontal overflow, no fixed-composer overlap at settled bottom scroll, and no console errors. Screenshot evidence: /tmp/topproperties-mobile-bottom.png."
       ],
-      "notes": "No backend or real AI dependency required for v1; a scripted/static flow is acceptable if it behaves like generated UI. Still in progress because mobile composer overlap and numeric tradeoff scores need product-polish fixes before marking passing."
+      "notes": "No backend or real AI dependency required for v1; a scripted/static flow is acceptable if it behaves like generated UI. Marked passing after final desktop and 375px browser verification on 2026-06-18."
     },
     {
       "id": "tp-002",
       "priority": 2,
       "area": "safe-primitives",
       "title": "Define the safe primitive grammar",
-      "user_visible_behavior": "The generated brief is composed from a small, documented set of reusable Lit primitives instead of arbitrary markup.",
+      "user_visible_behavior": "The generated brief is composed from a small, documented set of reusable React primitives instead of arbitrary markup.",
       "status": "not_started",
       "dependencies": ["tp-001"],
       "verification": [
         "Document the initial primitive set and data contract.",
-        "Add or update Lit elements for each primitive used by the prompt-to-brief slice.",
+        "Add or update React components for each primitive used by the prompt-to-brief slice.",
         "Add at least one test for pure composition or data-mapping logic.",
         "Run vp test.",
         "Run vp check.",

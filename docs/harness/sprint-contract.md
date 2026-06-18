@@ -4,25 +4,25 @@ Create or update this contract before coding a feature. Keep it short enough to 
 
 ## Feature
 
-- Feature id: `hx-001`
-- Feature title: Align repo harness with completed Learn Harness Engineering lectures
-- Date: 2026-06-17
-- Branch: `codex/harness-alignment`
+- Feature id: `tp-001`
+- Feature title: Build the prompt-to-brief thin slice
+- Date: 2026-06-18
+- Branch: `codex/update-react-stack-docs`
 - Owner: Codex
-- Kanban/GitHub task: repo-local harness feature `hx-001`; GitHub issue list is empty; goal card `t_9d328a7a`
+- Kanban/GitHub task: active feature `tp-001`; goal card `t_9d328a7a`
 
 ## Scope
 
-- User-visible behavior to deliver: future sessions can run one startup check and see whether lecture recommendations are still applied.
-- Files or modules likely touched: `init.sh`, `scripts/check-harness-readiness.mjs`, `docs/harness/lecture-readiness-check.md`, harness state docs.
-- Data/model changes: none to product data; `feature_list.json` evidence may be refreshed.
-- Documentation changes: lecture-readiness matrix, progress, quality, handoff, and architecture references.
+- User-visible behavior to deliver: the merged React app remains the documented baseline for the Mallorca prompt-to-brief experience, with the known `tp-001` polish gaps closed.
+- Files or modules likely touched: stack/state docs, `src/App.tsx`, `src/app-data.tsx`, and `src/app-data.test.ts`.
+- Data/model changes: tradeoff data uses qualitative verdicts instead of numeric scores.
+- Documentation changes: align stack references, active sprint scope, primitive terminology, and verification evidence.
 
 ## Exclusions
 
-- Out of scope: product UI changes, real AI integration, marketplace plumbing, and new app features.
-- Existing behavior that must not change: Vite+/Lit/Tailwind startup baseline; `vp` remains the project toolchain entrypoint.
-- Deferred follow-up: browser/mobile runtime evidence remains part of UI/product work, not this harness-only pass.
+- Out of scope: real AI integration, marketplace plumbing, and new app features beyond the `tp-001` polish gaps.
+- Existing behavior that must not change: React/TypeScript/Tailwind/Vite+ startup baseline; `vp` remains the project toolchain entrypoint.
+- Deferred follow-up: map/neighborhood intelligence and the broader safe primitive grammar remain separate features.
 
 ## Verification Standards
 

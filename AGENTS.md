@@ -14,9 +14,10 @@ The app should respond with dynamic/generated UI from safe primitives: curated p
 
 ## Current stack baseline
 
-- Lightweight **HTML/JavaScript** app surface.
+- **React 19 + TypeScript** app surface.
 - **Tailwind CSS v4** for styling via the official Vite plugin.
-- **Lit** custom elements for reusable UI primitives where helpful; current Lit components render into light DOM so Tailwind utilities apply.
+- **Framer Motion** for targeted interface motion where it improves the generated-brief feel.
+- **lucide-react** for icons.
 - **Vite+ (`vp`)** as the only project toolchain entrypoint.
 - Vitest via `vp test` for smoke/unit tests.
 
@@ -33,13 +34,14 @@ vp build            # production build → build/
 Expected current baseline:
 
 - `vp install` completes with no env setup.
-- `vp test` runs one discovery-brief smoke test.
+- `vp test` runs the React prompt-brief data smoke tests.
 - `vp build` produces `build/`.
 
 ## Scope guardrails
 
 - Keep v1 mostly visual/product-led, not deep infrastructure.
-- Preserve old React/shadcn work as **reference only**, not as the implementation baseline.
+- Treat the merged React/TypeScript prompt-brief app as the current implementation baseline.
+- Preserve old Lit/HTML and old shadcn work as **reference only**, not as implementation baselines.
 - V1 is **Mallorca luxury homes only**.
 - Primary MCP-style integration: map/neighborhood intelligence.
 - Exclude production marketplace plumbing: booking/contact workflows, mortgage calculators, accounts/saved searches, real CRM, real listing ingestion, and broad agent platform/backend.
