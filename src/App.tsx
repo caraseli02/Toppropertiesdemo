@@ -392,7 +392,7 @@ export default function App() {
               onKeyDown={handleKeyDown}
               rows={1}
               placeholder="Describe the home you are looking for..."
-              className="max-h-40 min-h-[44px] flex-1 resize-none bg-transparent px-2 py-2.5 text-base leading-relaxed text-white placeholder:text-slate-500 focus:outline-none"
+              className="max-h-40 min-h-[44px] flex-1 resize-none bg-transparent px-2 py-2.5 text-base leading-relaxed text-white placeholder:text-slate-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
             />
             <button
               onClick={handleSubmit}
@@ -406,16 +406,16 @@ export default function App() {
                   : "cursor-not-allowed bg-white/10 text-slate-500",
               )}
             >
-              {isHoveringSubmit || !submitted ? (
-                <span className="flex items-center gap-2">
-                  <span className="sr-only sm:not-sr-only">
-                    {submitted ? "Send" : "Generate brief"}
-                  </span>
-                  {submitted ? <Send className="h-4 w-4" /> : <ArrowRight className="h-4 w-4" />}
+              <span className="flex items-center gap-2">
+                <span className="sr-only sm:not-sr-only">
+                  {submitted ? "Send" : "Generate brief"}
                 </span>
-              ) : (
-                <Send className="h-4 w-4" />
-              )}
+                {isHoveringSubmit || !submitted ? (
+                  submitted ? <Send className="h-4 w-4" /> : <ArrowRight className="h-4 w-4" />
+                ) : (
+                  <Send className="h-4 w-4" />
+                )}
+              </span>
             </button>
           </div>
           <div className="flex items-center justify-between gap-3 border-t border-white/5 px-4 py-2.5">
