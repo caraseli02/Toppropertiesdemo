@@ -2,6 +2,10 @@
 
 ## Done
 
+- Dead-code cleanup on the React baseline:
+  - removed unused public exports from `src/app-data.tsx` (`Property` and `Tradeoff` are now local types).
+  - verified `npm run build` still passes.
+  - opened PR #65: https://github.com/caraseli02/Toppropertiesdemo/pull/65
 - Accessibility pass on the React property brief UI:
   - confirmed the existing global `:focus-visible` ring in `src/index.css`.
   - verified the visible buttons/links in `src/App.tsx` already had accessible names.
