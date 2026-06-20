@@ -252,7 +252,7 @@ export default function App() {
                       <div className="relative aspect-[4/3] overflow-hidden">
                         <img
                           src={property.image}
-                          alt={property.name}
+                          alt={`${property.name} luxury home in ${property.location}`}
                           className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 to-transparent" />

@@ -171,7 +171,7 @@
         "Run vp build."
       ],
       "evidence": [],
-      "notes": "Use docs/harness/evaluator-rubric.md before accepting visual feature work."
+      "notes": "Use docs/harness/evaluator-rubric.md before accepting visual feature work. 2026-06-20 accessibility scan: existing focus-visible styling is present, visible buttons already have accessible names, and the property image alt text was contextualized for the luxury home/location."
     }
   ]
 }
