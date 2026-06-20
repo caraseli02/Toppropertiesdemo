@@ -1,4 +1,4 @@
-export type Property = {
+type Property = {
   id: string;
   name: string;
   location: string;
@@ -11,7 +11,7 @@ export type Property = {
   sqm: number;
 };
 
-export type Tradeoff = {
+type Tradeoff = {
   label: string;
   icon: "building" | "compass" | "trending-up" | "waves";
   winner: string;

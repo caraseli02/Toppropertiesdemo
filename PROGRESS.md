@@ -2,6 +2,10 @@
 
 ## Done
 
+- Dead-code cleanup on the React baseline:
+  - removed unused public exports from `src/app-data.tsx` (`Property` and `Tradeoff` are now local types).
+  - verified `npm run build` still passes.
+  - opened PR #65: https://github.com/caraseli02/Toppropertiesdemo/pull/65
 - Aligned current documentation with the 2026-06-18 merged React/TypeScript baseline from PR #59:
   - `AGENTS.md`, `CLAUDE.md`, `CONTEXT.md`, and `docs/architecture.md` now describe React 19, TypeScript, Tailwind CSS v4, Framer Motion, lucide-react, Vite, Vitest, and Vite+ as the current stack.
   - `DECISIONS.md` now marks the Lit/HTML startup decision as superseded and records the React baseline decision.
