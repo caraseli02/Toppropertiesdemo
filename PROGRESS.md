@@ -29,7 +29,11 @@
   - `docs/harness/lecture-readiness-check.md` maps Lectures 01-12 to local artifacts and guards.
   - `scripts/check-harness-readiness.mjs` validates required harness files, feature-list rules, state docs, feedback docs, startup/toolchain setup, and source debug markers.
   - `./init.sh` now runs the harness readiness check as part of the standard startup path.
-- Opened PR #58: https://github.com/caraseli02/Toppropertiesdemo/pull/58
+- PR #58: https://github.com/caraseli02/Toppropertiesdemo/pull/58
+- Normalized current design tokens for the React prompt brief surface:
+  - Outfit is now the sans font token used by Tailwind.
+  - Focus rings now use the brand token instead of a hardcoded indigo hex.
+  - Component/card radii were normalized to the DESIGN spec: default 0.625rem, cards 8px, badges rounded-full.
 - PR #51 merged the reset-aware agent harness into `main`.
 - PR #53 added the startup-readiness scaffold for the agreed lightweight stack:
   - HTML entrypoint in `index.html`.
