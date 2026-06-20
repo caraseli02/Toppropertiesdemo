@@ -6,17 +6,17 @@ Create or update this contract before coding a feature. Keep it short enough to 
 
 - Feature id: `tp-001`
 - Feature title: Build the prompt-to-brief thin slice
-- Date: 2026-06-18
-- Branch: `codex/update-react-stack-docs`
+- Date: 2026-06-20
+- Branch: `fix/nightly-20260620`
 - Owner: Codex
 - Kanban/GitHub task: active feature `tp-001`; goal card `t_9d328a7a`
 
 ## Scope
 
-- User-visible behavior to deliver: the merged React app remains the documented baseline for the Mallorca prompt-to-brief experience, with the known `tp-001` polish gaps closed.
-- Files or modules likely touched: stack/state docs, `src/App.tsx`, `src/app-data.tsx`, and `src/app-data.test.ts`.
-- Data/model changes: tradeoff data uses qualitative verdicts instead of numeric scores.
-- Documentation changes: align stack references, active sprint scope, primitive terminology, and verification evidence.
+- User-visible behavior to deliver: the merged React app remains the documented baseline for the Mallorca prompt-to-brief experience, with the composer prompt copy tightened for a clearer luxury-home brief.
+- Files or modules likely touched: `src/App.tsx`, `PROGRESS.md`, `feature_list.json`, and the sprint/clean-state docs.
+- Data/model changes: none for this maintenance pass.
+- Documentation changes: refresh branch/date, verification evidence, and session state without changing the approved stack.
 
 ## Exclusions
 

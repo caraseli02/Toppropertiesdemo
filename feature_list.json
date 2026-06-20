@@ -1,6 +1,6 @@
 {
   "project": "TopProperties",
-  "last_updated": "2026-06-18",
+  "last_updated": "2026-06-20",
   "status": "startup_baseline_ready",
   "goal_card": "t_9d328a7a",
   "rules": {
@@ -101,7 +101,14 @@
         "2026-06-18: Mobile composer layout tightened with icon-only mobile submit button, safe-area padding, and larger bottom page padding.",
         "2026-06-18: Final verification passed: ./init.sh, vp test, vp check, vp build.",
         "2026-06-18: vp dev started at http://localhost:5173/; browser verification confirmed prompt submit renders generated brief, curated recommendations, Editorial Tradeoff Panel, qualitative verdicts, and zero visible /10 numeric score labels.",
-        "2026-06-18: 375px browser verification confirmed no horizontal overflow, no fixed-composer overlap at settled bottom scroll, and no console errors. Screenshot evidence: /tmp/topproperties-mobile-bottom.png."
+        "2026-06-18: 375px browser verification confirmed no horizontal overflow, no fixed-composer overlap at settled bottom scroll, and no console errors. Screenshot evidence: /tmp/topproperties-mobile-bottom.png.",
+        "2026-06-20: Maintained the tp-001 baseline on branch fix/nightly-20260620; removed placeholder wording from the composer and tightened the luxury-search prompt copy.",
+        "2026-06-20: ./init.sh passed; harness readiness check confirmed Vite+ availability and startup path.",
+        "2026-06-20: npm run build passed; production build emitted build/index.html.",
+        "2026-06-20: npx tsc --noEmit passed with no type errors.",
+        "2026-06-20: vp test passed; 1 test file and 2 tests passed.",
+        "2026-06-20: vp check passed after formatting the updated App.tsx.",
+        "2026-06-20: vp dev started at http://127.0.0.1:3000/ and returned HTTP 200 on a local runtime smoke check."
       ],
       "notes": "No backend or real AI dependency required for v1; a scripted/static flow is acceptable if it behaves like generated UI. Marked passing after final desktop and 375px browser verification on 2026-06-18."
     },
