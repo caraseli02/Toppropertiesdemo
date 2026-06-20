@@ -2,6 +2,10 @@
 
 ## Done
 
+- Accessibility pass on the React property brief UI:
+  - confirmed the existing global `:focus-visible` ring in `src/index.css`.
+  - verified the visible buttons/links in `src/App.tsx` already had accessible names.
+  - contextualized the property image alt text to describe the luxury home and location.
 - Aligned current documentation with the 2026-06-18 merged React/TypeScript baseline from PR #59:
   - `AGENTS.md`, `CLAUDE.md`, `CONTEXT.md`, and `docs/architecture.md` now describe React 19, TypeScript, Tailwind CSS v4, Framer Motion, lucide-react, Vite, Vitest, and Vite+ as the current stack.
   - `DECISIONS.md` now marks the Lit/HTML startup decision as superseded and records the React baseline decision.
@@ -43,10 +47,11 @@
   - `font-serif`
   - Ordinary component colors use Tailwind built-in palettes such as `stone` and `amber`.
 - Added `DECISIONS.md` and `tasks.md` for state persistence and next-step handoff.
+- Nightly maintenance on `fix/nightly-20260620` tightened the prompt composer copy in `src/App.tsx`, removed placeholder wording from the composer, and refreshed session evidence.
 
 ## In Progress
 
-- PR #60 is being updated with the final React stack alignment and `tp-001` polish scope.
+- No active product feature is currently being implemented; this branch is a maintenance sweep for the `tp-001` baseline.
 
 ## Blocked
 
@@ -55,11 +60,21 @@
 
 ## Next Steps
 
-1. Push the final branch update to PR #60.
-2. Review PR #60.
-3. Start `tp-002` only after PR #60 is merged or explicitly approved as the baseline.
+1. Keep `tp-001` evidence current as the prompt-to-brief baseline evolves.
+2. Run the AI-composed UI spike (`t_c45c9064`).
+3. Run the pencil/design pass (`t_47af33ed`).
+4. Use those outputs to refine the first implementation slices in `tasks.md`.
 
 ## Verification Status
+
+Latest verification for the 2026-06-20 maintenance cleanup on the `tp-001` baseline:
+
+- `./init.sh` passed; it ran `scripts/check-harness-readiness.mjs`, which passed, and confirmed Vite+ availability.
+- `npm run build` passed and emitted `build/index.html`.
+- `npx tsc --noEmit` passed.
+- `vp test` passed with 1 test file and 2 tests.
+- `vp check` passed; all files were formatted and no warnings, lint errors, or type errors remained in the checked files.
+- `vp dev` started at `http://127.0.0.1:3000/` and returned HTTP 200 on a local runtime smoke check.
 
 Latest verification for the 2026-06-18 React stack alignment and `tp-001` polish:
 
