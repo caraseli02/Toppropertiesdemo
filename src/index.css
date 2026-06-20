@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-sans: "Outfit", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
   --color-brand: #6366f1;
   --color-surface-warm: #1c1917;
@@ -21,7 +21,7 @@ body {
 }
 
 *:focus-visible {
-  outline: 2px solid #818cf8;
+  outline: 2px solid var(--color-brand);
   outline-offset: 2px;
 }
 

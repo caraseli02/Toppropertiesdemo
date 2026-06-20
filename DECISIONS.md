@@ -46,6 +46,12 @@ Durable architecture and workflow decisions for the TopProperties reset. Add ent
 
 **Reason:** One-off color tokens make the design system harder to read than nearby Tailwind utilities. Brand-level tokens preserve the Mallorca demo identity while leaving routine UI color choices visible and replaceable.
 
+## 2026-06-20 — Design consistency follows the spec radius scale and Outfit sans token
+
+**Decision:** Normalize the React brief surface to the DESIGN token scale: Outfit for the sans font token, 0.625rem for default control radii, 8px for cards/panels, and `rounded-full` for pill badges.
+
+**Reason:** Keeping the radius scale and base font token consistent makes the generated Mallorca brief feel intentionally designed instead of mixing Tailwind defaults.
+
 ## 2026-06-15 — Feature work requires sprint contracts and clean-state evidence
 
 **Decision:** Before implementation work begins, agents must choose one feature from `feature_list.json` and define scope, exclusions, and verification in a sprint contract. Work is not complete until feature evidence, progress, quality state, and clean-state checks are updated.

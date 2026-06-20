@@ -103,7 +103,7 @@ export default function App() {
       <header className="fixed left-0 right-0 top-0 z-40 border-b border-white/5 bg-slate-950/60 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-500/10 text-indigo-300">
+            <div className="flex h-9 w-9 items-center justify-center rounded-[0.625rem] bg-indigo-500/10 text-indigo-300">
               <Sparkles className="h-5 w-5" />
             </div>
             <div className="flex flex-col">
@@ -222,7 +222,7 @@ export default function App() {
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="mb-12 rounded-3xl border border-white/10 bg-white/[0.04] p-8 backdrop-blur-sm md:p-10"
+                className="mb-12 rounded-[8px] border border-white/10 bg-white/[0.04] p-8 backdrop-blur-sm md:p-10"
               >
                 <h3 className="text-xs font-semibold uppercase tracking-[0.15em] text-slate-500">
                   Brief summary
@@ -247,7 +247,7 @@ export default function App() {
                       initial={{ opacity: 0, y: 30 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-                      className="group relative flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] transition hover:border-white/20"
+                      className="group relative flex flex-col overflow-hidden rounded-[8px] border border-white/10 bg-white/[0.04] transition hover:border-white/20"
                     >
                       <div className="relative aspect-[4/3] overflow-hidden">
                         <img
@@ -326,7 +326,7 @@ export default function App() {
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.7 }}
-                className="relative overflow-hidden rounded-3xl border border-indigo-400/20 bg-indigo-950/30 p-8 text-center backdrop-blur-md md:p-12"
+                className="relative overflow-hidden rounded-[8px] border border-indigo-400/20 bg-indigo-950/30 p-8 text-center backdrop-blur-md md:p-12"
               >
                 <div className="absolute -left-16 -top-16 h-40 w-40 rounded-full bg-indigo-500/20 blur-[80px]" />
                 <div className="absolute -bottom-16 -right-16 h-40 w-40 rounded-full bg-teal-500/10 blur-[80px]" />
@@ -361,7 +361,7 @@ export default function App() {
                         initial={{ opacity: 0, y: 16 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.4 }}
-                        className="rounded-2xl border border-white/10 bg-white/[0.04] p-6"
+                        className="rounded-[8px] border border-white/10 bg-white/[0.04] p-6"
                       >
                         <p className="text-xs text-slate-500">You asked: “{followUp.question}”</p>
                         <p className="mt-2 text-slate-200">{followUp.answer}</p>
@@ -380,9 +380,9 @@ export default function App() {
         layout
         className="fixed bottom-3 left-1/2 z-50 w-[calc(100%-1rem)] max-w-3xl -translate-x-1/2 pb-[env(safe-area-inset-bottom)] sm:bottom-6 sm:w-[calc(100%-2rem)] md:bottom-8"
       >
-        <div className="rounded-2xl border border-white/10 bg-slate-900/85 shadow-2xl shadow-black/50 backdrop-blur-2xl">
+        <div className="rounded-[8px] border border-white/10 bg-slate-900/85 shadow-2xl shadow-black/50 backdrop-blur-2xl">
           <div className="flex items-end gap-2 p-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-500/10 text-indigo-300">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[0.625rem] bg-indigo-500/10 text-indigo-300">
               <Sparkles className="h-5 w-5" />
             </div>
             <textarea
@@ -400,7 +400,7 @@ export default function App() {
               onMouseLeave={() => setIsHoveringSubmit(false)}
               disabled={!prompt.trim()}
               className={cn(
-                "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-sm font-medium transition sm:w-auto sm:px-4",
+                "flex h-11 w-11 shrink-0 items-center justify-center rounded-[0.625rem] text-sm font-medium transition sm:w-auto sm:px-4",
                 prompt.trim()
                   ? "bg-white text-slate-950 hover:bg-indigo-50"
                   : "cursor-not-allowed bg-white/10 text-slate-500",
@@ -446,7 +446,7 @@ function TradeoffCard({
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.4 + index * 0.08 }}
-      className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-sm transition hover:border-white/20"
+      className="rounded-[8px] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-sm transition hover:border-white/20"
     >
       <div className="flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-500/10 text-indigo-300">

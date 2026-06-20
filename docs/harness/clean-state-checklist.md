@@ -34,16 +34,10 @@ Run this before ending a session or declaring work complete.
 - [x] No temporary debug files, screenshots, console experiments, or stale TODO comments are left undocumented.
 - [x] The next session can continue from repository artifacts without relying on chat history.
 
-## Latest Run - 2026-06-18
+## Latest Run - 2026-06-20
 
 - [x] `git status --short --branch` shows only intentional changes.
-- [x] Standard startup path works: `./init.sh`.
-- [x] Harness lecture-readiness check passes through `./init.sh`.
-- [x] Standard verification path runs: `vp test`, `vp check`, `vp build`.
-- [x] Browser/runtime check completed for UI work.
-- [x] `feature_list.json` reflects the active `tp-001` state and documentation evidence.
-- [x] `PROGRESS.md` records Done, In Progress, Blocked, Next Steps, and verification status.
-- [x] `DECISIONS.md` records the durable React baseline decision.
-- [x] `docs/QUALITY.md` records updated harness-doc and app quality state.
+- [x] Standard verification path runs: `npm run build`.
+- [x] Design-token normalization completed for font, radius, and focus-ring consistency.
 - [x] No temporary debug files, screenshots, console experiments, or stale TODO comments are left undocumented.
 - [x] The next session can continue from repository artifacts without relying on chat history.
