@@ -2,6 +2,10 @@
 
 ## Done
 
+- Accessibility pass on the React property brief UI:
+  - confirmed the existing global `:focus-visible` ring in `src/index.css`.
+  - verified the visible buttons/links in `src/App.tsx` already had accessible names.
+  - contextualized the property image alt text to describe the luxury home and location.
 - Aligned current documentation with the 2026-06-18 merged React/TypeScript baseline from PR #59:
   - `AGENTS.md`, `CLAUDE.md`, `CONTEXT.md`, and `docs/architecture.md` now describe React 19, TypeScript, Tailwind CSS v4, Framer Motion, lucide-react, Vite, Vitest, and Vite+ as the current stack.
   - `DECISIONS.md` now marks the Lit/HTML startup decision as superseded and records the React baseline decision.
