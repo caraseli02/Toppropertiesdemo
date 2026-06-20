@@ -391,8 +391,8 @@ export default function App() {
               onChange={(e) => setPrompt(e.target.value)}
               onKeyDown={handleKeyDown}
               rows={1}
-              placeholder="Describe the home you are looking for..."
-              className="max-h-40 min-h-[44px] flex-1 resize-none bg-transparent px-2 py-2.5 text-base leading-relaxed text-white placeholder:text-slate-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+              aria-label="Describe the home you are looking for"
+              className="max-h-40 min-h-[44px] flex-1 resize-none bg-transparent px-2 py-2.5 text-base leading-relaxed text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
             />
             <button
               onClick={handleSubmit}
@@ -411,7 +411,11 @@ export default function App() {
                   {submitted ? "Send" : "Generate brief"}
                 </span>
                 {isHoveringSubmit || !submitted ? (
-                  submitted ? <Send className="h-4 w-4" /> : <ArrowRight className="h-4 w-4" />
+                  submitted ? (
+                    <Send className="h-4 w-4" />
+                  ) : (
+                    <ArrowRight className="h-4 w-4" />
+                  )
                 ) : (
                   <Send className="h-4 w-4" />
                 )}
@@ -423,7 +427,7 @@ export default function App() {
               Persistent Brief Composer
             </span>
             <span className="text-right text-[11px] text-slate-600">
-              {submitted ? "Edit or ask a follow-up" : "Press ⌘ + Enter to submit"}
+              Try: sea-view villa in Port d'Andratx or a Palma townhouse for frequent trips.
             </span>
           </div>
         </div>
