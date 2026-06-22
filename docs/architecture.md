@@ -47,14 +47,18 @@ Vite+ is a unified frontend toolchain around Vite/Vitest/Oxlint/Oxfmt and relate
 ```text
 src/
 ├── App.tsx                    # React shell for the Generated Property Brief
-├── app-data.tsx               # Static prompt, brief, and follow-up data helpers
+├── app-data.tsx               # Static prompt, brief, view-model mapping, and follow-up data helpers
 ├── app-data.test.ts           # Vitest smoke/unit tests
+├── components/
+│   └── brief-primitives.tsx    # Safe primitive React components for summary/cards/panels
 ├── index.css                  # Tailwind v4 entrypoint and global styles
 ├── main.tsx                   # React bootstrap
 ├── vite-env.d.ts              # Vite TypeScript ambient declarations
 └── utils/
     └── cn.ts                  # Classname merge helper
 ```
+
+The brief now renders from a constrained primitive grammar: summary panel, suggestion pills, property cards, tradeoff cards, next-question panel, follow-up notes, and the persistent composer. The view-model mapping in `app-data.tsx` keeps card statistics and accessibility labels derived from data instead of scattered through the page shell.
 
 This is a product thin-slice baseline, not the final product architecture. It proves the repo can start, test, build, and render the first prompt-to-brief flow while keeping deeper agentic composition decisions open.
 
@@ -69,9 +73,8 @@ See `CONTEXT.md` for the complete product glossary and guardrails.
 The basic stack is clarified, but these implementation decisions still need outputs from the spike/design work:
 
 1. **Generative UI mode:** decide whether v1 uses true runtime AI composition, a scripted flow that feels generated, or a hybrid.
-2. **Primitive grammar:** define the safe React component and data-contract primitives the agent/UI layer can compose.
-3. **Map/neighborhood intelligence:** decide whether location intelligence is static mock data, a real API/MCP-style integration, or a thin hybrid.
-4. **Reference migration:** decide which visual/accessibility patterns from the old React/shadcn app are worth carrying forward.
+2. **Map/neighborhood intelligence:** decide whether location intelligence is static mock data, a real API/MCP-style integration, or a thin hybrid.
+3. **Reference migration:** decide which visual/accessibility patterns from the old React/shadcn app are worth carrying forward.
 
 ## Harness observability
 

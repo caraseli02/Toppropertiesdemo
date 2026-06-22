@@ -4,25 +4,25 @@ Create or update this contract before coding a feature. Keep it short enough to 
 
 ## Feature
 
-- Feature id: `tp-001`
-- Feature title: Build the prompt-to-brief thin slice
-- Date: 2026-06-20
-- Branch: `fix/nightly-20260620`
+- Feature id: `tp-002`
+- Feature title: Define the safe primitive grammar
+- Date: 2026-06-22
+- Branch: `feature/weekly-20260622`
 - Owner: Codex
-- Kanban/GitHub task: active feature `tp-001`; goal card `t_9d328a7a`
+- Kanban/GitHub task: active feature `tp-002`; goal card `t_9d328a7a`
 
 ## Scope
 
-- User-visible behavior to deliver: the merged React app remains the documented baseline for the Mallorca prompt-to-brief experience, with the composer prompt copy tightened for a clearer luxury-home brief.
-- Files or modules likely touched: `src/App.tsx`, `PROGRESS.md`, `feature_list.json`, and the sprint/clean-state docs.
-- Data/model changes: none for this maintenance pass.
-- Documentation changes: refresh branch/date, verification evidence, and session state without changing the approved stack.
+- User-visible behavior to deliver: the Mallorca prompt-to-brief experience is now composed from a documented safe primitive grammar, with reusable React components for summary, property cards, tradeoff cards, next-question panel, and follow-up notes.
+- Files or modules likely touched: `src/App.tsx`, `src/app-data.tsx`, `src/components/brief-primitives.tsx`, `src/app-data.test.ts`, `docs/architecture.md`, `PROGRESS.md`, `feature_list.json`, and the sprint/clean-state docs.
+- Data/model changes: add a primitive view-model mapping for brief content so the UI renders from constrained reusable primitives instead of direct ad hoc card markup.
+- Documentation changes: record the primitive grammar and actual current structure without changing the approved stack.
 
 ## Exclusions
 
-- Out of scope: real AI integration, marketplace plumbing, and new app features beyond the `tp-001` polish gaps.
-- Existing behavior that must not change: React/TypeScript/Tailwind/Vite+ startup baseline; `vp` remains the project toolchain entrypoint.
-- Deferred follow-up: map/neighborhood intelligence and the broader safe primitive grammar remain separate features.
+- Out of scope: real AI integration, map/neighborhood intelligence, and new marketplace workflows beyond the primitive grammar slice.
+- Existing behavior that must not change: React/TypeScript/Tailwind/Vite+ startup baseline; `vp` remains the project toolchain entrypoint; the hero prompt still resolves to Mallorca luxury homes only.
+- Deferred follow-up: map/neighborhood intelligence remains a separate feature after the primitive grammar is in place.
 
 ## Verification Standards
 

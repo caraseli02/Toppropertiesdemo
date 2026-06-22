@@ -1,6 +1,6 @@
 {
   "project": "TopProperties",
-  "last_updated": "2026-06-20",
+  "last_updated": "2026-06-22",
   "status": "startup_baseline_ready",
   "goal_card": "t_9d328a7a",
   "rules": {
@@ -118,7 +118,7 @@
       "area": "safe-primitives",
       "title": "Define the safe primitive grammar",
       "user_visible_behavior": "The generated brief is composed from a small, documented set of reusable React primitives instead of arbitrary markup.",
-      "status": "not_started",
+      "status": "passing",
       "dependencies": ["tp-001"],
       "verification": [
         "Document the initial primitive set and data contract.",
@@ -129,8 +129,19 @@
         "Run vp build.",
         "Update docs/architecture.md with the actual primitive structure."
       ],
-      "evidence": [],
-      "notes": "Do not build an abstract primitive framework before it is needed by the first visible slice."
+      "evidence": [
+        "2026-06-22: Added `src/components/brief-primitives.tsx` for summary, suggestion, property, tradeoff, next-question, and follow-up primitives.",
+        "2026-06-22: Added `composeBriefViewModel()` in `src/app-data.tsx` to derive property stats and image alt text from brief data.",
+        "2026-06-22: Expanded `src/app-data.test.ts` to verify the primitive set and the derived view model mapping.",
+        "2026-06-22: `./init.sh` passed; harness readiness check confirmed Vite+ availability and startup path.",
+        "2026-06-22: `vp test` passed with 3 tests.",
+        "2026-06-22: `vp check` passed after formatting; all 34 files are correctly formatted and no warnings, lint errors, or type errors were reported.",
+        "2026-06-22: `vp build` passed and emitted `build/index.html`.",
+        "2026-06-22: `vp dev` started successfully at `http://localhost:5173/`; the running dev server returned HTTP 200 for the app root.",
+        "2026-06-22: Playwright browser verification confirmed the desktop flow renders the Generated Property Brief, Curated recommendations, and Editorial tradeoff panel after submitting the Mallorca prompt.",
+        "2026-06-22: Playwright mobile verification at 375px confirmed no horizontal overflow and the persistent composer remained above the viewport bottom after scrolling to the settled brief position."
+      ],
+      "notes": "The Mallorcan prompt-to-brief slice now renders through a constrained primitive grammar and keeps the composition layer reusable for future neighborhood-intelligence work."
     },
     {
       "id": "tp-003",

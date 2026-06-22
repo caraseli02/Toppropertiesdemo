@@ -31,6 +31,37 @@ export type FollowUp = {
   answer: string;
 };
 
+export type BriefPropertyPrimitive = Property & {
+  alt: string;
+  stats: Array<{
+    icon: "bed" | "bath" | "square";
+    label: string;
+    value: string;
+  }>;
+};
+
+export type BriefTradeoffPrimitive = Tradeoff;
+
+export type FollowUpPrimitive = FollowUp;
+
+export type BriefViewModel = {
+  summary: string;
+  properties: BriefPropertyPrimitive[];
+  tradeoffs: BriefTradeoffPrimitive[];
+  nextQuestion: string;
+};
+
+export const BRIEF_PRIMITIVE_SET = [
+  "editorial-hero",
+  "suggestion-chip",
+  "summary-panel",
+  "property-card",
+  "tradeoff-card",
+  "next-question-panel",
+  "follow-up-note",
+  "persistent-composer",
+] as const;
+
 export const DEFAULT_PROMPT = "find best options for home in Mallorca";
 
 export const SUGGESTIONS = [
@@ -114,6 +145,23 @@ export function buildBrief(): Brief {
     ],
     nextQuestion:
       "Is your priority a private sanctuary surrounded by nature, or being able to walk to Palma’s restaurants and airport within minutes?",
+  };
+}
+
+export function composeBriefViewModel(brief: Brief): BriefViewModel {
+  return {
+    summary: brief.summary,
+    properties: brief.properties.map((property) => ({
+      ...property,
+      alt: `${property.name} luxury home in ${property.location}`,
+      stats: [
+        { icon: "bed", label: "Bedrooms", value: `${property.beds} beds` },
+        { icon: "bath", label: "Bathrooms", value: `${property.baths} baths` },
+        { icon: "square", label: "Area", value: `${property.sqm} m²` },
+      ],
+    })),
+    tradeoffs: brief.tradeoffs,
+    nextQuestion: brief.nextQuestion,
   };
 }
 

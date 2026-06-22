@@ -79,3 +79,14 @@ Durable architecture and workflow decisions for the TopProperties reset. Add ent
 
 - Keeping lecture alignment as a chat-only audit — rejected because the repo must remain the system of record.
 - Adding a separate command outside startup — rejected because startup readiness is the path every fresh session already runs.
+
+## 2026-06-22 — Brief renders from a safe primitive grammar
+
+**Decision:** Keep the Mallorca prompt-to-brief experience constrained to a documented primitive grammar: suggestion pills, summary panel, property cards, tradeoff cards, next-question panel, follow-up notes, and the persistent composer. Data-to-view mapping lives in `composeBriefViewModel()` so the React shell can stay thin while derived labels, stats, and accessibility text remain consistent.
+
+**Reason:** This keeps the generated UI legible and safe while making the first composition layer reusable for the later neighborhood-intelligence slice.
+
+**Rejected alternatives:**
+
+- Leaving the brief as ad hoc inline markup — rejected because it makes the agentic surface harder to extend safely.
+- Introducing a runtime AI renderer now — rejected because v1 can prove the generative feel with scripted composition before any deeper AI wiring.
