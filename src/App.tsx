@@ -399,6 +399,7 @@ export default function App() {
               onMouseEnter={() => setIsHoveringSubmit(true)}
               onMouseLeave={() => setIsHoveringSubmit(false)}
               disabled={!prompt.trim()}
+              aria-label={submitted ? "Send message" : "Generate property brief"}
               className={cn(
                 "flex h-11 w-11 shrink-0 items-center justify-center rounded-[0.625rem] text-sm font-medium transition sm:w-auto sm:px-4",
                 prompt.trim()
