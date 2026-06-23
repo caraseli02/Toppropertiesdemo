@@ -13,7 +13,7 @@ Create or update this contract before coding a feature. Keep it short enough to 
 
 ## Scope
 
-- User-visible behavior to deliver: a fresh Figma-inspired TopProperties showcase prototype from the pre-React reset baseline, with the prompt `find best options for home in Mallorca`, curated luxury homes, map/neighborhood intelligence, and area tradeoffs.
+- User-visible behavior to deliver: a fresh Figma-inspired TopProperties showcase prototype from the pre-React reset baseline, with the prompt `find best options for home in Mallorca`, sparse white product screens, burgundy accents, curated luxury homes, list/detail modules, and area intelligence.
 - Files or modules touched: `src/App.vue`, `src/data/prototype.ts`, `src/styles.css`, `src/main.ts`, `index.html`, `vite.config.ts`, `package.json`, and tests/docs as needed.
 - Data/model changes: static Mallorca property and area intelligence data for the portfolio prototype.
 - Documentation changes: record the Vue prototype branch, Figma access limitation, stack choice, verification evidence, and quality state.
@@ -22,7 +22,7 @@ Create or update this contract before coding a feature. Keep it short enough to 
 
 - Out of scope: real AI integration, backend/API work, accounts, saved searches, booking/contact workflow, mortgage/financing calculators, real CRM, and real listing ingestion.
 - Existing behavior that must not change: Vite+ commands remain the standard toolchain and `vp dev` runs on `127.0.0.1:3000`.
-- Deferred follow-up: exact Figma parity remains deferred because Figma MCP access hit the Starter plan tool-call limit.
+- Deferred follow-up: exact Figma measurements remain deferred until a higher-resolution export or restored canvas access is available.
 
 ## Verification Standards
 

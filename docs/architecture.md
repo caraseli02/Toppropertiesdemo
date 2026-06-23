@@ -68,7 +68,7 @@ The basic prototype stack is clarified, but these implementation decisions still
 1. **Generative UI mode:** decide whether v1 uses true runtime AI composition, a scripted flow that feels generated, or a hybrid.
 2. **Primitive grammar:** define the safe Vue component/data primitives the agent/UI layer can compose if this prototype direction continues.
 3. **Map/neighborhood intelligence:** decide whether location intelligence remains static mock data, becomes a real API/MCP-style integration, or uses a thin hybrid.
-4. **Figma parity:** compare against exact Figma exports/screenshots if access becomes available; this branch could only use the Figma file as directional inspiration because MCP access hit the Starter plan tool-call limit.
+4. **Figma parity:** compare against exact Figma exports/screenshots if access becomes available; this branch currently uses the public browser/oEmbed thumbnail as the available visual reference.
 
 ## Harness observability
 
@@ -84,7 +84,7 @@ Agents must not assume:
 
 - React, Nuxt, Next, shadcn/ui, Leaflet, backend frameworks, or live AI SDKs as implementation dependencies.
 - Production marketplace features such as accounts, saved searches, booking/contact workflows, mortgage calculators, CRM, or real listing ingestion.
-- That the current sample data, imagery, or visual direction is final product content.
+- That the current sample data or visual direction is final product content.
 
 ## Future documentation rule
 

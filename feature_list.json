@@ -84,17 +84,17 @@
       "evidence": [
         "2026-06-23: Created codex/figma-fresh-prototype from clean pre-webapp baseline 431bfea, not from React prompt-brief commit 6124fa1.",
         "2026-06-23: Replaced the Lit startup shell with a fresh Vue 3 + TypeScript prototype using Tailwind CSS v4, @lucide/vue, Vite+, and Vitest.",
-        "2026-06-23: Built a Figma-inspired app-like showcase with large property imagery, floating generated brief panels, curated Mallorca homes, map/neighborhood intelligence, and area tradeoffs.",
-        "2026-06-23: Figma MCP design context for file PsyUWSyCF4WSH6L83WsRr3 node 0:1 was unavailable because the Figma Starter plan MCP tool-call limit was reached; the result is directional and improved, not pixel parity.",
+        "2026-06-23: Used Figma's public browser/oEmbed thumbnail surface for file PsyUWSyCF4WSH6L83WsRr3 node 0:1 and saved reference evidence at /tmp/figma-oembed-thumbnail.png.",
+        "2026-06-23: Reworked the prototype to follow the actual Figma visual direction: sparse white product screens, burgundy/red accents, compact list/detail modules, thin dividers, numbered sections, and mobile-style bottom navigation.",
         "2026-06-23: vp install passed using pnpm v10.33.0.",
         "2026-06-23: ./init.sh passed; feature_list.json is valid, Vite+ is detected, and startup path is available.",
         "2026-06-23: vp test passed; 1 test file and 2 tests passed.",
         "2026-06-23: vp check passed; all 27 files formatted and no warnings or lint errors in 6 files.",
         "2026-06-23: vp build passed and emitted build/index.html.",
         "2026-06-23: vp dev started at http://127.0.0.1:3000/.",
-        "2026-06-23: Browser verification at 1440px desktop and 375px mobile confirmed the prompt, generated brief, curated homes, and tradeoff content render with no horizontal overflow and no console errors. Screenshot evidence: /tmp/topproperties-figma-fresh-desktop-v2.png and /tmp/topproperties-figma-fresh-mobile-v2.png."
+        "2026-06-23: Browser verification at 1440px desktop and 375px mobile confirmed the prompt, shortlist, detail, and area modules render with no horizontal overflow and no console errors. Screenshot evidence: /tmp/topproperties-figma-aligned-desktop.png and /tmp/topproperties-figma-aligned-mobile.png."
       ],
-      "notes": "No backend or real AI dependency required for v1; this prototype uses a scripted/static flow that behaves like generated UI. Exact Figma parity remains unverified until an export, screenshot, or restored MCP access is available."
+      "notes": "No backend or real AI dependency required for v1; this prototype uses a scripted/static flow that behaves like generated UI. Exact Figma measurements remain unverified until a higher-resolution export or restored canvas access is available."
     },
     {
       "id": "tp-002",

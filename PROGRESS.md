@@ -9,8 +9,8 @@
   - Vitest coverage in `src/data/prototype.test.ts`.
   - Tailwind CSS v4 global styling in `src/styles.css`.
   - Vite+ config in `vite.config.ts`, including `127.0.0.1:3000` dev-server pinning.
-- Built a Figma-inspired portfolio showcase around the prompt `find best options for home in Mallorca`, with a rounded app-like canvas, large property imagery, floating generated panels, curated homes, a map-like neighborhood intelligence panel, and area tradeoffs.
-- Attempted Figma MCP design context for file `PsyUWSyCF4WSH6L83WsRr3`, node `0:1`; exact design context was unavailable because the Figma Starter plan MCP tool-call limit was reached.
+- Used Figma's public browser/oEmbed surface to inspect a real thumbnail for file `PsyUWSyCF4WSH6L83WsRr3`, node `0:1`; saved reference evidence at `/tmp/figma-oembed-thumbnail.png`.
+- Reworked the prototype to match that visual direction: sparse white product screens, burgundy/red accents, compact list/detail modules, thin dividers, numbered sections, and a mobile-style bottom navigation.
 - Updated the sprint contract, architecture notes, decision log, feature evidence, quality tracker, and clean-state checklist for the prototype branch.
 
 ## In Progress
@@ -20,13 +20,13 @@
 ## Blocked
 
 - No current local implementation blocker.
-- Exact Figma node parity is blocked by the Figma MCP Starter plan tool-call limit; this branch uses the Figma file as directional inspiration only.
+- Exact node measurements remain unavailable, but the visual direction is now based on a real Figma browser/oEmbed thumbnail rather than MCP assumptions.
 
 ## Next Steps
 
-1. Open a draft PR for `codex/figma-fresh-prototype`.
-2. Review the prototype against any future Figma exports or screenshots if the design file becomes accessible.
-3. Use the prototype branch as an isolated direction; do not merge without human review.
+1. Review the updated PR preview against the Figma file.
+2. Use a higher-resolution Figma export if available to tighten exact spacing and typography.
+3. Keep the prototype branch isolated; do not merge without human review.
 
 ## Verification Status
 
@@ -38,5 +38,5 @@ Latest verification for the 2026-06-23 fresh Vue prototype:
 - `vp check` passed; all 27 files formatted and no warnings or lint errors in 6 files.
 - `vp build` passed and emitted production assets in `build/`.
 - `vp dev` started at `http://127.0.0.1:3000/`.
-- Browser verification exercised the prompt flow at 1440px desktop and 375px mobile; both showed the generated showcase, curated homes, and area tradeoffs with no horizontal overflow and no console errors.
-- Screenshot evidence: `/tmp/topproperties-figma-fresh-desktop-v2.png` and `/tmp/topproperties-figma-fresh-mobile-v2.png`.
+- Browser verification exercised the prompt flow at 1440px desktop and 375px mobile; both showed the generated prompt, shortlist, detail, and area modules with no horizontal overflow and no console errors.
+- Screenshot evidence: `/tmp/topproperties-figma-aligned-desktop.png` and `/tmp/topproperties-figma-aligned-mobile.png`.

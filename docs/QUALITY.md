@@ -24,8 +24,8 @@ Quality: B
 
 - Verification passing: Yes. `./init.sh`, `vp test`, `vp check`, `vp build`, and browser checks passed on 2026-06-23.
 - Agent understandable: Good. The prototype is centered in `src/App.vue` with static data in `src/data/prototype.ts`.
-- Known gaps: Exact Figma parity is unverified because Figma MCP access hit the Starter plan tool-call limit; the second visual pass is a closer Figma-style interpretation than the first editorial layout.
-- Next improvement: Compare against user-provided Figma exports/screenshots if available.
+- Known gaps: Exact Figma measurements are unverified, but the visual direction now uses a real browser/oEmbed thumbnail from the Figma file instead of MCP assumptions.
+- Next improvement: Compare against a higher-resolution Figma export if available.
 
 ## Discovery Logic
 
@@ -42,14 +42,14 @@ Quality: B
 
 - Verification passing: Covered by the prototype smoke tests and browser verification on 2026-06-23.
 - Agent understandable: Good. It includes three Mallorca property matches and three area intelligence signals.
-- Known gaps: Images are remote visual references and listings remain mock-only.
-- Next improvement: Replace remote references with approved local assets or Figma exports if the prototype moves forward.
+- Known gaps: Listings remain mock-only.
+- Next improvement: Tighten the data shown in list/detail modules against the final product narrative if this prototype moves forward.
 
 ## Styling
 
 Quality: B
 
-- Verification passing: Yes. Desktop and 375px mobile browser checks passed on 2026-06-23 with no horizontal overflow or console errors. Evidence uses the second-pass screenshots at `/tmp/topproperties-figma-fresh-desktop-v2.png` and `/tmp/topproperties-figma-fresh-mobile-v2.png`.
+- Verification passing: Yes. Desktop and 375px mobile browser checks passed on 2026-06-23 with no horizontal overflow or console errors. Evidence uses the browser-derived Figma thumbnail at `/tmp/figma-oembed-thumbnail.png` and implementation screenshots at `/tmp/topproperties-figma-aligned-desktop.png` and `/tmp/topproperties-figma-aligned-mobile.png`.
 - Agent understandable: Good. The visual treatment is mostly in `src/App.vue` with small global helpers in `src/styles.css`.
-- Known gaps: The design is Figma-inspired rather than pixel-matched due unavailable Figma context.
-- Next improvement: Tighten typography and spacing against exact Figma measurements if access is restored.
+- Known gaps: The design is Figma-inspired rather than pixel-matched because the available thumbnail is low resolution.
+- Next improvement: Tighten typography and spacing against exact Figma measurements if a larger export is available.
