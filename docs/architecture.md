@@ -1,6 +1,6 @@
 # Architecture
 
-This document describes the current startup-readiness baseline, agreed stack, and decisions still waiting for product/design outputs.
+This document describes the current startup-readiness baseline, prototype stack, and decisions still waiting for product/design outputs.
 
 ## Current repo state
 
@@ -16,24 +16,25 @@ feature_list.json         # Machine-readable feature state, verification, and ev
 init.sh                   # Idempotent startup/readiness check
 claude-progress.md        # Compatibility pointer to active harness state
 index.html                # Vite app entrypoint
-package.json              # Vite+/Lit project manifest
+package.json              # Vite+/Vue project manifest
 pnpm-lock.yaml            # Locked dependency graph
 pnpm-workspace.yaml       # Project-local workspace root for dependency installation
-src/                      # Lightweight app scaffold
+src/                      # Vue/TypeScript prototype app surface
 tasks.md                  # Ordered next implementation tasks
 vercel.json               # Vercel build/output configuration
-vite.config.js            # Vite+ config for build/test/check
+vite.config.ts            # Vite+ config for dev/build/test/check
 ```
 
-The harness artifacts are part of the current reset baseline. Do not remove or relabel them without a specific cleanup task.
+The harness artifacts are part of the reset baseline. Do not remove or relabel them without a specific cleanup task.
 
 ## Current stack baseline
 
-The agreed direction is intentionally lightweight:
+This prototype branch uses a lightweight visual stack:
 
-- **HTML/JavaScript** as the base app surface.
+- **Vue 3 + TypeScript** as the base app surface.
 - **Tailwind CSS v4** via the official `@tailwindcss/vite` plugin for utility-first styling.
-- **Lit elements** for reusable UI primitives where a component model helps. Current Lit components render into light DOM so Tailwind's global generated stylesheet can apply utility classes.
+- **@lucide/vue** for interface icons.
+- **Static mock data** for property curation and Mallorca neighborhood intelligence.
 - **Vite+ (`vp`)** as the preferred toolchain.
 - **Vitest through `vp test`** for smoke/unit tests.
 
@@ -43,18 +44,16 @@ Vite+ is a unified frontend toolchain around Vite/Vitest/Oxlint/Oxfmt and relate
 
 ```text
 src/
-├── components/
-│   └── topproperties-app.js   # Lit shell for the prompt-led Mallorca demo
+├── App.vue                    # Fresh Figma-inspired showcase prototype
 ├── data/
-│   └── properties.js          # Curated Mallorca sample data
-├── lib/
-│   ├── discovery.js           # Pure discovery-brief logic
-│   └── discovery.test.js      # Vitest smoke/unit test
-├── main.js                    # App bootstrap
+│   ├── prototype.ts           # Static property and area intelligence model
+│   └── prototype.test.ts      # Vitest smoke/unit test
+├── main.ts                    # Vue bootstrap
+├── vite-env.d.ts              # Vite TypeScript ambient declarations
 └── styles.css                 # Tailwind v4 entrypoint, theme tokens, minimal global reset
 ```
 
-This is a startup baseline, not the final product architecture. It proves the repo can start, test, and build while keeping future product/design decisions open.
+This is a prototype branch, not the final product architecture. It proves a fresh Vue direction can start, test, build, and render the Mallorca prompt-led showcase while keeping backend and live AI decisions out of scope.
 
 ## Approved product direction
 
@@ -64,16 +63,16 @@ See `CONTEXT.md` for the complete product glossary and guardrails.
 
 ## Open architecture decisions
 
-The basic stack is clarified, but these implementation decisions still need outputs from the spike/design work:
+The basic prototype stack is clarified, but these implementation decisions still need outputs from future spike/design work:
 
 1. **Generative UI mode:** decide whether v1 uses true runtime AI composition, a scripted flow that feels generated, or a hybrid.
-2. **Primitive grammar:** define the safe Lit/custom-element primitives the agent/UI layer can compose.
-3. **Map/neighborhood intelligence:** decide whether location intelligence is static mock data, a real API/MCP-style integration, or a thin hybrid.
-4. **Reference migration:** decide which visual/accessibility patterns from the old React/shadcn app are worth carrying forward.
+2. **Primitive grammar:** define the safe Vue component/data primitives the agent/UI layer can compose if this prototype direction continues.
+3. **Map/neighborhood intelligence:** decide whether location intelligence remains static mock data, becomes a real API/MCP-style integration, or uses a thin hybrid.
+4. **Figma parity:** compare against exact Figma exports/screenshots if access becomes available; this branch could only use the Figma file as directional inspiration because MCP access hit the Starter plan tool-call limit.
 
 ## Harness observability
 
-The repo now carries both runtime and process observability hooks:
+The repo carries both runtime and process observability hooks:
 
 - Runtime verification commands: `./init.sh`, `vp test`, `vp check`, `vp build`, and `vp dev` for browser checks.
 - Process artifacts: `feature_list.json`, `PROGRESS.md`, `DECISIONS.md`, `docs/QUALITY.md`, and `docs/harness/`.
@@ -83,9 +82,9 @@ The repo now carries both runtime and process observability hooks:
 
 Agents must not assume:
 
-- React, Vue, Nuxt, Next, Tailwind, shadcn/ui, or Leaflet as implementation dependencies.
+- React, Nuxt, Next, shadcn/ui, Leaflet, backend frameworks, or live AI SDKs as implementation dependencies.
 - Production marketplace features such as accounts, saved searches, booking/contact workflows, mortgage calculators, CRM, or real listing ingestion.
-- That the current sample data is final product content.
+- That the current sample data, imagery, or visual direction is final product content.
 
 ## Future documentation rule
 

@@ -1,6 +1,6 @@
 {
   "project": "TopProperties",
-  "last_updated": "2026-06-15",
+  "last_updated": "2026-06-23",
   "status": "startup_baseline_ready",
   "goal_card": "t_9d328a7a",
   "rules": {
@@ -28,7 +28,7 @@
   },
   "scope_guardrails": {
     "v1_location_scope": "Mallorca luxury homes only",
-    "stack": "lightweight HTML/JavaScript, Lit, Tailwind CSS v4, Vite+ unless a later decision changes it",
+    "stack": "Vue 3, TypeScript, Tailwind CSS v4, @lucide/vue, Vite+, and Vitest on the fresh prototype branch unless a later decision changes it",
     "preserve_old_app_work_as": "reference only",
     "excluded_from_v1": [
       "booking/contact workflows",
@@ -70,7 +70,7 @@
       "area": "agentic-discovery",
       "title": "Build the prompt-to-brief thin slice",
       "user_visible_behavior": "A user can submit the Mallorca home-search prompt and receive a polished brief with curated properties plus at least one comparison or story panel.",
-      "status": "not_started",
+      "status": "passing",
       "dependencies": [],
       "verification": [
         "Run vp test.",
@@ -81,20 +81,32 @@
         "Verify the response includes curated properties and at least one comparison or story panel.",
         "Verify the primary flow remains usable at 375px mobile width."
       ],
-      "evidence": [],
-      "notes": "No backend or real AI dependency required for v1; a scripted/static flow is acceptable if it behaves like generated UI."
+      "evidence": [
+        "2026-06-23: Created codex/figma-fresh-prototype from clean pre-webapp baseline 431bfea, not from React prompt-brief commit 6124fa1.",
+        "2026-06-23: Replaced the Lit startup shell with a fresh Vue 3 + TypeScript prototype using Tailwind CSS v4, @lucide/vue, Vite+, and Vitest.",
+        "2026-06-23: Built a Figma-inspired app-like showcase with large property imagery, floating generated brief panels, curated Mallorca homes, map/neighborhood intelligence, and area tradeoffs.",
+        "2026-06-23: Figma MCP design context for file PsyUWSyCF4WSH6L83WsRr3 node 0:1 was unavailable because the Figma Starter plan MCP tool-call limit was reached; the result is directional and improved, not pixel parity.",
+        "2026-06-23: vp install passed using pnpm v10.33.0.",
+        "2026-06-23: ./init.sh passed; feature_list.json is valid, Vite+ is detected, and startup path is available.",
+        "2026-06-23: vp test passed; 1 test file and 2 tests passed.",
+        "2026-06-23: vp check passed; all 27 files formatted and no warnings or lint errors in 6 files.",
+        "2026-06-23: vp build passed and emitted build/index.html.",
+        "2026-06-23: vp dev started at http://127.0.0.1:3000/.",
+        "2026-06-23: Browser verification at 1440px desktop and 375px mobile confirmed the prompt, generated brief, curated homes, and tradeoff content render with no horizontal overflow and no console errors. Screenshot evidence: /tmp/topproperties-figma-fresh-desktop-v2.png and /tmp/topproperties-figma-fresh-mobile-v2.png."
+      ],
+      "notes": "No backend or real AI dependency required for v1; this prototype uses a scripted/static flow that behaves like generated UI. Exact Figma parity remains unverified until an export, screenshot, or restored MCP access is available."
     },
     {
       "id": "tp-002",
       "priority": 2,
       "area": "safe-primitives",
       "title": "Define the safe primitive grammar",
-      "user_visible_behavior": "The generated brief is composed from a small, documented set of reusable Lit primitives instead of arbitrary markup.",
+      "user_visible_behavior": "The generated brief is composed from a small, documented set of reusable Vue/data primitives instead of arbitrary markup.",
       "status": "not_started",
       "dependencies": ["tp-001"],
       "verification": [
         "Document the initial primitive set and data contract.",
-        "Add or update Lit elements for each primitive used by the prompt-to-brief slice.",
+        "Add or update Vue components for each primitive used by the prompt-to-brief slice.",
         "Add at least one test for pure composition or data-mapping logic.",
         "Run vp test.",
         "Run vp check.",

@@ -18,7 +18,7 @@ required_files=(
   "package.json"
   "pnpm-workspace.yaml"
   "tasks.md"
-  "vite.config.js"
+  "vite.config.ts"
 )
 
 for file in "${required_files[@]}"; do
