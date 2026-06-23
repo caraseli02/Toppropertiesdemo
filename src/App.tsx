@@ -103,7 +103,7 @@ export default function App() {
       <header className="fixed left-0 right-0 top-0 z-40 border-b border-white/5 bg-slate-950/60 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-[0.625rem] bg-indigo-500/10 text-indigo-300">
+            <div aria-hidden="true" className="flex h-9 w-9 items-center justify-center rounded-[0.625rem] bg-indigo-500/10 text-indigo-300">
               <Sparkles className="h-5 w-5" />
             </div>
             <div className="flex flex-col">
@@ -120,7 +120,7 @@ export default function App() {
               onClick={resetWorkspace}
               className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium text-slate-300 transition hover:bg-white/10 hover:text-white"
             >
-              <RefreshCw className="h-3.5 w-3.5" />
+              <RefreshCw aria-hidden="true" className="h-3.5 w-3.5" />
               New brief
             </button>
           )}
@@ -146,7 +146,7 @@ export default function App() {
                   transition={{ duration: 0.6, delay: 0.1 }}
                   className="mb-8 inline-flex items-center gap-2 rounded-full border border-indigo-400/20 bg-indigo-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.15em] text-indigo-300"
                 >
-                  <Sparkles className="h-3.5 w-3.5" />
+                  <Sparkles aria-hidden="true" className="h-3.5 w-3.5" />
                   Agentic briefing
                 </motion.div>
 
@@ -205,7 +205,7 @@ export default function App() {
                 className="mb-10"
               >
                 <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.15em] text-indigo-300">
-                  <Sparkles className="h-3.5 w-3.5" />
+                  <Sparkles aria-hidden="true" className="h-3.5 w-3.5" />
                   Generated property brief
                 </div>
                 <h2 className="mt-3 font-serif text-4xl font-medium tracking-tight text-white md:text-5xl">
@@ -275,15 +275,15 @@ export default function App() {
                         </p>
                         <div className="mt-6 flex items-center gap-4 text-xs text-slate-400">
                           <span className="flex items-center gap-1.5">
-                            <Bed className="h-4 w-4" />
+                            <Bed aria-hidden="true" className="h-4 w-4" />
                             {property.beds} beds
                           </span>
                           <span className="flex items-center gap-1.5">
-                            <Bath className="h-4 w-4" />
+                            <Bath aria-hidden="true" className="h-4 w-4" />
                             {property.baths} baths
                           </span>
                           <span className="flex items-center gap-1.5">
-                            <Square className="h-4 w-4" />
+                            <Square aria-hidden="true" className="h-4 w-4" />
                             {property.sqm} m²
                           </span>
                         </div>
@@ -343,7 +343,7 @@ export default function App() {
                     className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-indigo-950 transition hover:bg-indigo-50"
                   >
                     Answer this question
-                    <ArrowRight className="h-4 w-4" />
+                    <ArrowRight aria-hidden="true" className="h-4 w-4" />
                   </button>
                 </div>
               </motion.section>
@@ -382,7 +382,7 @@ export default function App() {
       >
         <div className="rounded-[8px] border border-white/10 bg-slate-900/85 shadow-2xl shadow-black/50 backdrop-blur-2xl">
           <div className="flex items-end gap-2 p-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[0.625rem] bg-indigo-500/10 text-indigo-300">
+            <div aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[0.625rem] bg-indigo-500/10 text-indigo-300">
               <Sparkles className="h-5 w-5" />
             </div>
             <textarea
@@ -413,12 +413,12 @@ export default function App() {
                 </span>
                 {isHoveringSubmit || !submitted ? (
                   submitted ? (
-                    <Send className="h-4 w-4" />
+                    <Send aria-hidden="true" className="h-4 w-4" />
                   ) : (
-                    <ArrowRight className="h-4 w-4" />
+                    <ArrowRight aria-hidden="true" className="h-4 w-4" />
                   )
                 ) : (
-                  <Send className="h-4 w-4" />
+                  <Send aria-hidden="true" className="h-4 w-4" />
                 )}
               </span>
             </button>
