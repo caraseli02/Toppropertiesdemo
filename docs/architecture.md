@@ -15,7 +15,7 @@ docs/harness/             # Sprint contracts, rubrics, handoff, and clean-state 
 scripts/                  # Harness readiness checks and maintenance scripts
 feature_list.json         # Machine-readable feature state, verification, and evidence
 init.sh                   # Idempotent startup/readiness check
-claude-progress.md        # Compatibility pointer to active harness state
+PROGRESS.md               # Current session status, blockers, and verification state
 index.html                # Vite app entrypoint
 package.json              # Vite+/React project manifest
 pnpm-lock.yaml            # Locked dependency graph

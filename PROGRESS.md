@@ -2,6 +2,14 @@
 
 ## Done
 
+- Harness audit fixes aligned with Learn Harness Engineering best practices:
+  - `init.sh` now installs dependencies and runs full verification (check + test + build) instead of only checking file existence.
+  - Added `.github/workflows/ci.yml` — runs harness readiness check + `npm run verify` on every PR and push to `main`.
+  - Added `npm run verify` script to `package.json` as a single full-pipeline verification gate.
+  - Added "Full verification" and "Definition of Done" sections to `AGENTS.md`.
+  - Added `.nvmrc` pinning Node 24 for reproducible environments.
+  - Removed redundant `claude-progress.md` (compatibility pointer); `PROGRESS.md` is the single source of truth.
+  - Updated `docs/architecture.md` to reference `PROGRESS.md` instead of `claude-progress.md`.
 - Dead-code cleanup on the React baseline:
   - removed unused public exports from `src/app-data.tsx` (`Property` and `Tradeoff` are now local types).
   - verified `npm run build` still passes.

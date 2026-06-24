@@ -103,7 +103,10 @@ export default function App() {
       <header className="fixed left-0 right-0 top-0 z-40 border-b border-white/5 bg-slate-950/60 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <div className="flex items-center gap-3">
-            <div aria-hidden="true" className="flex h-9 w-9 items-center justify-center rounded-[0.625rem] bg-indigo-500/10 text-indigo-300">
+            <div
+              aria-hidden="true"
+              className="flex h-9 w-9 items-center justify-center rounded-[0.625rem] bg-indigo-500/10 text-indigo-300"
+            >
               <Sparkles className="h-5 w-5" />
             </div>
             <div className="flex flex-col">
@@ -382,7 +385,10 @@ export default function App() {
       >
         <div className="rounded-[8px] border border-white/10 bg-slate-900/85 shadow-2xl shadow-black/50 backdrop-blur-2xl">
           <div className="flex items-end gap-2 p-3">
-            <div aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[0.625rem] bg-indigo-500/10 text-indigo-300">
+            <div
+              aria-hidden="true"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[0.625rem] bg-indigo-500/10 text-indigo-300"
+            >
               <Sparkles className="h-5 w-5" />
             </div>
             <textarea
