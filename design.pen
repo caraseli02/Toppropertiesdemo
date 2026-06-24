@@ -1,0 +1,1015 @@
+{
+  "version": "2.14",
+  "children": [
+    {
+      "type": "frame",
+      "id": "fRUOn",
+      "x": 6106.90828402367,
+      "y": -1813,
+      "name": "Mobile UIs",
+      "width": 700,
+      "fill": "#F3EBE2",
+      "cornerRadius": 12,
+      "stroke": "#C5BEB6",
+      "strokeWidth": 1,
+      "layout": "vertical",
+      "gap": 20,
+      "padding": 24,
+      "children": [
+        {
+          "type": "frame",
+          "id": "pOxTT",
+          "name": "Header",
+          "width": "fill_container",
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "ilfmW",
+              "name": "Title",
+              "fill": "#1A1A1A",
+              "content": "Mobile UIs",
+              "fontFamily": "Inter",
+              "fontSize": 28,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "PpvWO",
+              "name": "Count",
+              "fill": "#3D3D3D",
+              "content": "9 assets",
+              "fontFamily": "Inter",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "bzXGU",
+          "name": "Mobile Grid",
+          "layout": "vertical",
+          "gap": 16,
+          "children": [
+            {
+              "type": "frame",
+              "id": "qShIx",
+              "name": "Row 1",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 8,
+                  "id": "qPIVM",
+                  "name": "iPhone 14 Pro 4",
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "images/iPhone%2014%20Pro%20-%204.png",
+                    "mode": "fit"
+                  },
+                  "width": 180,
+                  "height": 391,
+                  "stroke": "#C5BEB6",
+                  "strokeWidth": 1
+                },
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 8,
+                  "id": "jLy6b",
+                  "name": "iPhone 14 Pro 10",
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "images/iPhone%2014%20Pro%20-%2010.png",
+                    "mode": "fit"
+                  },
+                  "width": 180,
+                  "height": 391,
+                  "stroke": "#C5BEB6",
+                  "strokeWidth": 1
+                },
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 8,
+                  "id": "qxWfP",
+                  "name": "iPhone 14 Pro 12",
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "images/iPhone%2014%20Pro%20-%2012.png",
+                    "mode": "fit"
+                  },
+                  "width": 180,
+                  "height": 391,
+                  "stroke": "#C5BEB6",
+                  "strokeWidth": 1
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "O9J2o",
+              "name": "Row 2",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 8,
+                  "id": "o0Ywf",
+                  "name": "iPhone 14 Pro 13",
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "images/iPhone%2014%20Pro%20-%2013.png",
+                    "mode": "fit"
+                  },
+                  "width": 180,
+                  "height": 391,
+                  "stroke": "#C5BEB6",
+                  "strokeWidth": 1
+                },
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 8,
+                  "id": "SbVhs",
+                  "name": "Mobile List Filters Open",
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "images/Mobile%20List%20View%20on%20Filters%20Open%20Proposal%2002.png",
+                    "mode": "fit"
+                  },
+                  "width": 180,
+                  "height": 391,
+                  "stroke": "#C5BEB6",
+                  "strokeWidth": 1
+                },
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 8,
+                  "id": "B2dROQ",
+                  "name": "Mobile List Proposal 01",
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "images/Mobile%20List%20View%20Proposal%2001.png",
+                    "mode": "fit"
+                  },
+                  "width": 180,
+                  "height": 391,
+                  "stroke": "#C5BEB6",
+                  "strokeWidth": 1
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "LCJCc",
+              "name": "Row 3",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 8,
+                  "id": "NBm4x",
+                  "name": "Mobile List Proposal 02",
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "images/Mobile%20List%20View%20Proposal%2002.png",
+                    "mode": "fit"
+                  },
+                  "width": 180,
+                  "height": 391,
+                  "stroke": "#C5BEB6",
+                  "strokeWidth": 1
+                },
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 8,
+                  "id": "D4awH",
+                  "name": "Mobile View iPhone 14 Pro",
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "images/Mobile%20View%20(iPhone%2014%20pro).png",
+                    "mode": "fit"
+                  },
+                  "width": 180,
+                  "height": 390,
+                  "stroke": "#C5BEB6",
+                  "strokeWidth": 1
+                },
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 8,
+                  "id": "FoIfI",
+                  "name": "Navigation",
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "images/Navigation.png",
+                    "mode": "fit"
+                  },
+                  "width": 180,
+                  "height": 391,
+                  "stroke": "#C5BEB6",
+                  "strokeWidth": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "w8GYy",
+      "x": 6106.90828402367,
+      "y": -386,
+      "name": "Desktop UIs",
+      "width": 700,
+      "fill": "#F3EBE2",
+      "cornerRadius": 12,
+      "stroke": "#C5BEB6",
+      "strokeWidth": 1,
+      "layout": "vertical",
+      "gap": 20,
+      "padding": 24,
+      "children": [
+        {
+          "type": "frame",
+          "id": "j9hoO",
+          "name": "Header",
+          "width": "fill_container",
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "Og7zj",
+              "name": "Title",
+              "fill": "#1A1A1A",
+              "content": "Desktop UIs",
+              "fontFamily": "Inter",
+              "fontSize": 28,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "BN0qi",
+              "name": "Count",
+              "fill": "#3D3D3D",
+              "content": "7 assets",
+              "fontFamily": "Inter",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "xLH6e",
+          "name": "Desktop Grid",
+          "layout": "vertical",
+          "gap": 16,
+          "children": [
+            {
+              "type": "frame",
+              "id": "jusQl",
+              "name": "Row 1",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 8,
+                  "id": "lj7BG",
+                  "name": "Contact Form - Vendi la tua proprietà",
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "images/Contact%20Form%20-%20Vendi%20la%20tua%20proprieta%CC%80.jpg",
+                    "mode": "fit"
+                  },
+                  "width": 180,
+                  "height": 164,
+                  "stroke": "#C5BEB6",
+                  "strokeWidth": 1
+                },
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 8,
+                  "id": "OL3n4",
+                  "name": "News Page",
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "images/News%20Page.jpg",
+                    "mode": "fit"
+                  },
+                  "width": 180,
+                  "height": 201,
+                  "stroke": "#C5BEB6",
+                  "strokeWidth": 1
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "JpTbt",
+              "name": "Row 2",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 8,
+                  "id": "q4nq3E",
+                  "name": "Detail Page - LUXURY HOUSES",
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "images/Detail%20Page%20-%20LUXURY%20HOUSES.jpg",
+                    "mode": "fit"
+                  },
+                  "width": 180,
+                  "height": 642,
+                  "stroke": "#C5BEB6",
+                  "strokeWidth": 1
+                },
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 8,
+                  "id": "edyuU",
+                  "name": "Detail Page - TOP PROPERTIES",
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "images/Detail%20Page%20-%20TOP%20PROPERTIES.jpg",
+                    "mode": "fit"
+                  },
+                  "width": 180,
+                  "height": 618,
+                  "stroke": "#C5BEB6",
+                  "strokeWidth": 1
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "APvGM",
+              "name": "Row 3",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 8,
+                  "id": "NhpAy",
+                  "name": "Homepage Search",
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "images/Homepage%20Search.jpg",
+                    "mode": "fit"
+                  },
+                  "width": 180,
+                  "height": 721,
+                  "stroke": "#C5BEB6",
+                  "strokeWidth": 1
+                },
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 8,
+                  "id": "nzkWU",
+                  "name": "Homepage 1",
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "images/Homepage-1.jpg",
+                    "mode": "fit"
+                  },
+                  "width": 180,
+                  "height": 721,
+                  "stroke": "#C5BEB6",
+                  "strokeWidth": 1
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "l42AxR",
+              "name": "Row 4",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 8,
+                  "id": "rB21p",
+                  "name": "Homepage",
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "images/Homepage.jpg",
+                    "mode": "fit"
+                  },
+                  "width": 180,
+                  "height": 601,
+                  "stroke": "#C5BEB6",
+                  "strokeWidth": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "rectangle",
+      "id": "AqPJ8",
+      "x": 3115,
+      "y": -2411,
+      "fill": {
+        "type": "image",
+        "enabled": true,
+        "url": "images/Screenshot%202026-06-24%20at%2009.28.25.png",
+        "mode": "fill"
+      },
+      "width": 856,
+      "height": 1478
+    },
+    {
+      "type": "rectangle",
+      "id": "gAL1C",
+      "x": 3115,
+      "y": -734,
+      "fill": {
+        "type": "image",
+        "enabled": true,
+        "url": "images/Screenshot%202026-06-24%20at%2009.29.21.png",
+        "mode": "fill"
+      },
+      "width": 744,
+      "height": 1286
+    },
+    {
+      "type": "rectangle",
+      "id": "jVpj8",
+      "x": 3173,
+      "y": 772,
+      "fill": {
+        "type": "image",
+        "enabled": true,
+        "url": "images/Screenshot%202026-06-24%20at%2009.29.43.png",
+        "mode": "fill"
+      },
+      "width": 524,
+      "height": 1364
+    },
+    {
+      "type": "rectangle",
+      "id": "ZoVK9",
+      "x": 2989,
+      "y": 2244,
+      "fill": {
+        "type": "image",
+        "enabled": true,
+        "url": "images/Screenshot%202026-06-24%20at%2009.30.19.png",
+        "mode": "fill"
+      },
+      "width": 1964,
+      "height": 554
+    },
+    {
+      "type": "rectangle",
+      "id": "NQMUp",
+      "x": 2989,
+      "y": 2915,
+      "fill": {
+        "type": "image",
+        "enabled": true,
+        "url": "images/Screenshot%202026-06-24%20at%2009.30.44.png",
+        "mode": "fill"
+      },
+      "width": 1568,
+      "height": 808
+    }
+  ],
+  "themes": {
+    "Mode": [
+      "Light",
+      "Dark"
+    ]
+  },
+  "variables": {
+    "--sidebar": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#E7E8E5"
+        },
+        {
+          "value": "#18181b",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--sidebar-foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#666666"
+        },
+        {
+          "value": "#fafafa",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--sidebar-primary": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#18181b"
+        },
+        {
+          "value": "#18181b",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--sidebar-primary-foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#fafafa"
+        },
+        {
+          "value": "#fafafa",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--sidebar-border": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#CBCCC9"
+        },
+        {
+          "value": "#ffffff1a",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--sidebar-accent": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#CBCCC9"
+        },
+        {
+          "value": "#2a2a30",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--sidebar-accent-foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#18181b"
+        },
+        {
+          "value": "#fafafa",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--sidebar-ring": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#71717a"
+        },
+        {
+          "value": "#71717a",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--background": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#F2F3F0"
+        },
+        {
+          "value": "#111111",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#111111"
+        },
+        {
+          "value": "#FFFFFF",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--card": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#FFFFFF"
+        },
+        {
+          "value": "#1A1A1A",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--card-foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#111111"
+        },
+        {
+          "value": "#FFFFFF",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--popover": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#FFFFFF"
+        },
+        {
+          "value": "#1A1A1A",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--popover-foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#111111"
+        },
+        {
+          "value": "#FFFFFF",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--primary": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#FF8400"
+        },
+        {
+          "value": "#FF8400",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--primary-foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#111111"
+        },
+        {
+          "value": "#111111",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--secondary": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#E7E8E5"
+        },
+        {
+          "value": "#2E2E2E",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--secondary-foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#111111"
+        },
+        {
+          "value": "#FFFFFF",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--muted": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#F2F3F0"
+        },
+        {
+          "value": "#2E2E2E",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--muted-foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#666666"
+        },
+        {
+          "value": "#B8B9B6",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--accent": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#F2F3F0"
+        },
+        {
+          "value": "#111111",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--accent-foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#111111"
+        },
+        {
+          "value": "#F2F3F0",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--destructive": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#D93C15"
+        },
+        {
+          "value": "#FF5C33",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--border": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#CBCCC9"
+        },
+        {
+          "value": "#2E2E2E",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--input": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#CBCCC9"
+        },
+        {
+          "value": "#2E2E2E",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--ring": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#666666"
+        },
+        {
+          "value": "#666666",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--white": {
+      "type": "color",
+      "value": "#FFFFFF"
+    },
+    "--black": {
+      "type": "color",
+      "value": "#000000"
+    },
+    "--font-primary": {
+      "type": "string",
+      "value": "JetBrains Mono"
+    },
+    "--font-secondary": {
+      "type": "string",
+      "value": "Geist"
+    },
+    "--radius-none": {
+      "type": "number",
+      "value": 0
+    },
+    "--radius-pill": {
+      "type": "number",
+      "value": 999
+    },
+    "--color-success": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#DFE6E1"
+        },
+        {
+          "value": "#222924",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--color-success-foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#004D1A"
+        },
+        {
+          "value": "#B6FFCE",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--color-warning": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#E9E3D8"
+        },
+        {
+          "value": "#291C0F",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--color-warning-foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#804200"
+        },
+        {
+          "value": "#FF8400",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--color-error": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#E5DCDA"
+        },
+        {
+          "value": "#24100B",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--color-error-foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#8C1C00"
+        },
+        {
+          "value": "#FF5C33",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--color-info": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#DFDFE6"
+        },
+        {
+          "value": "#222229",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--color-info-foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#000066"
+        },
+        {
+          "value": "#B2B2FF",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--radius-m": {
+      "type": "number",
+      "value": 16
+    }
+  },
+  "imports": {
+    "V": "pencil:shadcn.lib.pen"
+  },
+  "fileToken": "16af7c8a-c414-4d97-8827-31b9c6f7dffd"
+}
