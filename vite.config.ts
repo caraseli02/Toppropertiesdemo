@@ -21,6 +21,9 @@ export default defineConfig({
   },
   test: {
     include: ["src/**/*.test.ts", "src/**/*.test.tsx"],
+    environment: "jsdom",
+    setupFiles: ["./vitest.setup.ts"],
+    globals: true,
   },
   lint: {
     ignorePatterns: ["build/**", "node_modules/**", ".agents/**"],
