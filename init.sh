@@ -5,7 +5,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$ROOT_DIR"
 
-echo "==> TopProperties reset baseline"
+echo "==> TopProperties startup baseline"
 echo "==> Current directory: $PWD"
 
 required_files=(
@@ -50,13 +50,43 @@ fi
 echo "==> Baseline files are present."
 echo "==> feature_list.json is valid JSON."
 
+# Resolve vp binary: global > local node_modules/.bin
 if command -v vp >/dev/null 2>&1; then
-  echo "==> Vite+ detected: $(vp --version 2>/dev/null || echo available)"
-  echo "==> Standard commands: vp install, vp dev, vp test, vp check, vp build"
+  VP=vp
+elif [ -x node_modules/.bin/vp ]; then
+  VP=node_modules/.bin/vp
 else
-  echo "==> Vite+ CLI 'vp' was not found on PATH." >&2
-  echo "==> Install project dependencies before feature work, then rerun this script." >&2
-  exit 1
+  echo "==> Vite+ CLI 'vp' was not found." >&2
+  echo "==> Installing dependencies first…" >&2
+  if command -v pnpm >/dev/null 2>&1; then
+    pnpm install
+  elif command -v npm >/dev/null 2>&1; then
+    npm install
+  else
+    echo "Neither pnpm nor npm found on PATH." >&2
+    exit 1
+  fi
+  if [ -x node_modules/.bin/vp ]; then
+    VP=node_modules/.bin/vp
+  else
+    echo "vp still not found after install." >&2
+    exit 1
+  fi
 fi
 
-echo "==> Startup path is available."
+echo "==> Vite+ detected: $("$VP" --version 2>/dev/null || echo available)"
+
+# --- Install dependencies ---
+echo "==> Installing dependencies ($VP install)…"
+"$VP" install
+
+# --- Run full verification ---
+echo "==> Running verification ($VP check, $VP test, $VP build)…"
+"$VP" check
+"$VP" test
+"$VP" build
+
+echo ""
+echo "==> Startup baseline verified successfully."
+echo "==> Dev server:  $VP dev  (or: vp dev)"
+echo "==> Full verify: npm run verify"

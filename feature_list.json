@@ -1,6 +1,6 @@
 {
   "project": "TopProperties",
-  "last_updated": "2026-06-20",
+  "last_updated": "2026-06-24",
   "status": "startup_baseline_ready",
   "goal_card": "t_9d328a7a",
   "rules": {
@@ -68,7 +68,7 @@
         "2026-06-17: vp build passed; production build emitted build/index.html, CSS, and JS assets.",
         "2026-06-17: PR opened for review: https://github.com/caraseli02/Toppropertiesdemo/pull/58"
       ],
-      "notes": "This is a harness task, not a product feature. It now includes the lecture-readiness matrix and automated startup check, and should remain passing before tp-001 begins."
+      "notes": "This is a harness task, not a product feature. It includes the lecture-readiness matrix, automated startup check, CI workflow, full-pipeline verify gate, Definition of Done, and .nvmrc. Should remain passing before tp-001 begins."
     },
     {
       "id": "tp-001",

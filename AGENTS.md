@@ -37,6 +37,40 @@ Expected current baseline:
 - `vp test` runs the React prompt-brief data smoke tests.
 - `vp build` produces `build/`.
 
+## Full verification
+
+Run the entire verification pipeline in one command:
+
+```bash
+npm run verify    # vp check + vp test + vp build
+```
+
+Or step-by-step:
+
+```bash
+vp check          # format/lint/type-check
+vp test           # Vitest smoke/unit tests
+vp build          # production build → build/
+```
+
+Every PR must pass `npm run verify` before opening. For UI work, also run `vp dev` and check the primary flow in a browser at desktop and 375px.
+
+## Definition of Done
+
+A feature is done only when **all** of the following are true:
+
+1. `npm run verify` passes (check + test + build).
+2. Browser/runtime evidence captured for any UI change (desktop + 375px mobile).
+3. `feature_list.json` updated with `passing` status and recorded evidence.
+4. `PROGRESS.md` updated with Done/In Progress/Blocked/Next Steps.
+5. `DECISIONS.md` updated if any durable architecture or workflow choice was made.
+6. `docs/QUALITY.md` updated if module quality changed.
+7. `docs/harness/clean-state-checklist.md` completed.
+8. Sprint contract updated or closed.
+9. PR opened, diff scoped to the feature, no debug markers or temp files.
+
+"No verification" = declaring done based on vibes. Do not mark done without running the commands.
+
 ## Scope guardrails
 
 - Keep v1 mostly visual/product-led, not deep infrastructure.
