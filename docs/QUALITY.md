@@ -53,3 +53,12 @@ Quality: B
 - Agent understandable: Good. Styling is concentrated in `src/index.css` plus Tailwind utilities in `src/App.tsx`.
 - Known gaps: Current palette is darker/techier than the warmer luxury direction.
 - Next improvement: Borrow warmer Candidate A visual cues while keeping Candidate B's structure.
+
+## Agent Skills
+
+Quality: B
+
+- Verification passing: Partial. Repo-local Pencil skills plus `docs/design/pencil-design-system-rules.md` are in place; on-disk `design.pen` audit and `cmpPropC1` → `PropertyCard` mapping passed. Live Pencil MCP screenshot/layout evidence is still blocked until `design.pen` is open in the Pencil.dev extension canvas.
+- Agent understandable: Good. Skills and the design-system rules doc encode Pencil-native workflows, the `nIs4H` reference target, component catalog, token mapping, and validation gates.
+- Known gaps: No live `get_screenshot` / `snapshot_layout` / `export_html` evidence yet because the Pencil extension still reports no active editor session as of 2026-06-29. Direct `batch_get`, `get_variables`, and `get_guidelines` with `design.pen` also require the active editor.
+- Next improvement: Open `design.pen` in the Pencil extension and complete the Quick MCP checklist at the bottom of `docs/design/pencil-design-system-rules.md`.

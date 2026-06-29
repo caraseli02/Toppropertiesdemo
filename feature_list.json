@@ -1,6 +1,6 @@
 {
   "project": "TopProperties",
-  "last_updated": "2026-06-24",
+  "last_updated": "2026-06-29",
   "status": "startup_baseline_ready",
   "goal_card": "t_9d328a7a",
   "rules": {
@@ -69,6 +69,43 @@
         "2026-06-17: PR opened for review: https://github.com/caraseli02/Toppropertiesdemo/pull/58"
       ],
       "notes": "This is a harness task, not a product feature. It includes the lecture-readiness matrix, automated startup check, CI workflow, full-pipeline verify gate, Definition of Done, and .nvmrc. Should remain passing before tp-001 begins."
+    },
+    {
+      "id": "hx-002",
+      "priority": 0,
+      "area": "agent-skills",
+      "title": "Migrate Figma design workflows into Pencil-native repo skills",
+      "user_visible_behavior": "Future agents can create professional Pencil designs and translate them to code using repo-local Pencil skills instead of ad hoc prompts or Figma-only workflows.",
+      "status": "blocked",
+      "dependencies": [],
+      "verification": [
+        "Add repo-local Pencil equivalents for design-system-rule creation and composed screen generation.",
+        "Remove the hard dependency on the unavailable frontend-design skill from the existing Pencil guidance.",
+        "Document Figma-to-Pencil concept mappings and unsupported Figma concepts.",
+        "Attempt Pencil MCP validation against design.pen.",
+        "After design.pen is open in Pencil, run get_editor_state, batch_get, get_variables, snapshot_layout, one controlled batch_design test, get_screenshot, and export_html.",
+        "Run vp check."
+      ],
+      "evidence": [
+        "2026-06-26: Added .agents/skills/pencil-create-design-system-rules with TopProperties defaults, Pencil rule categories, Figma-to-Pencil mapping, and a project rule template.",
+        "2026-06-26: Added .agents/skills/pencil-generate-design with a Pencil-native section-by-section workflow, validation gates, and unsupported Figma concept mapping.",
+        "2026-06-26: Updated .agents/skills/pencil-design to use local product/design context instead of the unavailable frontend-design skill and to prefer existing React primitives instead of assuming shadcn/ui.",
+        "2026-06-26: Updated .gitignore to allow the relevant repo-local Pencil skill folders to be versioned while keeping unrelated .agents content ignored.",
+        "2026-06-26: Added docs/design/pencil-skill-migration-evaluation.md documenting direct translations, substitutions, unsupported concepts, and t_47af33ed viability.",
+        "2026-06-26: Pencil MCP validation is blocked because the Pencil editor has no active file open; no design.pen mutation was performed.",
+        "2026-06-26: feature_list.json parsed successfully with Node.",
+        "2026-06-26: vp check passed after the final .gitignore/state updates; all 44 files correctly formatted and no warnings, lint errors, or type errors in 19 files.",
+        "2026-06-26: npm run verify passed; vp check, vp test (2 files, 4 tests), and vp build completed successfully.",
+        "2026-06-26: ./init.sh passed; harness readiness check, dependency install, vp check, vp test, and vp build completed successfully.",
+        "2026-06-26: Revalidated Pencil skill wording against official Pencil.dev docs for CLI, design libraries, design-to-code, variables, and import/export. Updated the skills/report to distinguish official Pencil product capabilities from the narrower current Codex MCP tool surface.",
+        "2026-06-26: Added docs/design/pencil-design-system-rules.md — TopProperties Pencil rules anchored to nIs4H reference, 19 reusable components, token mapping, and acceptance gates; linked from AGENTS.md.",
+        "2026-06-26: On-disk design.pen audit passed (6 frames, 19 reusables, 43 variables, nIs4H reference image, cmpPropC1 anatomy); cmpPropC1 → PropertyCard translation exercise passed.",
+        "2026-06-26: Live Pencil MCP still blocked after closing other .pen files — get_editor_state returns no active editor; reopen design.pen in Pencil.dev extension canvas for screenshot/layout evidence.",
+        "2026-06-29: Re-ran pencil-create-design-system-rules context checks against CONTEXT.md, docs/architecture.md, src/index.css, and current src/components; docs/design/pencil-design-system-rules.md still matches the React/Tailwind component surface.",
+        "2026-06-29: Live Pencil MCP remains blocked — get_editor_state(include_schema: true), direct batch_get, get_variables, and get_guidelines all report no active open Pencil editor file; no .pen mutation was performed.",
+        "2026-06-29: feature_list.json parsed successfully with Node and npm run verify passed (vp check, vp test, vp build)."
+      ],
+      "notes": "Repo skill migration and pencil-design-system-rules.md are implemented. Live Pencil MCP validation (screenshot, snapshot_layout, export_html) remains blocked until design.pen is open in the Pencil.dev extension canvas, not only as a Cursor file tab."
     },
     {
       "id": "tp-001",

@@ -52,6 +52,18 @@ Durable architecture and workflow decisions for the TopProperties reset. Add ent
 
 **Reason:** Keeping the radius scale and base font token consistent makes the generated Mallorca brief feel intentionally designed instead of mixing Tailwind defaults.
 
+## 2026-06-26 — Pencil design workflows use repo-local Pencil-native skills
+
+**Decision:** Add repo-local `pencil-create-design-system-rules` and `pencil-generate-design` skills as Pencil-native equivalents to the Figma design-system-rules and generate-design workflows. Treat the official Figma skills as source inspiration only; do not assume Figma-only concepts such as remote library search, component keys, Code Connect, or Plugin API scripts exist in Pencil.
+
+**Reason:** TopProperties needs a more professional Pencil design and design-to-code workflow for `t_47af33ed`, but the available Pencil MCP surface is schema-driven and file-local. Reusing local Pencil components, variables, guidelines, screenshots, layout snapshots, and exports is more reliable than pretending Figma APIs are available.
+
+**Rejected alternatives:**
+
+- Directly copying the Figma skills — rejected because their core tool assumptions do not match Pencil MCP.
+- Keeping the existing Pencil skill's hard `frontend-design` dependency — rejected because that skill is not available in this repo.
+- Assuming shadcn/ui as the generated code target — rejected because the current React baseline uses local components and has no shadcn dependency.
+
 ## 2026-06-15 — Feature work requires sprint contracts and clean-state evidence
 
 **Decision:** Before implementation work begins, agents must choose one feature from `feature_list.json` and define scope, exclusions, and verification in a sprint contract. Work is not complete until feature evidence, progress, quality state, and clean-state checks are updated.

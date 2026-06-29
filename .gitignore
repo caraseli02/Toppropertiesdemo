@@ -2,7 +2,15 @@ node_modules/
 build/
 .vp/
 .DS_Store
-.agents/
+.agents/*
+!.agents/skills/
+.agents/skills/*
+!.agents/skills/pencil-design/
+!.agents/skills/pencil-design/**
+!.agents/skills/pencil-create-design-system-rules/
+!.agents/skills/pencil-create-design-system-rules/**
+!.agents/skills/pencil-generate-design/
+!.agents/skills/pencil-generate-design/**
 skills-lock.json
 /test-results/
 /playwright-report/
