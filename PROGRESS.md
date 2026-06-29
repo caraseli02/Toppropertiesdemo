@@ -2,6 +2,23 @@
 
 ## Done
 
+- 2026-06-29 Pencil design-system-rule check:
+  - invoked `pencil-create-design-system-rules` and re-read the skill, references, product context, architecture, Tailwind tokens, and current React components.
+  - confirmed `docs/design/pencil-design-system-rules.md` still matches the current component surface (`AppHeader`, `BriefComposer`, `PropertyCard`, `TradeoffCard`, `SuggestionChip`, `BrandBadge`) and `src/index.css` token names.
+  - attempted live Pencil MCP validation again via `get_editor_state(include_schema: true)`, direct `batch_get`, `get_variables`, and `get_guidelines`; all remain blocked because Pencil reports no active open editor for `design.pen`.
+- TopProperties Pencil design system rules for `t_47af33ed`:
+  - added `docs/design/pencil-design-system-rules.md` with `design.pen` document map, 19-component catalog, `nIs4H` reference target, Pencil→Tailwind token mapping, React translation rules, and acceptance gates.
+  - linked the rules from `AGENTS.md` topic docs.
+  - on-disk audit passed: 6 top-level frames, 19 reusables, 43 variables, 0 broken refs; `cmpPropC1` → `PropertyCard` mapping validated.
+  - live Pencil MCP validation still blocked — extension reports no active editor even with `design.pen` visible in Cursor; reopen in Pencil.dev canvas to complete screenshot/layout evidence.
+- Pencil skill migration groundwork for `t_47af33ed`:
+  - added `.agents/skills/pencil-create-design-system-rules` as the Pencil-native equivalent of Figma design-system-rule generation.
+  - added `.agents/skills/pencil-generate-design` for composed Pencil screen generation with component/variable discovery, section-by-section building, and screenshot/layout validation gates.
+  - updated `.agents/skills/pencil-design` to rely on local product/design context instead of the unavailable `frontend-design` skill.
+  - updated Pencil guidance to prefer existing React primitives and Tailwind v4 `@theme` tokens instead of assuming shadcn/ui.
+  - updated `.gitignore` so the relevant repo-local Pencil skill folders are no longer hidden from Git.
+  - added `docs/design/pencil-skill-migration-evaluation.md` documenting direct translations, substitutions, unsupported Figma concepts, and validation steps.
+  - revalidated the migration against official Pencil.dev docs for CLI, design libraries, design-to-code, variables, and import/export; corrected the skills/report to distinguish Pencil product capabilities from current Codex MCP limitations.
 - Harness audit fixes aligned with Learn Harness Engineering best practices:
   - `init.sh` now installs dependencies and runs full verification (check + test + build) instead of only checking file existence.
   - Added `.github/workflows/ci.yml` — runs harness readiness check + `npm run verify` on every PR and push to `main`.
@@ -63,21 +80,40 @@
 
 ## In Progress
 
-- No active product feature is currently being implemented; this branch is a maintenance sweep for the `tp-001` baseline.
+- `hx-002` Pencil skill migration and `docs/design/pencil-design-system-rules.md` are complete at the repo-file level; only live Pencil MCP screenshot/layout/export evidence remains.
 
 ## Blocked
 
+- Pencil MCP validation for `hx-002` is still blocked as of 2026-06-29 because the Pencil.dev extension has no active editor session. `get_editor_state`, direct `batch_get`, `get_variables`, and `get_guidelines` all return `A file needs to be open in the editor`. Open `design.pen` in the Pencil extension canvas (not only as a Cursor tab), then re-run the Quick MCP checklist in the rules doc. No `.pen` mutation was performed.
 - No current startup blocker. The app installs, checks, builds, and runs locally.
 - No current blocker for `tp-001`; verification passed after the polish updates.
 
 ## Next Steps
 
-1. Keep `tp-001` evidence current as the prompt-to-brief baseline evolves.
-2. Run the AI-composed UI spike (`t_c45c9064`).
-3. Run the pencil/design pass (`t_47af33ed`).
-4. Use those outputs to refine the first implementation slices in `tasks.md`.
+1. Open `design.pen` in the Pencil.dev extension canvas and run the Quick MCP checklist in `docs/design/pencil-design-system-rules.md` (screenshot `nIs4H`, `snapshot_layout` on `fOPlL`, optional `export_html` on `cmpPropC1`).
+2. Keep `tp-001` evidence current as the prompt-to-brief baseline evolves.
+3. Run the AI-composed UI spike (`t_c45c9064`).
+4. Run the pencil/design pass (`t_47af33ed`).
+5. Use those outputs to refine the first implementation slices in `tasks.md`.
 
 ## Verification Status
+
+Latest verification for the 2026-06-29 Pencil rules check:
+
+- `pencil-create-design-system-rules` skill and references were re-read.
+- `docs/design/pencil-design-system-rules.md` was checked against `CONTEXT.md`, `docs/architecture.md`, `src/index.css`, and current `src/components/*`.
+- Pencil MCP validation remains blocked: `get_editor_state(include_schema: true)`, direct `batch_get`, `get_variables`, and `get_guidelines` all report no active open Pencil editor file.
+- `feature_list.json` parsed successfully with Node.
+- `npm run verify` passed; `vp check`, `vp test` (2 files, 4 tests), and `vp build` completed successfully.
+
+Latest verification for the 2026-06-26 Pencil skill migration:
+
+- Pencil MCP validation attempted with `get_editor_state(include_schema: true)` but blocked because no `.pen` file was open in the Pencil editor; no design mutation was performed.
+- `feature_list.json` parsed successfully with Node.
+- `vp check` passed after the final `.gitignore` and state-doc updates; all 44 files correctly formatted and no warnings, lint errors, or type errors in 19 files.
+- `npm run verify` passed; `vp check`, `vp test` (2 files, 4 tests), and `vp build` completed successfully.
+- `./init.sh` passed; harness readiness check, dependency install, `vp check`, `vp test`, and `vp build` completed successfully.
+- Official Pencil.dev docs links checked successfully for CLI, design libraries, design-to-code, variables, and import/export.
 
 Latest verification for the 2026-06-20 maintenance cleanup on the `tp-001` baseline:
 

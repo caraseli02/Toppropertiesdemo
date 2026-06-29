@@ -4,37 +4,36 @@ Create or update this contract before coding a feature. Keep it short enough to 
 
 ## Feature
 
-- Feature id: `tp-001`
-- Feature title: Build the prompt-to-brief thin slice
-- Date: 2026-06-20
-- Branch: `fix/nightly-20260620`
+- Feature id: `hx-002`
+- Feature title: Migrate Figma design workflows into Pencil-native repo skills
+- Date: 2026-06-29
+- Branch: `claude/pencil-design-react-components`
 - Owner: Codex
-- Kanban/GitHub task: active feature `tp-001`; goal card `t_9d328a7a`
+- Kanban/GitHub task: design pass support for `t_47af33ed`; goal card `t_9d328a7a`
 
 ## Scope
 
-- User-visible behavior to deliver: the merged React app remains the documented baseline for the Mallorca prompt-to-brief experience, with the composer prompt copy tightened for a clearer luxury-home brief.
-- Files or modules likely touched: `src/App.tsx`, `PROGRESS.md`, `feature_list.json`, and the sprint/clean-state docs.
-- Data/model changes: none for this maintenance pass.
-- Documentation changes: refresh branch/date, verification evidence, and session state without changing the approved stack.
+- User-visible behavior to deliver: future agents can use repo-local Pencil skills for design-system-rule creation and composed Pencil screen generation instead of relying on Figma-only workflows.
+- Files or modules likely touched: `.agents/skills/pencil-create-design-system-rules/`, `.agents/skills/pencil-generate-design/`, `.agents/skills/pencil-design/`, `docs/design/`, `PROGRESS.md`, `feature_list.json`, and harness state docs.
+- Data/model changes: none.
+- Documentation changes: migration report, skill references, current validation blocker, and session state.
 
 ## Exclusions
 
-- Out of scope: real AI integration, marketplace plumbing, and new app features beyond the `tp-001` polish gaps.
+- Out of scope: mutating `design.pen` without live Pencil MCP schema/context, adding Figma parity for unsupported Pencil concepts, installing shadcn/ui, and changing app UI behavior.
 - Existing behavior that must not change: React/TypeScript/Tailwind/Vite+ startup baseline; `vp` remains the project toolchain entrypoint.
-- Deferred follow-up: map/neighborhood intelligence and the broader safe primitive grammar remain separate features.
+- Deferred follow-up: live section-level Pencil validation after `design.pen` is open in Pencil. Rechecked on 2026-06-29; active-editor access is still blocked.
 
 ## Verification Standards
 
 - Required commands:
-  - `./init.sh`
-  - `vp test`
   - `vp check`
-  - `vp build`
+- Required Pencil checks:
+  - Attempt `get_editor_state(include_schema: true)`.
+  - If `design.pen` is open, run the read-only audit and one controlled section-level validation from `docs/design/pencil-skill-migration-evaluation.md`.
+  - If no file is open, record the blocker and do not mutate the `.pen` file.
 - Required browser/runtime checks:
-  - Start with `vp dev`.
-  - Exercise the primary user flow.
-  - Check 375px mobile width for UI work.
+  - Not required unless app UI changes.
 - Required artifacts:
   - Feature evidence added to `feature_list.json`.
   - Progress update in `PROGRESS.md`.
@@ -46,4 +45,4 @@ Use `docs/harness/evaluator-rubric.md` before accepting the work.
 
 ## Passing Definition
 
-This sprint is passing only when the requested behavior works, required verification has run, evidence is recorded, and `docs/harness/clean-state-checklist.md` is satisfied.
+This sprint is passing only when the skill files exist, repo docs record the migration, `vp check` passes, and Pencil MCP evidence is captured. Until `design.pen` is open and Pencil evidence exists, the live-validation portion remains blocked.

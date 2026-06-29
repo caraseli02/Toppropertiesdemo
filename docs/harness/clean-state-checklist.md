@@ -20,6 +20,20 @@ Run this before ending a session or declaring work complete.
 - [ ] No temporary debug files, screenshots, console experiments, or stale TODO comments are left undocumented.
 - [ ] The next session can continue from repository artifacts without relying on chat history.
 
+## Latest Run - 2026-06-29
+
+- [x] `git status --short --branch` reviewed; existing intentional changes remain scoped to Pencil skill/design docs, state docs, `design.pen`, and the reference image.
+- [x] Standard startup path not rerun; this was a Pencil rules/state check with no app code change.
+- [x] Standard verification path runs through `npm run verify`: `vp check`, `vp test`, `vp build`.
+- [x] Browser/runtime check not required; no app UI behavior changed.
+- [x] Pencil MCP validation attempted with `get_editor_state(include_schema: true)`, direct `batch_get`, `get_variables`, and `get_guidelines`; all remain blocked because no `.pen` file is open in the Pencil editor.
+- [x] `feature_list.json` reflects blocked live Pencil validation for `hx-002` and records 2026-06-29 evidence.
+- [x] `PROGRESS.md` records Done, In Progress, Blocked, Next Steps, and verification status.
+- [x] `DECISIONS.md` did not require a new durable decision.
+- [x] `docs/QUALITY.md` records the current agent-skill quality gap.
+- [x] No temporary debug files, screenshots, console experiments, or stale TODO comments are left undocumented.
+- [x] The next session can continue from repository artifacts without relying on chat history.
+
 ## Latest Run - 2026-06-17
 
 - [x] `git status --short --branch` shows only intentional changes.
@@ -47,6 +61,21 @@ Run this before ending a session or declaring work complete.
 - [x] `docs/QUALITY.md` did not require a quality score change.
 - [x] `npm run build` passed.
 - [x] Design-token normalization completed for font, radius, and focus-ring consistency.
+- [x] No temporary debug files, screenshots, console experiments, or stale TODO comments are left undocumented.
+- [x] The next session can continue from repository artifacts without relying on chat history.
+
+## Latest Run - 2026-06-26
+
+- [x] `git status --short --branch` reviewed; intentional changes are `.gitignore`, docs/skill/state files, and pre-existing modified `design.pen`.
+- [x] Standard startup path works: `./init.sh`.
+- [x] Harness lecture-readiness check passes through `./init.sh`.
+- [x] Standard verification path runs through `npm run verify`: `vp check`, `vp test`, `vp build`.
+- [x] Browser/runtime check not required; no app UI behavior changed.
+- [x] Pencil MCP validation attempted with `get_editor_state(include_schema: true)` and blocked because no `.pen` file is open in Pencil; no `.pen` mutation was performed.
+- [x] `feature_list.json` reflects blocked live Pencil validation for `hx-002` and records verification evidence.
+- [x] `PROGRESS.md` records Done, In Progress, Blocked, Next Steps, and verification status.
+- [x] `DECISIONS.md` records the Pencil-native workflow decision.
+- [x] `docs/QUALITY.md` records agent-skill quality state.
 - [x] No temporary debug files, screenshots, console experiments, or stale TODO comments are left undocumented.
 - [x] The next session can continue from repository artifacts without relying on chat history.
 
