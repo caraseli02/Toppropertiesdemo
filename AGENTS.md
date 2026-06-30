@@ -20,7 +20,7 @@ The app should respond with dynamic/generated UI from safe primitives: curated p
 - **lucide-react** for icons.
 - **Vite+ (`vp`)** as the only project toolchain entrypoint.
 - Vitest via `vp test` for unit/component tests (jsdom + React Testing Library).
-- Playwright via `npm run test:e2e` for end-to-end browser tests.
+- Playwright E2E tests will be restored when the new generated app lands; the reset baseline runs L1+L2 only.
 
 ## Quick start
 
@@ -54,21 +54,21 @@ vp test           # Vitest smoke/unit tests
 vp build          # production build → build/
 ```
 
-Every PR must pass `npm run verify` before opening. For UI work, also run `npm run test:e2e` and check the primary flow in a browser at desktop and 375px.
+Every PR must pass `npm run verify` before opening. For UI work, also check the primary flow in a browser at desktop and 375px. Re-add Playwright E2E once the new app surface is integrated.
 
 ## Testing hierarchy
 
 Three layers, matching the Learn Harness Engineering course (Lecture 10):
 
-| Layer            | Command            | What it covers                                         | When required                             |
-| ---------------- | ------------------ | ------------------------------------------------------ | ----------------------------------------- |
-| **L1 Unit**      | `vp test`          | Pure data/logic functions                              | Always                                    |
-| **L2 Component** | `vp test`          | React component rendering + interaction (jsdom + RTL)  | Always for UI changes                     |
-| **L3 E2E**       | `npm run test:e2e` | Full browser flow through real dev server (Playwright) | When cross-component changes are involved |
+| Layer            | Command          | What it covers                                        | When required                      |
+| ---------------- | ---------------- | ----------------------------------------------------- | ---------------------------------- |
+| **L1 Unit**      | `vp test`        | Pure data/logic functions                             | Always                             |
+| **L2 Component** | `vp test`        | React component rendering + interaction (jsdom + RTL) | Always for UI changes              |
+| **L3 E2E**       | Playwright (TBD) | Full browser flow through real dev server             | Restore with the new generated app |
 
 - **Unit/component tests** live in `src/**/*.test.ts(x)`, run via Vitest with jsdom.
-- **E2E tests** live in `e2e/*.spec.ts`, run via Playwright (auto-starts dev server).
-- CI runs L1+L2 as part of `npm run verify`, then L3 as a separate step.
+- **E2E tests** were removed during the 2026-06-30 harness-only reset; restore `e2e/*.spec.ts` when the new app lands.
+- CI currently runs L1+L2 as part of `npm run verify`.
 - Write tests against **stable UI only**. If a surface is still being designed, wait until it settles.
 
 ## Definition of Done

@@ -91,3 +91,14 @@ Durable architecture and workflow decisions for the TopProperties reset. Add ent
 
 - Keeping lecture alignment as a chat-only audit — rejected because the repo must remain the system of record.
 - Adding a separate command outside startup — rejected because startup readiness is the path every fresh session already runs.
+
+## 2026-06-30 — App code reset preserves harness engineering only
+
+**Decision:** Remove the current React prompt-to-brief implementation, reference images, Pencil design files, E2E tests, and app-specific scripts. Keep harness engineering artifacts (`docs/harness/`, `feature_list.json`, `PROGRESS.md`, `DECISIONS.md`, `scripts/check-harness-readiness.mjs`, `init.sh`, CI, agent skills, and product context docs). Run a minimal React + Tailwind placeholder shell until new generated code is integrated.
+
+**Reason:** The product surface is being replaced wholesale with newly generated code. The harness workflow, lecture-readiness checks, sprint contracts, and state persistence should survive the reset so the next implementation session can start from a verified baseline instead of rebuilding process infrastructure.
+
+**Rejected alternatives:**
+
+- Deleting harness docs with the app code — rejected because that would discard the Learn Harness Engineering investment.
+- Leaving the old `tp-001` implementation in place during the swap — rejected because it would conflict with the incoming generated codebase and create merge ambiguity.

@@ -1,69 +1,115 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 
 @theme {
-  /* Synced with design.pen token map (dark agentic MVP) */
-  --font-sans: "Outfit", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  /* Warm editorial palette */
+  --color-cream: #faf6ef;
+  --color-cream-2: #f5ede0;
+  --color-sand: #f1e7d6;
+  --color-sand-deep: #e7dac4;
+  --color-burgundy: #6d1f2c;
+  --color-burgundy-dark: #54141f;
+  --color-burgundy-light: #8c3243;
+  --color-burgundy-soft: #f3e2e4;
+  --color-ink: #1c1612;
+  --color-ink-soft: #6c6058;
+  --color-line: #e8ddca;
+  --color-gold: #b08d57;
+
   --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
-  --color-background: #030712;
-  --color-foreground: #f8fafc;
-  --color-card: #0f172a;
-  --color-card-foreground: #f8fafc;
-  --color-primary: #6366f1;
-  --color-primary-foreground: #ffffff;
-  --color-accent: #6366f1;
-  --color-accent-foreground: #e0e7ff;
-  --color-muted: #1e293b;
-  --color-muted-foreground: #94a3b8;
-  --color-border: #ffffff1a;
-  --color-ring: #818cf8;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-pill: 999px;
-  /* Legacy aliases used by current App.tsx */
-  --color-brand: #6366f1;
-  --color-surface-warm: #1c1917;
-  --color-bg-primary: #030712;
-  --color-bg-primary-foreground: #f8fafc;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
 }
 
-html {
-  scroll-behavior: smooth;
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
+  ::selection {
+    background: var(--color-burgundy);
+    color: var(--color-cream);
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif);
+  }
 }
 
-body {
-  background-color: var(--color-bg-primary);
-  color: var(--color-bg-primary-foreground);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Refined thin scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-*:focus-visible {
-  outline: 2px solid var(--color-brand);
-  outline-offset: 2px;
+/* Dual range slider (overlapping thumbs) */
+.dual-range {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  pointer-events: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
 }
-
-.bg-luxury {
-  background-color: var(--color-bg-primary);
-  background-image:
-    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(79, 70, 229, 0.22), transparent),
-    radial-gradient(ellipse 60% 50% at 80% 100%, rgba(13, 148, 136, 0.12), transparent);
+.dual-range::-webkit-slider-thumb {
+  pointer-events: auto;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 22px;
+  width: 22px;
+  border-radius: 9999px;
+  background: var(--color-burgundy);
+  border: 3px solid var(--color-cream);
+  box-shadow: 0 2px 6px rgba(28, 22, 18, 0.3);
+  cursor: pointer;
+  margin-top: -8px;
 }
-
-/* Custom scrollbar for a premium feel */
-::-webkit-scrollbar {
-  width: 8px;
+.dual-range::-moz-range-thumb {
+  pointer-events: auto;
+  height: 18px;
+  width: 18px;
+  border-radius: 9999px;
+  background: var(--color-burgundy);
+  border: 3px solid var(--color-cream);
+  box-shadow: 0 2px 6px rgba(28, 22, 18, 0.3);
+  cursor: pointer;
 }
-
-::-webkit-scrollbar-track {
+.dual-range::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 9999px;
+  background: transparent;
+}
+.dual-range::-moz-range-track {
+  height: 6px;
+  border-radius: 9999px;
   background: transparent;
 }
 
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.12);
-  border-radius: 9999px;
+/* Subtle entrance animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+.animate-fade-up {
+  animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }

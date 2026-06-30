@@ -1,7 +1,7 @@
 {
   "project": "TopProperties",
-  "last_updated": "2026-06-29",
-  "status": "startup_baseline_ready",
+  "last_updated": "2026-06-30",
+  "status": "mvp_integrated",
   "goal_card": "t_9d328a7a",
   "rules": {
     "single_active_feature": true,
@@ -28,7 +28,7 @@
   },
   "scope_guardrails": {
     "v1_location_scope": "Mallorca luxury homes only",
-    "stack": "React 19, TypeScript, Tailwind CSS v4, Framer Motion, lucide-react, Vite, Vitest, Vite+ unless a later decision changes it",
+    "stack": "React 19, TypeScript, Tailwind CSS v4, Vite, Vitest, Vite+ unless a later decision changes it",
     "preserve_old_app_work_as": "reference only",
     "excluded_from_v1": [
       "booking/contact workflows",
@@ -59,16 +59,11 @@
       ],
       "evidence": [
         "2026-06-15: ./init.sh passed; feature_list.json valid; Vite+ detected; startup path available.",
-        "2026-06-15: vp test passed; 1 test file and 1 test passed.",
-        "2026-06-15: vp check passed; all 26 files formatted; no warnings or lint errors in 6 files.",
-        "2026-06-15: vp build passed; production build emitted build/index.html, CSS, and JS assets.",
         "2026-06-17: ./init.sh passed and ran scripts/check-harness-readiness.mjs successfully.",
-        "2026-06-17: vp test passed; 1 test file and 1 test passed.",
-        "2026-06-17: vp check passed; all 28 files formatted; no warnings or lint errors in 7 files.",
-        "2026-06-17: vp build passed; production build emitted build/index.html, CSS, and JS assets.",
-        "2026-06-17: PR opened for review: https://github.com/caraseli02/Toppropertiesdemo/pull/58"
+        "2026-06-17: PR opened for review: https://github.com/caraseli02/Toppropertiesdemo/pull/58",
+        "2026-06-30: App code reset preserved harness artifacts; minimal placeholder shell keeps readiness checks green."
       ],
-      "notes": "This is a harness task, not a product feature. It includes the lecture-readiness matrix, automated startup check, CI workflow, full-pipeline verify gate, Definition of Done, and .nvmrc. Should remain passing before tp-001 begins."
+      "notes": "Harness workflow remains passing on the placeholder baseline. Product implementation was removed intentionally on 2026-06-30."
     },
     {
       "id": "hx-002",
@@ -82,30 +77,37 @@
         "Add repo-local Pencil equivalents for design-system-rule creation and composed screen generation.",
         "Remove the hard dependency on the unavailable frontend-design skill from the existing Pencil guidance.",
         "Document Figma-to-Pencil concept mappings and unsupported Figma concepts.",
-        "Attempt Pencil MCP validation against design.pen.",
-        "After design.pen is open in Pencil, run get_editor_state, batch_get, get_variables, snapshot_layout, one controlled batch_design test, get_screenshot, and export_html.",
+        "Attempt Pencil MCP validation against a project .pen file.",
         "Run vp check."
       ],
       "evidence": [
-        "2026-06-26: Added .agents/skills/pencil-create-design-system-rules with TopProperties defaults, Pencil rule categories, Figma-to-Pencil mapping, and a project rule template.",
-        "2026-06-26: Added .agents/skills/pencil-generate-design with a Pencil-native section-by-section workflow, validation gates, and unsupported Figma concept mapping.",
-        "2026-06-26: Updated .agents/skills/pencil-design to use local product/design context instead of the unavailable frontend-design skill and to prefer existing React primitives instead of assuming shadcn/ui.",
-        "2026-06-26: Updated .gitignore to allow the relevant repo-local Pencil skill folders to be versioned while keeping unrelated .agents content ignored.",
-        "2026-06-26: Added docs/design/pencil-skill-migration-evaluation.md documenting direct translations, substitutions, unsupported concepts, and t_47af33ed viability.",
-        "2026-06-26: Pencil MCP validation is blocked because the Pencil editor has no active file open; no design.pen mutation was performed.",
-        "2026-06-26: feature_list.json parsed successfully with Node.",
-        "2026-06-26: vp check passed after the final .gitignore/state updates; all 44 files correctly formatted and no warnings, lint errors, or type errors in 19 files.",
-        "2026-06-26: npm run verify passed; vp check, vp test (2 files, 4 tests), and vp build completed successfully.",
-        "2026-06-26: ./init.sh passed; harness readiness check, dependency install, vp check, vp test, and vp build completed successfully.",
-        "2026-06-26: Revalidated Pencil skill wording against official Pencil.dev docs for CLI, design libraries, design-to-code, variables, and import/export. Updated the skills/report to distinguish official Pencil product capabilities from the narrower current Codex MCP tool surface.",
-        "2026-06-26: Added docs/design/pencil-design-system-rules.md — TopProperties Pencil rules anchored to nIs4H reference, 19 reusable components, token mapping, and acceptance gates; linked from AGENTS.md.",
-        "2026-06-26: On-disk design.pen audit passed (6 frames, 19 reusables, 43 variables, nIs4H reference image, cmpPropC1 anatomy); cmpPropC1 → PropertyCard translation exercise passed.",
-        "2026-06-26: Live Pencil MCP still blocked after closing other .pen files — get_editor_state returns no active editor; reopen design.pen in Pencil.dev extension canvas for screenshot/layout evidence.",
-        "2026-06-29: Re-ran pencil-create-design-system-rules context checks against CONTEXT.md, docs/architecture.md, src/index.css, and current src/components; docs/design/pencil-design-system-rules.md still matches the React/Tailwind component surface.",
-        "2026-06-29: Live Pencil MCP remains blocked — get_editor_state(include_schema: true), direct batch_get, get_variables, and get_guidelines all report no active open Pencil editor file; no .pen mutation was performed.",
-        "2026-06-29: feature_list.json parsed successfully with Node and npm run verify passed (vp check, vp test, vp build)."
+        "2026-06-26: Added repo-local Pencil skills and docs/design/pencil-design-system-rules.md.",
+        "2026-06-29: Live Pencil MCP blocked — no active editor session.",
+        "2026-06-30: design.pen removed during harness-only reset; reopen or recreate design assets with the new generated UI."
       ],
-      "notes": "Repo skill migration and pencil-design-system-rules.md are implemented. Live Pencil MCP validation (screenshot, snapshot_layout, export_html) remains blocked until design.pen is open in the Pencil.dev extension canvas, not only as a Cursor file tab."
+      "notes": "Repo skills remain. On-disk design.pen was removed during reset; live MCP validation resumes when a new .pen file is active in Pencil."
+    },
+    {
+      "id": "tp-000",
+      "priority": 0,
+      "area": "integration",
+      "title": "Integrate new generated codebase",
+      "user_visible_behavior": "The repository runs the new generated TopProperties implementation instead of the harness-only placeholder shell.",
+      "status": "passing",
+      "dependencies": [],
+      "verification": [
+        "Replace placeholder src/ with the user-provided generated code.",
+        "Run ./init.sh.",
+        "Run npm run verify.",
+        "Update docs/architecture.md with the new app shape.",
+        "Reset downstream product feature statuses based on the new baseline."
+      ],
+      "evidence": [
+        "2026-06-30: Integrated luxury-real-estate-mvp into repo root; removed source folder after migration.",
+        "2026-06-30: npm run verify passed (vp check, vp test, vp build).",
+        "2026-06-30: Browser validation on http://127.0.0.1:3001/ matched Arena reference hero, navigation, search panel, featured listings, destinations, and footer against https://019f13ba-1092-7699-96ef-cb83e6a605f8.arena.site/."
+      ],
+      "notes": "Integrated MVP uses HashRouter with Home, Listings, and PropertyDetail routes."
     },
     {
       "id": "tp-001",
@@ -113,8 +115,8 @@
       "area": "agentic-discovery",
       "title": "Build the prompt-to-brief thin slice",
       "user_visible_behavior": "A user can submit the Mallorca home-search prompt and receive a polished brief with curated properties plus at least one comparison or story panel.",
-      "status": "passing",
-      "dependencies": [],
+      "status": "not_started",
+      "dependencies": ["tp-000"],
       "verification": [
         "Run vp test.",
         "Run vp check.",
@@ -125,29 +127,10 @@
         "Verify the primary flow remains usable at 375px mobile width."
       ],
       "evidence": [
-        "2026-06-18: Candidate B React implementation replaced the previous Lit startup shell.",
-        "2026-06-18: pnpm install and vp install pass with project-local pnpm workspace and pnpm v10.33.0.",
-        "2026-06-18: ./init.sh passed and ran scripts/check-harness-readiness.mjs successfully.",
-        "2026-06-18: vp test passed; 1 test file and 2 tests passed.",
-        "2026-06-18: vp check passed; all 31 files formatted; no warnings or lint errors in 7 files.",
-        "2026-06-18: vp build passed; production build emitted build/index.html.",
-        "2026-06-18: vp dev started at http://127.0.0.1:3000/ and browser verification confirmed prompt submit generates the brief with recommendations, tradeoff panel, next question, and persistent composer.",
-        "2026-06-18: 375px browser verification confirmed no horizontal overflow and no console errors.",
-        "2026-06-18: Documentation aligned to the merged React/TypeScript baseline.",
-        "2026-06-18: Buyer Tradeoff Panel changed from numeric scores to qualitative verdict language.",
-        "2026-06-18: Mobile composer layout tightened with icon-only mobile submit button, safe-area padding, and larger bottom page padding.",
-        "2026-06-18: Final verification passed: ./init.sh, vp test, vp check, vp build.",
-        "2026-06-18: vp dev started at http://localhost:5173/; browser verification confirmed prompt submit renders generated brief, curated recommendations, Editorial Tradeoff Panel, qualitative verdicts, and zero visible /10 numeric score labels.",
-        "2026-06-18: 375px browser verification confirmed no horizontal overflow, no fixed-composer overlap at settled bottom scroll, and no console errors. Screenshot evidence: /tmp/topproperties-mobile-bottom.png.",
-        "2026-06-20: Maintained the tp-001 baseline on branch fix/nightly-20260620; removed placeholder wording from the composer and tightened the luxury-search prompt copy.",
-        "2026-06-20: ./init.sh passed; harness readiness check confirmed Vite+ availability and startup path.",
-        "2026-06-20: npm run build passed; production build emitted build/index.html.",
-        "2026-06-20: npx tsc --noEmit passed with no type errors.",
-        "2026-06-20: vp test passed; 1 test file and 2 tests passed.",
-        "2026-06-20: vp check passed after formatting the updated App.tsx.",
-        "2026-06-20: vp dev started at http://127.0.0.1:3000/ and returned HTTP 200 on a local runtime smoke check."
+        "2026-06-18: Previous Candidate B implementation passed before reset.",
+        "2026-06-30: Reset to not_started; old implementation removed intentionally."
       ],
-      "notes": "No backend or real AI dependency required for v1; a scripted/static flow is acceptable if it behaves like generated UI. Marked passing after final desktop and 375px browser verification on 2026-06-18."
+      "notes": "Previous passing evidence is historical only. Re-verify after tp-000 integrates the new generated code."
     },
     {
       "id": "tp-002",
@@ -156,7 +139,7 @@
       "title": "Define the safe primitive grammar",
       "user_visible_behavior": "The generated brief is composed from a small, documented set of reusable React primitives instead of arbitrary markup.",
       "status": "not_started",
-      "dependencies": ["tp-001"],
+      "dependencies": ["tp-000", "tp-001"],
       "verification": [
         "Document the initial primitive set and data contract.",
         "Add or update React components for each primitive used by the prompt-to-brief slice.",
@@ -208,7 +191,7 @@
         "Run vp build."
       ],
       "evidence": [],
-      "notes": "Use docs/harness/evaluator-rubric.md before accepting visual feature work. 2026-06-20 accessibility scan: existing focus-visible styling is present, visible buttons already have accessible names, and the property image alt text was contextualized for the luxury home/location."
+      "notes": "Use docs/harness/evaluator-rubric.md before accepting visual feature work."
     }
   ]
 }
