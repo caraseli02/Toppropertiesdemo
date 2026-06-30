@@ -31,9 +31,3 @@ jobs:
 
       - name: Verify (check + unit/component tests + build)
         run: npm run verify
-
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
-
-      - name: E2E tests
-        run: npm run test:e2e

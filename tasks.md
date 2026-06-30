@@ -4,6 +4,17 @@ These tasks are intentionally small and reviewable. `feature_list.json` is the m
 
 Before coding any task, create a sprint contract from `docs/harness/sprint-contract.md`. Before calling a task complete, run the clean-state checklist and record evidence in `feature_list.json`.
 
+## 0. Integrate new generated codebase
+
+**Goal:** Replace the harness-only placeholder shell with the user-provided generated implementation.
+
+**Acceptance criteria:**
+
+- New `src/` code is integrated and the old prompt-to-brief implementation stays removed.
+- `npm run verify` passes.
+- `feature_list.json` and `PROGRESS.md` reflect the new baseline.
+- Product tasks below are re-scoped against the new code shape.
+
 ## 1. Define the safe primitive grammar
 
 **Goal:** Convert the approved design/spike output into a small set of React primitives the agentic UI can compose.

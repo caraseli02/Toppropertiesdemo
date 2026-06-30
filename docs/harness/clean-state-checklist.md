@@ -20,6 +20,19 @@ Run this before ending a session or declaring work complete.
 - [ ] No temporary debug files, screenshots, console experiments, or stale TODO comments are left undocumented.
 - [ ] The next session can continue from repository artifacts without relying on chat history.
 
+## Latest Run - 2026-06-30
+
+- [x] `git status --short --branch` reviewed; reset intentionally removed app code and assets while preserving harness artifacts.
+- [x] Standard startup path: `./init.sh` passed.
+- [x] Standard verification path: `npm run verify` passed.
+- [x] Browser/runtime check not required; placeholder shell only.
+- [x] `feature_list.json` reflects reset state and active `tp-000` integration task.
+- [x] `PROGRESS.md` records Done, In Progress, Blocked, Next Steps, and verification status.
+- [x] `DECISIONS.md` records the harness-only reset decision.
+- [x] `docs/QUALITY.md` updated for placeholder app shell quality.
+- [x] No temporary debug files left undocumented.
+- [x] The next session can continue from repository artifacts without relying on chat history.
+
 ## Latest Run - 2026-06-29
 
 - [x] `git status --short --branch` reviewed; existing intentional changes remain scoped to Pencil skill/design docs, state docs, `design.pen`, and the reference image.

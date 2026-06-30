@@ -1,74 +1,126 @@
-import { Bath, Bed, Square } from "lucide-react";
-import { BrandBadge } from "@/components/BrandBadge";
+import { Link } from "react-router-dom";
+import type { Property } from "@/data/properties";
+import { formatPrice, modeLabel } from "@/lib/filters";
+import { Badge, FavoriteButton } from "@/components/ui";
+import { BathIcon, BedIcon, KeyIcon, MapPinIcon, RulerIcon } from "@/components/icons";
+import { cn } from "@/utils/cn";
 
-export type PropertyCardData = {
-  id: string;
-  name: string;
-  location: string;
-  price: string;
-  image: string;
-  tags: string[];
-  why?: string;
-  beds: number;
-  baths: number;
-  sqm: number;
-  badge?: string;
-  reference?: string;
-};
+function FactsRow({ p }: { p: Property }) {
+  return (
+    <div className="flex items-center gap-4 text-sm text-ink-soft">
+      <span className="inline-flex items-center gap-1.5">
+        <BedIcon className="text-[17px] text-burgundy" /> {p.beds}
+      </span>
+      <span className="inline-flex items-center gap-1.5">
+        <BathIcon className="text-[17px] text-burgundy" /> {p.baths}
+      </span>
+      <span className="inline-flex items-center gap-1.5">
+        <RulerIcon className="text-[17px] text-burgundy" /> {p.sqm} m²
+      </span>
+    </div>
+  );
+}
 
-type PropertyCardProps = {
-  property: PropertyCardData;
+export function PropertyCard({
+  property: p,
+  className,
+  variant = "default",
+}: {
+  property: Property;
   className?: string;
-};
-
-export function PropertyCard({ property, className }: PropertyCardProps) {
-  const badgeLabel = property.badge ?? property.tags[0]?.toUpperCase() ?? "CURATED";
-  const locationLabel = property.location.split(",")[0]?.trim().toUpperCase() ?? property.location;
+  variant?: "default" | "compact";
+}) {
+  if (variant === "compact") {
+    return (
+      <Link
+        to={`/property/${p.slug}`}
+        className={cn(
+          "group flex gap-3 rounded-2xl border border-line bg-white p-2.5 shadow-sm transition hover:border-burgundy/40 hover:shadow-md",
+          className,
+        )}
+      >
+        <div className="relative h-20 w-28 shrink-0 overflow-hidden rounded-xl">
+          <img
+            src={p.image}
+            alt={p.title}
+            loading="lazy"
+            className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+          />
+        </div>
+        <div className="min-w-0 flex-1 py-0.5">
+          <p className="truncate font-serif text-base text-ink">{p.title}</p>
+          <p className="mt-0.5 flex items-center gap-1 text-xs text-ink-soft">
+            <MapPinIcon className="text-[13px]" /> {p.location}, {p.country}
+          </p>
+          <p className="mt-1 text-sm font-semibold text-burgundy">{formatPrice(p)}</p>
+        </div>
+      </Link>
+    );
+  }
 
   return (
-    <article
-      className={[
-        "group flex flex-col overflow-hidden rounded-lg border border-border bg-card transition hover:border-border/80",
+    <Link
+      to={`/property/${p.slug}`}
+      className={cn(
+        "group flex flex-col overflow-hidden rounded-2xl border border-line bg-white shadow-sm transition duration-300 hover:-translate-y-1.5 hover:border-burgundy/30 hover:shadow-xl hover:shadow-ink/5",
         className,
-      ]
-        .filter(Boolean)
-        .join(" ")}
+      )}
     >
-      <div className="relative h-[180px] overflow-hidden">
+      <div className="relative aspect-[4/3] overflow-hidden">
         <img
-          src={property.image}
-          alt={`${property.name} luxury home in ${property.location}`}
-          className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+          src={p.image}
+          alt={p.title}
+          loading="lazy"
+          className="h-full w-full object-cover transition duration-[900ms] ease-out group-hover:scale-[1.06]"
         />
-      </div>
-      <div className="flex flex-col gap-2 p-4">
-        <BrandBadge label={badgeLabel} />
-        {property.reference && (
-          <span className="font-mono text-[11px] text-muted-foreground">{property.reference}</span>
-        )}
-        <span className="text-[11px] uppercase tracking-wide text-muted-foreground">
-          {locationLabel}
-        </span>
-        <h4 className="font-serif text-xl font-semibold text-card-foreground">{property.name}</h4>
-        <span className="text-lg font-semibold text-primary">{property.price}</span>
-        <div className="flex items-center gap-3 text-[11px] text-muted-foreground">
-          <span className="flex items-center gap-1">
-            <Bed aria-hidden="true" className="h-3.5 w-3.5" />
-            {property.beds} beds
-          </span>
-          <span className="flex items-center gap-1">
-            <Bath aria-hidden="true" className="h-3.5 w-3.5" />
-            {property.baths} baths
-          </span>
-          <span className="flex items-center gap-1">
-            <Square aria-hidden="true" className="h-3.5 w-3.5" />
-            {property.sqm} m²
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/35 via-transparent to-transparent opacity-70" />
+        <div className="absolute left-3 top-3 flex flex-wrap gap-1.5">
+          {p.featured && <Badge tone="gold">Featured</Badge>}
+          {p.reserved && (
+            <Badge tone="reserved">
+              <KeyIcon className="text-[11px]" /> Trattativa Riservata
+            </Badge>
+          )}
+        </div>
+        <FavoriteButton id={p.id} className="absolute right-3 top-3" />
+        <div className="absolute bottom-3 left-3">
+          <span className="rounded-full bg-cream/95 px-3 py-1.5 text-sm font-semibold text-ink shadow-sm backdrop-blur-sm">
+            {formatPrice(p)}
           </span>
         </div>
-        {property.why && (
-          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{property.why}</p>
-        )}
       </div>
-    </article>
+
+      <div className="flex flex-1 flex-col p-5">
+        <div className="flex items-center justify-between">
+          <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-burgundy">
+            {p.type}
+          </span>
+          <span className="text-[11px] uppercase tracking-wider text-ink-soft">
+            {modeLabel(p.mode)}
+          </span>
+        </div>
+        <h3 className="mt-1.5 font-serif text-xl leading-snug text-ink">{p.title}</h3>
+        <p className="mt-1.5 flex items-center gap-1.5 text-sm text-ink-soft">
+          <MapPinIcon className="text-[15px] text-ink-soft" />
+          {p.location}, {p.country}
+        </p>
+
+        <div className="mt-auto">
+          <div className="mt-4 flex items-center justify-between border-t border-line pt-4">
+            <FactsRow p={p} />
+          </div>
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {p.tags.slice(0, 3).map((t) => (
+              <span
+                key={t}
+                className="rounded-full bg-sand px-2.5 py-1 text-[11px] font-medium text-ink-soft"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </Link>
   );
 }
