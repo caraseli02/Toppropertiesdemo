@@ -2,6 +2,17 @@
 
 Durable architecture and workflow decisions for the TopProperties reset. Add entries when a choice affects future agents or implementation direction.
 
+## 2026-07-01 — MVP release follows the current luxury discovery UI
+
+**Decision:** Scope the next MVP release as a polished portfolio/demo release of the current luxury property discovery UI: Home, Listings, and Property Detail. Do not require the release to be agentic-native, prompt-to-brief, safe-primitive-driven, or Mallorca-only.
+
+**Reason:** After the 2026-06-30 code reset and generated MVP integration, the fastest useful release path is to harden and verify the UI that already exists. Reintroducing the prior agentic/Mallorca-only direction would turn the release into a redesign instead of a simple demo release.
+
+**Rejected alternatives:**
+
+- Rebuilding the prompt-to-brief agentic slice for this MVP release — rejected because the user wants a simple and fast release path.
+- Migrating the current UI to Mallorca-only data now — rejected because the user explicitly wants to stick with what is currently in the UI.
+
 ## 2026-06-11 — Startup baseline uses lightweight HTML/JS + Tailwind v4 + Lit + Vite+ (superseded)
 
 **Decision:** Use simple HTML/JavaScript for the app surface, Tailwind CSS v4 for styling, Lit custom elements for reusable UI primitives, and Vite+ (`vp`) as the project toolchain. This decision was superseded on 2026-06-18 by the merged React/TypeScript prompt-brief baseline.

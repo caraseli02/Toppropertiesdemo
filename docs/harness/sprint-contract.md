@@ -4,45 +4,42 @@ Create or update this contract before coding a feature. Keep it short enough to 
 
 ## Feature
 
-- Feature id: `hx-002`
-- Feature title: Migrate Figma design workflows into Pencil-native repo skills
-- Date: 2026-06-29
-- Branch: `claude/pencil-design-react-components`
+- Feature id: `tp-003`
+- Feature title: Align release documentation with the current MVP scope
+- Date: 2026-07-01
+- Branch: current worktree branch
 - Owner: Codex
-- Kanban/GitHub task: design pass support for `t_47af33ed`; goal card `t_9d328a7a`
+- Kanban/GitHub task: MVP release planning after the 2026-06-30 code reset; goal card `t_9d328a7a`
 
 ## Scope
 
-- User-visible behavior to deliver: future agents can use repo-local Pencil skills for design-system-rule creation and composed Pencil screen generation instead of relying on Figma-only workflows.
-- Files or modules likely touched: `.agents/skills/pencil-create-design-system-rules/`, `.agents/skills/pencil-generate-design/`, `.agents/skills/pencil-design/`, `docs/design/`, `PROGRESS.md`, `feature_list.json`, and harness state docs.
+- User-visible behavior to deliver: future sessions understand that the MVP release is the current luxury discovery UI, not an agentic-native or Mallorca-only rebuild.
+- Files or modules likely touched: `CONTEXT.md`, `feature_list.json`, `tasks.md`, `docs/harness/sprint-contract.md`, `DECISIONS.md`, and session state docs if the planning session is closed.
 - Data/model changes: none.
-- Documentation changes: migration report, skill references, current validation blocker, and session state.
+- Documentation changes: release vocabulary, release task sequence, and durable scope decision.
 
 ## Exclusions
 
-- Out of scope: mutating `design.pen` without live Pencil MCP schema/context, adding Figma parity for unsupported Pencil concepts, installing shadcn/ui, and changing app UI behavior.
-- Existing behavior that must not change: React/TypeScript/Tailwind/Vite+ startup baseline; `vp` remains the project toolchain entrypoint.
-- Deferred follow-up: live section-level Pencil validation after `design.pen` is open in Pencil. Rechecked on 2026-06-29; active-editor access is still blocked.
+- Out of scope: app UI changes, prompt-to-brief implementation, safe primitive grammar, Mallorca-only data migration, production marketplace plumbing, and deployment work.
+- Existing behavior that must not change: current React/TypeScript/Tailwind/Vite+ app baseline; three-page Home/Listings/Property Detail shell.
+- Deferred follow-up: release hardening, visual/mobile QA, clean-state completion, verification, commit, and PR.
 
 ## Verification Standards
 
 - Required commands:
   - `vp check`
-- Required Pencil checks:
-  - Attempt `get_editor_state(include_schema: true)`.
-  - If `design.pen` is open, run the read-only audit and one controlled section-level validation from `docs/design/pencil-skill-migration-evaluation.md`.
-  - If no file is open, record the blocker and do not mutate the `.pen` file.
 - Required browser/runtime checks:
   - Not required unless app UI changes.
 - Required artifacts:
-  - Feature evidence added to `feature_list.json`.
-  - Progress update in `PROGRESS.md`.
-  - Architecture or decision update if structure changed.
+  - `CONTEXT.md` updated with agreed release language.
+  - `feature_list.json` and `tasks.md` updated with current release sequence.
+  - `DECISIONS.md` updated with the scope change.
+  - Progress update before session close.
 
 ## Evaluator Rubric
 
-Use `docs/harness/evaluator-rubric.md` before accepting the work.
+Use `docs/harness/evaluator-rubric.md` before accepting release UI work. This planning slice does not accept UI quality.
 
 ## Passing Definition
 
-This sprint is passing only when the skill files exist, repo docs record the migration, `vp check` passes, and Pencil MCP evidence is captured. Until `design.pen` is open and Pencil evidence exists, the live-validation portion remains blocked.
+This sprint is passing only when the docs stop directing agents toward stale agentic-native or Mallorca-only work and the current release path is explicit.

@@ -4,57 +4,57 @@ These tasks are intentionally small and reviewable. `feature_list.json` is the m
 
 Before coding any task, create a sprint contract from `docs/harness/sprint-contract.md`. Before calling a task complete, run the clean-state checklist and record evidence in `feature_list.json`.
 
-## 0. Integrate new generated codebase
+## 0. Integrated generated codebase
 
-**Goal:** Replace the harness-only placeholder shell with the user-provided generated implementation.
+**Goal:** Keep the user-provided luxury real estate MVP integrated as the current runnable baseline.
 
 **Acceptance criteria:**
 
-- New `src/` code is integrated and the old prompt-to-brief implementation stays removed.
+- Current `src/` code remains the release baseline.
 - `npm run verify` passes.
-- `feature_list.json` and `PROGRESS.md` reflect the new baseline.
-- Product tasks below are re-scoped against the new code shape.
+- Product tasks below stay scoped to the current UI, not the removed prompt-to-brief implementation.
 
-## 1. Define the safe primitive grammar
+## 1. Harden the current three-page discovery shell
 
-**Goal:** Convert the approved design/spike output into a small set of React primitives the agentic UI can compose.
-
-**Acceptance criteria:**
-
-- List the initial primitive set and data contract.
-- Add or update React components for each primitive.
-- Include at least one test for pure composition/data mapping logic.
-- Update `docs/architecture.md` with the actual primitive structure.
-
-## 2. Build the prompt-to-brief thin slice
-
-**Goal:** Turn the hero prompt into a polished visual response using static/mock Mallorca data.
+**Goal:** Make the current Home, Listings, and Property Detail experience coherent enough for a portfolio/demo MVP release.
 
 **Acceptance criteria:**
 
-- User can submit `find best options for home in Mallorca`.
-- UI renders curated properties plus at least one comparison/story panel.
-- No backend or real AI dependency required for v1.
+- User can browse Home, Listings, and at least one Property Detail route.
+- Any broken or contradictory release-blocking copy/UI is fixed with low-risk changes.
+- No prompt-to-brief flow, safe primitive grammar, or Mallorca-only migration is introduced.
+- Desktop and 375px mobile flows are checked.
 - `vp test`, `vp check`, and `vp build` pass.
 
-## 3. Add neighborhood/map intelligence mock
+## 2. Run focused visual and mobile QA
 
-**Goal:** Prove the MCP-style map/neighborhood direction with a thin mock intelligence layer.
-
-**Acceptance criteria:**
-
-- Data model includes neighborhood signals relevant to luxury buyers.
-- UI can compare at least three Mallorca areas.
-- The implementation is clearly marked as mock/static intelligence.
-- Mobile view remains usable at 375px.
-
-## 4. Visual QA and mobile refinement
-
-**Goal:** Bring the approved slice closer to the desired editorial luxury feel.
+**Goal:** Verify that the current luxury property UI feels polished enough for demo release.
 
 **Acceptance criteria:**
 
-- Desktop and 375px mobile screenshots captured for review.
-- Preserve left-aligned editorial hierarchy.
-- No centered generic SaaS hero treatment.
-- Accessibility basics checked: labels, keyboard focus, readable contrast.
+- Desktop screenshots captured for Home, Listings, and Property Detail.
+- 375px mobile screenshots captured for the same flow.
+- Labels, keyboard focus, readable contrast, and horizontal overflow are checked.
+- Release-blocking visual defects are recorded or fixed.
+
+## 3. Align release documentation
+
+**Goal:** Keep repository planning artifacts aligned with the current MVP release direction.
+
+**Acceptance criteria:**
+
+- `CONTEXT.md` uses the agreed release vocabulary.
+- `feature_list.json` no longer points future sessions at stale agentic/Mallorca-only work.
+- `docs/harness/sprint-contract.md` reflects the active release-planning slice.
+- A durable decision records the scope change.
+
+## 4. Prepare MVP release handoff
+
+**Goal:** Produce a verified release candidate and handoff for human review.
+
+**Acceptance criteria:**
+
+- `PROGRESS.md`, `feature_list.json`, and `docs/QUALITY.md` reflect release readiness.
+- `docs/harness/clean-state-checklist.md` is completed.
+- `npm run verify` passes.
+- A scoped PR is opened and not merged without human approval.

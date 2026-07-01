@@ -20,12 +20,12 @@ Quality: A
 
 ## App Shell
 
-Quality: C
+Quality: B
 
-- Verification passing: Partial. Placeholder shell builds and renders; no product flow exists yet.
-- Agent understandable: Good. The reset removed the old prompt-to-brief implementation intentionally.
-- Known gaps: Awaiting new generated code from the user.
-- Next improvement: Replace placeholder `src/` with the new implementation and restore `tp-001` evidence.
+- Verification passing: Partial. The integrated luxury real estate MVP passed `npm run verify` on 2026-06-30; release hardening and fresh browser QA are still pending.
+- Agent understandable: Good. The active app shape is Home, Listings, and Property Detail.
+- Known gaps: Current UI still needs focused MVP release hardening and desktop/375px browser evidence.
+- Next improvement: Complete `tp-001` release hardening and `tp-002` visual/mobile QA.
 
 ## Agent Skills
 

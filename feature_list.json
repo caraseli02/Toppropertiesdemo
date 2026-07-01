@@ -1,7 +1,7 @@
 {
   "project": "TopProperties",
   "last_updated": "2026-06-30",
-  "status": "mvp_integrated",
+  "status": "mvp_release_planning",
   "goal_card": "t_9d328a7a",
   "rules": {
     "single_active_feature": true,
@@ -16,18 +16,18 @@
     "passing": "Required verification has passed and evidence is recorded."
   },
   "approved_direction": {
-    "summary": "Agentic-native 2026 property webapp demo for Mallorca luxury homes.",
-    "primary_user": "Luxury buyer/investor planning a move or second home in Mallorca.",
-    "hero_prompt": "find best options for home in Mallorca",
+    "summary": "Polished portfolio/demo release for the current luxury property discovery UI.",
+    "primary_user": "Luxury buyer or investor browsing premium homes and destinations.",
+    "hero_prompt": null,
     "core_experience": [
-      "dynamic/generated UI from safe primitives",
-      "curated Mallorca luxury property options",
-      "comparison/story panels",
-      "map/neighborhood intelligence"
+      "home page discovery",
+      "curated property listings",
+      "supporting property detail pages",
+      "mobile-ready browsing flow"
     ]
   },
   "scope_guardrails": {
-    "v1_location_scope": "Mallorca luxury homes only",
+    "v1_location_scope": "Follow the current UI direction; do not force Mallorca-only scope for this MVP release.",
     "stack": "React 19, TypeScript, Tailwind CSS v4, Vite, Vitest, Vite+ unless a later decision changes it",
     "preserve_old_app_work_as": "reference only",
     "excluded_from_v1": [
@@ -112,86 +112,87 @@
     {
       "id": "tp-001",
       "priority": 1,
-      "area": "agentic-discovery",
-      "title": "Build the prompt-to-brief thin slice",
-      "user_visible_behavior": "A user can submit the Mallorca home-search prompt and receive a polished brief with curated properties plus at least one comparison or story panel.",
+      "area": "release-hardening",
+      "title": "Harden the current three-page discovery shell for MVP release",
+      "user_visible_behavior": "A user can browse the current luxury property demo through Home, Listings, and Property Detail without obvious broken flows, contradictory copy, or mobile layout issues.",
       "status": "not_started",
       "dependencies": ["tp-000"],
       "verification": [
+        "Review Home, Listings, and Property Detail for broken or contradictory release-blocking UI.",
+        "Apply only low-risk fixes needed for a coherent demo release.",
+        "Start the app with vp dev.",
+        "Verify Home, Listings, and at least one Property Detail route in a desktop browser.",
+        "Verify the same primary flow remains usable at 375px mobile width.",
         "Run vp test.",
         "Run vp check.",
-        "Run vp build.",
-        "Start the app with vp dev.",
-        "Open the app in a browser and submit: find best options for home in Mallorca.",
-        "Verify the response includes curated properties and at least one comparison or story panel.",
-        "Verify the primary flow remains usable at 375px mobile width."
+        "Run vp build."
       ],
       "evidence": [
-        "2026-06-18: Previous Candidate B implementation passed before reset.",
-        "2026-06-30: Reset to not_started; old implementation removed intentionally."
+        "2026-07-01: Re-scoped from prompt-to-brief agentic slice to current-UI MVP release hardening."
       ],
-      "notes": "Previous passing evidence is historical only. Re-verify after tp-000 integrates the new generated code."
+      "notes": "Do not introduce a new prompt-to-brief flow, safe primitive grammar, or Mallorca-only data migration for this release slice."
     },
     {
       "id": "tp-002",
       "priority": 2,
-      "area": "safe-primitives",
-      "title": "Define the safe primitive grammar",
-      "user_visible_behavior": "The generated brief is composed from a small, documented set of reusable React primitives instead of arbitrary markup.",
+      "area": "release-qa",
+      "title": "Run focused visual and mobile QA on the current UI",
+      "user_visible_behavior": "The current luxury property demo feels polished enough for a portfolio/demo release on desktop and mobile.",
       "status": "not_started",
       "dependencies": ["tp-000", "tp-001"],
       "verification": [
-        "Document the initial primitive set and data contract.",
-        "Add or update React components for each primitive used by the prompt-to-brief slice.",
-        "Add at least one test for pure composition or data-mapping logic.",
-        "Run vp test.",
-        "Run vp check.",
-        "Run vp build.",
-        "Update docs/architecture.md with the actual primitive structure."
-      ],
-      "evidence": [],
-      "notes": "Do not build an abstract primitive framework before it is needed by the first visible slice."
-    },
-    {
-      "id": "tp-003",
-      "priority": 3,
-      "area": "neighborhood-intelligence",
-      "title": "Add the neighborhood/map intelligence mock",
-      "user_visible_behavior": "A user can compare at least three Mallorca areas using clear mock intelligence signals for luxury buyers.",
-      "status": "not_started",
-      "dependencies": ["tp-001"],
-      "verification": [
-        "Data model includes neighborhood signals relevant to luxury buyers.",
-        "UI compares at least three Mallorca areas.",
-        "The implementation is clearly marked as mock/static intelligence.",
-        "Run vp test.",
-        "Run vp check.",
-        "Run vp build.",
-        "Verify mobile usability at 375px."
-      ],
-      "evidence": [],
-      "notes": "Primary MCP-style integration direction is map/neighborhood intelligence; real APIs are out of scope until a later decision."
-    },
-    {
-      "id": "tp-004",
-      "priority": 4,
-      "area": "visual-quality",
-      "title": "Run visual QA and mobile refinement",
-      "user_visible_behavior": "The first TopProperties slice feels premium, editorial, accessible, and stable on desktop and mobile.",
-      "status": "not_started",
-      "dependencies": ["tp-001", "tp-002"],
-      "verification": [
-        "Capture desktop screenshot evidence.",
-        "Capture 375px mobile screenshot evidence.",
-        "Verify left-aligned editorial hierarchy is preserved.",
-        "Verify there is no centered generic SaaS hero treatment.",
+        "Capture desktop screenshot evidence for Home, Listings, and Property Detail.",
+        "Capture 375px mobile screenshot evidence for the same flow.",
         "Check labels, keyboard focus, readable contrast, and no horizontal clipping.",
+        "Record any release-blocking visual defects or fix them in scope.",
         "Run vp test.",
         "Run vp check.",
         "Run vp build."
       ],
       "evidence": [],
-      "notes": "Use docs/harness/evaluator-rubric.md before accepting visual feature work."
+      "notes": "This replaces the old safe primitive grammar task for the current MVP release path."
+    },
+    {
+      "id": "tp-003",
+      "priority": 3,
+      "area": "release-docs",
+      "title": "Align release documentation with the current MVP scope",
+      "user_visible_behavior": "Future sessions understand that the MVP release is the current luxury discovery UI, not an agentic-native or Mallorca-only rebuild.",
+      "status": "passing",
+      "dependencies": ["tp-000"],
+      "verification": [
+        "Update CONTEXT.md with the agreed release vocabulary.",
+        "Update feature_list.json to replace stale agentic/Mallorca-only tasks.",
+        "Update tasks.md with the current release sequence.",
+        "Update docs/harness/sprint-contract.md for the active release-planning slice.",
+        "Record a durable decision for the scope change."
+      ],
+      "evidence": [
+        "2026-07-01: User confirmed portfolio/demo release, current UI direction, three-page shell, and release-hardening bar.",
+        "2026-07-01: Updated CONTEXT.md, feature_list.json, tasks.md, docs/harness/sprint-contract.md, docs/architecture.md, DECISIONS.md, PROGRESS.md, and docs/QUALITY.md.",
+        "2026-07-01: vp check passed."
+      ],
+      "notes": "This replaces the old neighborhood/map intelligence mock task for the current MVP release path."
+    },
+    {
+      "id": "tp-004",
+      "priority": 4,
+      "area": "release",
+      "title": "Prepare MVP release handoff",
+      "user_visible_behavior": "The project has a verified release candidate with evidence, clean-state docs, and a scoped PR ready for human review.",
+      "status": "not_started",
+      "dependencies": ["tp-001", "tp-002"],
+      "verification": [
+        "Update PROGRESS.md with release readiness status.",
+        "Update docs/QUALITY.md if app shell quality changes.",
+        "Complete docs/harness/clean-state-checklist.md.",
+        "Run vp test.",
+        "Run vp check.",
+        "Run vp build.",
+        "Open a scoped PR for the release candidate."
+      ],
+      "evidence": [],
+      "notes": "Do not merge the PR without human approval."
     }
   ]
 }
