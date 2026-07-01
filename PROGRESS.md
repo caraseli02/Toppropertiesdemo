@@ -2,6 +2,12 @@
 
 ## Done
 
+- 2026-07-01 MVP release planning:
+  - re-scoped the MVP release as a polished portfolio/demo release of the current luxury property discovery UI.
+  - removed agentic-native and Mallorca-only release requirements from active glossary language.
+  - replaced stale prompt-to-brief, safe primitive, and neighborhood intelligence product tasks with release hardening, visual/mobile QA, release documentation, and release handoff tasks.
+  - recorded the scope change in `DECISIONS.md`.
+  - `vp check` passed.
 - 2026-06-30 Luxury real estate MVP integration:
   - moved `luxury-real-estate-mvp` source into repo root (`src/`, `index.html`, dependencies).
   - removed `luxury-real-estate-mvp/` after migration.
@@ -20,7 +26,7 @@
 
 ## In Progress
 
-- None. MVP integration (`tp-000`) is complete; product slices (`tp-001`–`tp-004`) await re-scoping against the new luxury real estate baseline.
+- None. `tp-003` release documentation alignment is complete; `tp-001` release hardening is the next implementation slice.
 
 ## Blocked
 
@@ -28,11 +34,10 @@
 
 ## Next Steps
 
-1. Receive the new generated code folder from the user and integrate it under `src/` (and related app files).
-2. Run `./init.sh` and `npm run verify` on the integrated baseline.
-3. Re-scope `tp-001`–`tp-004` against the new code shape.
-4. Restore browser/E2E verification when the primary flow is stable.
-5. Recreate or reopen Pencil design assets if `hx-002` live validation is still required.
+1. Start `tp-001`: harden the current Home, Listings, and Property Detail shell for MVP release.
+2. Run focused desktop and 375px mobile QA under `tp-002`.
+3. Prepare release handoff under `tp-004`, including clean-state checklist, verification, commit, and PR.
+4. Recreate or reopen Pencil design assets only if `hx-002` live validation is still required.
 
 ## Verification Status
 
@@ -47,3 +52,7 @@ Latest verification for the 2026-06-30 harness-only reset:
 
 - `./init.sh` passed; harness readiness check, `vp install`, `vp check`, `vp test`, and `vp build` completed successfully.
 - `npm run verify` passed.
+
+Latest verification for the 2026-07-01 MVP release planning docs:
+
+- `vp check` passed.

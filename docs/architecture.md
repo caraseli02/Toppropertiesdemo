@@ -63,7 +63,8 @@ src/
 
 The integrated MVP is a full luxury real estate browsing experience with search, filters, favorites, listings, map view, and property detail pages. Product tasks in `feature_list.json` should be re-scoped against this baseline.
 
-## Pre-implementation gates
+## Current release gates
 
-- `t_c45c9064` — spike: AI-composed UI from safe primitives.
-- `t_47af33ed` — design: pencil pass for agentic Mallorca luxury UI.
+- Harden the current Home, Listings, and Property Detail shell before adding new product concepts.
+- Run focused desktop and 375px mobile browser QA before calling the MVP release ready.
+- Keep prompt-to-brief, safe primitive grammar, and Mallorca-only data migration out of the current release path unless a later decision reopens that scope.
