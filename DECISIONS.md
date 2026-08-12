@@ -2,6 +2,17 @@
 
 Durable architecture and workflow decisions for the TopProperties reset. Add entries when a choice affects future agents or implementation direction.
 
+## 2026-08-12 — Prefer the project-pinned `vp` over any global install
+
+**Decision:** `init.sh` resolves the `vp` (Vite+) binary by preferring the project-local `node_modules/.bin/vp` over a global `vp` on `$PATH`, and re-resolves after `vp install`.
+
+**Reason:** The project pins `vite-plus` as a devDependency. Its generated `node_modules/.bin/vp` shim sets `NODE_PATH` into the project's `.pnpm` dependency tree so local devDependencies — including `jsdom`, which the `jsdom` test environment in `vite.config.ts` requires — resolve correctly. A global `vp` on `$PATH` does not carry the project's devDependencies, so `vp test` failed with `ERR_MODULE_NOT_FOUND` for `jsdom` whenever the global binary was used (bare `vp test` from a shell, and previously inside `init.sh` which used `global > local`). Preferring the local, version-pinned binary makes `./init.sh` and `npm run verify` deterministic and reproducible.
+
+**Rejected alternatives:**
+
+- Relying on a global `vp` only — rejected because the global install can lack project devDependencies (jsdom), breaking `vp test` without any repo-level error signal.
+- Requiring the global `vp` to be removed from `$PATH` — rejected because it is an environment-level change that cannot be expressed in the repo and would affect other projects.
+
 ## 2026-07-01 — MVP release follows the current luxury discovery UI
 
 **Decision:** Scope the next MVP release as a polished portfolio/demo release of the current luxury property discovery UI: Home, Listings, and Property Detail. Do not require the release to be agentic-native, prompt-to-brief, safe-primitive-driven, or Mallorca-only.
