@@ -50,12 +50,23 @@ fi
 echo "==> Baseline files are present."
 echo "==> feature_list.json is valid JSON."
 
-# Resolve vp binary: global > local node_modules/.bin
-if command -v vp >/dev/null 2>&1; then
-  VP=vp
-elif [ -x node_modules/.bin/vp ]; then
-  VP=node_modules/.bin/vp
-else
+# Resolve vp binary. Prefer the project-pinned LOCAL binary in node_modules/.bin:
+# it is generated with NODE_PATH pointing into the project's dependency tree,
+# so local devDependencies (e.g. jsdom, required by the jsdom test environment)
+# resolve correctly. A global vp on PATH typically lacks these devDependencies.
+# Fall back to a global install, and bootstrap dependencies if neither exists.
+resolve_vp() {
+  if [ -x node_modules/.bin/vp ]; then
+    VP=node_modules/.bin/vp
+  elif command -v vp >/dev/null 2>&1; then
+    VP=vp
+  fi
+}
+
+VP=""
+resolve_vp
+
+if [ -z "$VP" ]; then
   echo "==> Vite+ CLI 'vp' was not found." >&2
   echo "==> Installing dependencies first…" >&2
   if command -v pnpm >/dev/null 2>&1; then
@@ -66,9 +77,8 @@ else
     echo "Neither pnpm nor npm found on PATH." >&2
     exit 1
   fi
-  if [ -x node_modules/.bin/vp ]; then
-    VP=node_modules/.bin/vp
-  else
+  resolve_vp
+  if [ -z "$VP" ]; then
     echo "vp still not found after install." >&2
     exit 1
   fi
@@ -79,6 +89,15 @@ echo "==> Vite+ detected: $("$VP" --version 2>/dev/null || echo available)"
 # --- Install dependencies ---
 echo "==> Installing dependencies ($VP install)…"
 "$VP" install
+
+# Dependencies were just (re)installed, so re-resolve: when only a global vp
+# was available to bootstrap the install above, prefer the local binary now.
+resolve_vp
+if [ -z "$VP" ]; then
+  echo "vp not found after install." >&2
+  exit 1
+fi
+echo "==> Using vp: $VP"
 
 # --- Run full verification ---
 echo "==> Running verification ($VP check, $VP test, $VP build)…"
