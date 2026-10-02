@@ -1,6 +1,6 @@
 {
   "project": "TopProperties",
-  "last_updated": "2026-06-30",
+  "last_updated": "2026-10-02",
   "status": "mvp_release_planning",
   "goal_card": "t_9d328a7a",
   "rules": {
@@ -82,7 +82,7 @@
       ],
       "evidence": [
         "2026-06-26: Added repo-local Pencil skills and docs/design/pencil-design-system-rules.md.",
-        "2026-06-29: Live Pencil MCP blocked — no active editor session.",
+        "2026-06-29: Live Pencil MCP blocked \u2014 no active editor session.",
         "2026-06-30: design.pen removed during harness-only reset; reopen or recreate design assets with the new generated UI."
       ],
       "notes": "Repo skills remain. On-disk design.pen was removed during reset; live MCP validation resumes when a new .pen file is active in Pencil."
@@ -193,6 +193,53 @@
       ],
       "evidence": [],
       "notes": "Do not merge the PR without human approval."
+    },
+    {
+      "id": "tp-005",
+      "priority": 1,
+      "area": "sites-version",
+      "title": "Improve current discovery app as a separate Sites version",
+      "status": "passing",
+      "dependencies": ["tp-000"],
+      "verification": [
+        "npm run verify for root and Site",
+        "Desktop and 375px browser flows",
+        "Private Sites publication succeeds",
+        "Scoped PR opened"
+      ],
+      "evidence": [
+        "2026-10-02: Site npm run verify passed: 3 files / 7 tests, check and build.",
+        "2026-10-02: Root npm run verify passed: 2 files / 4 tests, check and build.",
+        "2026-10-02: Desktop 1440x1000 and mobile 375x812 flow evidence in docs/qa/sites-collection.",
+        "2026-10-02: Private Sites deployment succeeded: https://topproperties-collection-next.caraseli.chatgpt.site",
+        "GitHub issue: https://github.com/caraseli02/Toppropertiesdemo/issues/79",
+        "2026-10-02: CI=true ./init.sh and harness readiness passed; PR opened: https://github.com/caraseli02/Toppropertiesdemo/pull/80",
+        "2026-10-02: Search controls aligned to 48px height/12px radius; desktop and 375px evidence in docs/qa/sites-collection/search-aligned-*.png; root/Site verification passed; same private Site republished successfully."
+      ],
+      "user_visible_behavior": "A refined separate Sites version preserves discovery, filtering, property details and saved homes on desktop and mobile.",
+      "notes": "Search alignment follow-up completed in issue #79 / PR #80."
+    },
+    {
+      "id": "tp-006",
+      "priority": 1,
+      "area": "architectural-animation",
+      "title": "Add Three.js architectural villa concept",
+      "user_visible_behavior": "Explore an illustrative villa in 3D with camera views and changing daylight, alongside the original photo.",
+      "status": "passing",
+      "dependencies": ["tp-005"],
+      "verification": [
+        "Root and Site npm run verify",
+        "Desktop and 375px 3D rendering, controls and fallback",
+        "Reduced motion and offscreen lifecycle",
+        "Private Sites republication and PR handoff"
+      ],
+      "evidence": [
+        "2026-10-02: Root npm run verify passed (4 tests); Site npm run verify passed (11 tests), check and production build.",
+        "2026-10-02: Desktop/375px 3D, daylight keyboard control, reduced-motion, context-loss fallback and photo canvas removal checked; docs/qa/sites-collection/villa-*.png.",
+        "2026-10-02: Instrumented browser RAF count stopped at 66 after scrolling offscreen.",
+        "2026-10-02: Private Sites publication succeeded; source 883fbf562559735fbab90bc5505c3287d815bf5a.",
+        "Issue #81; existing review PR https://github.com/caraseli02/Toppropertiesdemo/pull/80"
+      ]
     }
   ]
 }

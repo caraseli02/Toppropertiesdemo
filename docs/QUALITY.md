@@ -35,3 +35,16 @@ Quality: B
 - Agent understandable: Good. Skills encode Pencil-native workflows and validation gates.
 - Known gaps: No active `.pen` file in the repo after reset.
 - Next improvement: Reconcile Pencil skills with the new generated UI once design assets return.
+
+## Sites Collection (`sites/topproperties-next`)
+
+Quality: B
+
+- Verification passing: Yes. Eleven unit/component tests, check, build, desktop and 375px primary-flow evidence recorded in `docs/qa/sites-collection`.
+- Clear boundaries: separate static React app; root application preserved.
+- Known gaps: illustrative inventory and map positions, simulated enquiry form, external photo/font availability, inherited toolchain deprecation warnings.
+- Improvements: search labels, gallery controls, keyboard escape for saved/menu panels, honest demo copy, validated local favorite storage, reduced-motion support.
+
+- 2026-10-02 follow-up: SearchPanel control heights, corners, label rhythm and action alignment standardized; compact slider preserves the filter-drawer presentation. Desktop/375px evidence and behavior verified.
+
+- 2026-10-02: Optional Three.js villa preview checked on desktop and 375px, including reduced motion, context loss and offscreen RAF suspension. Procedural geometry avoids external model assets. Single-file build now 915.63 KB / 247.94 KB gzip; scene code is included in initial download, with GPU initialization deferred until requested.

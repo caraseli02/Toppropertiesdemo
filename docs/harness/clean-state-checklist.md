@@ -93,3 +93,33 @@ Run this before ending a session or declaring work complete.
 - [x] The next session can continue from repository artifacts without relying on chat history.
 
 ## Latest Run - 2026-06-18
+
+## Latest Run — 2026-10-02 (`tp-005`)
+
+- [x] Intentional changes reviewed; unrelated untracked `.codex`, `.github/hooks`, `.github/skills`, `.impeccable`, and `PRODUCT.md` remain outside the feature commit.
+- [x] `CI=true ./init.sh` passed, including harness readiness, installation, check, tests and build.
+- [x] Root and Site `npm run verify` passed; Site 7 tests, root 4 tests.
+- [x] `vp dev` started and primary flow exercised at desktop and 375px.
+- [x] Screenshots and runtime findings recorded in `docs/qa/sites-collection`.
+- [x] Feature evidence, progress, decisions and quality updated.
+- [x] Private Sites publication succeeded; deployed source SHA recorded.
+- [x] Source, evidence and docs are intentional; no temporary debug files included.
+- [x] Scoped GitHub PR opened: https://github.com/caraseli02/Toppropertiesdemo/pull/80; `tp-005` passing.
+
+### Search alignment follow-up — 2026-10-02
+
+- [x] Only intended search-control and evidence/docs changes.
+- [x] Root and Site `npm run verify` passed; dev server and search flow worked.
+- [x] Desktop and 375px heights/overflow measured, screenshots recorded.
+- [x] Feature, progress, sprint and quality updated; no architecture change.
+- [x] Existing private Site successfully republished and existing PR #80 updated.
+
+### Three.js follow-up — 2026-10-02 (`tp-006`)
+
+- [x] Intentional feature changes reviewed; unrelated untracked tooling left untouched.
+- [x] Startup and harness readiness passed earlier in this session; Site dev server running and primary flow exercised.
+- [x] Root and Site verification passed (4 and 11 tests).
+- [x] Desktop/375px rendering, controls, reduced motion, fallback and cleanup evidence recorded.
+- [x] Feature, progress, decisions, quality and sprint result updated.
+- [x] Private Site publication succeeded; existing scoped review PR #80 updated.
+- [x] No temporary debug code or undocumented evidence files included.

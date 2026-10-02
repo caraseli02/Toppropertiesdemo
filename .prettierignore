@@ -3,3 +3,7 @@ skills-lock.json
 node_modules/
 build/
 .vp/
+.github/skills/
+.github/hooks/
+.codex/
+.impeccable/
