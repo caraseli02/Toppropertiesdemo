@@ -19,3 +19,9 @@ Private publication succeeded: https://topproperties-collection-next.caraseli.ch
 ## Search alignment follow-up
 
 User screenshot identified a taller price field and displaced buttons. Location, price slider, property type, Search and Filters now have identical 48px height and 12px corner radius. At 1440px all five control tops measure 757.546875px. Price endpoints are secondary text beneath the slider; the filter-drawer slider retains its existing summary. At 375px all control heights remain 48px, no horizontal overflow, and search navigates to the matching Cap d’Antibes result. Browser errors empty. Screenshots: `search-aligned-desktop.png`, `search-aligned-mobile.png`. Root and Site `npm run verify` passed (4 and 7 tests). Private republication succeeded; source SHA `a9734d6c81ade261b6feb8b6f54bf442fbd36833`.
+
+## Three.js villa concept (`tp-006`, issue #81)
+
+Screenshots: `villa-desktop.png`, `villa-aerial.png`, `villa-mobile.png`, `villa-fallback.png`. Procedural villa is a labeled architectural concept. Terrace/garden/aerial views, camera pause and keyboard daylight adjustment verified. At 375px active preview is 464px high with a 328px canvas, no horizontal overflow. A conflicting mobile photo-height rule was caught and corrected. Reduced-motion starts static with motion disabled. Forced WebGL context loss returns to the photo; returning to Photo removes the canvas. Instrumented requestAnimationFrame count grew to 54 in view, then settled at 66 and stayed at 66 after scrolling offscreen. Browser errors empty on normal flow.
+
+Root verification: 4 tests; Site verification: 11 tests, format/lint/types and build passed. Build: 915.63 KB / 247.94 KB gzip. Source SHA `f0e5aaae09c6dd4f4247ed067bd6c72882b9a7f7`; private deployment succeeded. Review PR #80.

@@ -113,3 +113,13 @@ Run this before ending a session or declaring work complete.
 - [x] Desktop and 375px heights/overflow measured, screenshots recorded.
 - [x] Feature, progress, sprint and quality updated; no architecture change.
 - [x] Existing private Site successfully republished and existing PR #80 updated.
+
+### Three.js follow-up — 2026-10-02 (`tp-006`)
+
+- [x] Intentional feature changes reviewed; unrelated untracked tooling left untouched.
+- [x] Startup and harness readiness passed earlier in this session; Site dev server running and primary flow exercised.
+- [x] Root and Site verification passed (4 and 11 tests).
+- [x] Desktop/375px rendering, controls, reduced motion, fallback and cleanup evidence recorded.
+- [x] Feature, progress, decisions, quality and sprint result updated.
+- [x] Private Site publication succeeded; existing scoped review PR #80 updated.
+- [x] No temporary debug code or undocumented evidence files included.

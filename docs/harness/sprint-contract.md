@@ -2,31 +2,27 @@
 
 ## Feature
 
-- Feature id: `tp-005` — separate improved Sites version
+- Feature id: `tp-006` — Three.js architectural villa concept
 - Date: 2026-10-02
-- Branch: `codex/sites-collection`
-- Task: GitHub issue #79; user requested current-app improvement with Sites.
+- Branch: `codex/sites-collection` (existing Sites review PR #80)
+- Task: user requested real-estate-specific Three.js animation; GitHub issue #81.
 
 ## Scope
 
-Preserve current React discovery flows in `sites/topproperties-next`; improve hierarchy, search accessibility, premium editorial presentation and demo honesty. Keep root app intact. Publish privately with Sites.
+Optional 3D hero concept, photography default. Procedural Mediterranean villa, pool and garden, slow orbit, terrace/garden/aerial viewpoints, daylight control and pause. Clear illustrative labeling. Keep browsing/search intact.
 
 ## Exclusions
 
-No backend, real enquiries, real inventory ingestion or new account features. Existing broad inventory retained in response to the user's request to improve the current app.
+No exact listing reconstruction, property-analysis claims, backend, external 3D assets or account features.
 
 ## Verification Standards
 
-Root and Site `npm run verify`; desktop and 375px Home → Listings → Detail, filtering and saved homes; Sites deployment success; scoped PR.
+Root and Site `npm run verify`; meaningful component tests for start/controls/fallback; desktop and 375px WebGL rendering, reduced motion and lifecycle cleanup; private Sites republication and existing PR update.
 
 ## Passing Definition
 
-Evidence recorded, publication succeeds, verification passes and PR is open.
+Recorded evidence, successful private publication, passing verification and updated PR #80.
 
 ## Result
 
-Private publication succeeded: https://topproperties-collection-next.caraseli.chatgpt.site. Root and Site verification passed; desktop/mobile evidence recorded. Sprint closed as passing. PR: https://github.com/caraseli02/Toppropertiesdemo/pull/80.
-
-## Search alignment follow-up — 2026-10-02
-
-Feature id: `tp-005`; issue #79 / PR #80. Align Location, Price Range, Property Type, Search and Filters to a shared 48px control row. Move the price summary beneath the slider, retain responsive stacking and all search behavior. No new features or architecture. Verify root and Site pipelines and desktop/375px search; republish the same private Site. Completed: verification, desktop/375px measurements and screenshots passed; same private Site republished; PR #80 updated.
+Passing. Root/Site verification, desktop/375px browser evidence, reduced-motion and fallback checks passed. Private publication succeeded, source `f0e5aaae09c6dd4f4247ed067bd6c72882b9a7f7`; review PR https://github.com/caraseli02/Toppropertiesdemo/pull/80.

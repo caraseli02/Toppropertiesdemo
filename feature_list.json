@@ -218,6 +218,28 @@
       ],
       "user_visible_behavior": "A refined separate Sites version preserves discovery, filtering, property details and saved homes on desktop and mobile.",
       "notes": "Search alignment follow-up completed in issue #79 / PR #80."
+    },
+    {
+      "id": "tp-006",
+      "priority": 1,
+      "area": "architectural-animation",
+      "title": "Add Three.js architectural villa concept",
+      "user_visible_behavior": "Explore an illustrative villa in 3D with camera views and changing daylight, alongside the original photo.",
+      "status": "passing",
+      "dependencies": ["tp-005"],
+      "verification": [
+        "Root and Site npm run verify",
+        "Desktop and 375px 3D rendering, controls and fallback",
+        "Reduced motion and offscreen lifecycle",
+        "Private Sites republication and PR handoff"
+      ],
+      "evidence": [
+        "2026-10-02: Root npm run verify passed (4 tests); Site npm run verify passed (11 tests), check and production build.",
+        "2026-10-02: Desktop/375px 3D, daylight keyboard control, reduced-motion, context-loss fallback and photo canvas removal checked; docs/qa/sites-collection/villa-*.png.",
+        "2026-10-02: Instrumented browser RAF count stopped at 66 after scrolling offscreen.",
+        "2026-10-02: Private Sites publication succeeded; source f0e5aaae09c6dd4f4247ed067bd6c72882b9a7f7.",
+        "Issue #81; existing review PR https://github.com/caraseli02/Toppropertiesdemo/pull/80"
+      ]
     }
   ]
 }

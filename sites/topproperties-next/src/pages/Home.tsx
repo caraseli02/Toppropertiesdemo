@@ -5,6 +5,7 @@ import { DEFAULT_FILTERS } from "@/lib/filters";
 import { SearchPanel } from "@/components/SearchPanel";
 import { PropertyCard } from "@/components/PropertyCard";
 import { Container, Eyebrow, SectionHeading, buttonClasses } from "@/components/ui";
+import { VillaPreview } from "@/components/VillaPreview";
 
 const destinations = [
   "French Riviera",
@@ -47,14 +48,7 @@ export function Home() {
               </span>
             </div>
           </div>
-          <div className="hero-photograph">
-            <img
-              src={heroImage}
-              alt="Coastal residence overlooking the Mediterranean"
-              fetchPriority="high"
-            />
-            <span className="photo-caption">The Mediterranean edit</span>
-          </div>
+          <VillaPreview image={heroImage} />
         </section>
         <section className="discovery-search" aria-label="Find a residence">
           <SearchPanel filters={filters} setFilters={setFilters} />

@@ -266,6 +266,140 @@
   font-size: 0.75rem;
   letter-spacing: 0.04em;
 }
+.villa-preview {
+  isolation: isolate;
+}
+.villa-mode-switch {
+  position: absolute;
+  z-index: 3;
+  top: 1rem;
+  left: 1rem;
+  display: flex;
+  padding: 0.25rem;
+  background: var(--color-cream);
+  border: 1px solid var(--color-line);
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 10px #1c16120a;
+}
+.villa-mode-switch button,
+.villa-views button,
+.villa-motion {
+  min-height: 2.75rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--color-ink-soft);
+}
+.villa-mode-switch button[aria-pressed="true"],
+.villa-views button[aria-pressed="true"] {
+  background: var(--color-burgundy);
+  color: var(--color-cream);
+}
+.villa-canvas {
+  position: absolute;
+  inset: 0 0 8.5rem;
+  background: #e7e6e1;
+}
+.villa-canvas canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.villa-concept-label {
+  position: absolute;
+  z-index: 2;
+  top: 4.75rem;
+  left: 1.25rem;
+  font-size: 0.75rem;
+  color: #544e46;
+}
+.hero-photograph.villa-preview-active {
+  min-height: 32rem;
+  border-top-right-radius: 3rem;
+}
+.villa-controls {
+  position: absolute;
+  z-index: 2;
+  inset: auto 0 0;
+  min-height: 8.5rem;
+  padding: 0.75rem 1.1rem;
+  background: var(--color-cream);
+  border: 1px solid var(--color-line);
+}
+.villa-view-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.villa-views {
+  display: flex;
+  gap: 0.25rem;
+}
+.villa-motion {
+  border: 1px solid var(--color-line);
+}
+.villa-controls button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.villa-daylight {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.35rem 1rem;
+  margin-top: 0.7rem;
+  align-items: center;
+}
+.villa-daylight label {
+  font-size: 0.875rem;
+  display: flex;
+  gap: 0.65rem;
+}
+.villa-daylight label span {
+  color: var(--color-burgundy);
+  font-variant-numeric: tabular-nums;
+}
+.villa-daylight input {
+  width: 100%;
+  accent-color: var(--color-burgundy);
+  min-height: 1.5rem;
+}
+.villa-light-note {
+  grid-column: 2;
+  font-size: 0.75rem;
+  color: var(--color-ink-soft);
+}
+.villa-loading {
+  position: absolute;
+  inset: 45% 1rem auto;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--color-ink-soft);
+}
+.villa-fallback {
+  position: absolute;
+  z-index: 4;
+  inset: auto 1rem 4rem;
+  padding: 0.75rem;
+  background: var(--color-cream);
+  font-size: 0.875rem;
+  border-radius: 0.5rem;
+}
+@media (max-width: 639px) {
+  .hero-photograph.villa-preview-active {
+    min-height: 29rem;
+  }
+  .villa-controls {
+    padding: 0.75rem;
+  }
+  .villa-views button,
+  .villa-motion {
+    padding: 0.5rem 0.65rem;
+  }
+  .villa-daylight {
+    gap: 0.25rem 0.7rem;
+  }
+}
 .discovery-search {
   position: relative;
   z-index: 10;

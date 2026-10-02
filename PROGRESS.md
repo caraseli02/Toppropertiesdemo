@@ -2,6 +2,8 @@
 
 ## Done
 
+- 2026-10-02: `tp-006` Three.js villa concept privately published. Optional 3D hero with terrace/garden/aerial views, daylight, pause, reduced-motion and photo fallback. Root/Site verification passed (4/11 tests); desktop/375px evidence in `docs/qa/sites-collection`. Issue #81, review PR #80.
+
 - 2026-10-02: Search alignment follow-up: consistent 48px controls, aligned desktop row, price summary beneath slider; desktop/375px QA and root/Site verification passed. Private Site republished; PR #80 updated.
 
 - 2026-10-02: Improved Sites version privately published at https://topproperties-collection-next.caraseli.chatgpt.site.
@@ -33,7 +35,7 @@
 
 ## In Progress
 
-- None for `tp-005`; privately published and ready for review: https://github.com/caraseli02/Toppropertiesdemo/pull/80.
+- None for `tp-005` / `tp-006`; privately published and ready for review: https://github.com/caraseli02/Toppropertiesdemo/pull/80.
 
 ## Blocked
 

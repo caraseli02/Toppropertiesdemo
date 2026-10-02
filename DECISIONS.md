@@ -119,3 +119,7 @@ Durable architecture and workflow decisions for the TopProperties reset. Add ent
 The user requested a new Sites version based on the current app. Keep the root app intact and retain the current React/TypeScript/Tailwind/Vite+ stack and broad illustrative inventory in `sites/topproperties-next`. Publish the static `build/` export using existing hash routes; no backend is needed. Sites source publication uses an isolated publishing checkout so the repository retains ordinary tracked files.
 
 Preserve discovery, filters, galleries, map view, local favorites and the enquiry preview. Clearly label simulated enquiries, illustrative prices/photos and device-local saved homes; remove unsupported advisor promises and inert newsletter/company links. Keep the burgundy/serif identity and use DM Sans for supporting type. Root verification excludes generated plugin tooling from formatting/linting and checks the Sites app separately to respect its own TypeScript configuration.
+
+## 2026-10-02 — Optional architectural concept in Three.js
+
+Use direct Three.js with a small disposable scene controller for the procedural villa. Photography remains the default; GPU initialization occurs only on entering 3D. The model is explicitly illustrative. Camera/daylight controls respect reduced motion; rendering stops offscreen or when paused and settled. Dispose resources when leaving 3D. Keep single-file Sites output: Three.js increases compressed output to about 248 KB, so import deferral postpones initialization but does not split the production download.
