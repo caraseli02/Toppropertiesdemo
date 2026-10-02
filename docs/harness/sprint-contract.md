@@ -25,4 +25,4 @@ Evidence recorded, publication succeeds, verification passes and PR is open.
 
 ## Result
 
-Private publication succeeded: https://topproperties-collection-next.caraseli.chatgpt.site. Root and Site verification passed; desktop/mobile evidence recorded. Scoped PR handoff pending.
+Private publication succeeded: https://topproperties-collection-next.caraseli.chatgpt.site. Root and Site verification passed; desktop/mobile evidence recorded. Sprint closed as passing. PR: https://github.com/caraseli02/Toppropertiesdemo/pull/80.

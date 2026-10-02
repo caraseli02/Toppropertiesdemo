@@ -104,4 +104,4 @@ Run this before ending a session or declaring work complete.
 - [x] Feature evidence, progress, decisions and quality updated.
 - [x] Private Sites publication succeeded; deployed source SHA recorded.
 - [x] Source, evidence and docs are intentional; no temporary debug files included.
-- [ ] Scoped GitHub PR opened; feature status remains in progress until recorded.
+- [x] Scoped GitHub PR opened: https://github.com/caraseli02/Toppropertiesdemo/pull/80; `tp-005` passing.

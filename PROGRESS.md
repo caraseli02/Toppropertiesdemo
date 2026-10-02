@@ -31,7 +31,7 @@
 
 ## In Progress
 
-- `tp-005`: Sites publication and verification complete; scoped PR handoff pending.
+- None for `tp-005`; privately published and ready for review: https://github.com/caraseli02/Toppropertiesdemo/pull/80.
 
 ## Blocked
 

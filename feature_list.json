@@ -199,7 +199,7 @@
       "priority": 1,
       "area": "sites-version",
       "title": "Improve current discovery app as a separate Sites version",
-      "status": "in_progress",
+      "status": "passing",
       "dependencies": ["tp-000"],
       "verification": [
         "npm run verify for root and Site",
@@ -212,7 +212,8 @@
         "2026-10-02: Root npm run verify passed: 2 files / 4 tests, check and build.",
         "2026-10-02: Desktop 1440x1000 and mobile 375x812 flow evidence in docs/qa/sites-collection.",
         "2026-10-02: Private Sites deployment succeeded: https://topproperties-collection-next.caraseli.chatgpt.site",
-        "GitHub issue: https://github.com/caraseli02/Toppropertiesdemo/issues/79"
+        "GitHub issue: https://github.com/caraseli02/Toppropertiesdemo/issues/79",
+        "2026-10-02: CI=true ./init.sh and harness readiness passed; PR opened: https://github.com/caraseli02/Toppropertiesdemo/pull/80"
       ],
       "user_visible_behavior": "A refined separate Sites version preserves discovery, filtering, property details and saved homes on desktop and mobile."
     }
