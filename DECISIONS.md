@@ -113,3 +113,9 @@ Durable architecture and workflow decisions for the TopProperties reset. Add ent
 
 - Deleting harness docs with the app code — rejected because that would discard the Learn Harness Engineering investment.
 - Leaving the old `tp-001` implementation in place during the swap — rejected because it would conflict with the incoming generated codebase and create merge ambiguity.
+
+## 2026-10-02 — Separate improved Sites collection
+
+The user requested a new Sites version based on the current app. Keep the root app intact and retain the current React/TypeScript/Tailwind/Vite+ stack and broad illustrative inventory in `sites/topproperties-next`. Publish the static `build/` export using existing hash routes; no backend is needed. Sites source publication uses an isolated publishing checkout so the repository retains ordinary tracked files.
+
+Preserve discovery, filters, galleries, map view, local favorites and the enquiry preview. Clearly label simulated enquiries, illustrative prices/photos and device-local saved homes; remove unsupported advisor promises and inert newsletter/company links. Keep the burgundy/serif identity and use DM Sans for supporting type. Root verification excludes generated plugin tooling from formatting/linting and checks the Sites app separately to respect its own TypeScript configuration.

@@ -2,6 +2,11 @@
 
 ## Done
 
+- 2026-10-02: Improved Sites version privately published at https://topproperties-collection-next.caraseli.chatgpt.site.
+  - Separate source: `sites/topproperties-next`; root app preserved.
+  - Refined editorial Home, functional search/destinations, cards, navigation, saved homes, galleries and honest enquiry preview.
+  - Root and Site `npm run verify` passed; Site 7 tests, root 4 tests. Desktop and 375px evidence: `docs/qa/sites-collection`.
+
 - 2026-07-01 MVP release planning:
   - re-scoped the MVP release as a polished portfolio/demo release of the current luxury property discovery UI.
   - removed agentic-native and Mallorca-only release requirements from active glossary language.
@@ -26,13 +31,15 @@
 
 ## In Progress
 
-- None. `tp-003` release documentation alignment is complete; `tp-001` release hardening is the next implementation slice.
+- `tp-005`: Sites publication and verification complete; scoped PR handoff pending.
 
 ## Blocked
 
 - `hx-002` live Pencil MCP validation remains blocked until a `.pen` file is open in the Pencil.dev extension canvas. `design.pen` was removed during the 2026-06-30 reset.
 
 ## Next Steps
+
+- Review the new Sites collection and scoped PR for issue #79. Root release tasks remain separate.
 
 1. Start `tp-001`: harden the current Home, Listings, and Property Detail shell for MVP release.
 2. Run focused desktop and 375px mobile QA under `tp-002`.

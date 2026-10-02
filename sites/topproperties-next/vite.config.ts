@@ -26,16 +26,7 @@ export default defineConfig({
     globals: true,
   },
   lint: {
-    ignorePatterns: [
-      "build/**",
-      "node_modules/**",
-      ".agents/**",
-      ".github/skills/**",
-      ".github/hooks/**",
-      ".codex/**",
-      ".impeccable/**",
-      "sites/**",
-    ],
+    ignorePatterns: ["build/**", "node_modules/**", ".agents/**"],
     options: {
       typeAware: true,
       typeCheck: true,

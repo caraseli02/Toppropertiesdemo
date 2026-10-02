@@ -35,3 +35,12 @@ Quality: B
 - Agent understandable: Good. Skills encode Pencil-native workflows and validation gates.
 - Known gaps: No active `.pen` file in the repo after reset.
 - Next improvement: Reconcile Pencil skills with the new generated UI once design assets return.
+
+## Sites Collection (`sites/topproperties-next`)
+
+Quality: B
+
+- Verification passing: Yes. Seven unit/component tests, check, build, desktop and 375px primary-flow evidence recorded in `docs/qa/sites-collection`.
+- Clear boundaries: separate static React app; root application preserved.
+- Known gaps: illustrative inventory and map positions, simulated enquiry form, external photo/font availability, inherited toolchain deprecation warnings.
+- Improvements: search labels, gallery controls, keyboard escape for saved/menu panels, honest demo copy, validated local favorite storage, reduced-motion support.

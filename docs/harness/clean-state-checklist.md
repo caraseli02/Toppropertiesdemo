@@ -93,3 +93,15 @@ Run this before ending a session or declaring work complete.
 - [x] The next session can continue from repository artifacts without relying on chat history.
 
 ## Latest Run - 2026-06-18
+
+## Latest Run — 2026-10-02 (`tp-005`)
+
+- [x] Intentional changes reviewed; unrelated untracked `.codex`, `.github/hooks`, `.github/skills`, `.impeccable`, and `PRODUCT.md` remain outside the feature commit.
+- [x] `CI=true ./init.sh` passed, including harness readiness, installation, check, tests and build.
+- [x] Root and Site `npm run verify` passed; Site 7 tests, root 4 tests.
+- [x] `vp dev` started and primary flow exercised at desktop and 375px.
+- [x] Screenshots and runtime findings recorded in `docs/qa/sites-collection`.
+- [x] Feature evidence, progress, decisions and quality updated.
+- [x] Private Sites publication succeeded; deployed source SHA recorded.
+- [x] Source, evidence and docs are intentional; no temporary debug files included.
+- [ ] Scoped GitHub PR opened; feature status remains in progress until recorded.
