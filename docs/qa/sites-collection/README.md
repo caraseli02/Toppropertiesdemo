@@ -24,4 +24,6 @@ User screenshot identified a taller price field and displaced buttons. Location,
 
 Screenshots: `villa-desktop.png`, `villa-aerial.png`, `villa-mobile.png`, `villa-fallback.png`. Procedural villa is a labeled architectural concept. Terrace/garden/aerial views, camera pause and keyboard daylight adjustment verified. At 375px active preview is 464px high with a 328px canvas, no horizontal overflow. A conflicting mobile photo-height rule was caught and corrected. Reduced-motion starts static with motion disabled. Forced WebGL context loss returns to the photo; returning to Photo removes the canvas. Instrumented requestAnimationFrame count grew to 54 in view, then settled at 66 and stayed at 66 after scrolling offscreen. Browser errors empty on normal flow.
 
-Root verification: 4 tests; Site verification: 11 tests, format/lint/types and build passed. Build: 915.63 KB / 247.94 KB gzip. Source SHA `f0e5aaae09c6dd4f4247ed067bd6c72882b9a7f7`; private deployment succeeded. Review PR #80.
+Root verification: 4 tests; Site verification: 11 tests, format/lint/types and build passed. Build: 915.63 KB / 247.94 KB gzip. Source SHA `883fbf562559735fbab90bc5505c3287d815bf5a`; private deployment succeeded. Review PR #80.
+
+Final compatibility pass uses supported PCFShadowMap directly, matching the renderer’s earlier fallback. Site verification rerun: 11 tests, check and build passed; final private republication succeeded.

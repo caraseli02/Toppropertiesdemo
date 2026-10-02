@@ -237,7 +237,7 @@
         "2026-10-02: Root npm run verify passed (4 tests); Site npm run verify passed (11 tests), check and production build.",
         "2026-10-02: Desktop/375px 3D, daylight keyboard control, reduced-motion, context-loss fallback and photo canvas removal checked; docs/qa/sites-collection/villa-*.png.",
         "2026-10-02: Instrumented browser RAF count stopped at 66 after scrolling offscreen.",
-        "2026-10-02: Private Sites publication succeeded; source f0e5aaae09c6dd4f4247ed067bd6c72882b9a7f7.",
+        "2026-10-02: Private Sites publication succeeded; source 883fbf562559735fbab90bc5505c3287d815bf5a.",
         "Issue #81; existing review PR https://github.com/caraseli02/Toppropertiesdemo/pull/80"
       ]
     }
