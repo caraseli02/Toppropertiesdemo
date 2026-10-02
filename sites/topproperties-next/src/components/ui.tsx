@@ -225,10 +225,12 @@ export function DualRangeSlider({
   valueMin,
   valueMax,
   onChange,
+  compact = false,
 }: {
   valueMin: number;
   valueMax: number;
   onChange: (min: number, max: number) => void;
+  compact?: boolean;
 }) {
   const range = PRICE_MAX - PRICE_MIN;
   const step = 250000;
@@ -236,8 +238,8 @@ export function DualRangeSlider({
   const pctMax = ((valueMax - PRICE_MIN) / range) * 100;
 
   return (
-    <div>
-      <div className="relative h-6">
+    <div className={compact ? "flex h-full items-center" : undefined}>
+      <div className="relative h-6 w-full">
         <div className="absolute top-1/2 h-1.5 w-full -translate-y-1/2 rounded-full bg-sand-deep" />
         <div
           className="absolute top-1/2 h-1.5 -translate-y-1/2 rounded-full bg-burgundy"
@@ -252,6 +254,7 @@ export function DualRangeSlider({
           onChange={(e) => onChange(Math.min(Number(e.target.value), valueMax - step), valueMax)}
           className="dual-range"
           aria-label="Minimum price"
+          aria-valuetext={valueMin <= PRICE_MIN ? "No minimum" : formatCompact(valueMin)}
         />
         <input
           type="range"
@@ -262,17 +265,22 @@ export function DualRangeSlider({
           onChange={(e) => onChange(valueMin, Math.max(Number(e.target.value), valueMin + step))}
           className="dual-range"
           aria-label="Maximum price"
+          aria-valuetext={
+            valueMax >= PRICE_MAX ? "40 million euros or more" : formatCompact(valueMax)
+          }
         />
       </div>
-      <div className="mt-3 flex items-center justify-between">
-        <span className="rounded-full bg-sand px-3 py-1 text-xs font-medium text-ink">
-          {valueMin <= PRICE_MIN ? "No min" : formatCompact(valueMin)}
-        </span>
-        <span className="text-[11px] uppercase tracking-wider text-ink-soft">Price range</span>
-        <span className="rounded-full bg-sand px-3 py-1 text-xs font-medium text-ink">
-          {valueMax >= PRICE_MAX ? "€40M+" : formatCompact(valueMax)}
-        </span>
-      </div>
+      {!compact && (
+        <div className="mt-3 flex items-center justify-between">
+          <span className="rounded-full bg-sand px-3 py-1 text-xs font-medium text-ink">
+            {valueMin <= PRICE_MIN ? "No min" : formatCompact(valueMin)}
+          </span>
+          <span className="text-[11px] uppercase tracking-wider text-ink-soft">Price range</span>
+          <span className="rounded-full bg-sand px-3 py-1 text-xs font-medium text-ink">
+            {valueMax >= PRICE_MAX ? "€40M+" : formatCompact(valueMax)}
+          </span>
+        </div>
+      )}
     </div>
   );
 }

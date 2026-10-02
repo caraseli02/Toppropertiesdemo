@@ -213,9 +213,11 @@
         "2026-10-02: Desktop 1440x1000 and mobile 375x812 flow evidence in docs/qa/sites-collection.",
         "2026-10-02: Private Sites deployment succeeded: https://topproperties-collection-next.caraseli.chatgpt.site",
         "GitHub issue: https://github.com/caraseli02/Toppropertiesdemo/issues/79",
-        "2026-10-02: CI=true ./init.sh and harness readiness passed; PR opened: https://github.com/caraseli02/Toppropertiesdemo/pull/80"
+        "2026-10-02: CI=true ./init.sh and harness readiness passed; PR opened: https://github.com/caraseli02/Toppropertiesdemo/pull/80",
+        "2026-10-02: Search controls aligned to 48px height/12px radius; desktop and 375px evidence in docs/qa/sites-collection/search-aligned-*.png; root/Site verification passed; same private Site republished successfully."
       ],
-      "user_visible_behavior": "A refined separate Sites version preserves discovery, filtering, property details and saved homes on desktop and mobile."
+      "user_visible_behavior": "A refined separate Sites version preserves discovery, filtering, property details and saved homes on desktop and mobile.",
+      "notes": "Search alignment follow-up completed in issue #79 / PR #80."
     }
   ]
 }

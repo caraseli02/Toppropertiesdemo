@@ -105,3 +105,11 @@ Run this before ending a session or declaring work complete.
 - [x] Private Sites publication succeeded; deployed source SHA recorded.
 - [x] Source, evidence and docs are intentional; no temporary debug files included.
 - [x] Scoped GitHub PR opened: https://github.com/caraseli02/Toppropertiesdemo/pull/80; `tp-005` passing.
+
+### Search alignment follow-up — 2026-10-02
+
+- [x] Only intended search-control and evidence/docs changes.
+- [x] Root and Site `npm run verify` passed; dev server and search flow worked.
+- [x] Desktop and 375px heights/overflow measured, screenshots recorded.
+- [x] Feature, progress, sprint and quality updated; no architecture change.
+- [x] Existing private Site successfully republished and existing PR #80 updated.

@@ -8,6 +8,9 @@ import {
   countActiveFilters,
   filterProperties,
   filtersToQuery,
+  formatCompact,
+  PRICE_MIN,
+  PRICE_MAX,
 } from "@/lib/filters";
 import { FiltersDrawer } from "@/components/FiltersDrawer";
 import { Button, DualRangeSlider, Pill } from "@/components/ui";
@@ -81,13 +84,10 @@ export function SearchPanel({
       </div>
 
       {/* Fields */}
-      <div className="mt-4 grid gap-3 lg:grid-cols-12">
+      <div className="search-fields mt-4 grid gap-4 lg:grid-cols-12">
         {/* Location */}
         <div className="lg:col-span-3">
-          <label
-            htmlFor="home-location"
-            className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-soft"
-          >
+          <label htmlFor="home-location" className="search-field-label">
             Location
           </label>
           <div className="relative">
@@ -99,31 +99,33 @@ export function SearchPanel({
               onChange={(e) => setFilters({ ...filters, q: e.target.value })}
               onKeyDown={(e) => e.key === "Enter" && submit()}
               placeholder="City, region or country"
-              className="w-full rounded-xl border border-line bg-white py-3 pl-10 pr-3 text-sm text-ink outline-none transition focus:border-burgundy focus:ring-2 focus:ring-burgundy/15"
+              className="search-control w-full border border-line bg-white pl-10 pr-3 text-sm text-ink outline-none transition focus:border-burgundy focus:ring-2 focus:ring-burgundy/15"
             />
           </div>
         </div>
 
         {/* Price */}
         <div className="lg:col-span-3">
-          <p className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-soft">
-            Price Range
-          </p>
-          <div className="rounded-xl border border-line bg-white px-4 py-2.5">
+          <p className="search-field-label">Price Range</p>
+          <div className="search-control border border-line bg-white px-4">
             <DualRangeSlider
+              compact
               valueMin={filters.minPrice}
               valueMax={filters.maxPrice}
               onChange={(min, max) => setFilters({ ...filters, minPrice: min, maxPrice: max })}
             />
           </div>
+          <p className="search-price-summary" aria-live="polite">
+            <span>
+              {filters.minPrice <= PRICE_MIN ? "No minimum" : formatCompact(filters.minPrice)}
+            </span>
+            <span>{filters.maxPrice >= PRICE_MAX ? "€40M+" : formatCompact(filters.maxPrice)}</span>
+          </p>
         </div>
 
         {/* Type */}
-        <div className="lg:col-span-2">
-          <label
-            htmlFor="home-property-type"
-            className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-soft"
-          >
+        <div className="lg:col-span-3">
+          <label htmlFor="home-property-type" className="search-field-label">
             Property Type
           </label>
           <div className="relative">
@@ -133,7 +135,7 @@ export function SearchPanel({
               onChange={(e) =>
                 setFilters({ ...filters, type: e.target.value as FilterState["type"] })
               }
-              className="w-full appearance-none rounded-xl border border-line bg-white py-3 pl-4 pr-10 text-sm text-ink outline-none transition focus:border-burgundy focus:ring-2 focus:ring-burgundy/15"
+              className="search-control w-full appearance-none border border-line bg-white pl-4 pr-10 text-sm text-ink outline-none transition focus:border-burgundy focus:ring-2 focus:ring-burgundy/15"
             >
               <option value="all">All types</option>
               {PROPERTY_TYPES.map((t) => (
@@ -147,18 +149,18 @@ export function SearchPanel({
         </div>
 
         {/* Actions */}
-        <div className="flex items-end gap-2.5 lg:col-span-4">
-          <Button className="h-[46px] flex-1" onClick={submit}>
+        <div className="search-actions flex gap-3 lg:col-span-3">
+          <Button className="search-control flex-1 px-4" onClick={submit}>
             <SearchIcon className="text-base" /> Search
           </Button>
           <Button
             aria-label="More filters"
             variant="outline"
-            className="h-[46px]"
+            className="search-control px-4"
             onClick={() => setDrawerOpen(true)}
           >
             <SlidersIcon className="text-base" />
-            <span className="hidden sm:inline">Filters</span>
+            <span>Filters</span>
             {activeCount > 0 && (
               <span className="ml-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-burgundy px-1 text-[10px] font-bold text-cream">
                 {activeCount}

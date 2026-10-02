@@ -44,3 +44,5 @@ Quality: B
 - Clear boundaries: separate static React app; root application preserved.
 - Known gaps: illustrative inventory and map positions, simulated enquiry form, external photo/font availability, inherited toolchain deprecation warnings.
 - Improvements: search labels, gallery controls, keyboard escape for saved/menu panels, honest demo copy, validated local favorite storage, reduced-motion support.
+
+- 2026-10-02 follow-up: SearchPanel control heights, corners, label rhythm and action alignment standardized; compact slider preserves the filter-drawer presentation. Desktop/375px evidence and behavior verified.

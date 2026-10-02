@@ -275,6 +275,34 @@
   border-radius: 0.5rem;
   box-shadow: 0 10px 32px #1c161208;
 }
+.search-field-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+}
+.search-control {
+  height: 3rem;
+  border-radius: 0.75rem;
+}
+.search-price-summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--color-ink-soft);
+}
+@media (min-width: 1024px) {
+  .search-actions {
+    padding-top: 1.75rem;
+  }
+}
 .collection-index {
   display: flex;
   gap: 1rem;

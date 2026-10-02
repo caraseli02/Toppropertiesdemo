@@ -2,6 +2,8 @@
 
 ## Done
 
+- 2026-10-02: Search alignment follow-up: consistent 48px controls, aligned desktop row, price summary beneath slider; desktop/375px QA and root/Site verification passed. Private Site republished; PR #80 updated.
+
 - 2026-10-02: Improved Sites version privately published at https://topproperties-collection-next.caraseli.chatgpt.site.
   - Separate source: `sites/topproperties-next`; root app preserved.
   - Refined editorial Home, functional search/destinations, cards, navigation, saved homes, galleries and honest enquiry preview.

@@ -26,3 +26,7 @@ Evidence recorded, publication succeeds, verification passes and PR is open.
 ## Result
 
 Private publication succeeded: https://topproperties-collection-next.caraseli.chatgpt.site. Root and Site verification passed; desktop/mobile evidence recorded. Sprint closed as passing. PR: https://github.com/caraseli02/Toppropertiesdemo/pull/80.
+
+## Search alignment follow-up — 2026-10-02
+
+Feature id: `tp-005`; issue #79 / PR #80. Align Location, Price Range, Property Type, Search and Filters to a shared 48px control row. Move the price summary beneath the slider, retain responsive stacking and all search behavior. No new features or architecture. Verify root and Site pipelines and desktop/375px search; republish the same private Site. Completed: verification, desktop/375px measurements and screenshots passed; same private Site republished; PR #80 updated.
